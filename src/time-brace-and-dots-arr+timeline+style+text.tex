@@ -1,0 +1,48 @@
+\documentclass[]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,decorations.pathreplacing}
+
+\begin{document}
+
+\begin{tikzpicture}[
+	every node/.style = {align=center},
+	Line/.style = {-angle 90, shorten <=-2pt},
+	Brace/.style args = {#1}{semithick, 
+							decorate, 
+							decoration={brace, 
+								#1, 
+								raise=20pt, 
+								pre=moveto, 
+								pre length=2pt, 
+								post=moveto, 
+								post length=2pt,}},
+	ys/.style = {yshift=#1}
+	]
+	\linespread{0.8}                    
+	\coordinate (a) at (0,0);
+	\coordinate[right=30mm of a]    (b);
+	\coordinate[right=30mm of b]    (c);
+	\coordinate[right= 20mm of c]   (d);
+	\coordinate[right=24mm of d]    (e);
+	\coordinate[right= 5mm of e]    (f);
+	\coordinate[right=22mm of f]    (g);
+	
+	%  adding * specs to the Line \draw macros for the dot
+	\draw[Line,*-]  (a) --  (g) node[right] {$x$}; % long line starting with dot
+	\draw[Line, *-] (b) --  (c) ; % second dot
+	\draw[Line, *-] (d) --  (e) ; % 3rd dot
+	\draw[Line, *-] (f) --  (g) ; % 4th dot
+	
+	\draw[Brace=mirror] (a) -- node[below=20pt] {Compensation} (b);   % add 1st brace
+	\draw[Brace=mirror] (b) -- node[below=20pt] {Gift} (d);           % add 2nd brace
+	
+	\draw ([ys=0mm] a) node[below] {0} -- (a);                                  % label with zero
+	\draw ([ys=0mm] b) node[below] {$\theta s$} -- (b);                         % label with theta
+	\draw[Line, shorten >=4pt] ([ys=10mm]  c) node[above] {$\delta$} -- (c);    % arrow delta above
+	\draw[Line, shorten >=4pt] ([ys=10mm]  d) node[above] {$x(\delta)$} -- (d); % arrow with x of delta
+	\draw ([ys=-1mm]  d) node[below] {$\theta s + w$} -- (d); % theta and omega; no arrow
+	\draw ([ys=-1mm]  f) node[below] {$z$} -- (f);            % zeta; no arrow
+	
+\end{tikzpicture}
+
+\end{document}

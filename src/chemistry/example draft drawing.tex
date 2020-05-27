@@ -1,0 +1,125 @@
+% MIT License
+%
+% Copyright (c) 2018 Jelle Spijker
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in all
+% copies or substantial portions of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+% SOFTWARE.
+
+\documentclass[a4paper, landscape, border=5mm, linewidth=0.25mm, linewidthborder=0.5mm]{draftdrawing}
+
+\usetikzlibrary{calc}
+
+\begin{document}
+
+\title{Simple diagram}
+\designedby{Jelle Spijker}
+\checkedby{}
+\approvedby{}
+\draftnumber{A001}
+\revision{A}
+\remarks{some short remarks}
+\logo{logo.png}
+\scale{1:1}
+\unit{mm}
+\draftdate{\today}
+
+\begin{tikzdraft}[every info/.style={font=\tiny}, node distance=2]
+ \node[fan={name=F1,info=\( F_{1} \)}, rotate=180] at (-7,5) {};
+ \node[damper={name=D1,info=above left:\( D_{1} \), adjustable}, right=of F1] {};
+ \node[tank={info=\(S_{1}\), name=S1, with={bag filter element}{-0.25}{0}{rotate=90}}, below=of F1] {};
+ \node[regenerative pre-heater={name=H1, info=\( H_{1} \)}, anchor=input in] at ($(D1)+(1.5,0)$) {};
+ \node[branch={name=B1}] at (D1 |- S1) {};
+ \node[damper={name=D2,info'=above left:\( D_{2} \)}, adjustable] at ($(B1)+(0.75,0)$) {};
+ \node[tank={info=\( S_{2} \), name=S2, with={filter element}{0}{0}{rotate=90}}] at ($(H1.output in)+(1.5,0)$) {};
+ \node[measurement point={name=M1}] at (D2 -| S2) {};
+ \node[branch={name=B2}] at ($(M1)-(0.75,0)$) {};
+ \node[straight tube heat exchanger={name=H2, info=\( H_{2} \)}, anchor=input] at ($(M1)+(0.75,0)$) {};
+ \node[tank={name=W1, info=\( W_{1} \), with={spray nozzle}{0}{-0.5}{rotate=180}}] at ($(H2.output)+(1.5,0)$) {};
+ \node[measurement point={name=M2}] at ($(W1)+(0.75,0)$) {};
+ \node[tank={name=H3, info=above right:\( H_{3} \), with={heating coil}{0}{0}}] at ($(M2)+(1,0)$) {};
+ \node[three way valve={globe, name=V1, info=below left:\( V_{1} \), rotate=270}] at ($(H3-heating coil.south)-(0,1)$) {};
+ \node[fan={name=F2,info'=\( F_{2} \)}] at ($(H3)+(5,0)$) {};
+ \node[measurement point={name=M3}] at ($(F2)+(0.75,0)$) {};
+ \node[branch={name=B3}] at ($(W1.south |- V1)-(0.25,0)$) {};
+ \node[boiler={name=H4, info=\( H_{4} \),with={fired type}{0}{-0.5}}] at ($(V1)-(-1,1.5)$) {};
+ \node[pump={displacement, name=P1, info=\( P_{1} \), rotate=180}] at ($(H4.output)+(1,0)$) {};
+ \node[tank={name=T1, with={heating coil}{0}{0}, with={measurement point}{0.75}{0.75}, info=below:\( T_{1} \)}] at ($(P1)+(1.5,0)$) {};
+ \node[valve={name=V3, info'=\( V_{3} \)}] at (T1 -| F2) {};
+ \node[branch={name=B4}] at (V1 |- H4.input) {};
+ \node[angled valve={globe, safety function, name=V2, info=left:\( V_{2} \)}] at (B4 -| M2) {};
+ \node[spring={info=\( p>\SI{10}{\bar} \)}, at={V2.center}{0.5}] {};
+
+ \node[reference={name=TO1, info=right:{to aula}}] at ($(M3)+(1,0)$) {};
+ \node[reference={name=TO2, rotate=180, info=left:{from aula}}] at (S2 -| TO1) {};
+ \node[reference={name=TO3, info=left:{from outside}}, left=of S1] {};
+ \node[reference={name=TO4, rotate=90, info=right:{to outside}}] at ($(TO3 |- F1)+(0,1.5)$) {};
+ \node[reference={name=TO5, rotate=-90, info=right:{to atm}}] at ($(V2)-(0,1.5)$) {};
+ \node[reference={name=TO6, rotate=-90, info=right:{to water}}] at (TO5 -| B3) {};
+ \node[reference={name=TO7, rotate=180, info=left:{from water}}] at (V3 -| TO1) {};
+
+ \draw (H1.input in) to [flow direction] (D1);
+ \draw (D1) to [flow direction] (F1);
+ \draw (D1) to [flow direction] (B1);
+ \draw (S1) to [flow direction] (B1);
+ \draw (B1) to (D2);
+ \draw (D2) to [flow direction] (\currentcoordinate |- H1.input out) to (H1.input out);
+ \draw (S2) to [flow direction] (H1.output in);
+ \draw (D2) to [flow direction] (B2);
+ \draw (B2) to (M1);
+ \draw (H1.output out) to (H1.output out -| B2) to [flow direction] (B2);
+ \draw (M1) to (H2.input);
+ \draw (H2.output) to [flow direction] (W1);
+ \draw (W1.south -| B3) to (B3);
+ \draw (H2.south) to ++ (0,-0.5) to [flow direction] (B3) to [flow direction=near end] (TO6);
+ \draw (W1) to (M2) to (H3);
+ \draw (V1) to (H3-heating coil.south);
+ \draw (V1) to [flow direction] (V1 -| W1-spray nozzle) to (W1-spray nozzle);
+ \draw (H3) to [flow direction] (F2);
+ \draw (F2) to (M3);
+ \draw (H4.input) to (B4) to [flow direction] (V1);
+ \draw (B4) to (V2) to [flow direction] (TO5);
+ \draw (H3-heating coil) to (H3-heating coil |- H2.refrigerant out) to [flow direction] (\currentcoordinate -| T1-heating coil) to ($(\currentcoordinate |- F2)+(0,0.125)$);
+ \draw (T1-heating coil) to [flow direction'] ($(\currentcoordinate |- F2)-(0,0.125)$);
+ \draw (TO7) [flow direction] to (V3) to (T1) to [measurement point={name=M4}] (P1) to [measurement point={name=M5}] (H4.output);
+ \draw (M3) to (TO1);
+ \draw (TO2) to [flow direction] (S2);
+ \draw (TO3) to [flow direction] (S1);
+ \draw (F1) to [flow direction] (F1 -| TO4) to (TO4);
+
+ \node[measurement device={central control room, name=MD1}, measure=PT, at={M1.north}{}] {};
+ \node[measurement device={central control room, name=MD2}, measure=MT, anchor=west] at (MD1.east) {};
+ \node[measurement device={central control room, name=MD3}, measure=TT, at={M2.north}{}] {};
+ \node[measurement device={central control room, name=MD4}, measure=MT, anchor=west] at (MD3.east) {};
+ \node[measurement device={central control room,  name=MD5}, measure=FT, at={M3.north}{}] {};
+ \node[measurement device={name=MD6}, measure=LS, at={V3.center}{1.5}] {};
+ \node[measurement device={local control room, name=MD7}, measure=PT, at={M4}{1.6}] {};
+ \node[measurement device={local control room, name=MD8}, measure=TT, anchor=west]  at (MD7.east) {};
+ \node[measurement device={local control room, name=MD9}, measure=PT, at={M5}{1.6}] {};
+ \node[measurement device={local control room, name=MD10}, measure=TT, anchor=west] at (MD9.east) {};
+
+ \node[automatic operation, at={D1.north}{}] {\tiny M};
+ \node[automatic operation, at={D2.south}{3}{rotate around=180:(D2.south), rotate=180}]  {\tiny M};
+ \node[automatic operation, at={V1.center}{}{rotate around=270:(V1.center)}] {\tiny M};
+ \node[automatic operation, at={P1.south}{0.15}] {};
+ \node[automatic operation, at={F1.south}{}] {};
+ \node[automatic operation, at={F2}{}] {};
+
+ \draw[dashed] (MD6) to [flow direction'] (MD6 -| T1-measurement point) to (T1-measurement point);
+
+\end{tikzdraft}
+\end{document}

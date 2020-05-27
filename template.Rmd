@@ -1,0 +1,12 @@
+****
+
+![](./src/&PGF_FILE&.png)
+
+  * [&PGF_FILE&.tex](https://github.com/walmes/Tikz/blob/master/src/&PGF_FILE&.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/&PGF_FILE&.tex"), sep = "\n")
+```
+`r b`

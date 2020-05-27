@@ -1,0 +1,102 @@
+---
+title: "Tikz Gallery"
+author: "Alfonso R. Reyes"
+output:
+  html_document:
+    css: style.css
+    keep_md: true
+    toc: true
+    number_sections: false
+---
+
+Implementing a tag system based of identifiers that are included in the filename. 
+
+* Characters that pass this script: `@`, `!`, `=`, `+`.
+* Character that do not pass: `#`.
+
+**Selecting `=`.**
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+               comment = NA,
+               results = "asis",
+               error = FALSE,
+               warning = FALSE,
+               message = FALSE)
+a <- "```tex"
+b <- "```"
+```
+
+```{r, include=FALSE}
+# add file suffix for file selection
+suffix <- ""
+ext <- "png"
+pattern <- paste0("^", suffix, ".*", "\\.", ext, "$")
+
+
+file.remove("child.Rmd")
+tmp <- readLines("template.Rmd")
+
+# get all PGF files
+pgf <- sub(x = list.files(path = "./src/", pattern = "*.pgf"),
+           pattern = "\\.pgf$",
+           replacement = "")
+
+tex <- sub(x = list.files(path = "./src/", pattern = "*.tex"),
+           pattern = "\\.tex$",
+           replacement = "")
+
+# get all PNG files
+png <- sub(x = list.files(path = "./src/", pattern = pattern),
+           pattern = "\\.png$",
+           replacement = "")
+
+print(length(png))
+
+# Lista de arquivos que tem os pares pgf e png.
+# i <- intersect(pgf, png)
+i <- intersect(tex, png)
+
+```
+
+```{r include=FALSE}
+# create notebook child.Rmd
+sapply(i,
+       FUN = function(i){
+           tmpi <- gsub(x = tmp,
+                        pattern = "&PGF_FILE&",
+                        replacement = i)
+           cat(tmpi,
+               file = "child.Rmd",
+               append = TRUE,
+               sep= "\n")
+       })
+```
+
+
+This is my collection, or gallery, of Tikz Art.  
+
+There are `r length(i)` Tikz figures in this gallery. 
+
+These are coming from ...
+
+
+This repository is maintained in to Git Version Control and is hosted on `___` .
+
+
+The figures are sorted by filename.
+
+
+Some useful tutorials or galleries:
+
+  * <https://tobiw.de/en/teotm/tikz-adventskalender>.
+  * <http://math.et.info.free.fr/TikZ/bdd/TikZ-Impatient.pdf>.
+  * <http://www.mat.ufpb.br/lenimar/introtikz.pdf>.
+  
+
+Source: https://github.com/walmes/Tikz
+Web: http://leg.ufpr.br/~walmes/Tikz/  
+
+```{r, child = "child.Rmd"}
+```

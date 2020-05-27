@@ -1,0 +1,65 @@
+% https://tex.stackexchange.com/a/448018/173708
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=1cm]{geometry}
+\usepackage{tikz}
+\pagestyle{empty}
+
+\newcommand{\anno}{1} % starting year
+\newcommand{\target}{31} % ending year
+\newcommand{\alto}{3} % height
+
+\tikzset{
+    start date/.code args = {#1/#2}{
+        \def\dstart{#1}
+        \def\mstart{#2}
+    },
+    end date/.code args = {#1/#2}{
+        \def\dend{#1}
+        \def\mend{#2}
+    },
+    event color/.style = {
+        fill=#1!50, draw=#1,
+    },
+}
+
+\pgfmathsetmacro{\myend}{\target+1-\anno}
+\pgfmathsetmacro{\myspacing}{16/(\target-1-\anno)}
+
+
+\newcommand{\eventpoint}[2][]{
+    \begin{scope}[#1]
+    \pgfmathsetmacro{\mmstart}{((13-\mstart)*4)}
+    \pgfmathsetmacro{\mmend}{((13-\mend)*4)}
+    \ifnum\mstart=\mend
+       \filldraw (\dstart, \mmstart ) rectangle (\dend, \mmend+1) node [font=\scriptsize, text centered, midway, inner sep=0pt] {#2};
+    \else
+       \filldraw (\dstart, \mmstart ) rectangle (31, \mmstart+1) node [font=\scriptsize, text centered, midway, inner sep=0pt] {#2};
+      \filldraw (0, \mmend ) rectangle (\dend, \mmend+1) node [font=\scriptsize, text centered, midway, inner sep=0pt] {#2};
+    \fi
+    \end{scope}
+}
+
+\begin{document}
+\centering
+\begin{tikzpicture}[x=\myspacing cm,y=5mm]
+
+	%creating the sublines needed and formating them
+	\foreach \y in {0,4,8,12,16,20,24,28,32,36,40,44,48}{
+	\draw[|->, -latex] (-.5,\y) -- (\myend+.5,\y);
+	\path (0,0) -- (0,\alto);
+	\foreach \x [evaluate=\x as \day using int(\x)] in {0,10,20,30}{
+	    \draw (\x,\y) node[below=7pt,font=\footnotesize] {$\day$};
+	    \draw (\x,\y -.2) -- (\x,\y +.2);
+	    \draw[loosely dotted] (\x,\y +.2) -- (\x,\y+ \alto-0.5);
+	}
+	\foreach \tick in {0,...,\myend}{
+	    \draw (\tick,\y +.1) -- (\tick,\y -.1);
+	}
+	}
+	
+	%trying to add the events
+	\eventpoint[start date=15/7,end date=25/7,event color=green]{test}
+	\eventpoint[start date=17/8,end date=19/9,event color=red,yshift=5pt]{test 2} % shift just to show you can hook into standard tikz keys to change the event's features ad-hoc
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,87 @@
+% https://tex.stackexchange.com/a/48596/173708
+\documentclass{scrartcl}
+\usepackage{tikz}
+\usetikzlibrary{calc}  
+
+% split figures into pages
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{1pt}%
+
+\begin{document} 
+
+% If their areas of the circle nodes represent some numbers with proportionality 
+% then you need to know exactly the radius. The radius depends of minimum width 
+% and of \pgflinewidth.
+%
+% we have : radius = (minimum width + line width) / 2  if inner sep = 0pt
+%
+% In the next example, I choice first minimum width=2cm then minimum width=2cm,
+% line width=5mm and finally line width=5mm,minimum width=2cm-\pgflinewidth 
+% with in all cases inner sep= 0 pt.
+%
+
+	
+\begin{tikzpicture} 
+  \draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
+  \draw[help lines] (0,0) grid (8,1);     
+  \node[minimum width=2cm,circle,inner sep=0pt,fill=blue!20,fill opacity=.5]{};
+  \node[minimum width=2cm,circle,inner sep=0pt,fill=blue!20,fill opacity=.5,
+        line width=5mm,draw=gray,opacity=.5] at (3,0){}; 
+  \node[circle,inner sep=0pt,fill=blue!20,,fill opacity=.5,
+        line width=5mm,draw=gray,opacity=.5,minimum width=2cm-\pgflinewidth]  at (6,0) {}; 
+\end{tikzpicture}  
+
+% Now if I want to get three circles with areas equal to pi, 2pi and 3pi 
+% I created a macro `def\lw{2mm}` to change quickly the line width in all nodes
+
+\tikzset{myrad/.style 2 args={circle,inner sep=0pt,minimum width=(2*(sqrt(#1)*1 cm ) - \pgflinewidth,fill=#2,draw=#2,fill opacity=.5,opacity=.8}}    
+
+\begin{tikzpicture} 
+	\def\lw{2mm}
+	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
+	\draw[help lines] (0,0) grid (8,1);     
+	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
+	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
+	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
+\end{tikzpicture}  
+
+% Finally If you want nodes with areas equal to 1 cm^2, 2 cm^2 and 3 cm^2 : 
+% I change the line width for the second group of nodes
+
+\begin{tikzpicture} 
+	\def\lw{2mm}
+	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
+	\draw[help lines] (0,0) grid (8,1);     
+	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
+	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
+	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
+\end{tikzpicture}    
+
+\begin{tikzpicture} 
+	\def\lw{5mm}
+	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
+	\draw[help lines] (0,0) grid (8,1);     
+	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
+	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
+	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
+\end{tikzpicture}
+
+%To avoid this kind of problem, we can use circles instead of circle nodes. But we need to adjust the radius wit the pgflinewidth. In the next example,I want a radius = 2cm so I need to use : radius=2cm-0.5\pgflinewidth. Then I need to create a node with the same dimensions.
+%
+%Like the question about node and rectangle here, we can associate a node to the shape The main problem : we can't use scale but it's more easy to place a label.
+
+\tikzset{set node/.style={insert path={% 
+	\pgfextra{% 
+		\node[inner sep=0pt,outer sep = 0pt,draw=black, % draw= none only to show what I do
+		circle,
+		minimum width=2*\pgfkeysvalueof{/tikz/x radius}+0.5\pgflinewidth](#1) {};
+}}}}
+
+\begin{tikzpicture}
+	\draw[help lines] (-3,-3) grid (3,3);
+	\draw[blue,line width=5mm,opacity=.2] (0,0) circle [radius=2cm-0.5\pgflinewidth,set node=C1]  ; 
+	\draw[thick,->] (3,-3) -- (C1.east);
+\end{tikzpicture}
+
+\end{document} 

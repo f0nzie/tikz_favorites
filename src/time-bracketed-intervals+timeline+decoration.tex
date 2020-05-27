@@ -1,0 +1,22 @@
+% https://tex.stackexchange.com/a/211972/173708
+\documentclass[tikz,border=5]{standalone}
+\usetikzlibrary{decorations.pathreplacing}
+\begin{document}
+  \begin{tikzpicture}
+    \draw[thick,->] (0,0) -- (10,0)node[below] {Time};    
+    \node[scale=4,inner sep=0pt,outer sep=0pt,anchor=west,label=above:$a_i$] (ail) at (1,4) {[};
+    \node[scale=4,inner sep=0pt,outer sep=0pt,anchor=west,label=above:$b_i$] (air) at (3,4) {]};
+    \draw[dashed] (ail) -- +(0,-4)node[pos=1](a){};
+    \draw[very thick] (a.north)--(a.south);
+    \draw[very thick] (3,4pt) -- (3,-4pt);
+    \draw[very thick] (9,4pt) -- (9,-4pt);
+    \node[scale=4,inner sep=0pt,outer sep=0pt,anchor=west,label=above:$a_j$] (ajl) at (6,3) {[};
+    \node[scale=4,inner sep=0pt,outer sep=0pt,anchor=west,label=above:$b_j$] (ajr) at (8,3) {]};
+    \draw[dashed] (ajr) -- +(0,-3);
+    \draw[decorate, decoration={brace, amplitude=5pt},] ([yshift=-0.2cm]2.95,0)-- node[below=0.25cm]
+         {$\check{S}_i$}([yshift=-0.2cm]a.center);	
+    \draw[decorate, decoration={brace, amplitude=5pt},] ([yshift=-0.2cm]9,0)-- node[below=0.25cm]
+         {$\hat{t}_{ij}$}([yshift=-0.2cm]3.05,0);
+  \end{tikzpicture}
+
+\end{document}

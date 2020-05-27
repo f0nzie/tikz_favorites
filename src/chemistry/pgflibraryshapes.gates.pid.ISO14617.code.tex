@@ -1,0 +1,552 @@
+% MIT License
+%
+% Copyright (c) 2018 Jelle Spijker
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in all
+% copies or substantial portions of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+% SOFTWARE.
+
+\pgfdeclareshape{generic circle ISO14617}
+{
+ % This shape is a generic circle, to which you can add something to
+ % the before background path using the key
+ % /pgf/generic circle ISO14617/before background
+ % When this key is invoked, the transformation matrix will have been
+ % setup such that the circle's center is at the origin and that the
+ % position \pgfpoint{1pt}{0pt} lies exactly on the top of the circle
+ % (and, there, on the middle of the line).
+ \inheritsavedanchors[from=circle pid]
+ \inheritanchorborder[from=circle pid]
+ \inheritanchor[from=circle pid]{north}
+ \inheritanchor[from=circle pid]{north west}
+ \inheritanchor[from=circle pid]{north east}
+ \inheritanchor[from=circle pid]{center}
+ \inheritanchor[from=circle pid]{west}
+ \inheritanchor[from=circle pid]{east}
+ \inheritanchor[from=circle pid]{south}
+ \inheritanchor[from=circle pid]{south west}
+ \inheritanchor[from=circle pid]{south east}
+ \inheritanchor[from=circle pid]{input}
+ \inheritanchor[from=circle pid]{output}
+ \inheritbackgroundpath[from=circle pid]
+
+ \beforebackgroundpath{
+  {
+    \centerpoint%
+    \pgf@xc=\pgf@x%
+    \pgf@yc=\pgf@y%
+    \pgftransformshift{}
+    \pgfutil@tempdima=\radius%
+    \pgfmathsetlength{\pgf@xb}{\pgfkeysvalueof{/pgf/outer xsep}}%
+    \pgfmathsetlength{\pgf@yb}{\pgfkeysvalueof{/pgf/outer ysep}}%
+    \ifdim\pgf@xb<\pgf@yb%
+     \advance\pgfutil@tempdima by-\pgf@yb%
+    \else%
+     \advance\pgfutil@tempdima by-\pgf@xb%
+    \fi%
+    \pgftransformscale{\pgf@sys@tonumber{\pgfutil@tempdima}}
+    \pgfkeysvalueof{/pgf/generic circle ISO14617/before background}
+   }
+ }
+}
+
+% Generic rectangle, based on a rectangle pid
+\pgfdeclareshape{generic rectangle ISO14617}
+{
+ % This shape is a generic rectangle, to which you can add something to
+ % the before background path using the key
+ % /pgf/generic rectangle ISO14617/before background
+ % When this key is invoked, the transformation matrix will have been
+ % setup such that the center is at the tip of the diode. The
+ % position \pgfpoint{1pt}{0pt} lies exactly on the top of the
+ % (suggested) line before the diode.
+ \inheritsavedanchors[from=rectangle pid]
+ \inheritanchor[from=rectangle pid]{center}
+ \inheritanchor[from=rectangle pid]{north}
+ \inheritanchor[from=rectangle pid]{south}
+ \inheritanchor[from=rectangle pid]{east}
+ \inheritanchor[from=rectangle pid]{west}
+ \inheritanchor[from=rectangle pid]{north east}
+ \inheritanchor[from=rectangle pid]{north west}
+ \inheritanchor[from=rectangle pid]{south east}
+ \inheritanchor[from=rectangle pid]{south west}
+ \inheritanchor[from=rectangle pid]{input}
+ \inheritanchor[from=rectangle pid]{output}
+ \inheritanchorborder[from=rectangle pid]
+ \inheritbackgroundpath[from=rectangle pid]
+
+ \beforebackgroundpath {
+  \pgfmathsetlength{\pgf@xa}{\pgfkeysvalueof{/pgf/minimum height}}
+  \pgftransformyscale{\pgf@sys@tonumber{\pgf@xa}/2}
+  \pgfmathsetlength{\pgf@ya}{\pgfkeysvalueof{/pgf/minimum width}}
+  \pgftransformxscale{\pgf@sys@tonumber{\pgf@ya}/2}
+  \pgfkeysvalueof{/pgf/generic rectangle ISO14617/before background}%
+ }
+}
+
+\pgfkeys{
+ /pgf/generic circle ISO14617/before background/.initial=,
+ /pgf/generic rectangle ISO14617/before background/.initial=,
+}
+
+% Boiler, steam generator shape
+\pgfdeclareshape{2531 ISO14617}
+{
+ \inheritsavedanchors[from=rectangle]
+ \inheritanchorborder[from=rectangle]
+ \inheritanchor[from=rectangle]{north}
+ \inheritanchor[from=rectangle]{north west}
+ \inheritanchor[from=rectangle]{north east}
+ \inheritanchor[from=rectangle]{center}
+ \inheritanchor[from=rectangle]{west}
+ \inheritanchor[from=rectangle]{east}
+ \inheritanchor[from=rectangle]{mid}
+ \inheritanchor[from=rectangle]{mid west}
+ \inheritanchor[from=rectangle]{mid east}
+ \inheritanchor[from=rectangle]{base}
+ \inheritanchor[from=rectangle]{base west}
+ \inheritanchor[from=rectangle]{base east}
+ \inheritanchor[from=rectangle]{south}
+ \inheritanchor[from=rectangle]{south west}
+ \inheritanchor[from=rectangle]{south east}
+ \inheritbackgroundpath[from=rectangle]
+ \anchor{input}{
+  \pgf@process{\northeast}%
+  \pgf@ya=.25\pgf@y%
+  \pgf@process{\southwest}%
+  \pgf@y=-.5\pgf@y%
+  \advance\pgf@y by \pgf@ya%
+ }
+ \anchor{output}{%
+  \pgf@process{\southwest}%
+  \pgf@ya=-.25\pgf@y%
+  \pgf@process{\northeast}%
+  \pgf@y=.5\pgf@y%
+  \advance\pgf@y by \pgf@ya%
+ }
+
+ \beforebackgroundpath {
+  \pgfmathsetlength{\pgf@xa}{\pgfkeysvalueof{/pgf/minimum height}}
+  \pgftransformyscale{\pgf@sys@tonumber{\pgf@xa}/2}
+  \pgfmathsetlength{\pgf@ya}{\pgfkeysvalueof{/pgf/minimum width}}
+  \pgftransformxscale{\pgf@sys@tonumber{\pgf@ya}/2}
+  \pgfsys@beginscope
+  \pgfpathmoveto{\pgfqpoint{-1pt}{0.5pt}}
+  \pgfpathlineto{\pgfpoint{1pt}{0.5pt}}
+  \pgfusepath{draw}
+  \pgfsys@endscope
+ }
+}
+
+% Regenerative pre-heater
+\pgfdeclareshape{2518 ISO14617}
+{
+ \inheritsavedanchors[from=rectangle]
+ \inheritanchorborder[from=rectangle]
+ \inheritanchor[from=rectangle]{north}
+ \inheritanchor[from=rectangle]{north west}
+ \inheritanchor[from=rectangle]{north east}
+ \inheritanchor[from=rectangle]{center}
+ \inheritanchor[from=rectangle]{west}
+ \inheritanchor[from=rectangle]{east}
+ \inheritanchor[from=rectangle]{mid}
+ \inheritanchor[from=rectangle]{mid west}
+ \inheritanchor[from=rectangle]{mid east}
+ \inheritanchor[from=rectangle]{base}
+ \inheritanchor[from=rectangle]{base west}
+ \inheritanchor[from=rectangle]{base east}
+ \inheritanchor[from=rectangle]{south}
+ \inheritanchor[from=rectangle]{south west}
+ \inheritanchor[from=rectangle]{south east}
+ \inheritbackgroundpath[from=rectangle]
+ \anchor{cold}{
+  \pgf@process{\northeast}%
+  \pgf@ya=1.8\pgf@y%
+  \pgf@xa=.5\pgf@x%
+  \pgf@process{\southwest}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+ \anchor{hot}{
+  \pgf@process{\northeast}%
+  \pgf@ya=-1.8\pgf@y%
+  \pgf@xa=-.5\pgf@x%
+  \pgf@process{\northeast}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+
+ \anchor{hot out}{
+  \pgf@process{\northeast}%
+  \pgf@ya=-1.8\pgf@y%
+  \pgf@xa=-2.5\pgf@x%
+  \pgf@process{\northeast}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x.5\pgf@x%
+ }
+
+ \anchor{hot in}{
+  \pgf@process{\northeast}%
+  \pgf@ya=-1.8\pgf@y%
+  \pgf@process{\northeast}%
+  \pgf@y.5\pgf@y%
+  \advance\pgf@y by \pgf@ya%
+  \pgf@y=.5\pgf@y%
+ }
+
+ \anchor{cold in}{
+  \pgf@process{\northeast}%
+  \pgf@ya=1.8\pgf@y%
+  \pgf@xa=-1.5\pgf@x%
+  \pgf@process{\southwest}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x.5\pgf@x%
+ }
+
+ \anchor{cold out}{
+  \pgf@process{\northeast}%
+  \pgf@ya=1.8\pgf@y%
+  \pgf@xa=2.5\pgf@x%
+  \pgf@process{\southwest}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x.5\pgf@x%
+ }
+
+ \beforebackgroundpath {
+  \pgfmathsetlength{\pgf@xa}{\pgfkeysvalueof{/pgf/minimum height}}
+  \pgftransformyscale{\pgf@sys@tonumber{\pgf@xa}/2}
+  \pgfmathsetlength{\pgf@ya}{\pgfkeysvalueof{/pgf/minimum width}}
+  \pgftransformxscale{\pgf@sys@tonumber{\pgf@ya}/2}
+  \pgfsys@beginscope
+  \pgfpathmoveto{\pgfqpoint{-0.5pt}{0.5pt}}
+  \pgfpathlineto{\pgfpoint{0.5pt}{0.5pt}}
+  \pgfpathlineto{\pgfpoint{0.5pt}{0.85pt}}
+  \pgfpathlineto{\pgfpoint{-0.5pt}{0.85pt}}
+  \pgfpathclose
+  \pgfusepath{draw}
+  \pgfpathmoveto{\pgfqpoint{-0.5pt}{-0.5pt}}
+  \pgfpathlineto{\pgfpoint{0.5pt}{-0.5pt}}
+  \pgfpathlineto{\pgfpoint{0.5pt}{-0.85pt}}
+  \pgfpathlineto{\pgfpoint{-0.5pt}{-0.85pt}}
+  \pgfpathclose
+  \pgfusepath{draw}
+  \pgfsys@endscope
+
+  \pgftransformyscale{\pgf@sys@tonumber{\pgf@xa}/48}
+  \pgfsys@beginscope
+  \pgfpathcircle{\pgfpoint{0pt}{0pt}}{0.5pt}
+  \pgfusepath{draw}
+  \pgfpathmoveto{\pgfqpoint{0.5734064310022943pt}{0.4015035054457322pt}}
+  \pgfpatharc{35}{-35}{0.7pt}
+  \pgfusepath{draw}
+  \pgfsys@endscope
+ }
+}
+
+% Cooling tower
+\pgfdeclareshape{2521 ISO14617}
+{
+ \inheritsavedanchors[from=rectangle]
+ \inheritanchorborder[from=rectangle]
+ \inheritanchor[from=rectangle]{north}
+ \inheritanchor[from=rectangle]{north west}
+ \inheritanchor[from=rectangle]{north east}
+ \inheritanchor[from=rectangle]{center}
+ \inheritanchor[from=rectangle]{west}
+ \inheritanchor[from=rectangle]{east}
+ \inheritanchor[from=rectangle]{mid}
+ \inheritanchor[from=rectangle]{mid west}
+ \inheritanchor[from=rectangle]{mid east}
+ \inheritanchor[from=rectangle]{base}
+ \inheritanchor[from=rectangle]{base west}
+ \inheritanchor[from=rectangle]{base east}
+ \inheritanchor[from=rectangle]{south}
+ \inheritanchor[from=rectangle]{south west}
+ \inheritanchor[from=rectangle]{south east}
+ \anchor{input}{
+  \pgf@process{\northeast}%
+  \pgf@ya=.25\pgf@y%
+  \pgf@process{\southwest}%
+  \advance\pgf@y by \pgf@ya%
+ }
+ \anchor{output}{%
+  \pgf@process{\northeast}%
+  \pgf@ya=-1.75\pgf@y%
+  \pgf@process{\southeast}%
+  \advance\pgf@y by \pgf@ya%
+ }
+
+ \beforebackgroundpath {
+  \pgfmathsetlength{\pgf@xa}{\pgfkeysvalueof{/pgf/minimum height}}
+  \pgftransformyscale{\pgf@sys@tonumber{\pgf@xa}/2}
+  \pgfmathsetlength{\pgf@ya}{\pgfkeysvalueof{/pgf/minimum width}}
+  \pgftransformxscale{\pgf@sys@tonumber{\pgf@ya}/2}
+  \pgfsys@beginscope
+  \pgfpathmoveto{\pgfpoint{-1}{-0.5pt}}
+  \pgfpathlineto{\pgfpoint{-0.5pt}{1pt}}
+  \pgfpathlineto{\pgfpoint{0.5pt}{1pt}}
+  \pgfpathlineto{\pgfpoint{1pt}{-0.5pt}}
+  \pgfpathlineto{\pgfpoint{-1pt}{-0.5pt}}
+  \pgfpathlineto{\pgfpoint{-1pt}{-1pt}}
+  \pgfpathlineto{\pgfpoint{1pt}{-1pt}}
+  \pgfpathlineto{\pgfpoint{1pt}{-0.5pt}}
+  \pgfusepath{draw}
+  \pgfsys@endscope
+ }
+}
+
+% Heat-exchanger with straight tubes (fixed-tube plates)
+\pgfdeclareshape{heat exchanger long ISO14617}
+{
+ \inheritsavedanchors[from=rectangle]
+ \inheritanchorborder[from=rectangle]
+ \inheritanchor[from=rectangle]{north}
+ \inheritanchor[from=rectangle]{north west}
+ \inheritanchor[from=rectangle]{north east}
+ \inheritanchor[from=rectangle]{center}
+ \inheritanchor[from=rectangle]{west}
+ \inheritanchor[from=rectangle]{east}
+ \inheritanchor[from=rectangle]{mid}
+ \inheritanchor[from=rectangle]{mid west}
+ \inheritanchor[from=rectangle]{mid east}
+ \inheritanchor[from=rectangle]{base}
+ \inheritanchor[from=rectangle]{base west}
+ \inheritanchor[from=rectangle]{base east}
+ \inheritanchor[from=rectangle]{south}
+ \inheritanchor[from=rectangle]{south west}
+ \inheritanchor[from=rectangle]{south east}
+ \inheritbackgroundpath[from=rectangle]
+
+ \anchor{fluid top}{
+  \pgf@process{\northeast}%
+  \pgf@ya=2.5\pgf@y%
+  \pgf@xa=.5\pgf@x%
+  \pgf@process{\southwest}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+ \anchor{fluid bottom}{
+  \pgf@process{\northeast}%
+  \pgf@ya=-2.5\pgf@y%
+  \pgf@xa=-.5\pgf@x%
+  \pgf@process{\northeast}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+
+ \anchor{refrigerant top}{
+  \pgf@process{\northeast}%
+  \pgf@ya=2.1875\pgf@y%
+  \pgf@xa=.5\pgf@x%
+  \pgf@process{\southwest}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+
+ \anchor{refrigerant top left}{
+  \pgf@process{\northeast}%
+  \pgf@ya=2.1875\pgf@y%
+  \pgf@xa=-1.5\pgf@x%
+  \pgf@process{\southwest}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+ \anchor{refrigerant top right}{
+  \pgf@process{\northeast}%
+  \pgf@ya=2.1875\pgf@y%
+  \pgf@xa=2.5\pgf@x%
+  \pgf@process{\southwest}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+
+ \anchor{refrigerant bottom}{
+  \pgf@process{\northeast}%
+  \pgf@ya=-2.1875\pgf@y%
+  \pgf@xa=-.5\pgf@x%
+  \pgf@process{\northeast}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+
+ \anchor{refrigerant bottom left}{
+  \pgf@process{\northeast}%
+  \pgf@ya=-2.1875\pgf@y%
+  \pgf@xa=-2.5\pgf@x%
+  \pgf@process{\northeast}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+
+ \anchor{refrigerant bottom right}{
+  \pgf@process{\northeast}%
+  \pgf@ya=-2.1875\pgf@y%
+  \pgf@xa=1.5\pgf@x%
+  \pgf@process{\northeast}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+
+ \anchor{fluid top}{
+  \pgf@process{\northeast}%
+  \pgf@ya=1.5625\pgf@y%
+  \pgf@xa=.5\pgf@x%
+  \pgf@process{\southwest}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+ \anchor{fluid top right}{
+  \pgf@process{\northeast}%
+  \pgf@ya=1.5625\pgf@y%
+  \pgf@xa=2.5\pgf@x%
+  \pgf@process{\southwest}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+ \anchor{fluid top left}{
+  \pgf@process{\northeast}%
+  \pgf@ya=1.5625\pgf@y%
+  \pgf@xa=-1.5\pgf@x%
+  \pgf@process{\southwest}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+
+ \anchor{fluid bottom}{
+  \pgf@process{\northeast}%
+  \pgf@ya=-1.5625\pgf@y%
+  \pgf@xa=-.5\pgf@x%
+  \pgf@process{\northeast}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+ \anchor{fluid bottom right}{
+  \pgf@process{\northeast}%
+  \pgf@ya=-1.5625\pgf@y%
+  \pgf@xa=1.5\pgf@x%
+  \pgf@process{\northeast}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+ \anchor{fluid bottom left}{
+  \pgf@process{\northeast}%
+  \pgf@ya=-1.5625\pgf@y%
+  \pgf@xa=-2.5\pgf@x%
+  \pgf@process{\northeast}%
+  \pgf@y.5\pgf@y%
+  \pgf@x.5\pgf@x%
+  \advance\pgf@y by \pgf@ya%
+  \advance\pgf@x by \pgf@xa%
+  \pgf@y=.5\pgf@y%
+  \pgf@x=.5\pgf@x%
+ }
+
+ \beforebackgroundpath {
+  \pgfmathsetlength{\pgf@xa}{\pgfkeysvalueof{/pgf/minimum height}}
+  \pgftransformyscale{\pgf@sys@tonumber{\pgf@ya}/2}
+  \pgfmathsetlength{\pgf@ya}{\pgfkeysvalueof{/pgf/minimum width}}
+  \pgftransformxscale{\pgf@sys@tonumber{\pgf@xa}/4}
+  \pgfsys@beginscope
+  \pgfpathmoveto{\pgfpoint{1pt}{0.75pt}}
+  \pgfpathlineto{\pgfpoint{-1pt}{0.75pt}}
+  \pgfusepath{draw}
+  \pgfpathmoveto{\pgfpoint{1pt}{-0.75pt}}
+  \pgfpathlineto{\pgfpoint{-1pt}{-0.75pt}}
+  \pgfusepath{draw}
+  \pgfsys@endscope
+  \pgfsys@beginscope
+  \pgfkeysvalueof{/pgf/heat exchanger long ISO14617/before background}%
+  \pgfsys@endscope
+ }
+}
+
+\pgfkeys{
+ /pgf/heat exchanger long ISO14617/before background/.initial=,
+}
+\endinput

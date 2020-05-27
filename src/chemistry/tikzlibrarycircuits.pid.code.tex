@@ -1,0 +1,471 @@
+% MIT License
+%
+% Copyright (c) 2018 Jelle Spijker
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in all
+% copies or substantial portions of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+% SOFTWARE.
+
+\usepackage{siunitx}
+\usepackage{ifthen}
+\usepackage{xparse}
+
+\usetikzlibrary{circuits}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{intersections}
+\usepgflibrary{shapes.gates.pid}
+
+% Setting up an pid circuit
+\tikzset{
+ circuit pid/.style={
+   circuit,
+   every circuit pid/.try
+  }
+}
+
+% Symbols user-friendly aliases
+\tikzset{
+ pump/.style={2301={#1}},
+ compressor/.style={2302={#1}},
+ fan/.style={2302={#1}},
+ valve/.style={2101={#1}},
+ angled valve/.style={2102={#1}},
+ three way valve/.style={2103={#1}},
+ four way valve/.style={2104={#1}},
+ damper/.style={2151={#1}},
+ measurement point/.style={1011={#1}},
+ measurement device/.style={1041={#1}},
+ information-processing function/.style={1041={#1}},
+ function/.style={1041={#1}},
+ manual operation/.style={1021={#1}},
+ automatic operation/.style={1022={#1}},
+ turning actuator/.style={685={#1}},
+ spring/.style={2002={#1}},
+ envelope/.style={301={#1}},
+ tank/.style={301={#1}},
+ tank atmospheric pressure/.style={2061={#1}},
+ open store/.style={2065={#1}},
+ container/.style={2061={#1}},
+ cistern/.style={2061={#1}},
+ boiler/.style={2531={#1}},
+ steam generator/.style={2531={#1}},
+ heat pump/.style={2551={#1}},
+ refrigerator/.style={2551={#1}},
+ freezer/.style={2551={#1}},
+ pressure vessel/.style={2062={#1}},
+ vacuum vessel/.style={2062={#1}},
+ regenerative pre-heater/.style={2518={#1}},
+ straight tube heat exchanger/.style={2511={#1}},
+ cooling tower/.style={2521={#1}},
+ coil shaped heat exchanger/.style={2514={#1}},
+ sensor/.style={751={#1}},
+ conveyor/.style={3801={#1}},
+ screw type/.style={3830={#1}},
+ feeding funnel/.style={3806={#1}},
+}
+
+% Annotations user-friendly aliases
+\tikzset{
+ displacement/.style={2321},
+ rotodynamic/.style={2322},
+ centrifugal/.style={2322},
+ non return/.style={2111},
+ globe/.style={2121},
+ gate/.style={2124},
+ safety function/.style={2112},
+ central control room/.style={1101},
+ local control room/.style={1103},
+ heating coil/.style={2501={#1}},
+ cooling coil/.style={2501={#1}},
+ screen element/.style={2602={#1}},
+ filter element/.style={2602={#1}},
+ rotary mixing element/.style={2672={#1}},
+ bag filter element/.style={2602-bag={#1}},
+ spray nozzle/.style={2037={#1}},
+ fired type/.style={2541={#1}},
+ quantity transition to higher/.style={130},
+ quantity transition to lower/.style={131},
+ quantity transition to higher and lower/.style={132},
+ device for separating/.style={2601},
+ device for mixing/.style={2671},
+}
+
+% Path style user-friendly aliases
+\tikzset{
+functional path/.style={431},
+signal flow/.style={249},
+analogue signal path/.style={234},
+mechanical link/.style={402},
+shaft/.style={402},
+slope/.style={3061},
+slope'/.style={3061'},
+}
+
+% The default symbols (you need to load a sublib to install the actual rendering).
+\tikzset{
+ circuit declare symbol = 2301, % Liquid pump
+ circuit declare symbol = 2302, % Gas pump
+ circuit declare symbol = 2101, % Two-way valve
+ circuit declare symbol = 2102, % Angled two-way valve
+ circuit declare symbol = 2103, % Three-way valve
+ circuit declare symbol = 2104, % Four-way valve
+ circuit declare symbol = 2151, % Two- or three-way damper
+ circuit declare symbol = 1011, % measurement point
+ circuit declare symbol = 1041, % Information-processing function
+ circuit declare symbol = 1021, % Manual operation of a final controlling element
+ circuit declare symbol = 1022, % Automatic operation of a final controlling element
+ circuit declare symbol = 685, % Manual actuator operated by turning
+ circuit declare symbol = 2002, % Spring
+ circuit declare symbol = 301, % Envelope (tank)
+ circuit declare symbol = 2061, % Container tank, cistern for atmospheric pressure
+ circuit declare symbol = 2501, % Heating or cooling coil
+ circuit declare symbol = 2602, % Screen or filter element
+ circuit declare symbol = 2602-bag, % Bag screen or filter element
+ circuit declare symbol = 2672, % Rotary mixing element
+ circuit declare symbol = 2037, % Spray nozzle
+ circuit declare symbol = 2541, % Fired type
+ circuit declare symbol = 2531, % Boiler, steam generator
+ circuit declare symbol = 2551, % Heat pump, refrigerator or freezer
+ circuit declare symbol = 2062, % Pressure or vacuum vessel
+ circuit declare symbol = 2518, % Regenerative pre-heater
+ circuit declare symbol = 2511, % Heat-exchanger with straight tubes (fixed-tube plates)
+ circuit declare symbol = 2514, % Heat-exchanger with coil-shaped tubes
+ circuit declare symbol = 2521, % Cooling tower
+ circuit declare symbol = 751, % Sensor
+ circuit declare symbol = 3801, % Conveyor
+ circuit declare symbol = 3830, % Screw type
+ circuit declare symbol = 3806, % Feeding funnel, hopper
+ circuit declare symbol = 2065, % Open store
+ circuit declare symbol = flow direction,
+ circuit declare symbol = flow direction',
+ circuit declare symbol = branch,
+ circuit declare symbol = crossing,
+ circuit declare symbol = reference,
+ set flow direction graphic  = flow direction pid graphic,
+ set flow direction' graphic = flow direction' pid graphic,
+}
+
+% The default units
+\tikzset{
+ circuit declare unit={speed}{\si{\meter\per\second}},
+ circuit declare unit={mass flow}{\si{\kilo\gram\per\second}},
+ circuit declare unit={volume flow}{\si{\cubic\meter\per\second}},
+}
+
+% The direction and arrow settings
+\tikzset{
+ annotation arrow/.style = {
+   /utils/exec={\pgfsetarrowoptions{direction pid}{.25*\the\tikzcircuitssizeunit+.2*\the\pgflinewidth}},
+   >=direction pid
+  }
+}
+
+\tikzset{
+ % These styles should set the end-arrow.
+ %
+ % This arrow will generally be used to indicate flow directions in a circuit:
+ flow direction arrow/.style = {
+   /utils/exec={\pgfsetarrowoptions{direction pid}{1.3065*.5*\the\tikzcircuitssizeunit+1.3065*.3*\the\pgflinewidth}},
+   >=direction pid, direction pid arrow = direction pid,
+  }
+}
+
+\tikzset{
+flow direction pid graphic/.style = {
+  shape=direction pid,
+  circuit symbol filled,
+  flow direction arrow,
+  minimum width  = .5*\the\tikzcircuitssizeunit+.3*\the\pgflinewidth,
+  minimum height = .5*\the\tikzcircuitssizeunit+.3*\the\pgflinewidth,
+  transform shape
+ },
+flow direction' pid graphic/.style = {
+flow direction pid graphic,
+rotate=180
+}
+}
+
+% Process measure and control
+\tikzset{
+ measure/.style args={#1}{
+   append after command={%
+     \pgfextra
+     \node[scale=0.35, anchor=south, yshift=-2*\the\pgflinewidth] at (\tikzlastnode) {#1};
+     \tikz@after@path%
+     \endpgfextra
+    }
+  },
+ at/.style args={#1#2#3}{
+   above=#2\tikzcircuitssizeunit of #1, #3,
+   append after command={%
+     \pgfextra{
+      \draw (\tikzlastnode) to (#1);}
+    }
+  },
+ with/.style args={#1#2#3#4}{
+   append after command={%
+     \pgfextra{
+      \node[#1={name=\tikzlastnode-#1,#4}] at ([xshift=#2*\tikzcircuitssizeunit,yshift=#3*\tikzcircuitssizeunit]\tikzlastnode) {};}
+    }
+  }
+}
+
+\newif\ifshowid\showidfalse
+\newif\ifshowidinv\showidinvfalse
+
+\tikzset{
+id/.store in=\flowid,
+id=P001,
+pos/.store in=\flowpos,
+pos=0.5,
+pos slope/.store in=\flowposslope,
+pos slope=0.5,
+/tikz/show/.is if=showid,
+/tikz/show'/.is if=showidinv,
+/tikz/show=false,
+/tikz/show'=false,
+flow path/.style={
+  name path global=\fsid\flowid,
+  /utils/exec=\csname tikz@options\endcsname,
+  decoration={
+    markings,
+    path has corners,
+    mark=at position \flowpos
+    with {
+      \ifshowid \node[flow direction={info sloped=\fsid\flowid}] {}; \else \node[flow direction] {}; \fi
+      \ifshowidinv \node[flow direction={info sloped={[rotate=-180,label distance=.5\tikzcircuitssizeunit]\fsid\flowid}}] {}; \else \node[flow direction] {}; \fi}
+   },
+  postaction={decorate}
+  },
+ 249/.style={ % Direction of propagation, energy, or signal flow (simplex)
+   decoration={
+     markings,
+     path has corners,
+     mark=at position \flowpos
+     with {
+     \draw[solid] (-0.25\tikzcircuitssizeunit,-0.35\tikzcircuitssizeunit) to (0.25\tikzcircuitssizeunit,0) to (-0.25\tikzcircuitssizeunit,0.35\tikzcircuitssizeunit);
+     }
+    },
+   postaction={decorate}
+  },
+431/.style={ % Pure functional type
+  decoration={
+    markings,
+    mark=between positions 0 and 1 step 0.2 with {
+      \draw[solid] (-0.25\tikzcircuitssizeunit,-0.25\tikzcircuitssizeunit) to (0.25\tikzcircuitssizeunit,0.25\tikzcircuitssizeunit);
+     }
+   },
+  postaction={decorate}
+ },
+234/.style={
+  decoration={
+    markings,
+    mark=between positions 0.2 and 0.8 step 0.2 with {
+      \draw[solid] (-0.25\tikzcircuitssizeunit,-0.25\tikzcircuitssizeunit) to (-0.25\tikzcircuitssizeunit,0.125\tikzcircuitssizeunit)
+      arc (180:0:0.25\tikzcircuitssizeunit) to (0.25\tikzcircuitssizeunit,-0.25\tikzcircuitssizeunit);
+     }
+   },
+  postaction={decorate}
+ },
+402/.style={ % Mechanical link, shaft
+  double distance=2
+ },
+3061/.style={ % Slope
+  decoration={
+    markings,
+    mark=at position \flowposslope with {
+      \draw (-.5\tikzcircuitssizeunit,0.7\tikzcircuitssizeunit) to (-0.5\tikzcircuitssizeunit,0.2\tikzcircuitssizeunit)
+      to (0.5\tikzcircuitssizeunit,0.2\tikzcircuitssizeunit) to (-.5\tikzcircuitssizeunit,0.7\tikzcircuitssizeunit);
+     }
+   },
+  postaction={decorate}
+ },
+3061'/.style={ % Slope
+decoration={
+  markings,
+  mark=at position \flowposslope with {
+    \draw (.5\tikzcircuitssizeunit,0.7\tikzcircuitssizeunit) to (0.5\tikzcircuitssizeunit,0.2\tikzcircuitssizeunit)
+    to (-.5\tikzcircuitssizeunit,0.2\tikzcircuitssizeunit) to (.5\tikzcircuitssizeunit,0.7\tikzcircuitssizeunit);
+   }
+ },
+postaction={decorate}
+},
+}
+
+
+% Annotations
+\tikzset{
+ circuit declare annotation={2321}{0pt} % Positive-displacement type
+  {
+   (\tikzlastnode.north) edge[-,line width=0.5pt,line to] (\tikzlastnode.south)
+  },
+ circuit declare annotation={2322}{0pt} % Rotodynamic type
+  {
+   (\tikzlastnode.west) edge[-.,line width=0.5pt,line to] (\tikzlastnode.east)
+  },
+ circuit declare annotation={2111}{0pt} % Non-return function Flow from left to right possible
+  {
+   ([yshift=-0.6\tikzcircuitssizeunit,xshift=0.2\tikzcircuitssizeunit]\tikzlastnode.north west) edge[-,line width=2pt,to path={arc (-360:0:1pt)}] ()
+  },
+ circuit declare annotation={1101}{0pt} % Primary location in a central control room
+  {
+   (\tikzlastnode.east) edge[-,line width=0.5pt,line to] (\tikzlastnode.west)
+  },
+ circuit declare annotation={1103}{0pt} % Primary location in a local control room
+  {
+   ([xshift=-\the\pgflinewidth]\tikzlastnode.east) edge[double, -,line width=0.5pt,line to] ([xshift=\the\pgflinewidth]\tikzlastnode.west)
+  },
+ circuit declare annotation={adjustable}{1.5\tikzcircuitssizeunit}
+  {
+   ([xshift=-0.25\tikzcircuitssizeunit,yshift=-0.25\tikzcircuitssizeunit]\tikzlastnode.south west) edge[line to] ([xshift=0.25\tikzcircuitssizeunit, yshift=0.25\tikzcircuitssizeunit]\tikzlastnode.north east)
+  },
+ circuit declare annotation={adjustable'}{1.5\tikzcircuitssizeunit}
+  {
+   ([xshift=-0.25\tikzcircuitssizeunit,yshift=0.25\tikzcircuitssizeunit]\tikzlastnode.north west) edge[line to] ([xshift=0.25\tikzcircuitssizeunit, yshift=-0.25\tikzcircuitssizeunit]\tikzlastnode.south east)
+  },
+ circuit declare annotation={130}{0pt} % Transition to a higher quantity level
+  {
+   [shift=(\tikzlastnode.center),xshift=0.3\tikzcircuitssizeunit, yshift=0.5\tikzcircuitssizeunit]
+   (0, -0.25\tikzcircuitssizeunit) edge[line to] (0,0.5\tikzcircuitssizeunit)
+  },
+ circuit declare annotation={131}{0pt} % Transition to a lower quantity level
+  {
+   [shift=(\tikzlastnode.center),xshift=0.3\tikzcircuitssizeunit, yshift=0.5\tikzcircuitssizeunit]
+   (0,0.5\tikzcircuitssizeunit) edge[line to] (0, -0.25\tikzcircuitssizeunit)
+  },
+ circuit declare annotation={132}{0pt} % Transition to a higher or lower quantity level
+  {
+   [shift=(\tikzlastnode.center),xshift=0.3\tikzcircuitssizeunit, yshift=0.5\tikzcircuitssizeunit]
+   (0,0.5\tikzcircuitssizeunit) edge[<->,line to] (0, -0.25\tikzcircuitssizeunit)
+  },
+ circuit declare annotation={2112}{0pt} % Safety function
+  {
+   [shift=(\tikzlastnode.north east),xshift=-0.3\tikzcircuitssizeunit, yshift=-0.3\tikzcircuitssizeunit]
+   (0,0) edge[-,line to] ([xshift=-0.3\tikzcircuitssizeunit, yshift=0.3\tikzcircuitssizeunit]\tikzlastnode.south east)
+  },
+ circuit declare annotation={2121}{0pt} % Globe type
+  {
+   ([xshift=2pt]\tikzlastnode.center) edge[-,line width=4pt,to path={arc (-360:0:2pt)}] ()
+  },
+ circuit declare annotation={light}{0pt} % N
+  {
+   ([xshift=-0.75\tikzcircuitssizeunit,yshift=1\tikzcircuitssizeunit]\tikzlastnode.north) edge[line to] ([xshift=-0.25\tikzcircuitssizeunit,yshift=0.1\tikzcircuitssizeunit]\tikzlastnode.north)
+   ([xshift=-0.25\tikzcircuitssizeunit,yshift=1\tikzcircuitssizeunit]\tikzlastnode.north) edge[line to] ([xshift=0.25\tikzcircuitssizeunit,yshift=0.1\tikzcircuitssizeunit]\tikzlastnode.north)
+  },
+ circuit declare annotation={2601}{0pt} % N
+  {
+   ([xshift=-0.75\tikzcircuitssizeunit,yshift=0.75\tikzcircuitssizeunit]\tikzlastnode.center) edge[line to] ([xshift=0.75\tikzcircuitssizeunit,yshift=0.75\tikzcircuitssizeunit]\tikzlastnode.center)
+   ([xshift=-0.25\tikzcircuitssizeunit,yshift=0.75\tikzcircuitssizeunit]\tikzlastnode.center) edge[line to] ([xshift=0.65\tikzcircuitssizeunit,yshift=0.35\tikzcircuitssizeunit]\tikzlastnode.center)
+  },
+  circuit declare annotation={2671}{0pt} % N
+   {
+    ([xshift=-0.75\tikzcircuitssizeunit,yshift=0.75\tikzcircuitssizeunit]\tikzlastnode.center) edge[line to] ([xshift=0.75\tikzcircuitssizeunit,yshift=0.75\tikzcircuitssizeunit]\tikzlastnode.center)
+    ([xshift=0.25\tikzcircuitssizeunit,yshift=0.75\tikzcircuitssizeunit]\tikzlastnode.center) edge[-,line to] ([xshift=-0.65\tikzcircuitssizeunit,yshift=0.35\tikzcircuitssizeunit]\tikzlastnode.center)
+   },
+  circuit declare annotation={2124}{0pt} % Gate type
+   {
+    (\tikzlastnode.north) edge[-,line to] (\tikzlastnode.south)
+   },
+}
+
+\makeatletter
+% Helper command to get the current coordinates in a path
+\newcommand\currentcoordinate{\the\tikz@lastxsaved,\the\tikz@lastysaved}
+
+% Helper to place crossing
+\newcommand{\crossings}[2]{
+ \fill [name intersections={of=#1 and #2, name=i, total=\t}]
+ \foreach \s in {1,...,\t}{(i-\s) node[crossing] {}};
+}
+
+% flow system environment
+\pgfkeys{
+ flow system/.is family, /flow system,
+ fsdefault/.style =
+  {color=black, id=0, line type=solid, line width=0.25mm},
+ color/.estore in = \fscolor,
+ id/.estore in = \fsid,
+ id=,
+ line type/.estore in = \fslinetype,
+ line width/.estore in = \fslinewidth,
+}
+
+\NewDocumentEnvironment{flow system} { o }
+{
+ \pgfkeys{/flow system, fsdefault, #1}
+ \begin{scope}[\fscolor, line width=\fslinewidth, \fslinetype]
+  }
+  {
+ \end{scope}
+}
+
+% control system environment
+\pgfkeys{
+ control system/.is family, /control system,
+ csdefault/.style =
+  {color=black, id=0, line type=densely dashed, line width=0.15mm},
+ color/.estore in = \cscolor,
+ id/.estore in = \csid,
+ id=,
+ line type/.estore in = \cslinetype,
+ line width/.estore in = \cslinewidth,
+}
+
+\NewDocumentEnvironment{control system} { o }
+{
+ \pgfkeys{/control system, csdefault, #1}
+ \begin{scope}[\cscolor, line width=\cslinewidth, \cslinetype]
+  }
+  {
+ \end{scope}
+}
+
+% complex device environment
+\newif\ifshowcdlabel\showcdlabelfalse
+\newif\ifshowcdborder\showcdborderfalse
+
+\pgfkeys{
+ complex device/.is family, /complex device,
+ cddefault/.style =
+  {name=device,xshift=0,yshift=0,rotate=0, border=5, border line type=dash dot, border line width=0.25mm, border color=black, scale=1},
+ xshift/.estore in = \cdxshift,
+ yshift/.estore in = \cdyshift,
+ rotate/.estore in = \cdrotate,
+ name/.estore in = \cdname,
+ show label/.is if = showcdlabel,
+ show border/.is if = showcdborder,
+ border/.estore in = \cdborder,
+ border line type/.estore in = \cdborderlinetype,
+ border line width/.estore in = \cdborderlinewidth,
+ border color/.estore in = \cdbordercolor,
+ scale/.estore in = \cdborderscale,
+}
+
+\NewDocumentEnvironment{complex device} { o }
+{
+ \pgfkeys{/complex device, cddefault, #1}
+ \begin{scope}[xshift=\cdxshift, yshift=\cdyshift, rotate=\cdrotate, local bounding box=\cdname, transform canvas={scale=\cdborderscale}]
+  }
+  {
+  \ifshowcdborder \draw[\cdbordercolor, \cdborderlinetype, line width=\cdborderlinewidth] ([xshift=-\cdborder,yshift=\cdborder]\cdname.north west) rectangle ([xshift=\cdborder,yshift=-\cdborder]\cdname.south east); \fi
+  \ifshowcdlabel \node at ([yshift=\cdborder+4]\cdname.north) {\cdname}; \fi
+ \end{scope}
+}
+\makeatother
+
+\endinput

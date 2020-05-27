@@ -1,0 +1,726 @@
+% MIT License
+%
+% Copyright (c) 2018 Jelle Spijker
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in all
+% copies or substantial portions of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+% SOFTWARE.
+
+\usetikzlibrary{circuits.pid}
+\usetikzlibrary{arrows}
+\usepgflibrary{shapes.gates.pid.ISO14617}
+
+% When this lib is loaded, all symbols default to ISO14617
+\tikzset{
+ circuit pid ISO14617/.style=
+  {
+   circuit pid,
+   set 2301 graphic = 2301 ISO14617 graphic,
+   set 2302 graphic = 2302 ISO14617 graphic,
+   set 2101 graphic = 2101 ISO14617 graphic,
+   set 2102 graphic = 2102 ISO14617 graphic,
+   set 2103 graphic = 2103 ISO14617 graphic,
+   set 2104 graphic = 2104 ISO14617 graphic,
+   set 2151 graphic = 2151 ISO14617 graphic,
+   set 1011 graphic = 1011 ISO14617 graphic,
+   set 1041 graphic = 1041 ISO14617 graphic,
+   set 1021 graphic = 1021 ISO14617 graphic,
+   set 1022 graphic = 1022 ISO14617 graphic,
+   set 685 graphic = 685 ISO14617 graphic,
+   set 301 graphic = 301 ISO14617 graphic,
+   set 2061 graphic = 2061 ISO14617 graphic,
+   set 2065 graphic = 2065 ISO14617 graphic,
+   set 2501 graphic = 2501 ISO14617 graphic,
+   set 2511 graphic = 2511 ISO14617 graphic,
+   set 2602 graphic = 2602 ISO14617 graphic,
+   set 2037 graphic = 2037 ISO14617 graphic,
+   set 2541 graphic = 2541 ISO14617 graphic,
+   set 2531 graphic = 2531 ISO14617 graphic,
+   set 2551 graphic = 2551 ISO14617 graphic,
+   set 2062 graphic = 2062 ISO14617 graphic,
+   set 2002 graphic = 2002 ISO14617 graphic,
+   set 2518 graphic = 2518 ISO14617 graphic,
+   set 2521 graphic = 2521 ISO14617 graphic,
+   set 2514 graphic = 2514 ISO14617 graphic,
+   set 2672 graphic = 2672 ISO14617 graphic,
+   set 3801 graphic = 3801 ISO14617 graphic,
+   set 3830 graphic = 3830 ISO14617 graphic,
+   set 3806 graphic = 3806 ISO14617 graphic,
+   set 751 graphic = 751 ISO14617 graphic,
+   set 2602-bag graphic = 2602-bag ISO14617 graphic,
+   set branch graphic = branch ISO14617 graphic,
+   set crossing graphic = crossing ISO14617 graphic,
+   set reference graphic = reference ISO14617 graphic,
+  }
+}
+
+% Branch
+\tikzset{
+ branch ISO14617 graphic/.style={
+   circuit symbol filled,
+   circuit symbol size=width .5 height .5,
+   shape=circle pid,
+   outer sep=.25\pgflinewidth
+  }
+}
+
+% crossing
+\tikzset{
+ crossing ISO14617 graphic/.style={
+   circuit symbol wires,
+   circuit symbol size=width 1 height .1,
+   shape=generic circle ISO14617,
+   draw=none,
+   fill=white,
+   /pgf/generic circle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{0.0pt}{-1.0pt}}
+     \pgfpathlineto{\pgfpoint{0.0pt}{1.0pt}}
+     \pgfusepathqstroke
+    },
+   transform shape,
+  }
+}
+
+% Liquid pump
+\tikzset{2301 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=generic circle ISO14617,
+   /pgf/generic circle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{0.0pt}{-1.0pt}}
+     \pgfpathlineto{\pgfpoint{1.0pt}{0.0pt}}
+     \pgfpathlineto{\pgfpoint{0.0pt}{1.0pt}}
+     \pgfusepathqstroke
+    },
+   transform shape,
+  }
+}
+
+% Gas pump
+\tikzset{2302 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=generic circle ISO14617,
+   /pgf/generic circle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-0.6pt}{-0.8pt}}
+     \pgfpathlineto{\pgfpoint{0.9pt}{-0.4pt}}
+     \pgfusepathqstroke
+     \pgfpathmoveto{\pgfpoint{-0.6pt}{0.8pt}}
+     \pgfpathlineto{\pgfpoint{0.9pt}{0.4pt}}
+     \pgfusepathqstroke
+    },
+   transform shape,
+  }
+}
+
+% Two-way valve
+\tikzset{2101 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=generic rectangle ISO14617,
+   draw=none,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-1pt}{0.6pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{-0.6pt}}
+     \pgfpathclose
+     \pgfusepath{draw}
+     \pgfpathmoveto{\pgfpoint{1pt}{0.6pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{-0.6pt}}
+     \pgfpathclose
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Angled Two-way valve
+\tikzset{2102 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=generic rectangle ISO14617,
+   draw=none,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{1pt}{0.6pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{-0.6pt}}
+     \pgfpathclose
+     \pgfusepath{draw}
+     \pgfpathmoveto{\pgfpoint{-0.6pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{0.6pt}{-1pt}}
+     \pgfpathclose
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Three-way valve
+\tikzset{2103 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=generic rectangle ISO14617,
+   draw=none,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-1pt}{0.6pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{-0.6pt}}
+     \pgfpathclose
+     \pgfusepath{draw}
+     \pgfpathmoveto{\pgfpoint{1pt}{0.6pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{-0.6pt}}
+     \pgfpathclose
+     \pgfusepath{draw}
+     \pgfpathmoveto{\pgfpoint{-0.6pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{0.6pt}{-1pt}}
+     \pgfpathclose
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Four-way valve
+\tikzset{2104 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=generic rectangle ISO14617,
+   draw=none,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-1pt}{0.6pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{-0.6pt}}
+     \pgfpathclose
+     \pgfusepath{draw}
+     \pgfpathmoveto{\pgfpoint{1pt}{0.6pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{-0.6pt}}
+     \pgfpathclose
+     \pgfusepath{draw}
+     \pgfpathmoveto{\pgfpoint{-0.6pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{0.6pt}{-1pt}}
+     \pgfpathclose
+     \pgfusepath{draw}
+     \pgfpathmoveto{\pgfpoint{-0.6pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{0.6pt}{1pt}}
+     \pgfpathclose
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Two- or three-way damper
+\tikzset{2151 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2 height 2,
+   shape=generic rectangle ISO14617,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-0.8pt}{0.8pt}}
+     \pgfpathlineto{\pgfpoint{-0.1pt}{0.1pt}}
+     \pgfusepath{draw}
+     \pgfpathmoveto{\pgfpoint{0.8pt}{-0.8pt}}
+     \pgfpathlineto{\pgfpoint{0.1pt}{-0.1pt}}
+     \pgfusepath{draw}
+     \pgfpathcircle{\pgfpoint{0pt}{0pt}}{0.1}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% measurement point
+\tikzset{
+ 1011 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size=width .5 height .5,
+   shape=circle pid,
+   fill=white,
+   outer sep=.25\pgflinewidth
+  }
+}
+
+% Sensor
+\tikzset{751 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 3 height 2.5,
+   shape=generic rectangle ISO14617,
+   draw=none,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-1pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{-0.65pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{-0.65pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{0pt}}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Information-processing function
+\tikzset{1041 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 1.25 height 1.25,
+   shape=generic circle ISO14617,
+   transform shape,
+  }
+}
+
+% Automatic operation of a final controlling element
+\tikzset{1022 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 1.25 height 1.25,
+   shape=generic circle ISO14617,
+   transform shape,
+  }
+}
+
+% Manual operation of a final controlling element
+\tikzset{1021 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 1.25 height 1.25,
+   shape=generic circle ISO14617,
+   draw=none,
+   /pgf/generic circle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{1pt}{0pt}}
+     \pgfpatharc{0}{-180}{1pt}
+     \pgfusepathqstroke
+    },
+   transform shape,
+  }
+}
+
+% Manual actuator operated by turning
+\tikzset{685 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 1.25 height 1.25,
+   shape=generic circle ISO14617,
+   draw=none,
+   /pgf/generic circle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-1pt}{-0.5pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{-1.5pt}}
+     \pgfusepathqstroke
+    },
+   transform shape,
+  }
+}
+
+% Envelope (tank)
+\tikzset{301 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=generic rectangle ISO14617,
+   transform shape,
+  }
+}
+
+% Container tank, cistern for atmospheric pressure
+\tikzset{2061 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=generic rectangle ISO14617,
+   draw=none,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-1pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{1pt}}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Open store
+\tikzset{2065 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=generic rectangle ISO14617,
+   draw=none,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-1pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{1pt}}
+     \pgfusepath{draw}
+     % \pgfsetdash{{7pt}{1pt}{1pt}{1pt}{1pt}{1pt}{21pt}{1pt}{1pt}{1pt}{1pt}{1pt}{8pt}}{0}
+     \pgfpathmoveto{\pgfpoint{-0.8pt}{-1pt}}
+     \pgfpathlineto{\pgfpointadd{\pgfpoint{-0.8pt}{-1pt}}{\pgfpointpolar{56.52883529}{0.5pt}}}
+     \pgfpathmoveto{\pgfpointadd{\pgfpoint{-0.8pt}{-1pt}}{\pgfpointpolar{56.52883529}{1.25pt}}}
+     \pgfpathlineto{\pgfpointadd{\pgfpoint{-0.8pt}{-1pt}}{\pgfpointpolar{56.52883529}{1.5pt}}}
+     % \pgfpathmoveto{\pgfpointpolar{45}{0.25pt}}
+     % \pgfpathlineto{\pgfpointpolar{45}{0.25pt}}
+     % \pgfpathmoveto{\pgfpointpolar{45}{0.25pt}}
+     % \pgfpathlineto{\pgfpointpolar{45}{0.25pt}}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Heating or cooling coil
+\tikzset{2501 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 1.25 height 1.25,
+   shape=generic circle ISO14617,
+   draw=none,
+   /pgf/generic circle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{0pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{-1pt}}
+     \pgfusepathqstroke
+    },
+   transform shape,
+  }
+}
+
+% Heating or cooling coil
+\tikzset{2501 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 1.25 height 1.25,
+   shape=generic circle ISO14617,
+   draw=none,
+   /pgf/generic circle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{0pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{-1pt}}
+     \pgfusepathqstroke
+    },
+   transform shape,
+  }
+}
+
+% Screen or filter element
+\tikzset{2602 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 1.25 height 1.25,
+   shape=generic circle ISO14617,
+   draw=none,
+   /pgf/generic circle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-2pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{-1.15pt}{0pt}}
+     \pgfpathmoveto{\pgfpoint{-0.65pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{0.65pt}{0pt}}
+     \pgfpathmoveto{\pgfpoint{1.15pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{2pt}{0pt}}
+     \pgfusepathqstroke
+    },
+   transform shape,
+  }
+}
+
+% Bag screen or filter element
+\tikzset{2602-bag ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=generic circle ISO14617,
+   draw=none,
+   /pgf/generic circle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-1pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{-0.6pt}{0pt}}
+     \pgfpathmoveto{\pgfpoint{-0.4pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{-0.25pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{-0.25pt}{-0.25pt}}
+     \pgfpathmoveto{\pgfpoint{-0.25pt}{-0.45pt}}
+     \pgfpathlineto{\pgfpoint{-0.25pt}{-0.70pt}}
+     \pgfpathmoveto{\pgfpoint{-0.25pt}{-0.90pt}}
+     \pgfpathlineto{\pgfpoint{0.25pt}{-0.90pt}}
+     \pgfpathmoveto{\pgfpoint{1pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{0.6pt}{0pt}}
+     \pgfpathmoveto{\pgfpoint{0.4pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{0.25pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{0.25pt}{-0.25pt}}
+     \pgfpathmoveto{\pgfpoint{0.25pt}{-0.45pt}}
+     \pgfpathlineto{\pgfpoint{0.25pt}{-0.70pt}}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Spray nozzle
+\tikzset{2037 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 0.75 height 0.75,
+   shape=generic circle ISO14617,
+   draw=none,
+   /pgf/generic circle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{0pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{-0.75pt}{-1pt}}
+     \pgfpathmoveto{\pgfpoint{0pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{-1pt}}
+     \pgfpathmoveto{\pgfpoint{0pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{0.75pt}{-1pt}}
+     \pgfusepathqstroke
+    },
+   transform shape,
+  }
+}
+
+% Fired type
+\tikzset{2541 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 1 height 1,
+   shape=generic circle ISO14617,
+   draw=none,
+   /pgf/generic circle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-1pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{-1pt}}
+     \pgfpathmoveto{\pgfpoint{-0.55pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0.15pt}}
+     \pgfpathlineto{\pgfpoint{0.55pt}{-1pt}}
+     \pgfpathmoveto{\pgfpoint{-1.5pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{1.5pt}{-1pt}}
+     \pgfusepathqstroke
+    },
+   transform shape,
+  }
+}
+
+% Rotary mixing element
+\tikzset{2672 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2 height 1,
+   shape=generic rectangle ISO14617,
+   draw=none,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-1pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{1pt}}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Boiler, steam generator
+\tikzset{2531 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=2531 ISO14617,
+   transform shape,
+  }
+}
+
+% Heat pump, refrigerator or freezer
+\tikzset{2551 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=generic circle ISO14617,
+   draw=none,
+   /pgf/generic circle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-1pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{-1pt}}
+     \pgfpathclose
+     \pgfusepathqstroke
+
+     \pgfpathellipse{\pgfqpoint{-0.15pt}{0.5pt}}{\pgfqpoint{0.05pt}{0.25pt}}{\pgfqpoint{0.15pt}{0.05pt}}
+     \pgfusepath{draw}
+     \pgfpathmoveto{\pgfpoint{-0.3pt}{0.5pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0.5pt}}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Pressure or vacuum vessel
+\tikzset{2062 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=generic rectangle ISO14617,
+   draw=none,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-0.5pt}{1pt}}
+     \pgfpatharc{90}{270}{0.5pt and 1pt}
+     \pgfpathmoveto{\pgfpoint{0.5pt}{1pt}}
+     \pgfpatharc{270}{90}{-0.5pt and -1pt}
+     \pgfpathmoveto{\pgfpoint{-0.5pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{0.5pt}{1pt}}
+     \pgfpathmoveto{\pgfpoint{-0.5pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{0.5pt}{-1pt}}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Conveyor
+\tikzset{3801 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 10 height 2.5,
+   shape=generic rectangle ISO14617,
+   transform shape,
+  }
+}
+
+% Feeding funnel, hopper
+\tikzset{3806 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 2.5,
+   shape=generic rectangle ISO14617,
+   draw=none,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-1pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{-0.5pt}{-1pt}}
+     \pgfpathmoveto{\pgfpoint{1pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{0.5pt}{-1pt}}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Spring
+\tikzset{2002 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 0.5 height 1.5,
+   shape=generic rectangle ISO14617,
+   draw=none,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{0pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{0.7pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{0.35pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{-0.35pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{-0.7pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{-1pt}}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Screw type
+\tikzset{3830 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 1.5 height 1,
+   shape=generic rectangle ISO14617,
+   draw=none,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{-1pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{1pt}{0pt}}
+     \pgfpathmoveto{\pgfpoint{0.7pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{0.35pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{-0.35pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{-0.7pt}{0pt}}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Regenerative pre-heater
+\tikzset{2518 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 4,
+   shape=2518 ISO14617,
+   transform shape,
+  }
+}
+
+% Cooling tower
+\tikzset{2521 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 5 height 8,
+   shape=2521 ISO14617,
+   transform shape,
+  }
+}
+
+% Heat-exchanger with straight tubes (fixed-tube plates)
+\tikzset{2511 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2 height 4,
+   shape=heat exchanger long ISO14617,
+   /pgf/heat exchanger long ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{0pt}{0.75pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{-0.75pt}}
+     \pgfpathmoveto{\pgfpoint{-0.5pt}{0.75pt}}
+     \pgfpathlineto{\pgfpoint{-0.5pt}{-0.75pt}}
+     \pgfpathmoveto{\pgfpoint{0.5pt}{0.75pt}}
+     \pgfpathlineto{\pgfpoint{0.5pt}{-0.75pt}}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Heat-exchanger with coil-shaped tubes
+\tikzset{2514 ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 2.5 height 5,
+   shape=heat exchanger long ISO14617,
+   /pgf/heat exchanger long ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{0.5pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{-0.5pt}{0.125pt}}
+     \pgfpathlineto{\pgfpoint{0.5pt}{0.25pt}}
+     \pgfpathlineto{\pgfpoint{-0.5pt}{0.375pt}}
+     \pgfpathlineto{\pgfpoint{0.5pt}{0.5pt}}
+     \pgfpathlineto{\pgfpoint{-0.5pt}{0.625pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0.6875pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{0.71pt}}
+
+     \pgfpathmoveto{\pgfpoint{0.5pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{-0.5pt}{-0.125pt}}
+     \pgfpathlineto{\pgfpoint{0.5pt}{-0.25pt}}
+     \pgfpathlineto{\pgfpoint{-0.5pt}{-0.375pt}}
+     \pgfpathlineto{\pgfpoint{0.5pt}{-0.5pt}}
+     \pgfpathlineto{\pgfpoint{-0.5pt}{-0.625pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{-0.6875pt}}
+     \pgfpathlineto{\pgfpoint{0pt}{-0.71pt}}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}
+
+% Reference arrow
+\tikzset{reference ISO14617 graphic/.style={
+   circuit symbol lines,
+   circuit symbol size = width 1.5 height 1.25,
+   shape=generic rectangle ISO14617,
+   draw=none,
+   /pgf/generic rectangle ISO14617/before background={
+     \pgfpathmoveto{\pgfpoint{1pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{0.5pt}{1pt}}
+     \pgfpathlineto{\pgfpoint{0.5pt}{0.5pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{0.5pt}}
+     \pgfpathmoveto{\pgfpoint{1pt}{0pt}}
+     \pgfpathlineto{\pgfpoint{0.5pt}{-1pt}}
+     \pgfpathlineto{\pgfpoint{0.5pt}{-0.5pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{-0.5pt}}
+     \pgfpathlineto{\pgfpoint{-1pt}{0.5pt}}
+     \pgfusepath{draw}
+    },
+   transform shape,
+  }
+}

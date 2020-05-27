@@ -1,0 +1,28 @@
+% https://tex.stackexchange.com/a/247338/173708
+% https://tex.stackexchange.com/questions/247202/creating-tikz-libraries?noredirect=1&lq=1
+% calls tikzlibraryunitscircle.code.tex
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{unitcircle}   % using  tikzlibraryunitcircle.code.tex
+\begin{document}
+
+\begin{tikzpicture}
+
+  \path
+              (0,0) pic (LL) {quadrant III}
+        -- ++ (1,0) pic (LR) {quadrant IV}
+        -- ++ (0,1) pic (UR) {quadrant I}
+        -- cycle
+        -- ++ (0,1) pic (UL) {quadrant II}
+      ;
+  \draw[blue] (LR-ne) -- (LR-sw);
+
+  \draw[red] (LL-ne) rectangle (LL-sw);
+
+  \draw (LL-center) -- (UR-center)
+                    -- (UL-center)
+                    -- (LR-center);
+\end{tikzpicture}
+
+\end{document}

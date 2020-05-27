@@ -1,0 +1,24 @@
+\documentclass[tikz,border=10pt]{standalone}
+%\documentclass[crop, tikz]{standalone}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+	[%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	box/.style={rectangle,draw=black,thick, minimum size=1cm},
+	]%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\foreach \x in {0,1,...,10}{
+		\foreach \y in {0,1,...,10}
+		\node[box] at (\x,\y){};
+	}
+	
+	\node[box,fill=green] at (8,8){};  
+	\node[box,fill=red  ] at (5,5){};  
+	\node[box,fill=blue ] at (2,2){};  
+
+\end{tikzpicture}
+
+\end{document}

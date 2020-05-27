@@ -1,0 +1,14 @@
+\documentclass[tikz,border=10pt]{standalone}
+
+\usepackage{tikz}
+
+\begin{document}
+
+% draw ticks
+\begin{tikzpicture}
+	% If you provide two numbers before the ..., the \foreach statement will use their diﬀerence for the stepping:
+	\foreach \x in {-1,-0.5,...,1}
+	\draw (\x cm,-1pt) -- (\x cm,1pt);
+\end{tikzpicture}
+
+\end{document}

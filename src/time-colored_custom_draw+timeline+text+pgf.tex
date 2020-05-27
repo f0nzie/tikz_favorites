@@ -1,0 +1,66 @@
+% https://tex.stackexchange.com/a/349215/173708
+\documentclass[margin=5mm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}% Unecessary (only for the second example)
+
+\tikzset{
+  timeline/.style={-latex}%
+  ,timeline style/.style={timeline/.append style={#1}}%
+  ,year label/.style={below}%
+  ,year label style/.style={year label/.append style={#1}}%
+  ,year tick/.style={tick size=5pt}%
+  ,year tick style/.style={year tick/.append style={#1}}%
+  ,minor tick/.style={tick size=2pt, very thin}%
+  ,minor tick style/.style={minor tick/.append style={#1}}%
+  ,tick size/.code={\def\ticksize{#1}}%
+  ,labeled years step/.code={\def\yearlabelstep{#1}}%
+  ,minor tick step/.code={\def\minortickstep{#1}}%
+  ,year tick step/.code={\def\yeartickstep{#1}}%
+  ,enlarge timeline/.code={\def\enlarge{#1}}
+}
+\newcommand*{\drawtimeline}[4][]{%
+  \def\fromyear{#2}%
+  \def\toyear{#3}%
+  \def\timelinesize{#4}%
+  \pgfmathsetmacro{\timelinesizept}{\timelinesize}
+  \begin{scope}[x=1pt, y=1pt, % Change main units to pt
+                labeled years step=1,% Set some defaults
+                minor tick step=0.25,%
+                enlarge timeline=1.05,%
+                year tick step=1,#1]
+    \pgfmathsetmacro{\yearticksep}{\timelinesize/((\toyear-\fromyear)/\yeartickstep)}
+    \pgfmathsetmacro{\minorticksep}{\timelinesize/((\toyear-\fromyear)/\minortickstep)}
+    \pgfmathsetmacro{\minorticklast}{\minorticksep/\minortickstep)}
+    \foreach \y[remember=\y as \lasty (initially 0), count=\i from \fromyear] in {0,\yearticksep,...,\timelinesizept}{
+        \coordinate (Y-\i) at (\y,0);
+        \draw[year tick] (\y,-\ticksize/2) --  ++(0,\ticksize);
+        \ifnum\i=\toyear\breakforeach\else
+        \foreach \q[count=\j from 0] in {0,\minorticksep,...,\minorticklast}{
+            \coordinate (Y-\i-\j) at (\q+\y,0);
+            \draw[minor tick] (\q+\y,-\ticksize/2) -- ++(0,\ticksize);
+        };\fi
+    };
+
+    \pgfmathsetmacro{\nextyear}{int(\fromyear+\yearlabelstep)}
+    \foreach \y in {\fromyear,\nextyear,...,\toyear} \node[year label] at (Y-\y) {\y};
+    \draw[timeline] (0,0) -- +(\enlarge*\timelinesizept,0);% Timeline
+  \end{scope}%
+}
+
+\begin{document}
+    \begin{tikzpicture}[event/.style={very thick, solid, line cap=round}]
+        \drawtimeline[%
+            gray,
+            timeline style={thick},
+            labeled years step=6,
+            minor tick step=0.25]{2002}{2016}{10cm};
+        \drawtimeline[
+            yshift=-2cm,
+            labeled years step=2,
+            timeline style={-stealth, shorten <=-5pt, very thick},
+            year tick style={{Triangle[reversed, scale=0.75]}-, tick size=5pt, yshift=2.5pt},
+            minor tick style={tick size=2pt, yshift=1pt},
+            year label style={anchor=west, rotate=60, outer sep=2pt, yshift=4pt}]{2002}{2016}{10cm};
+         \draw[event, red] (Y-2002-2) -- (Y-2003);
+    \end{tikzpicture}
+\end{document}

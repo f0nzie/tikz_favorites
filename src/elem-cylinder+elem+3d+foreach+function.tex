@@ -1,0 +1,25 @@
+% +3d+foreach+function
+\documentclass[tikz,border=5pt]{standalone}
+\usetikzlibrary{shapes.geometric}
+\usepackage{tikz-3dplot}
+
+
+\begin{document}
+
+\tdplotsetmaincoords{70}{30}
+\begin{tikzpicture}[tdplot_main_coords]
+
+	\draw[->] (0,-4,0) -- (0,4,0) node[above right] {$x$};
+	\draw[->] (-4,0,0) -- (4,0,0) node[below right] {$y$};
+	\draw[->] (0,0,4) -- (0,0,-4) node[below right] {$z$};
+	
+	\draw plot[variable=\x,domain=0:360,samples=180] ({cos(\x)},-1.25,{sin(\x)});
+	\draw plot[variable=\x,domain=-45:135,samples=180] ({cos(\x)},1.25,{sin(\x)});
+	
+	\foreach \x in {135,-45} { 
+		\draw ({cos(\x)},-1.25,{sin(\x)}) -- ({cos(\x)},1.25,{sin(\x)});}
+	%\node (a) [draw, cylinder, shape aspect=1.8, rotate=180, minimum height=25mm, minimum width=12mm] {};
+
+\end{tikzpicture}
+
+\end{document}
