@@ -1,0 +1,12 @@
+#/bin/sh
+# generate PDF and PNG files in a Mac
+
+file=$1
+name=${file%.*}   # get the name of the file with no extension
+
+echo $file
+
+pdflatex -interaction=batchmode $file > /dev/null 2>&1 && gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$name.png -dNOPAUSE -r1200 $name.pdf
+
+rm $name.log
+rm $name.aux
