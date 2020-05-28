@@ -36,19 +36,31 @@
     \node [input, name=input] {};
     \node [sum, right of=input] (sum) {};
     \node [block, right of=sum] (controller) {\symbolA};
+    
+    % add label to controller
+     \node[above of=controller] (ctrlabel)  [yshift=-0.75cm] {Controller};
+     % add arrow from label to box
+    \draw[->] (ctrlabel) -- (controller);
+    
+    % this is option 1: adding label on top
 %    \node [block, right of=controller, pin={[pinstyle] above:Disturbances},
 %            node distance=3cm] (system) {\symbolB};
+	% this option 2: adding label on top
     \node [block, right of=controller, node distance=3cm] (system) {\symbolB};
-    
-    % add label above system
-    \node[above of=system] (syslabel) {Disturbances};
+    % add label "Disturbances" above system
+    \node[above of=system] (syslabel) [yshift=-0.75cm] {Disturbances};
     \draw[->] (syslabel) -- (system);
 
     % We draw an edge between the controller and system block to 
-    % calculate the coordinate u. We need it to place the measurement block. 
+    % calculate the coordinate "u". We need it to place the measurement block. 
     \draw [->] (controller) -- node[name=u] {$u$} (system);
     \node [output, right of=system] (output) {};
     \node [block, below of=u] (measurements) {\symbolC};
+    
+    % add label to "measurements" block
+     \node[below of=measurements] (mealabel) [yshift=0.75cm] {Measurements};
+    \draw[->] (mealabel) -- (measurements);
+    
 
     % Once the nodes are placed, connecting them is easy. 
     \draw [draw,->] (input) -- node {$r$} (sum);
