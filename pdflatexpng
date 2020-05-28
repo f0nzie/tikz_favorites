@@ -1,5 +1,6 @@
 #/bin/sh
 # generate PDF and PNG files in a Mac
+# the original file is in Linux machine ~/bin
 
 file=$1
 name=${file%.*}   # get the name of the file with no extension
