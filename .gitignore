@@ -9,4 +9,7 @@ utils/*.html
 site/data/items.toml
 src/*.pdf
 src/*.png
+src/*.gz
+src/*.aux
+src/*.log
 

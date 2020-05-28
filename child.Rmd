@@ -1,5 +1,41 @@
 ****
 
+![](./src/3d-cone_intersection+3d+pgf.png)
+
+  * [3d-cone_intersection+3d+pgf.tex](https://github.com/walmes/Tikz/blob/master/src/3d-cone_intersection+3d+pgf.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/3d-cone_intersection+3d+pgf.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/3d-cube_color_rotated.png)
+
+  * [3d-cube_color_rotated.tex](https://github.com/walmes/Tikz/blob/master/src/3d-cube_color_rotated.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/3d-cube_color_rotated.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/3d-cubes_isometric_shaded+3d.png)
+
+  * [3d-cubes_isometric_shaded+3d.tex](https://github.com/walmes/Tikz/blob/master/src/3d-cubes_isometric_shaded+3d.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/3d-cubes_isometric_shaded+3d.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/3d-cylinder-planes+3d.png)
 
   * [3d-cylinder-planes+3d.tex](https://github.com/walmes/Tikz/blob/master/src/3d-cylinder-planes+3d.pgf)
@@ -8,6 +44,18 @@
 ```{r}
 # change pgf to tex
 cat(readLines("./src/3d-cylinder-planes+3d.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/3d-physics-jet-cones+3d+physics.png)
+
+  * [3d-physics-jet-cones+3d+physics.tex](https://github.com/walmes/Tikz/blob/master/src/3d-physics-jet-cones+3d+physics.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/3d-physics-jet-cones+3d+physics.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -24,6 +72,18 @@ cat(readLines("./src/3d-seismic_focal_mechanism+3d+set+foreach+eng.tex"), sep = 
 `r b`
 ****
 
+![](./src/3d-torus+function+3d.png)
+
+  * [3d-torus+function+3d.tex](https://github.com/walmes/Tikz/blob/master/src/3d-torus+function+3d.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/3d-torus+function+3d.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/box_arrows+diagram.png)
 
   * [box_arrows+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/box_arrows+diagram.pgf)
@@ -32,6 +92,42 @@ cat(readLines("./src/3d-seismic_focal_mechanism+3d+set+foreach+eng.tex"), sep = 
 ```{r}
 # change pgf to tex
 cat(readLines("./src/box_arrows+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/break_text_lines+tree.png)
+
+  * [break_text_lines+tree.tex](https://github.com/walmes/Tikz/blob/master/src/break_text_lines+tree.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/break_text_lines+tree.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/circle_custom_with_arcs+symbol+geometry.png)
+
+  * [circle_custom_with_arcs+symbol+geometry.tex](https://github.com/walmes/Tikz/blob/master/src/circle_custom_with_arcs+symbol+geometry.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/circle_custom_with_arcs+symbol+geometry.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/class_diagram+diagram.png)
+
+  * [class_diagram+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/class_diagram+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/class_diagram+diagram.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -48,6 +144,18 @@ cat(readLines("./src/colorized_equation+equation.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/controller_system+diagram+style+learn.png)
+
+  * [controller_system+diagram+style+learn.tex](https://github.com/walmes/Tikz/blob/master/src/controller_system+diagram+style+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/controller_system+diagram+style+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/cubes_factorials+physics+3d.png)
 
   * [cubes_factorials+physics+3d.tex](https://github.com/walmes/Tikz/blob/master/src/cubes_factorials+physics+3d.pgf)
@@ -56,6 +164,42 @@ cat(readLines("./src/colorized_equation+equation.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/cubes_factorials+physics+3d.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/custom-three_objects+symbols+command.png)
+
+  * [custom-three_objects+symbols+command.tex](https://github.com/walmes/Tikz/blob/master/src/custom-three_objects+symbols+command.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/custom-three_objects+symbols+command.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/custom-use_library+symbol+pkg.png)
+
+  * [custom-use_library+symbol+pkg.tex](https://github.com/walmes/Tikz/blob/master/src/custom-use_library+symbol+pkg.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/custom-use_library+symbol+pkg.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/cylinder_with_two_parameters+geometry+style+learn.png)
+
+  * [cylinder_with_two_parameters+geometry+style+learn.tex](https://github.com/walmes/Tikz/blob/master/src/cylinder_with_two_parameters+geometry+style+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/cylinder_with_two_parameters+geometry+style+learn.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -72,6 +216,42 @@ cat(readLines("./src/drawing_inside_box_bigger+symbol+diagram+command+style.tex"
 `r b`
 ****
 
+![](./src/drawstack+diagram.png)
+
+  * [drawstack+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/drawstack+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/drawstack+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-10_circles+elem+foreach.png)
+
+  * [elem-10_circles+elem+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/elem-10_circles+elem+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-10_circles+elem+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-circle_axes_ticks+elem+geometry+foreach.png)
+
+  * [elem-circle_axes_ticks+elem+geometry+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/elem-circle_axes_ticks+elem+geometry+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-circle_axes_ticks+elem+geometry+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/elem-circle_grided+elem+geometry.png)
 
   * [elem-circle_grided+elem+geometry.tex](https://github.com/walmes/Tikz/blob/master/src/elem-circle_grided+elem+geometry.pgf)
@@ -80,6 +260,18 @@ cat(readLines("./src/drawing_inside_box_bigger+symbol+diagram+command+style.tex"
 ```{r}
 # change pgf to tex
 cat(readLines("./src/elem-circle_grided+elem+geometry.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-circle_grided+elem+geometry+manual.png)
+
+  * [elem-circle_grided+elem+geometry+manual.tex](https://github.com/walmes/Tikz/blob/master/src/elem-circle_grided+elem+geometry+manual.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-circle_grided+elem+geometry+manual.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -108,6 +300,66 @@ cat(readLines("./src/elem-cube_finer_grid+elem+foreach+command.tex"), sep = "\n"
 `r b`
 ****
 
+![](./src/elem-cube+elem+geometry+foreach.png)
+
+  * [elem-cube+elem+geometry+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/elem-cube+elem+geometry+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-cube+elem+geometry+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-cylinder+elem+3d+foreach+function.png)
+
+  * [elem-cylinder+elem+3d+foreach+function.tex](https://github.com/walmes/Tikz/blob/master/src/elem-cylinder+elem+3d+foreach+function.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-cylinder+elem+3d+foreach+function.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-draw_ticks+elem+foreach.png)
+
+  * [elem-draw_ticks+elem+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/elem-draw_ticks+elem+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-draw_ticks+elem+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-drawing_inside_box+elem+diagram+symbol.png)
+
+  * [elem-drawing_inside_box+elem+diagram+symbol.tex](https://github.com/walmes/Tikz/blob/master/src/elem-drawing_inside_box+elem+diagram+symbol.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-drawing_inside_box+elem+diagram+symbol.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-equation+elem+foreach.png)
+
+  * [elem-equation+elem+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/elem-equation+elem+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-equation+elem+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/elem-grid_RBG-7x7+elem+3d+pgf+foreach.png)
 
   * [elem-grid_RBG-7x7+elem+3d+pgf+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/elem-grid_RBG-7x7+elem+3d+pgf+foreach.pgf)
@@ -132,6 +384,18 @@ cat(readLines("./src/elem-grid_RBG+elem+foreach+style.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/elem-helpme+elem+diagram.png)
+
+  * [elem-helpme+elem+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/elem-helpme+elem+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-helpme+elem+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/elem-magnification+elem+geometry.png)
 
   * [elem-magnification+elem+geometry.tex](https://github.com/walmes/Tikz/blob/master/src/elem-magnification+elem+geometry.pgf)
@@ -144,6 +408,54 @@ cat(readLines("./src/elem-magnification+elem+geometry.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/elem-matrix-as_nodes+elem+matrix.png)
+
+  * [elem-matrix-as_nodes+elem+matrix.tex](https://github.com/walmes/Tikz/blob/master/src/elem-matrix-as_nodes+elem+matrix.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-matrix-as_nodes+elem+matrix.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-node_connector+elem+diagram+command.png)
+
+  * [elem-node_connector+elem+diagram+command.tex](https://github.com/walmes/Tikz/blob/master/src/elem-node_connector+elem+diagram+command.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-node_connector+elem+diagram+command.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-physics-arrows_to_nodes+elem+phsyics.png)
+
+  * [elem-physics-arrows_to_nodes+elem+phsyics.tex](https://github.com/walmes/Tikz/blob/master/src/elem-physics-arrows_to_nodes+elem+phsyics.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-physics-arrows_to_nodes+elem+phsyics.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-physics-example_atom+elem+physics.png)
+
+  * [elem-physics-example_atom+elem+physics.tex](https://github.com/walmes/Tikz/blob/master/src/elem-physics-example_atom+elem+physics.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-physics-example_atom+elem+physics.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/elem-stacked+elem+diagram.png)
 
   * [elem-stacked+elem+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/elem-stacked+elem+diagram.pgf)
@@ -152,6 +464,42 @@ cat(readLines("./src/elem-magnification+elem+geometry.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/elem-stacked+elem+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-system_measurement_model+elem+diagram.png)
+
+  * [elem-system_measurement_model+elem+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/elem-system_measurement_model+elem+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-system_measurement_model+elem+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-tikz-01+elem+geometry.png)
+
+  * [elem-tikz-01+elem+geometry.tex](https://github.com/walmes/Tikz/blob/master/src/elem-tikz-01+elem+geometry.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-tikz-01+elem+geometry.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-tikz-02+elem+geometry.png)
+
+  * [elem-tikz-02+elem+geometry.tex](https://github.com/walmes/Tikz/blob/master/src/elem-tikz-02+elem+geometry.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-tikz-02+elem+geometry.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -180,6 +528,18 @@ cat(readLines("./src/filesystem_tree+diagram.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/flow-android_lifecycle+block+style+learn.png)
+
+  * [flow-android_lifecycle+block+style+learn.tex](https://github.com/walmes/Tikz/blob/master/src/flow-android_lifecycle+block+style+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/flow-android_lifecycle+block+style+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/flow-direction_of_arrival+diagram.png)
 
   * [flow-direction_of_arrival+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/flow-direction_of_arrival+diagram.pgf)
@@ -192,6 +552,18 @@ cat(readLines("./src/flow-direction_of_arrival+diagram.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/flow-easy_flowchart+diagram.png)
+
+  * [flow-easy_flowchart+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/flow-easy_flowchart+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/flow-easy_flowchart+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/flow-flowchart_video+diagram+style.png)
 
   * [flow-flowchart_video+diagram+style.tex](https://github.com/walmes/Tikz/blob/master/src/flow-flowchart_video+diagram+style.pgf)
@@ -200,6 +572,30 @@ cat(readLines("./src/flow-direction_of_arrival+diagram.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/flow-flowchart_video+diagram+style.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/flow-labs_class+diagram+style+pgf+command.png)
+
+  * [flow-labs_class+diagram+style+pgf+command.tex](https://github.com/walmes/Tikz/blob/master/src/flow-labs_class+diagram+style+pgf+command.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/flow-labs_class+diagram+style+pgf+command.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/flow-report_diagrams+diagram+learn+style.png)
+
+  * [flow-report_diagrams+diagram+learn+style.tex](https://github.com/walmes/Tikz/blob/master/src/flow-report_diagrams+diagram+learn+style.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/flow-report_diagrams+diagram+learn+style.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -228,6 +624,30 @@ cat(readLines("./src/geom-circle_coordinate_systems+geometry.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/geom-ellipse_on_coords+geometry+pgf+def+script.png)
+
+  * [geom-ellipse_on_coords+geometry+pgf+def+script.tex](https://github.com/walmes/Tikz/blob/master/src/geom-ellipse_on_coords+geometry+pgf+def+script.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/geom-ellipse_on_coords+geometry+pgf+def+script.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/geom-euclides+geometry.png)
+
+  * [geom-euclides+geometry.tex](https://github.com/walmes/Tikz/blob/master/src/geom-euclides+geometry.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/geom-euclides+geometry.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/geom-hyperbola+geometry+physics.png)
 
   * [geom-hyperbola+geometry+physics.tex](https://github.com/walmes/Tikz/blob/master/src/geom-hyperbola+geometry+physics.pgf)
@@ -252,6 +672,114 @@ cat(readLines("./src/geometric_representation+math+foreach+pgf+scope.tex"), sep 
 `r b`
 ****
 
+![](./src/git_dataflow+diagram.png)
+
+  * [git_dataflow+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/git_dataflow+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/git_dataflow+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/git_workflow+diagram.png)
+
+  * [git_workflow+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/git_workflow+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/git_workflow+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/grid_RBG+3d+foreach+learn.png)
+
+  * [grid_RBG+3d+foreach+learn.tex](https://github.com/walmes/Tikz/blob/master/src/grid_RBG+3d+foreach+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/grid_RBG+3d+foreach+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/impact-circular_arrows+diagram+foreach.png)
+
+  * [impact-circular_arrows+diagram+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/impact-circular_arrows+diagram+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/impact-circular_arrows+diagram+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/impact-concentric-blocks+diagram.png)
+
+  * [impact-concentric-blocks+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/impact-concentric-blocks+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/impact-concentric-blocks+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/impact-market_sector+diagram.png)
+
+  * [impact-market_sector+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/impact-market_sector+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/impact-market_sector+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/impact-particles_table+physics.png)
+
+  * [impact-particles_table+physics.tex](https://github.com/walmes/Tikz/blob/master/src/impact-particles_table+physics.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/impact-particles_table+physics.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/impact-simulation_abstraction+physics.png)
+
+  * [impact-simulation_abstraction+physics.tex](https://github.com/walmes/Tikz/blob/master/src/impact-simulation_abstraction+physics.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/impact-simulation_abstraction+physics.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/impact-supreme_court-2+diagram.png)
+
+  * [impact-supreme_court-2+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/impact-supreme_court-2+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/impact-supreme_court-2+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/impact-supreme_court+diagram.png)
 
   * [impact-supreme_court+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/impact-supreme_court+diagram.pgf)
@@ -260,6 +788,18 @@ cat(readLines("./src/geometric_representation+math+foreach+pgf+scope.tex"), sep 
 ```{r}
 # change pgf to tex
 cat(readLines("./src/impact-supreme_court+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/impact-technologies_arrow+matrix+set+command+matrix.png)
+
+  * [impact-technologies_arrow+matrix+set+command+matrix.tex](https://github.com/walmes/Tikz/blob/master/src/impact-technologies_arrow+matrix+set+command+matrix.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/impact-technologies_arrow+matrix+set+command+matrix.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -288,6 +828,42 @@ cat(readLines("./src/inertial_system_color+diagram+pgf+command+def+layer.tex"), 
 `r b`
 ****
 
+![](./src/io-fit+diagram.png)
+
+  * [io-fit+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/io-fit+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/io-fit+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/kalman+diagram+set.png)
+
+  * [kalman+diagram+set.tex](https://github.com/walmes/Tikz/blob/master/src/kalman+diagram+set.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/kalman+diagram+set.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/louvre-planes.png)
+
+  * [louvre-planes.tex](https://github.com/walmes/Tikz/blob/master/src/louvre-planes.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/louvre-planes.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/mammography_bayes+diagram.png)
 
   * [mammography_bayes+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/mammography_bayes+diagram.pgf)
@@ -312,6 +888,66 @@ cat(readLines("./src/mapper-reducer.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/matrix-highlighting.png)
+
+  * [matrix-highlighting.tex](https://github.com/walmes/Tikz/blob/master/src/matrix-highlighting.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/matrix-highlighting.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/matrix-product.png)
+
+  * [matrix-product.tex](https://github.com/walmes/Tikz/blob/master/src/matrix-product.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/matrix-product.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/mind_2nd_level_concentric+mindmap.png)
+
+  * [mind_2nd_level_concentric+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_2nd_level_concentric+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_2nd_level_concentric+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/mind_2nd_level_reactangular_frame+mindmap.png)
+
+  * [mind_2nd_level_reactangular_frame+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_2nd_level_reactangular_frame+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_2nd_level_reactangular_frame+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/mind_adjust_keys+mindmap.png)
+
+  * [mind_adjust_keys+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_adjust_keys+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_adjust_keys+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/mind_child_manipulation+mindmap.png)
 
   * [mind_child_manipulation+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_child_manipulation+mindmap.pgf)
@@ -324,6 +960,18 @@ cat(readLines("./src/mind_child_manipulation+mindmap.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/mind_children_two+mindmap.png)
+
+  * [mind_children_two+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_children_two+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_children_two+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/mind_circle_connection+mindmap.png)
 
   * [mind_circle_connection+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_circle_connection+mindmap.pgf)
@@ -332,6 +980,18 @@ cat(readLines("./src/mind_child_manipulation+mindmap.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/mind_circle_connection+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/mind_clip+mindmap.png)
+
+  * [mind_clip+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_clip+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_clip+mindmap.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -372,6 +1032,150 @@ cat(readLines("./src/mind_fixed+mindmap.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/mind_hyperlinks+mindmap.png)
+
+  * [mind_hyperlinks+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_hyperlinks+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_hyperlinks+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/mind_long_text_boxes-fixed+mindmap.png)
+
+  * [mind_long_text_boxes-fixed+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_long_text_boxes-fixed+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_long_text_boxes-fixed+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/mind_optional_argument+mindmap.png)
+
+  * [mind_optional_argument+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_optional_argument+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_optional_argument+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/mind_scientific_interactions+mindmap.png)
+
+  * [mind_scientific_interactions+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_scientific_interactions+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_scientific_interactions+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/mind_shaded+mindmap.png)
+
+  * [mind_shaded+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_shaded+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_shaded+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/mind_specific_distance+mindmap.png)
+
+  * [mind_specific_distance+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_specific_distance+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_specific_distance+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/mind_thicker_connectors+mindmap.png)
+
+  * [mind_thicker_connectors+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_thicker_connectors+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_thicker_connectors+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/mind_tutorials_videos+mindmap.png)
+
+  * [mind_tutorials_videos+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_tutorials_videos+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_tutorials_videos+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/mind_two_connected_roots+mindmap.png)
+
+  * [mind_two_connected_roots+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_two_connected_roots+mindmap.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/mind_two_connected_roots+mindmap.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/multidimensional-array-inclined.png)
+
+  * [multidimensional-array-inclined.tex](https://github.com/walmes/Tikz/blob/master/src/multidimensional-array-inclined.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/multidimensional-array-inclined.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/multidimensional-array.png)
+
+  * [multidimensional-array.tex](https://github.com/walmes/Tikz/blob/master/src/multidimensional-array.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/multidimensional-array.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/multiline-flowchart.png)
+
+  * [multiline-flowchart.tex](https://github.com/walmes/Tikz/blob/master/src/multiline-flowchart.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/multiline-flowchart.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/multiple_block_connections-101+diagram.png)
 
   * [multiple_block_connections-101+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/multiple_block_connections-101+diagram.pgf)
@@ -380,6 +1184,18 @@ cat(readLines("./src/mind_fixed+mindmap.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/multiple_block_connections-101+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/multiple_blocks_interconnection+diagram.png)
+
+  * [multiple_blocks_interconnection+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/multiple_blocks_interconnection+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/multiple_blocks_interconnection+diagram.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -408,6 +1224,30 @@ cat(readLines("./src/nn-02_auto_net+neuralnet+foreach+pgf+style+learn.tex"), sep
 `r b`
 ****
 
+![](./src/nn-03_auto_net+neuralnet+foreach+style+learn.png)
+
+  * [nn-03_auto_net+neuralnet+foreach+style+learn.tex](https://github.com/walmes/Tikz/blob/master/src/nn-03_auto_net+neuralnet+foreach+style+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-03_auto_net+neuralnet+foreach+style+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/nn-04_auto_net+neuralnet+matrix+style+foreach.png)
+
+  * [nn-04_auto_net+neuralnet+matrix+style+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/nn-04_auto_net+neuralnet+matrix+style+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-04_auto_net+neuralnet+matrix+style+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/nn-05_auto_net_arr+neuralnet+style+foreach+learn.png)
 
   * [nn-05_auto_net_arr+neuralnet+style+foreach+learn.tex](https://github.com/walmes/Tikz/blob/master/src/nn-05_auto_net_arr+neuralnet+style+foreach+learn.pgf)
@@ -420,6 +1260,18 @@ cat(readLines("./src/nn-05_auto_net_arr+neuralnet+style+foreach+learn.tex"), sep
 `r b`
 ****
 
+![](./src/nn-06_manual_net_color+neuralnet+foreach+style.png)
+
+  * [nn-06_manual_net_color+neuralnet+foreach+style.tex](https://github.com/walmes/Tikz/blob/master/src/nn-06_manual_net_color+neuralnet+foreach+style.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-06_manual_net_color+neuralnet+foreach+style.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/nn-08-tkz-berge-01+neuralnet+scope+foreach+pkg.png)
 
   * [nn-08-tkz-berge-01+neuralnet+scope+foreach+pkg.tex](https://github.com/walmes/Tikz/blob/master/src/nn-08-tkz-berge-01+neuralnet+scope+foreach+pkg.pgf)
@@ -428,6 +1280,42 @@ cat(readLines("./src/nn-05_auto_net_arr+neuralnet+style+foreach+learn.tex"), sep
 ```{r}
 # change pgf to tex
 cat(readLines("./src/nn-08-tkz-berge-01+neuralnet+scope+foreach+pkg.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/nn-09_manual_net+neuralnet+foreach+scope.png)
+
+  * [nn-09_manual_net+neuralnet+foreach+scope.tex](https://github.com/walmes/Tikz/blob/master/src/nn-09_manual_net+neuralnet+foreach+scope.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-09_manual_net+neuralnet+foreach+scope.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/nn-1h_manual_net+neuralnet+style+matrix+foreach.png)
+
+  * [nn-1h_manual_net+neuralnet+style+matrix+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/nn-1h_manual_net+neuralnet+style+matrix+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-1h_manual_net+neuralnet+style+matrix+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/nn-2_summarized+neuralnet+style+learn.png)
+
+  * [nn-2_summarized+neuralnet+style+learn.tex](https://github.com/walmes/Tikz/blob/master/src/nn-2_summarized+neuralnet+style+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-2_summarized+neuralnet+style+learn.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -480,6 +1368,18 @@ cat(readLines("./src/nn-auto_net_arr+neuralnet+foreach+style+foreach.tex"), sep 
 `r b`
 ****
 
+![](./src/nn-auto_net_bias_arr+neuralnet+learn+foreach+def+command+ifnum+style.png)
+
+  * [nn-auto_net_bias_arr+neuralnet+learn+foreach+def+command+ifnum+style.tex](https://github.com/walmes/Tikz/blob/master/src/nn-auto_net_bias_arr+neuralnet+learn+foreach+def+command+ifnum+style.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-auto_net_bias_arr+neuralnet+learn+foreach+def+command+ifnum+style.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/nn-auto_net_color+neuralnet+foreach.png)
 
   * [nn-auto_net_color+neuralnet+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/nn-auto_net_color+neuralnet+foreach.pgf)
@@ -492,6 +1392,18 @@ cat(readLines("./src/nn-auto_net_color+neuralnet+foreach.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/nn-auto_net_icon+neuralnet+style+foreach+set+function+learn.png)
+
+  * [nn-auto_net_icon+neuralnet+style+foreach+set+function+learn.tex](https://github.com/walmes/Tikz/blob/master/src/nn-auto_net_icon+neuralnet+style+foreach+set+function+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-auto_net_icon+neuralnet+style+foreach+set+function+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/nn-block_diagram-multilayer_perceptron+neuralnet+style+learn.png)
 
   * [nn-block_diagram-multilayer_perceptron+neuralnet+style+learn.tex](https://github.com/walmes/Tikz/blob/master/src/nn-block_diagram-multilayer_perceptron+neuralnet+style+learn.pgf)
@@ -500,6 +1412,54 @@ cat(readLines("./src/nn-auto_net_color+neuralnet+foreach.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/nn-block_diagram-multilayer_perceptron+neuralnet+style+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/nn-block_diagram-perceptron+neuralnet+set+learn.png)
+
+  * [nn-block_diagram-perceptron+neuralnet+set+learn.tex](https://github.com/walmes/Tikz/blob/master/src/nn-block_diagram-perceptron+neuralnet+set+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-block_diagram-perceptron+neuralnet+set+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/nn-discriminator+neuralnet+matrix+foreach+style.png)
+
+  * [nn-discriminator+neuralnet+matrix+foreach+style.tex](https://github.com/walmes/Tikz/blob/master/src/nn-discriminator+neuralnet+matrix+foreach+style.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-discriminator+neuralnet+matrix+foreach+style.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/nn-gan_complete+neuralnet.png)
+
+  * [nn-gan_complete+neuralnet.tex](https://github.com/walmes/Tikz/blob/master/src/nn-gan_complete+neuralnet.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-gan_complete+neuralnet.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/nn-gan_parts+neuralnet.png)
+
+  * [nn-gan_parts+neuralnet.tex](https://github.com/walmes/Tikz/blob/master/src/nn-gan_parts+neuralnet.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-gan_parts+neuralnet.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -524,6 +1484,18 @@ cat(readLines("./src/nn-gan_two_gan_types+neuralnet.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/nn-gan_vertical+neuralnet.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/nn-generative_adversarial_network_manual_net+neuralnet.png)
+
+  * [nn-generative_adversarial_network_manual_net+neuralnet.tex](https://github.com/walmes/Tikz/blob/master/src/nn-generative_adversarial_network_manual_net+neuralnet.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-generative_adversarial_network_manual_net+neuralnet.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -576,6 +1548,18 @@ cat(readLines("./src/nn-stacked_blocks+neuralnet+3d+def+pgf+set+style.tex"), sep
 `r b`
 ****
 
+![](./src/nn-SVM_manual+neuralnet.png)
+
+  * [nn-SVM_manual+neuralnet.tex](https://github.com/walmes/Tikz/blob/master/src/nn-SVM_manual+neuralnet.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/nn-SVM_manual+neuralnet.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/noise+diagram.png)
 
   * [noise+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/noise+diagram.pgf)
@@ -584,6 +1568,42 @@ cat(readLines("./src/nn-stacked_blocks+neuralnet+3d+def+pgf+set+style.tex"), sep
 ```{r}
 # change pgf to tex
 cat(readLines("./src/noise+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/ocean.png)
+
+  * [ocean.tex](https://github.com/walmes/Tikz/blob/master/src/ocean.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/ocean.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/paper_folding+misc+foreach.png)
+
+  * [paper_folding+misc+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/paper_folding+misc+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/paper_folding+misc+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/physics-diagram-handshake.png)
+
+  * [physics-diagram-handshake.tex](https://github.com/walmes/Tikz/blob/master/src/physics-diagram-handshake.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/physics-diagram-handshake.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -600,6 +1620,18 @@ cat(readLines("./src/physics-solenoid.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/physics-tau_decay_signatures+physics.png)
+
+  * [physics-tau_decay_signatures+physics.tex](https://github.com/walmes/Tikz/blob/master/src/physics-tau_decay_signatures+physics.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/physics-tau_decay_signatures+physics.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/pirates-games.png)
 
   * [pirates-games.tex](https://github.com/walmes/Tikz/blob/master/src/pirates-games.pgf)
@@ -612,6 +1644,54 @@ cat(readLines("./src/pirates-games.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/plot-curves-frequency_modulation+physics.png)
+
+  * [plot-curves-frequency_modulation+physics.tex](https://github.com/walmes/Tikz/blob/master/src/plot-curves-frequency_modulation+physics.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/plot-curves-frequency_modulation+physics.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/plot-curves-is_lm+plot+command.png)
+
+  * [plot-curves-is_lm+plot+command.tex](https://github.com/walmes/Tikz/blob/master/src/plot-curves-is_lm+plot+command.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/plot-curves-is_lm+plot+command.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/plot-curves-read_data+fileio+plot+pgf.png)
+
+  * [plot-curves-read_data+fileio+plot+pgf.tex](https://github.com/walmes/Tikz/blob/master/src/plot-curves-read_data+fileio+plot+pgf.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/plot-curves-read_data+fileio+plot+pgf.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/plot-derivatives+plot.png)
+
+  * [plot-derivatives+plot.tex](https://github.com/walmes/Tikz/blob/master/src/plot-derivatives+plot.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/plot-derivatives+plot.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/plot-electromagnetic_wave+physics.png)
 
   * [plot-electromagnetic_wave+physics.tex](https://github.com/walmes/Tikz/blob/master/src/plot-electromagnetic_wave+physics.pgf)
@@ -620,6 +1700,18 @@ cat(readLines("./src/pirates-games.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/plot-electromagnetic_wave+physics.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/plot-filled_curve+geometry.png)
+
+  * [plot-filled_curve+geometry.tex](https://github.com/walmes/Tikz/blob/master/src/plot-filled_curve+geometry.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/plot-filled_curve+geometry.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -648,6 +1740,18 @@ cat(readLines("./src/plot-linear-regression+geometry.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/plot-mesh+3d+pgf+function.png)
+
+  * [plot-mesh+3d+pgf+function.tex](https://github.com/walmes/Tikz/blob/master/src/plot-mesh+3d+pgf+function.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/plot-mesh+3d+pgf+function.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/plot-physics-functions.png)
 
   * [plot-physics-functions.tex](https://github.com/walmes/Tikz/blob/master/src/plot-physics-functions.pgf)
@@ -656,6 +1760,18 @@ cat(readLines("./src/plot-linear-regression+geometry.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/plot-physics-functions.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/plot-regression+geometry.png)
+
+  * [plot-regression+geometry.tex](https://github.com/walmes/Tikz/blob/master/src/plot-regression+geometry.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/plot-regression+geometry.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -672,6 +1788,18 @@ cat(readLines("./src/plot-shading_regions+geometry+pgf+command+def.tex"), sep = 
 `r b`
 ****
 
+![](./src/plot-spherical_coords+physics+3d.png)
+
+  * [plot-spherical_coords+physics+3d.tex](https://github.com/walmes/Tikz/blob/master/src/plot-spherical_coords+physics+3d.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/plot-spherical_coords+physics+3d.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/plot-two_plots_same_axis+fileio+pgf.png)
 
   * [plot-two_plots_same_axis+fileio+pgf.tex](https://github.com/walmes/Tikz/blob/master/src/plot-two_plots_same_axis+fileio+pgf.pgf)
@@ -684,6 +1812,30 @@ cat(readLines("./src/plot-two_plots_same_axis+fileio+pgf.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/poincare+physics+diagram+foreach+set+command.png)
+
+  * [poincare+physics+diagram+foreach+set+command.tex](https://github.com/walmes/Tikz/blob/master/src/poincare+physics+diagram+foreach+set+command.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/poincare+physics+diagram+foreach+set+command.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/polarization+3d+foreach.png)
+
+  * [polarization+3d+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/polarization+3d+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/polarization+3d+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/porter_model+diagram.png)
 
   * [porter_model+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/porter_model+diagram.pgf)
@@ -692,6 +1844,18 @@ cat(readLines("./src/plot-two_plots_same_axis+fileio+pgf.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/porter_model+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/radix_signal_flow+math+diagram+foreach+style+counter.png)
+
+  * [radix_signal_flow+math+diagram+foreach+style+counter.tex](https://github.com/walmes/Tikz/blob/master/src/radix_signal_flow+math+diagram+foreach+style+counter.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/radix_signal_flow+math+diagram+foreach+style+counter.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -720,6 +1884,18 @@ cat(readLines("./src/server_player+diagram.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/simple-right+diagram.png)
+
+  * [simple-right+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/simple-right+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/simple-right+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/simple-wrong+diagram.png)
 
   * [simple-wrong+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/simple-wrong+diagram.pgf)
@@ -732,6 +1908,42 @@ cat(readLines("./src/simple-wrong+diagram.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/steps+diagram.png)
+
+  * [steps+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/steps+diagram.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/steps+diagram.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/table-read_data+fileio+pgf+table.png)
+
+  * [table-read_data+fileio+pgf+table.tex](https://github.com/walmes/Tikz/blob/master/src/table-read_data+fileio+pgf+table.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/table-read_data+fileio+pgf+table.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-1990-2010-arr+timeline+foreach+learn.png)
+
+  * [time-1990-2010-arr+timeline+foreach+learn.tex](https://github.com/walmes/Tikz/blob/master/src/time-1990-2010-arr+timeline+foreach+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-1990-2010-arr+timeline+foreach+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/time-added-dots+timeline+style+text.png)
 
   * [time-added-dots+timeline+style+text.tex](https://github.com/walmes/Tikz/blob/master/src/time-added-dots+timeline+style+text.pgf)
@@ -740,6 +1952,42 @@ cat(readLines("./src/simple-wrong+diagram.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/time-added-dots+timeline+style+text.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-angling-text-1+timeline+foreach+learn.png)
+
+  * [time-angling-text-1+timeline+foreach+learn.tex](https://github.com/walmes/Tikz/blob/master/src/time-angling-text-1+timeline+foreach+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-angling-text-1+timeline+foreach+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-angling-text-2+timeline+foreach+learn.png)
+
+  * [time-angling-text-2+timeline+foreach+learn.tex](https://github.com/walmes/Tikz/blob/master/src/time-angling-text-2+timeline+foreach+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-angling-text-2+timeline+foreach+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-angling-text-3+timeline+foreach+learn.png)
+
+  * [time-angling-text-3+timeline+foreach+learn.tex](https://github.com/walmes/Tikz/blob/master/src/time-angling-text-3+timeline+foreach+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-angling-text-3+timeline+foreach+learn.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -792,6 +2040,114 @@ cat(readLines("./src/time-arrows-on-periods+timeline+foreach+style+learn.tex"), 
 `r b`
 ****
 
+![](./src/time-auto_time_scale+timeline+foreach+pgf.png)
+
+  * [time-auto_time_scale+timeline+foreach+pgf.tex](https://github.com/walmes/Tikz/blob/master/src/time-auto_time_scale+timeline+foreach+pgf.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-auto_time_scale+timeline+foreach+pgf.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-biographical-cornerstones-arr+timeline+style+learn+text.png)
+
+  * [time-biographical-cornerstones-arr+timeline+style+learn+text.tex](https://github.com/walmes/Tikz/blob/master/src/time-biographical-cornerstones-arr+timeline+style+learn+text.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-biographical-cornerstones-arr+timeline+style+learn+text.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-brace-and-dots-arr+timeline+style+text.png)
+
+  * [time-brace-and-dots-arr+timeline+style+text.tex](https://github.com/walmes/Tikz/blob/master/src/time-brace-and-dots-arr+timeline+style+text.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-brace-and-dots-arr+timeline+style+text.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-bracketed-intervals+timeline+decoration.png)
+
+  * [time-bracketed-intervals+timeline+decoration.tex](https://github.com/walmes/Tikz/blob/master/src/time-bracketed-intervals+timeline+decoration.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-bracketed-intervals+timeline+decoration.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-chronology-break-arr+timeline+text+advanced.png)
+
+  * [time-chronology-break-arr+timeline+text+advanced.tex](https://github.com/walmes/Tikz/blob/master/src/time-chronology-break-arr+timeline+text+advanced.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-chronology-break-arr+timeline+text+advanced.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-colored_custom_draw+timeline+text+pgf.png)
+
+  * [time-colored_custom_draw+timeline+text+pgf.tex](https://github.com/walmes/Tikz/blob/master/src/time-colored_custom_draw+timeline+text+pgf.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-colored_custom_draw+timeline+text+pgf.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-colored-periods+timeline+set+command+environment+text.png)
+
+  * [time-colored-periods+timeline+set+command+environment+text.tex](https://github.com/walmes/Tikz/blob/master/src/time-colored-periods+timeline+set+command+environment+text.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-colored-periods+timeline+set+command+environment+text.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-days-hours-minutes+timeline+foreach+set+multi.png)
+
+  * [time-days-hours-minutes+timeline+foreach+set+multi.tex](https://github.com/walmes/Tikz/blob/master/src/time-days-hours-minutes+timeline+foreach+set+multi.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-days-hours-minutes+timeline+foreach+set+multi.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-estimated-window+timeline+decoration+text.png)
+
+  * [time-estimated-window+timeline+decoration+text.tex](https://github.com/walmes/Tikz/blob/master/src/time-estimated-window+timeline+decoration+text.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-estimated-window+timeline+decoration+text.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/time-events-and-periods+timeline+set+command+pgf+scope.png)
 
   * [time-events-and-periods+timeline+set+command+pgf+scope.tex](https://github.com/walmes/Tikz/blob/master/src/time-events-and-periods+timeline+set+command+pgf+scope.pgf)
@@ -800,6 +2156,30 @@ cat(readLines("./src/time-arrows-on-periods+timeline+foreach+style+learn.tex"), 
 ```{r}
 # change pgf to tex
 cat(readLines("./src/time-events-and-periods+timeline+set+command+pgf+scope.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-long-labels-enumitem+timeline+text+style+foreach.png)
+
+  * [time-long-labels-enumitem+timeline+text+style+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/time-long-labels-enumitem+timeline+text+style+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-long-labels-enumitem+timeline+text+style+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-long-labels+timeline+text+learn.png)
+
+  * [time-long-labels+timeline+text+learn.tex](https://github.com/walmes/Tikz/blob/master/src/time-long-labels+timeline+text+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-long-labels+timeline+text+learn.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -816,6 +2196,42 @@ cat(readLines("./src/time-long-text+timeline+text+foreach.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/time-multiple-lines+timeline+set+pgf+foreach+command+scope+text.png)
+
+  * [time-multiple-lines+timeline+set+pgf+foreach+command+scope+text.tex](https://github.com/walmes/Tikz/blob/master/src/time-multiple-lines+timeline+set+pgf+foreach+command+scope+text.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-multiple-lines+timeline+set+pgf+foreach+command+scope+text.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-read-data+timeline+fileio+pgf+foreach+text.png)
+
+  * [time-read-data+timeline+fileio+pgf+foreach+text.tex](https://github.com/walmes/Tikz/blob/master/src/time-read-data+timeline+fileio+pgf+foreach+text.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-read-data+timeline+fileio+pgf+foreach+text.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-rotated-labels+timeline+foreach+text+set+learn.png)
+
+  * [time-rotated-labels+timeline+foreach+text+set+learn.tex](https://github.com/walmes/Tikz/blob/master/src/time-rotated-labels+timeline+foreach+text+set+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-rotated-labels+timeline+foreach+text+set+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/time-rounded-box-arr+timeline+pgf+style+foreach+learn.png)
 
   * [time-rounded-box-arr+timeline+pgf+style+foreach+learn.tex](https://github.com/walmes/Tikz/blob/master/src/time-rounded-box-arr+timeline+pgf+style+foreach+learn.pgf)
@@ -828,6 +2244,18 @@ cat(readLines("./src/time-rounded-box-arr+timeline+pgf+style+foreach+learn.tex")
 `r b`
 ****
 
+![](./src/time-simple_project+timeline+text+foreach+learn.png)
+
+  * [time-simple_project+timeline+text+foreach+learn.tex](https://github.com/walmes/Tikz/blob/master/src/time-simple_project+timeline+text+foreach+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-simple_project+timeline+text+foreach+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/time-simple+timeline+foreach+snake+decoration+learn.png)
 
   * [time-simple+timeline+foreach+snake+decoration+learn.tex](https://github.com/walmes/Tikz/blob/master/src/time-simple+timeline+foreach+snake+decoration+learn.pgf)
@@ -836,6 +2264,54 @@ cat(readLines("./src/time-rounded-box-arr+timeline+pgf+style+foreach+learn.tex")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/time-simple+timeline+foreach+snake+decoration+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-snake_frames_and_arrows+timeline+figure+foreach.png)
+
+  * [time-snake_frames_and_arrows+timeline+figure+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/time-snake_frames_and_arrows+timeline+figure+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-snake_frames_and_arrows+timeline+figure+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-snake_timescale+physics+timeline+def+foreach+multi+learn.png)
+
+  * [time-snake_timescale+physics+timeline+def+foreach+multi+learn.tex](https://github.com/walmes/Tikz/blob/master/src/time-snake_timescale+physics+timeline+def+foreach+multi+learn.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-snake_timescale+physics+timeline+def+foreach+multi+learn.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-t-delta-t+timeline+text+decoration.png)
+
+  * [time-t-delta-t+timeline+text+decoration.tex](https://github.com/walmes/Tikz/blob/master/src/time-t-delta-t+timeline+text+decoration.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-t-delta-t+timeline+text+decoration.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/time-time_evolution+timeline+3d+foreach+set+command.png)
+
+  * [time-time_evolution+timeline+3d+foreach+set+command.tex](https://github.com/walmes/Tikz/blob/master/src/time-time_evolution+timeline+3d+foreach+set+command.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/time-time_evolution+timeline+3d+foreach+set+command.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -908,5 +2384,29 @@ cat(readLines("./src/time-year-event+timeline+set+foreach+learn.tex"), sep = "\n
 ```{r}
 # change pgf to tex
 cat(readLines("./src/transparent_circles+multi+pgf+set.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/tree_sibiling+tree.png)
+
+  * [tree_sibiling+tree.tex](https://github.com/walmes/Tikz/blob/master/src/tree_sibiling+tree.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/tree_sibiling+tree.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/tree-networked_game.png)
+
+  * [tree-networked_game.tex](https://github.com/walmes/Tikz/blob/master/src/tree-networked_game.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/tree-networked_game.tex"), sep = "\n")
 ```
 `r b`

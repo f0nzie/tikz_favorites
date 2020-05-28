@@ -14,7 +14,7 @@ Implementing a tag system based of identifiers that are included in the filename
 * Characters that pass this script: `@`, `!`, `=`, `+`.
 * Character that do not pass: `#`.
 
-**Selecting `=`.**
+**Selecting the equal symbol `=`.**
 
 
 ```{r setup, include=FALSE}

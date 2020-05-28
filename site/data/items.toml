@@ -1231,6 +1231,14 @@ description = "github.com/walmes/Tikz"
 url = "../../src/porter_model+diagram.tex"
  
 [[items]]
+title = "positioning_blocks+diagram+foreach+scope+set+frame"
+image = "../../src/positioning_blocks+diagram+foreach+scope+set+frame.png"
+thumb = "../../src/positioning_blocks+diagram+foreach+scope+set+frame.png"
+alt = "positioning_blocks+diagram+foreach+scope+set+frame"
+description = "github.com/walmes/Tikz"
+url = "../../src/positioning_blocks+diagram+foreach+scope+set+frame.tex"
+ 
+[[items]]
 title = "radix_signal_flow+math+diagram+foreach+style+counter"
 image = "../../src/radix_signal_flow+math+diagram+foreach+style+counter.png"
 thumb = "../../src/radix_signal_flow+math+diagram+foreach+style+counter.png"
