@@ -7,6 +7,6 @@ site/data/items.toml
 README.html
 utils/*.html
 site/data/items.toml
-site/*.pdf
-site/*.png
+src/*.pdf
+src/*.png
 
