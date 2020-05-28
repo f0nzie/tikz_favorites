@@ -1,5 +1,5 @@
 #!/bin/sh
-# script to build PDF and PNG files executing my custom script `pdflatexpng`
+# script to build multiple PDF and PNG files executing custom script `pdflatexpng`
 
 
   cd src/    # change to where tex files are
