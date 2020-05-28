@@ -1,8 +1,9 @@
 #!/usr/bin/Rscript
-
+# R script to build the configuration file for Hugo static website
+# The output configuration file is "site/data/items.toml"
 #-----------------------------------------------------------------------
-# Clone the theme.
 
+# Clone the theme.
 if (!dir.exists("site/themes/hugrid")) {
     cat("Cloning the theme:\n")
     system("git clone https://github.com/aerohub/hugrid.git site/themes/hugrid")
@@ -16,6 +17,8 @@ invisible(file.remove(list.files("./src",
                                  full.names = TRUE)))
 
 #-----------------------------------------------------------------------
+# modification of the original script. allows addition of tags as suffix
+# TODO: add AND condition for multiple tags. Example: +3d+foreach
 suffix <- ""
 ext <- "png"
 pattern <- paste0("^", suffix, ".*", "\\.", ext, "$")
@@ -26,7 +29,7 @@ fls <- dir(path = "src",
            pattern = pattern,
            full.names = FALSE)
 
-cat(length(fls), "files \n")
+cat(length(fls), "files \n")  # TODO: stop if length = 0; no PNG files
 
 item_content <- function(file) {
     filename <- sub("\\.png$", "", file)
@@ -52,17 +55,19 @@ item_content <- function(file) {
         append = TRUE)
 }
 
-if (!dir.exists("site/data")) {
+if (!dir.exists("site/data")) {      # add folder site/data
     dir.create("site/data")
 }
 
-if (!dir.exists("site/content")) {
+if (!dir.exists("site/content")) {   # add folder site/content
     dir.create("site/content")
 }
 
-if (file.exists("site/data/items.toml")) {
+if (file.exists("site/data/items.toml")) {   # remove older items.toml
     invisible(file.remove("site/data/items.toml"))
 }
+
+# create items.toml from PNG files detected
 cat("Creating/updating the `site/data/items.toml` file.\n")
 invisible(sapply(fls, item_content))
 
