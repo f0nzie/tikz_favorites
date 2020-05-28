@@ -1,0 +1,38 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+# do not run because files have been renamed
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+```{r}
+tex_files_ <- list.files("./src", pattern = "*\\.tex$", full.names = TRUE)
+
+# get only .tex files; ignore .code.tex
+tex_files <- grep(pattern = "\\.code", tex_files_, perl = TRUE, value = TRUE, 
+                  invert = TRUE)
+tex_files
+```
+
+
+```{r}
+# files that only have "+timeline"
+tex_timeline <- grep(pattern = ".*\\+timeline.*", tex_files, 
+                     perl = TRUE, value = TRUE)
+tex_timeline
+```
+
+```{r}
+# add prefix "time"
+tex_time <- gsub("src\\/", "src\\/time-", tex_timeline, perl = TRUE)
+tex_time
+```
+
+```{r}
+# rename files
+file.rename(from = tex_timeline, to = tex_time)
+```
+
