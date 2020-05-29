@@ -16,9 +16,25 @@ tree -h -F public/ -L 1
 # tree -h -F _site/scripts
 # tree -h -F _site/tutorials
 
-# Open firefox from terminal https://superuser.com/a/476852/653825
-# open -a firefox public/index.html
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    CYGWIN*)    machine=Cygwin;;
+    MINGW*)     machine=MinGw;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
+# echo ${machine}
+if [ ${machine} = Linux ];then
+    echo Linux rulez
+    # in Linux
+    firefox public/index.html
+elif [ ${machine} = Mac ];then    
+    echo Mac rulez
+    # Mac open firefox from terminal https://superuser.com/a/476852/653825
+    open -a firefox public/index.html
+else 
+    echo unknown
+fi
 
-# in Linux
-firefox public/index.html
 
