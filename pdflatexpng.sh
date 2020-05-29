@@ -10,7 +10,7 @@ echo $file
 pdflatex -interaction=batchmode $file > /dev/null 2>&1 && gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$name.png -dNOPAUSE -r1200 $name.pdf
 
 # ls -lh $name.png | cut -d " " -f14 -f10 # FIX sometimes doesn't return right column
-du -sh $name.png
+du -sh $name.png   # returns file size and name of PNG
 
 rm $name.log
 rm $name.aux
