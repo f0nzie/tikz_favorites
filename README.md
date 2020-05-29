@@ -14,7 +14,7 @@ Implementing a tag system based of identifiers that are included in the filename
 * Characters that pass this script: `@`, `!`, `=`, `+`.
 * Character that do not pass: `#`.
 
-**Selecting `=`.**
+**Selecting the equal symbol `=`.**
 
 
 
@@ -26,7 +26,7 @@ Implementing a tag system based of identifiers that are included in the filename
 
 This is my collection, or gallery, of Tikz Art.  
 
-There are 201 Tikz figures in this gallery. 
+There are 207 Tikz figures in this gallery. 
 
 These are coming from ...
 
@@ -852,6 +852,89 @@ This code was written by cmhughes on TeX.SE.
 ```
 ****
 
+![](./src/add_tikz_symbols_to_block_arr+symbol+diagram+command+style.png)
+
+  * [add_tikz_symbols_to_block_arr+symbol+diagram+command+style.tex](https://github.com/walmes/Tikz/blob/master/src/add_tikz_symbols_to_block_arr+symbol+diagram+command+style.pgf)
+
+```tex
+\documentclass[border=10]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes,arrows}
+
+
+\newcommand{\symbolA}{
+	% red symbol
+	\tikz \draw[red] (0,0)--(0,0.2)--(0.2,0.2)--(0.2,0.4)--(0.4,0.4);
+}
+
+\newcommand{\symbolB}{
+	% blue symbol
+	\tikz[y={(0,-1)}] \draw[blue] (0,0)--(0,0.2)--(0.2,0.2)--(0.2,0.4)--(0.4,0.4);
+}
+
+\newcommand{\symbolC}{
+	% another way to add symbols
+	\begin{tikzpicture}
+		\draw[fill=green] (0,0) circle (0.2cm);
+	\end{tikzpicture}
+}
+
+\begin{document}
+
+\tikzstyle{block} = [draw, fill=blue!20,  rectangle, 
+    minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-, thin, black}]
+
+% The block diagram code is probably more verbose than necessary
+\begin{tikzpicture}[auto,  node distance=2cm, >=latex']
+
+    % We start by placing the blocks
+    \node [input, name=input] {};
+    \node [sum, right of=input] (sum) {};
+    \node [block, right of=sum] (controller) {\symbolA};
+    
+    % add label to controller
+     \node[above of=controller] (ctrlabel)  [yshift=-0.75cm] {Controller};
+     % add arrow from label to box
+    \draw[->] (ctrlabel) -- (controller);
+    
+    % this is option 1: adding label on top
+%    \node [block, right of=controller, pin={[pinstyle] above:Disturbances},
+%            node distance=3cm] (system) {\symbolB};
+	% this option 2: adding label on top
+    \node [block, right of=controller, node distance=3cm] (system) {\symbolB};
+    % add label "Disturbances" above system
+    \node[above of=system] (syslabel) [yshift=-0.75cm] {Disturbances};
+    \draw[->] (syslabel) -- (system);
+
+    % We draw an edge between the controller and system block to 
+    % calculate the coordinate "u". We need it to place the measurement block. 
+    \draw [->] (controller) -- node[name=u] {$u$} (system);
+    \node [output, right of=system] (output) {};
+    \node [block, below of=u] (measurements) {\symbolC};
+    
+    % add label to "measurements" block
+     \node[below of=measurements] (mealabel) [yshift=0.75cm] {Measurements};
+    \draw[->] (mealabel) -- (measurements);
+    
+
+    % Once the nodes are placed, connecting them is easy. 
+    \draw [draw,->] (input) -- node {$r$} (sum);
+    \draw [->] (sum) -- node {$e$} (controller);
+    \draw [->] (system) -- node [name=y] {$y$}(output);
+    \draw [->] (y) |- (measurements);
+%    \draw [->] (measurements) -| node[pos=0.99] {$-$} 
+%        node [near end] {$y_m$} (sum);
+    \draw [->] (measurements) -|  node  [near end] {$y_m$} (sum);
+    \draw (sum) node [yshift=-7, xshift=-7]  {$-$};
+\end{tikzpicture}
+\end{document}
+```
+****
+
 ![](./src/box_arrows+diagram.png)
 
   * [box_arrows+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/box_arrows+diagram.pgf)
@@ -1638,64 +1721,6 @@ $$
 ```
 ****
 
-![](./src/drawing_inside_box_bigger+symbol+diagram+command+style.png)
-
-  * [drawing_inside_box_bigger+symbol+diagram+command+style.tex](https://github.com/walmes/Tikz/blob/master/src/drawing_inside_box_bigger+symbol+diagram+command+style.pgf)
-
-```tex
-\documentclass[border=10]{standalone}
-\usepackage{tikz}
-\usetikzlibrary{positioning,shapes,arrows}
-
-
-\newcommand{\symbolA}{
-\tikz \draw[red] (0,0)--(0,0.2)--(0.2,0.2)--(0.2,0.4)--(0.4,0.4);
-}
-
-\newcommand{\symbolB}{
-\tikz[y={(0,-1)}] \draw[blue] (0,0)--(0,0.2)--(0.2,0.2)--(0.2,0.4)--(0.4,0.4);
-}
-
-\newcommand{\symbolC}{
-\begin{tikzpicture}
-\draw[fill=green] (0,0) circle (0.2cm);
-\end{tikzpicture}
-}
-\begin{document}
-
-\tikzstyle{block} = [draw, fill=blue!20, rectangle, 
-    minimum height=3em, minimum width=6em]
-\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
-\tikzstyle{input} = [coordinate]
-\tikzstyle{output} = [coordinate]
-\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
-
-% The block diagram code is probably more verbose than necessary
-\begin{tikzpicture}[auto, node distance=2cm,>=latex']
-    % We start by placing the blocks
-    \node [input, name=input] {};
-    \node [sum, right of=input] (sum) {};
-    \node [block, right of=sum] (controller) {\symbolA};
-    \node [block, right of=controller, pin={[pinstyle]above:Disturbances},
-            node distance=3cm] (system) {\symbolB};
-    % We draw an edge between the controller and system block to 
-    % calculate the coordinate u. We need it to place the measurement block. 
-    \draw [->] (controller) -- node[name=u] {$u$} (system);
-    \node [output, right of=system] (output) {};
-    \node [block, below of=u] (measurements) {\symbolC};
-
-    % Once the nodes are placed, connecting them is easy. 
-    \draw [draw,->] (input) -- node {$r$} (sum);
-    \draw [->] (sum) -- node {$e$} (controller);
-    \draw [->] (system) -- node [name=y] {$y$}(output);
-    \draw [->] (y) |- (measurements);
-    \draw [->] (measurements) -| node[pos=0.99] {$-$} 
-        node [near end] {$y_m$} (sum);
-\end{tikzpicture}
-\end{document}
-```
-****
-
 ![](./src/drawstack+diagram.png)
 
   * [drawstack+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/drawstack+diagram.pgf)
@@ -1770,6 +1795,8 @@ $$
   * [elem-10_circles+elem+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/elem-10_circles+elem+foreach.pgf)
 
 ```tex
+% modified by +arr
+% add label number to each of the circles
 \documentclass[crop, border=10pt, tikz]{standalone}
 
 \usepackage{tikz}
@@ -1777,8 +1804,10 @@ $$
 \begin{document}
 
 \begin{tikzpicture}
-	\foreach \x in {1,...,10}
-		\draw (\x,0) circle (0.4cm);
+	\foreach \x in {1,...,10} {
+		\draw (\x,0) circle (0.4cm) node {\x}; % add label number
+		\draw (\x,1) circle (0.4cm) node {\x}; % draw second row
+	}
 \end{tikzpicture}
 
 \end{document}
@@ -1790,6 +1819,8 @@ $$
   * [elem-circle_axes_ticks+elem+geometry+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/elem-circle_axes_ticks+elem+geometry+foreach.pgf)
 
 ```tex
+% modified by +arr
+% change tick color and thickness 
 %\documentclass[tikz,border=15pt]{standalone}
 \documentclass[crop,border=15pt]{standalone}
 
@@ -1799,6 +1830,7 @@ $$
 
 % ticks on the axes
 \begin{tikzpicture}[scale=3]
+
 	% draw the axes
 	\draw[->] (-1.5,0) -- (1.5,0);
 	\draw[->] (0,-1.5) -- (0,1.5);
@@ -1808,9 +1840,10 @@ $$
 	
 	% draw the ticks
 	\foreach \x in {-1cm,-0.5cm,1cm}
-	\draw (\x,-1pt) -- (\x,1pt);
+		\draw[red,thick] (\x,-1pt) -- (\x,1pt);
 	\foreach \y in {-1cm,-0.5cm,0.5cm,1cm}
-	\draw (-1pt,\y) -- (1pt,\y);
+		\draw[red, thick] (-1pt,\y) -- (1pt,\y);
+		
 \end{tikzpicture}
 
 \end{document}
@@ -1822,6 +1855,8 @@ $$
   * [elem-circle_grided+elem+geometry.tex](https://github.com/walmes/Tikz/blob/master/src/elem-circle_grided+elem+geometry.pgf)
 
 ```tex
+% +arr: even thinner grid
+
 \documentclass[tikz,border=10pt]{standalone}
 %\documentclass[crop, tikz]{standalone}
 
@@ -1830,34 +1865,12 @@ $$
 \begin{document}
 	
 \begin{tikzpicture}
-\draw[step=.5cm,gray,very thin] (-1.4,-1.4) grid(1.4,1.4);
-\draw (-1.5,0) -- (1.5,0);
-\draw (0,-1.5) -- (0,1.5);
-\draw (0,0) circle (1cm);
+	\draw[step=.5cm,gray!50,very thin] (-1.4,-1.4) grid(1.4,1.4);
+	\draw (-1.5,0) -- (1.5,0);
+	\draw (0,-1.5) -- (0,1.5);
+	\draw (0,0) circle (1cm);
 \end{tikzpicture}
 	
-\end{document}
-```
-****
-
-![](./src/elem-circle_grided+elem+geometry+manual.png)
-
-  * [elem-circle_grided+elem+geometry+manual.tex](https://github.com/walmes/Tikz/blob/master/src/elem-circle_grided+elem+geometry+manual.pgf)
-
-```tex
-\documentclass[border=10pt]{standalone}
-\usepackage{tikz}
-
-\begin{document}
-
-
-\begin{tikzpicture}
-    \draw (-1.5,0) -- (1.5,0);
-    \draw (0,-1.5) -- (0,1.5);
-    \draw (0,0) circle (1cm);
-    \draw[step=.5cm] (-1.4,-1.4) grid (1.4,1.4);
-\end{tikzpicture}
-
 \end{document}
 ```
 ****
@@ -1875,54 +1888,14 @@ $$
 \begin{document}
 	
 \begin{tikzpicture}
-\draw (-1.5,0) -- (1.5,0);
-\draw (0,-1.5) -- (0,1.5);
-\draw (-1,0) .. controls (-1,0.555) and (-0.555,1) .. (0,1)
-.. controls (0.555,1) and (1,0.555) .. (1,0);
+	% draw axis
+	\draw (-1.5,0) -- (1.5,0);
+	\draw (0,-1.5) -- (0,1.5);
+	
+	\draw (-1,0) .. controls (-1,0.555) and (-0.555,1) .. (0,1)
+	.. controls (0.555,1) and (1,0.555) .. (1,0);
 \end{tikzpicture}
 	
-\end{document}
-```
-****
-
-![](./src/elem-cube_finer_grid+elem+foreach+command.png)
-
-  * [elem-cube_finer_grid+elem+foreach+command.tex](https://github.com/walmes/Tikz/blob/master/src/elem-cube_finer_grid+elem+foreach+command.pgf)
-
-```tex
-\documentclass[tikz,border=45pt]{standalone}
-%\usepackage[margin=15mm]{geometry}
-\usepackage{tikz}
-
-
-\newcommand{\tikzcuboid}[4]{% width, height, depth, scale
-	\begin{tikzpicture}[scale=#4]
-		\foreach \x in {0,...,#1}
-		{   \draw (\x ,0  ,#3 ) -- (\x ,#2 ,#3 );
-		    \draw (\x ,#2 ,#3 ) -- (\x ,#2 ,0  );
-		}
-		\foreach \x in {0,...,#2}
-		{   \draw (#1 ,\x ,#3 ) -- (#1 ,\x ,0  );
-		    \draw (0  ,\x ,#3 ) -- (#1 ,\x ,#3 );
-		}
-		\foreach \x in {0,...,#3}
-		{   \draw (#1 ,0  ,\x ) -- (#1 ,#2 ,\x );
-		    \draw (0  ,#2 ,\x ) -- (#1 ,#2 ,\x );
-		}
-	\end{tikzpicture}
-}
-
-\newcommand{\tikzcube}[2]{% length, scale
-	\tikzcuboid{#1}{#1}{#1}{#2}
-}
-
-
-\begin{document}
-
-
-	\tikzcuboid{11}{7}{5}{0.5}
-%	\tikzcube{13}{0.25}
-
 \end{document}
 ```
 ****
@@ -1958,12 +1931,95 @@ $$
 ```
 ****
 
+![](./src/elem-cuboid_finer_grid+elem+foreach+command.png)
+
+  * [elem-cuboid_finer_grid+elem+foreach+command.tex](https://github.com/walmes/Tikz/blob/master/src/elem-cuboid_finer_grid+elem+foreach+command.pgf)
+
+```tex
+% arr: move draw to two tikz environments not document
+%	change paper size with geometry
+% add manual way of creating a cuboid
+
+\documentclass{article}
+\usepackage{geometry}
+\geometry{
+	a5paper,
+	left=10mm,
+	top=20mm,
+} % https://www.overleaf.com/learn/latex/page_size_and_margins
+
+\usepackage{tikz}
+
+
+\newcommand{\tikzcuboid}[4]{% width, height, depth, scale
+	% define tikz object
+	\begin{tikzpicture}[scale=#4]
+		\foreach \x in {0,...,#1}
+		{   \draw (\x ,0  ,#3 ) -- (\x ,#2 ,#3 );
+		    \draw (\x ,#2 ,#3 ) -- (\x ,#2 ,0  );
+		}
+		\foreach \x in {0,...,#2}
+		{   \draw (#1 ,\x ,#3 ) -- (#1 ,\x ,0  );
+		    \draw (0  ,\x ,#3 ) -- (#1 ,\x ,#3 );
+		}
+		\foreach \x in {0,...,#3}
+		{   \draw (#1 ,0  ,\x ) -- (#1 ,#2 ,\x );
+		    \draw (0  ,#2 ,\x ) -- (#1 ,#2 ,\x );
+		}
+	\end{tikzpicture}
+}
+
+\newcommand{\tikzcube}[2]{% length, scale
+	\tikzcuboid{#1}{#1}{#1}{#2}
+}
+
+
+\begin{document}
+	
+\begin{tikzpicture}[scale=0.5]
+	% manual way of creating a cuboid drawing lines
+	\foreach \x in {0,...,11}
+	{   \draw[gray] (\x, 0, 5 ) -- (\x, 7, 5 );
+		\draw[gray] (\x, 7, 5 ) -- (\x, 7, 0 );
+	}
+	\foreach \x in {0,...,7}
+	{   \draw[gray!75] (11, \x, 5) -- (11, \x, 0);
+		\draw[gray!75] (0, \x, 5) -- (11, \x, 5);
+	}
+	\foreach \x in {0,...,5}
+		{   \draw[gray!25]  (11, 0, \x ) -- (11, 7, \x);
+			\draw[gray!25]  (0, 7, \x) -- (11, 7, \x);
+	}
+\end{tikzpicture}
+
+\vspace{35pt}
+
+\begin{tikzpicture}
+	\tikzcuboid{11}{7}{5}{0.5}
+\end{tikzpicture}
+
+\vspace{20pt}
+
+\begin{tikzpicture}
+	\tikzcube{13}{0.25}
+\end{tikzpicture}
+
+
+
+\end{document}
+```
+****
+
 ![](./src/elem-cylinder+elem+3d+foreach+function.png)
 
   * [elem-cylinder+elem+3d+foreach+function.tex](https://github.com/walmes/Tikz/blob/master/src/elem-cylinder+elem+3d+foreach+function.pgf)
 
 ```tex
 % +3d+foreach+function
+% +arr: change paper size, add comments
+%	indent plot function, space parameters
+% this could be the easiest way to draw 3d objects by using plot and function
+
 \documentclass[tikz,border=5pt]{standalone}
 \usetikzlibrary{shapes.geometric}
 \usepackage{tikz-3dplot}
@@ -1971,16 +2027,19 @@ $$
 
 \begin{document}
 
-\tdplotsetmaincoords{70}{30}
-\begin{tikzpicture}[tdplot_main_coords]
+\tdplotsetmaincoords{70}{30}   % projection angle
 
+\begin{tikzpicture}[tdplot_main_coords]
+	% add axis x, y, z
 	\draw[->] (0,-4,0) -- (0,4,0) node[above right] {$x$};
 	\draw[->] (-4,0,0) -- (4,0,0) node[below right] {$y$};
 	\draw[->] (0,0,4) -- (0,0,-4) node[below right] {$z$};
 	
-	\draw plot[variable=\x,domain=0:360,samples=180] ({cos(\x)},-1.25,{sin(\x)});
-	\draw plot[variable=\x,domain=-45:135,samples=180] ({cos(\x)},1.25,{sin(\x)});
+	% using plot function to add top and bottom of cylinder
+	\draw plot[variable=\x, domain=0:360, samples=180]    ( {cos(\x)}, -1.25, {sin(\x)} );
+	\draw plot[variable=\x, domain=-45:135, samples=180] ( {cos(\x)},  1.25, {sin(\x)} );
 	
+	% draw sides of cylinder using the angles
 	\foreach \x in {135,-45} { 
 		\draw ({cos(\x)},-1.25,{sin(\x)}) -- ({cos(\x)},1.25,{sin(\x)});}
 	%\node (a) [draw, cylinder, shape aspect=1.8, rotate=180, minimum height=25mm, minimum width=12mm] {};
@@ -1996,6 +2055,7 @@ $$
   * [elem-draw_ticks+elem+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/elem-draw_ticks+elem+foreach.pgf)
 
 ```tex
+% arr: add line, change color
 \documentclass[tikz,border=10pt]{standalone}
 
 \usepackage{tikz}
@@ -2005,8 +2065,9 @@ $$
 % draw ticks
 \begin{tikzpicture}
 	% If you provide two numbers before the ..., the \foreach statement will use their diﬀerence for the stepping:
+	\draw[gray!75] (-1,0) -- (1, 0);   % draw line
 	\foreach \x in {-1,-0.5,...,1}
-	\draw (\x cm,-1pt) -- (\x cm,1pt);
+		\draw (\x cm,-1pt) -- (\x cm,1pt);
 \end{tikzpicture}
 
 \end{document}
@@ -2072,13 +2133,50 @@ $$
 ```
 ****
 
-![](./src/elem-grid_RBG-7x7+elem+3d+pgf+foreach.png)
+![](./src/elem-grid_RBG_draw_boxes+elem+foreach+style.png)
 
-  * [elem-grid_RBG-7x7+elem+3d+pgf+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/elem-grid_RBG-7x7+elem+3d+pgf+foreach.pgf)
+  * [elem-grid_RBG_draw_boxes+elem+foreach+style.tex](https://github.com/walmes/Tikz/blob/master/src/elem-grid_RBG_draw_boxes+elem+foreach+style.pgf)
+
+```tex
+% arr: add comments, indent code
+%	change cell color to gray
+
+\documentclass[tikz,border=10pt]{standalone}
+%\documentclass[crop, tikz]{standalone}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+	[%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	box/.style={rectangle, draw=black, thick, minimum size=1cm, fill=gray!10},
+	]%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	% draw boxes based on (x,y) coordinates
+	\foreach \x in {0,1,...,10} {
+		\foreach \y in {0,1,...,10}   
+			\node[box] at (\x, \y) {}; 
+	}
+	
+	\node[box, fill=green] at (8,8){};  
+	\node[box, fill=red  ] at (5,5){};  
+	\node[box, fill=blue ] at (2,2){};  
+
+\end{tikzpicture}
+
+\end{document}
+```
+****
+
+![](./src/elem-grid_RBG_draw_lines+elem+3d+pgf+foreach.png)
+
+  * [elem-grid_RBG_draw_lines+elem+3d+pgf+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/elem-grid_RBG_draw_lines+elem+3d+pgf+foreach.pgf)
 
 ```tex
 % https://tex.stackexchange.com/a/271584/173708
-% Modified by ARR for 7z7 plane
+% Modified by +arr for 7x7 plane, change paper size
+% add comments
 
 \documentclass[border={10}]{standalone}
 \usepackage{tikz}  
@@ -2086,6 +2184,7 @@ $$
 
 \tdplotsetmaincoords{60}{125} % view angles
 \tdplotsetrotatedcoords{0}{0}{0} 
+
 \begin{document}
 
 \begin{tikzpicture}
@@ -2096,92 +2195,15 @@ $$
 
     %draw a grid in the x-y plane
     \foreach \x in {0,1,...,7}
-        \foreach \y in {0,1,...,7}
-        {
-            \draw[grid] (\x,0) -- (\x,7);
-            \draw[grid] (0,\y) -- (7,\y);
+        \foreach \y in {0,1,...,7} {
+            \draw[grid] (\x,0) -- (\x,7);     % draw horizontal lines
+            \draw[grid] (0,\y) -- (7,\y);  % draw vertical lines
         };
-    \draw[fill=blue]    (0,0,0) -- (0,1,0) -- (1,1,0) -- (1,0,0) -- cycle;
+    
+    \draw[fill=blue]     (0,0,0) -- (0,1,0) -- (1,1,0) -- (1,0,0) -- cycle;
     \draw[fill=green ]  (1,1,0) -- (2,1,0) -- (2,2,0) -- (1,2,0) -- cycle;
 
 \end{tikzpicture}    
-\end{document}
-```
-****
-
-![](./src/elem-grid_RBG+elem+foreach+style.png)
-
-  * [elem-grid_RBG+elem+foreach+style.tex](https://github.com/walmes/Tikz/blob/master/src/elem-grid_RBG+elem+foreach+style.pgf)
-
-```tex
-\documentclass[tikz,border=10pt]{standalone}
-%\documentclass[crop, tikz]{standalone}
-
-\usepackage{tikz}
-
-\begin{document}
-
-\begin{tikzpicture}
-	[%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	box/.style={rectangle,draw=black,thick, minimum size=1cm},
-	]%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
-	\foreach \x in {0,1,...,10}{
-		\foreach \y in {0,1,...,10}
-		\node[box] at (\x,\y){};
-	}
-	
-	\node[box,fill=green] at (8,8){};  
-	\node[box,fill=red  ] at (5,5){};  
-	\node[box,fill=blue ] at (2,2){};  
-
-\end{tikzpicture}
-
-\end{document}
-```
-****
-
-![](./src/elem-helpme+elem+diagram.png)
-
-  * [elem-helpme+elem+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/elem-helpme+elem+diagram.pgf)
-
-```tex
-\documentclass[tikz, margin=3mm]{standalone}
-    \usetikzlibrary{positioning, shapes.symbols}
-
-\begin{document}
-   \begin{tikzpicture}[ 
-   node distance = 4mm and 16mm,
-mynode/.style = {shape=signal, signal to=west and east,
-                 draw, color = #1,
-                 text width=1.3cm, align=flush center, 
-                 inner xsep=0mm, inner ysep=2mm, font=\small}
-                 ]
-% main nodes
-\node (A) [mynode=magenta]            {Text 2};
-\node (B) [mynode=blue, below=of A]   {Text 3};
-\node (C) [mynode=teal, below=of B]   {Text 4};
-% coordinates for lines
-\coordinate[left=of B.west]     (in2);
-\coordinate[left=of in2]        (in1);
-\coordinate[right=of B.east]    (out1);
-\coordinate[right=of out1]      (out2);
-% dashed arrows
-    \begin{scope}[latex-, dashed, shorten >=1mm]
-\draw[magenta] (A.west) -- + (-0.8,0) -- (in2);
-\draw[blue]     (B.west) -- (in2);
-\draw[magenta] (C.west) -- + (-0.8,0) -- (in2);
-    \end{scope}
-    \begin{scope}[-latex, dashed, shorten >=1mm]
-\draw[magenta] (A.east) -- + (0.8,0) -- (out1);
-\draw[blue]     (B.east) -- (out1);
-\draw[magenta] (C.east) -- + (0.8,0) -- (out1);
-    \end{scope}
-% arrows with text
-\draw[-latex] (in1) -- node[above] {Text 1} (in2);
-\draw[-latex] (out1) -- node[above] {Text 5} (out2);
-%--------------
-   \end{tikzpicture}
 \end{document}
 ```
 ****
@@ -2197,13 +2219,13 @@ mynode/.style = {shape=signal, signal to=west and east,
 \begin{document}
 
 \begin{tikzpicture} [spy using outlines={circle, magnification=8, size=2cm, connect spies, transform shape}]
-  \draw[red] (2.9,0) -- (2.9,4);
-  \draw[help lines] (0,0) grid (4,4);
-  \draw (0,0) -- (3,3) -- (3,0);
-%   \begin{pgfonlayer}{background}
-%    \draw[red] (2.9,0) -- (2.9,4);
-%   \end{pgfonlayer}
-  \spy [black] on (3,3) in node [left] at (6,5.5);
+	  \draw[red] (2.9,0) -- (2.9,4);
+	  \draw[help lines] (0,0) grid (4,4);
+	  \draw (0,0) -- (3,3) -- (3,0);
+	%   \begin{pgfonlayer}{background}
+	%    \draw[red] (2.9,0) -- (2.9,4);
+	%   \end{pgfonlayer}
+	  \spy [black] on (3,3) in node [left] at (6,5.5);
 \end{tikzpicture}
 \end{document}
 ```
@@ -2222,13 +2244,45 @@ mynode/.style = {shape=signal, signal to=west and east,
 	\draw[help lines] (0,0) grid (4,2);
 	\node [matrix,fill=red!20,draw=blue,very thick] (my matrix) at (2,1)
 	{
-	\draw (0,0) circle (4mm); & \node[rotate=10] {Hello}; \\
-	\draw (0.2,0) circle (2mm); & \fill[red] (0,0) circle (3mm); \\
+		\draw (0,0) circle (4mm); & \node[rotate=10] {Hello}; \\
+		\draw (0.2,0) circle (2mm); & \fill[red] (0,0) circle (3mm); \\
 	};
 	
 	\draw [very thick,->] (0,0) |- (my matrix.west);
 \end{tikzpicture}
 \end{document}
+```
+****
+
+![](./src/elem-network-ex_doc_4-13+elem+network.png)
+
+  * [elem-network-ex_doc_4-13+elem+network.tex](https://github.com/walmes/Tikz/blob/master/src/elem-network-ex_doc_4-13+elem+network.pgf)
+
+```tex
+
+% =============================================================================
+% File      : ex_doc_4-13.tex -- example 4.13
+% Author    : Jürgen Hackl <hackl.j@gmx.at>
+% Creation  : 2019-08-14
+% Time-stamp: <Thu 2019-08-15 09:44 juergen>
+%
+% Copyright (c) 2019 Jürgen Hackl <hackl.j@gmx.at>
+% =============================================================================
+\documentclass{standalone}
+\usepackage{tikz-network}
+
+\begin{document}
+\begin{tikzpicture}[multilayer=3d]
+	  \Plane[x=-.5,y=-.5,width=3,height=2.5,grid=5mm]
+\end{tikzpicture}
+\end{document}
+% =============================================================================
+% eof
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
 ```
 ****
 
@@ -2470,6 +2524,63 @@ mynode/.style = {shape=signal, signal to=west and east,
 ```
 ****
 
+![](./src/elem-text_boxes_helpme+elem+diagram+text.png)
+
+  * [elem-text_boxes_helpme+elem+diagram+text.tex](https://github.com/walmes/Tikz/blob/master/src/elem-text_boxes_helpme+elem+diagram+text.pgf)
+
+```tex
+% +arr: add circles to nodes
+
+\documentclass[tikz, margin=3mm]{standalone}
+    \usetikzlibrary{positioning, shapes.symbols}
+
+\begin{document}
+   \begin{tikzpicture}[ 
+   node distance = 4mm and 16mm,
+   mynode/.style = {shape=signal, signal to=west and east,
+			                 draw, color = #1,
+			                 text width=1.3cm, align=flush center, 
+			                 inner xsep=0mm, inner ysep=2mm, font=\small}
+                 ]
+	% main nodes
+	\node (A) [mynode=magenta]            {Text 2};
+	\node (B) [mynode=blue, below=of A]   {Text 3};
+	\node (C) [mynode=teal, below=of B]   {Text 4};
+	
+	% coordinates for lines
+	\coordinate[left=of B.west]     (in2);
+	\coordinate[left=of in2]        (in1);
+	\coordinate[right=of B.east]    (out1);
+	\coordinate[right=of out1]      (out2);
+	
+	% add circles to nodes
+	\draw (in1) circle (3pt);
+	\draw (in2) circle (3pt);
+	\draw (out1) circle (3pt);
+	\draw (out2) circle (3pt);
+	
+	% dashed arrows
+	    \begin{scope}[latex-, dashed, shorten >=1mm]
+			\draw[magenta] (A.west) -- + (-0.8,0) -- (in2);
+			\draw[blue]     (B.west) -- (in2);
+			\draw[magenta] (C.west) -- + (-0.8,0) -- (in2);
+	    \end{scope}
+	    
+	    \begin{scope}[-latex, dashed, shorten >=1mm]
+			\draw[magenta] (A.east) -- + (0.8,0) -- (out1);
+			\draw[blue]     (B.east) -- (out1);
+			\draw[magenta] (C.east) -- + (0.8,0) -- (out1);
+	    \end{scope}
+	    
+	% arrows with text
+	\draw[-latex] (in1) -- node[above] {Text 1} (in2);
+	\draw[-latex] (out1) -- node[above] {Text 5} (out2);
+	%--------------
+   \end{tikzpicture}
+\end{document}
+```
+****
+
 ![](./src/elem-tikz-01+elem+geometry.png)
 
   * [elem-tikz-01+elem+geometry.tex](https://github.com/walmes/Tikz/blob/master/src/elem-tikz-01+elem+geometry.pgf)
@@ -2537,54 +2648,6 @@ We are working on
 	\node [my node=blue, minimum width=1.5cm] at (2, 0) {C};
 \end{tikzpicture}
 	
-\end{document}
-```
-****
-
-![](./src/filesystem_tree+diagram.png)
-
-  * [filesystem_tree+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/filesystem_tree+diagram.pgf)
-
-```tex
-% http://www.texample.net/media/tikz/examples/TEX/filesystem-tree.tex
-% Author: Frantisek Burian
-\documentclass{minimal}
-\usepackage{tikz}
-%%%<
-\usepackage{verbatim}
-\usepackage[active,tightpage]{preview}
-\PreviewEnvironment{tikzpicture}
-\setlength\PreviewBorder{5pt}%
-%%%>
-\begin{comment}
-:Title: Filesystem tree
-:Tags: Trees; Styles
-:Author: Frantisek Burian
-:Slug: filesystem-tree
-\end{comment}
-\usetikzlibrary{trees}
-\begin{document}
-\tikzstyle{every node}=[draw=black,thick,anchor=west]
-\tikzstyle{selected}=[draw=red,fill=red!30]
-\tikzstyle{optional}=[dashed,fill=gray!50]
-\begin{tikzpicture}[%
-  grow via three points={one child at (0.5,-0.7) and
-  two children at (0.5,-0.7) and (0.5,-1.4)},
-  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
-  \node {texmf}
-    child { node {doc}}		
-    child { node {fonts}}
-    child { node {source}}
-    child { node [selected] {tex}
-      child { node {generic}}
-      child { node [optional] {latex}}
-      child { node {plain}}
-    }
-    child [missing] {}				
-    child [missing] {}				
-    child [missing] {}				
-    child { node {texdoc}};
-\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -7106,6 +7169,115 @@ rotate border/.style={shape border uses incircle, shape border rotate=#1},
 ```
 ****
 
+![](./src/network-complex-networks-only-layer1.png)
+
+  * [network-complex-networks-only-layer1.tex](https://github.com/walmes/Tikz/blob/master/src/network-complex-networks-only-layer1.pgf)
+
+```tex
+% from the manual, page 26
+
+\documentclass[tikz,border=5]{standalone}
+\usepackage{tikz-network}
+
+\begin{document} 
+
+\begin{tikzpicture}[multilayer=3d]
+	\Vertices[layer=1]{ml_vertices.csv}
+	\Edges[layer={1,1}]{ml_edges.csv}
+\end{tikzpicture}
+
+\end{document}
+```
+****
+
+![](./src/network-complex-networks.png)
+
+  * [network-complex-networks.tex](https://github.com/walmes/Tikz/blob/master/src/network-complex-networks.pgf)
+
+```tex
+% https://tex.stackexchange.com/a/295109/173708
+
+\documentclass[tikz,border=5]{standalone}
+\usepackage{tikz-network}   % file tikz-network.sty must be present
+
+\begin{document} 
+
+\begin{tikzpicture}[multilayer=3d]
+	\Vertices{ml_vertices.csv}
+	\Edges{ml_edges.csv}
+\end{tikzpicture}
+
+\end{document}
+```
+****
+
+![](./src/network-layers-and-layouts.png)
+
+  * [network-layers-and-layouts.tex](https://github.com/walmes/Tikz/blob/master/src/network-layers-and-layouts.pgf)
+
+```tex
+% manual, page 27
+\documentclass[tikz,border=5]{standalone}
+\usepackage{tikz-network}  % tikz-network.sty file must be present
+
+\begin{document} 
+\begin{tikzpicture}[multilayer=3d]
+    \begin{Layer}[layer=1]
+        \draw[very thick] (-.5,-.5) rectangle (2.5,2);
+        \node at (-.5,-.5)[below right]{Layer 1};
+    \end{Layer}
+	\Vertices[layer=1]{ml_vertices.csv}
+	\Edges[layer={1,1}]{ml_edges.csv}
+\end{tikzpicture}
+
+\end{document}
+```
+****
+
+![](./src/network-multilayer.png)
+
+  * [network-multilayer.tex](https://github.com/walmes/Tikz/blob/master/src/network-multilayer.pgf)
+
+```tex
+% from manual https://www.researchgate.net/profile/Juergen_Hackl/publication/319894904_TikZ-network_manual/links/59cb46e2a6fdcc451d5c91ff/TikZ-network-manual.pdf?origin=publication_detail
+
+\documentclass[tikz,border=5]{standalone}
+\usepackage{tikz-network}     % tikz-network.sty file must be present
+
+\begin{document} 
+\begin{tikzpicture}[multilayer=3d]
+    \Vertex[x=0.5,IdAsLabel,layer=1]{A}
+    \Vertex[x=1.5,IdAsLabel,layer=1]{B}
+    \Vertex[x=1.5,IdAsLabel,layer=2]{C}
+    \Edge[bend=60](A)(B)
+    \Edge[style=dashed](B)(C)
+    \Edge(C)(C)
+
+\end{tikzpicture}
+\end{document} 
+```
+****
+
+![](./src/network-read-csv.png)
+
+  * [network-read-csv.tex](https://github.com/walmes/Tikz/blob/master/src/network-read-csv.pgf)
+
+```tex
+% from manual https://www.researchgate.net/profile/Juergen_Hackl/publication/319894904_TikZ-network_manual/links/59cb46e2a6fdcc451d5c91ff/TikZ-network-manual.pdf?origin=publication_detail
+
+\documentclass[tikz,border=5]{standalone}
+\usepackage{tikz-network}  % tikz-network.sty file must be present
+
+\begin{document} 
+\begin{tikzpicture}
+	\Vertices{vertices.csv}
+	\Edges{edges.csv}
+
+\end{tikzpicture}
+\end{document} 
+```
+****
+
 ![](./src/nn-02_auto_net+neuralnet+foreach+pgf+style+learn.png)
 
   * [nn-02_auto_net+neuralnet+foreach+pgf+style+learn.tex](https://github.com/walmes/Tikz/blob/master/src/nn-02_auto_net+neuralnet+foreach+pgf+style+learn.pgf)
@@ -7610,50 +7782,50 @@ net/.style={
 
 
 \begin{tikzpicture}[
-init/.style={
-  draw,
-  circle,
-  inner sep=2pt,
-  font=\Huge,
-  join = by -latex
-},
-squa/.style={
-  draw,
-  inner sep=2pt,
-  font=\Large,
-  join = by -latex
-},
-start chain=2,node distance=13mm
-]
-\node[on chain=2] 
-  (x2) {$x_2$};
-\node[on chain=2,join=by o-latex] 
-  {$w_2$};
-\node[on chain=2,init] (sigma) 
-  {$\displaystyle\Sigma$};
-\node[on chain=2,squa,label=above:{\parbox{2cm}{\centering Activate \\ function}}]   
-  {$f$};
-\node[on chain=2,label=above:Output,join=by -latex] 
-  {$y$};
-\begin{scope}[start chain=1]
-\node[on chain=1] at (0,1.5cm) 
-  (x1) {$x_1$};
-\node[on chain=1,join=by o-latex] 
-  (w1) {$w_1$};
-\end{scope}
-\begin{scope}[start chain=3]
-\node[on chain=3] at (0,-1.5cm) 
-  (x3) {$x_3$};
-\node[on chain=3,label=below:Weights,join=by o-latex] 
-  (w3) {$w_3$};
-\end{scope}
-\node[label=above:\parbox{2cm}{\centering Bias \\ $b$}] at (sigma|-w1) (b) {};
-
-\draw[-latex] (w1) -- (sigma);
-\draw[-latex] (w3) -- (sigma);
-\draw[o-latex] (b) -- (sigma);
-
-\draw[decorate,decoration={brace,mirror}] (x1.north west) -- node[left=10pt] {Inputs} (x3.south west);
+	init/.style={
+	  draw,
+	  circle,
+	  inner sep=2pt,
+	  font=\Huge,
+	  join = by -latex
+	},
+	squa/.style={
+	  draw,
+	  inner sep=2pt,
+	  font=\Large,
+	  join = by -latex
+	},
+	start chain=2,node distance=13mm
+	]
+	\node[on chain=2] 
+	  (x2) {$x_2$};
+	\node[on chain=2,join=by o-latex] 
+	  {$w_2$};
+	\node[on chain=2,init] (sigma) 
+	  {$\displaystyle\Sigma$};
+	\node[on chain=2,squa,label=above:{\parbox{2cm}{\centering Activate \\ function}}]   
+	  {$f$};
+	\node[on chain=2,label=above:Output,join=by -latex] 
+	  {$y$};
+	\begin{scope}[start chain=1]
+	\node[on chain=1] at (0,1.5cm) 
+	  (x1) {$x_1$};
+	\node[on chain=1,join=by o-latex] 
+	  (w1) {$w_1$};
+	\end{scope}
+	\begin{scope}[start chain=3]
+	\node[on chain=3] at (0,-1.5cm) 
+	  (x3) {$x_3$};
+	\node[on chain=3,label=below:Weights,join=by o-latex] 
+	  (w3) {$w_3$};
+	\end{scope}
+	\node[label=above:\parbox{2cm}{\centering Bias \\ $b$}] at (sigma|-w1) (b) {};
+	
+	\draw[-latex] (w1) -- (sigma);
+	\draw[-latex] (w3) -- (sigma);
+	\draw[o-latex] (b) -- (sigma);
+	
+	\draw[decorate,decoration={brace,mirror}] (x1.north west) -- node[left=10pt] {Inputs} (x3.south west);
 \end{tikzpicture}
 
 \end{document}
@@ -9270,13 +9442,13 @@ like this neural network diagram.
   * [nn-SVM_manual+neuralnet.tex](https://github.com/walmes/Tikz/blob/master/src/nn-SVM_manual+neuralnet.pgf)
 
 ```tex
-\documentclass{standalone}
+\documentclass{article}
+\usepackage[paperwidth=4in,paperheight=4in]{geometry}
 
 \usepackage{tikz}
 
 
 \begin{document}
-
 
 \usetikzlibrary{arrows}
 \begin{tikzpicture}
@@ -9584,28 +9756,32 @@ by Grant M. Erickson
   * [paper_folding+misc+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/paper_folding+misc+foreach.pgf)
 
 ```tex
-\documentclass{standalone}
+%\documentclass[border=10pt]{standalone}
+\documentclass{article}
+\usepackage[paperwidth=4in,paperheight=4in]{geometry}
 \usepackage{tikz}
+
+\pagestyle{empty}
 
 \begin{document}
 
 \usetikzlibrary{folding}
 
 \begin{tikzpicture}[transform shape]
-  \tikzfoldingdodecahedron
-  [folding line length=6mm,
-  face 1={ \node[red] {1};},
-  face 2={ \node {2};},
-  face 3={ \node {3};},
-  face 4={ \node {4};},
-  face 5={ \node {5};},
-  face 6={ \node {6};},
-  face 7={ \node {7};},
-  face 8={ \node {8};},
-  face 9={ \node {9};},
-  face 10={\node {10};},
-  face 11={\node {11};},
-  face 12={\node {12};}];
+		\tikzfoldingdodecahedron
+		[folding line length=6mm,
+		face 1={ \node[red] {1};},
+		face 2={ \node {2};},
+		face 3={ \node {3};},
+		face 4={ \node {4};},
+		face 5={ \node {5};},
+		face 6={ \node {6};},
+		face 7={ \node {7};},
+		face 8={ \node {8};},
+		face 9={ \node {9};},
+		face 10={\node {10};},
+		face 11={\node {11};},
+		face 12={\node {12};}];
   \end{tikzpicture}
 
 
@@ -11685,6 +11861,121 @@ force/.style={rectangle, draw, fill=black!10, inner sep=5pt, text width=4cm, tex
 \label{fig:6forces}
 \end{figure}
 
+\end{document}
+```
+****
+
+![](./src/positioning_blocks+diagram+foreach+scope+set+frame.png)
+
+  * [positioning_blocks+diagram+foreach+scope+set+frame.tex](https://github.com/walmes/Tikz/blob/master/src/positioning_blocks+diagram+foreach+scope+set+frame.pgf)
+
+```tex
+% https://tex.stackexchange.com/a/403931/173708
+\documentclass[border=15pt]{standalone}
+%\usepackage{showframe}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage[latin1]{inputenc}
+
+\tikzset{
+  line/.style={>=Stealth, semithick, draw=blue!75},
+  post/.style={line,->, shorten >=1pt},
+  node_box/.style={rectangle, thick, draw=blue!75, fill=blue!10,minimum width=20mm, minimum height=5mm},
+  labelnode/.style={auto, sloped, font=\footnotesize,align=center},
+}
+
+\begin{document}
+%\begin{center}
+\begin{tikzpicture}[node distance=3cm and 1.7cm]
+	\begin{scope}[every node/.style={node_box}]
+	  \node                                       (south_if)    {south\_if};
+	  \node [above left=of south_if,xshift=5mm]   (south_r)     {south\_r};
+	  \node [above=of south_r]                    (box_a)       {box\_a};
+	  \node [above=of box_a]                      (nout_join)   {nout\_join};
+	  \node [above right=of south_if]             (sout_join)   {sout\_join};
+	  \node [above=of sout_join]                  (box_b)       {box\_b};
+	  \node [above=of box_b]                      (north_r)     {north\_r};
+	  \node [above left=of north_r,yshift=-1.5cm] (north_if)    {north\_if};
+	%
+	  \node [at={(south_if |- box_a)}]            (box_c)  {box\_c};
+	  \node [at={(box_c|-sout_join)}]             (t_rdr)       {t\_rdr};
+	%
+	  \node [above=of box_c]                       (t_output)    {t\_output};
+	  \node [below=2cm of t_rdr]                   (south_rp)    {south\_rp};
+	  \node [above right=1.5cm and 0mm of t_rdr]   (test_prov)   {test\_prov};
+	  \node [below right=7mm and 1cm of test_prov] (sink_prov)   {sink};
+	  \node [above left=1.5cm and -5mm of box_a]   (sink_test_a) {sink};
+	  \node [above right=1cm and -5mm of box_b]    (sink_test_p) {sink};
+	\end{scope}
+	
+	\begin{scope}[every node/.style={labelnode}]
+	
+	\foreach \i/\j in  {%
+	    box_b/sout_join,
+	    box_a/nout_join,
+	    north_r/box_b,
+	    box_c/t_rdr,
+	    t_rdr/south_rp,
+	    t_output/box_c,
+	    south_r/box_a}
+	  \draw [post] (\i) -- (\j)
+	     node[above,near start] {output}
+	     node[below,near end,swap] {input};
+	
+	\foreach \i/\j in{%
+	    nout_join/north_if,
+	    sout_join/south_if}
+	  \draw [post] (\i) |- (\j)
+	    node[above,near start] {output}
+	    node[below,near end,swap] {input};
+	
+	\foreach \i/\j in{%
+	    north_if/north_r,
+	    south_if/south_r}
+	  \draw [post] (\i) -| (\j)
+	    node[above,near start] {output}
+	    node[below,near end,swap] {input};
+	
+	\draw [post] (t_rdr) -- (test_prov)
+	  node[above,pos=0.4] {prov\_out}
+	  node[below,pos=0.6] {input};
+	
+	\draw [post] (test_prov) -- ([xshift=-3mm]t_output.south east)
+	  node[above,pos=0.7] {test\_prov}
+	  node[below,pos=0.3] {output};
+	
+	\draw [post] (t_rdr) -- (sout_join)
+	  node[above,pos=0.45] {output\_s,src}
+	  node[below,pos=0.55] {output\_s,src};
+	
+	\draw [post] (test_prov) -| (sink_prov)
+	  node[above,pos=0.4] {output1}
+	  node[left,sloped=false,pos=0.8] {fromtest};
+	
+	\draw [post] (north_r) -- (t_output)
+	  node[above,pos=0.65] {n\_test\_in,\\test\_out}
+	  node[below,pos=0.35] {test\_out,\\n\_test\_in};
+	
+	\draw [post] (box_a) -| (sink_test_a)
+	  node[left,sloped=false,pos=0.85] {test\_a}
+	  node[below,pos=0.49] {output4};
+	
+	\draw [post] (box_b) -| (sink_test_p)
+	  node[right,sloped=false,pos=0.85] {test\_p}
+	  node[below,pos=0.49] {output4};
+	
+	\draw [post] (t_rdr) -- (nout_join)
+	  node[below,near start] {output\_n,n\_src}
+	  node[above,near end] {output\_n,src};
+	
+	\draw [post] (south_r) -- (t_output)
+	  node[below,near start] {test\_out,n\_test\_n}
+	  node[above,near end] {n\_test\_out,test\_out};
+	
+	\end{scope}
+
+\end{tikzpicture}
+%\end{center}
 \end{document}
 ```
 ****
@@ -15409,6 +15700,57 @@ child {node {20}
 };
 \end{tikzpicture}
 	
+\end{document}
+```
+****
+
+![](./src/tree-filesystem+diagram.png)
+
+  * [tree-filesystem+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/tree-filesystem+diagram.pgf)
+
+```tex
+% http://www.texample.net/media/tikz/examples/TEX/filesystem-tree.tex
+% Author: Frantisek Burian
+\documentclass{minimal}
+\usepackage{tikz}
+%%%<
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+%%%>
+
+\begin{comment}
+:Title: Filesystem tree
+:Tags: Trees; Styles
+:Author: Frantisek Burian
+:Slug: filesystem-tree
+\end{comment}
+
+\usetikzlibrary{trees}
+
+\begin{document}
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{optional}=[dashed,fill=gray!50]
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node {texmf}
+    child { node {doc}}		
+    child { node {fonts}}
+    child { node {source}}
+    child { node [selected] {tex}
+      child { node {generic}}
+      child { node [optional] {latex}}
+      child { node {plain}}
+    }
+    child [missing] {}				
+    child [missing] {}				
+    child [missing] {}				
+    child { node {texdoc}};
+\end{tikzpicture}
 \end{document}
 ```
 ****
