@@ -1,6 +1,5 @@
 #!/bin/sh
 # script to build static website for Mac
-# TODO: add if to open browser in any OS
 
 # build items.toml config file for Hugo static website
 Rscript _build.R
