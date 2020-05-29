@@ -55,6 +55,14 @@ description = "github.com/walmes/Tikz"
 url = "../../src/3d-torus+function+3d.tex"
  
 [[items]]
+title = "add_tikz_symbols_to_block_arr+symbol+diagram+command+style"
+image = "../../src/add_tikz_symbols_to_block_arr+symbol+diagram+command+style.png"
+thumb = "../../src/add_tikz_symbols_to_block_arr+symbol+diagram+command+style.png"
+alt = "add_tikz_symbols_to_block_arr+symbol+diagram+command+style"
+description = "github.com/walmes/Tikz"
+url = "../../src/add_tikz_symbols_to_block_arr+symbol+diagram+command+style.tex"
+ 
+[[items]]
 title = "box_arrows+diagram"
 image = "../../src/box_arrows+diagram.png"
 thumb = "../../src/box_arrows+diagram.png"
@@ -135,14 +143,6 @@ description = "github.com/walmes/Tikz"
 url = "../../src/cylinder_with_two_parameters+geometry+style+learn.tex"
  
 [[items]]
-title = "drawing_inside_box_bigger+symbol+diagram+command+style"
-image = "../../src/drawing_inside_box_bigger+symbol+diagram+command+style.png"
-thumb = "../../src/drawing_inside_box_bigger+symbol+diagram+command+style.png"
-alt = "drawing_inside_box_bigger+symbol+diagram+command+style"
-description = "github.com/walmes/Tikz"
-url = "../../src/drawing_inside_box_bigger+symbol+diagram+command+style.tex"
- 
-[[items]]
 title = "drawstack+diagram"
 image = "../../src/drawstack+diagram.png"
 thumb = "../../src/drawstack+diagram.png"
@@ -205,6 +205,14 @@ thumb = "../../src/elem-cube+elem+geometry+foreach.png"
 alt = "elem-cube+elem+geometry+foreach"
 description = "github.com/walmes/Tikz"
 url = "../../src/elem-cube+elem+geometry+foreach.tex"
+ 
+[[items]]
+title = "elem-cuboid_finer_grid+elem+foreach+command"
+image = "../../src/elem-cuboid_finer_grid+elem+foreach+command.png"
+thumb = "../../src/elem-cuboid_finer_grid+elem+foreach+command.png"
+alt = "elem-cuboid_finer_grid+elem+foreach+command"
+description = "github.com/walmes/Tikz"
+url = "../../src/elem-cuboid_finer_grid+elem+foreach+command.tex"
  
 [[items]]
 title = "elem-cylinder+elem+3d+foreach+function"
@@ -279,6 +287,14 @@ description = "github.com/walmes/Tikz"
 url = "../../src/elem-matrix-as_nodes+elem+matrix.tex"
  
 [[items]]
+title = "elem-network-ex_doc_4-13+elem+network"
+image = "../../src/elem-network-ex_doc_4-13+elem+network.png"
+thumb = "../../src/elem-network-ex_doc_4-13+elem+network.png"
+alt = "elem-network-ex_doc_4-13+elem+network"
+description = "github.com/walmes/Tikz"
+url = "../../src/elem-network-ex_doc_4-13+elem+network.tex"
+ 
+[[items]]
 title = "elem-node_connector+elem+diagram+command"
 image = "../../src/elem-node_connector+elem+diagram+command.png"
 thumb = "../../src/elem-node_connector+elem+diagram+command.png"
@@ -341,14 +357,6 @@ thumb = "../../src/elem-trapezium+elem+geometry.png"
 alt = "elem-trapezium+elem+geometry"
 description = "github.com/walmes/Tikz"
 url = "../../src/elem-trapezium+elem+geometry.tex"
- 
-[[items]]
-title = "filesystem_tree+diagram"
-image = "../../src/filesystem_tree+diagram.png"
-thumb = "../../src/filesystem_tree+diagram.png"
-alt = "filesystem_tree+diagram"
-description = "github.com/walmes/Tikz"
-url = "../../src/filesystem_tree+diagram.tex"
  
 [[items]]
 title = "flow-android_lifecycle+block+style+learn"
@@ -805,6 +813,46 @@ thumb = "../../src/nested+diagram.png"
 alt = "nested+diagram"
 description = "github.com/walmes/Tikz"
 url = "../../src/nested+diagram.tex"
+ 
+[[items]]
+title = "network-complex-networks-only-layer1"
+image = "../../src/network-complex-networks-only-layer1.png"
+thumb = "../../src/network-complex-networks-only-layer1.png"
+alt = "network-complex-networks-only-layer1"
+description = "github.com/walmes/Tikz"
+url = "../../src/network-complex-networks-only-layer1.tex"
+ 
+[[items]]
+title = "network-complex-networks"
+image = "../../src/network-complex-networks.png"
+thumb = "../../src/network-complex-networks.png"
+alt = "network-complex-networks"
+description = "github.com/walmes/Tikz"
+url = "../../src/network-complex-networks.tex"
+ 
+[[items]]
+title = "network-layers-and-layouts"
+image = "../../src/network-layers-and-layouts.png"
+thumb = "../../src/network-layers-and-layouts.png"
+alt = "network-layers-and-layouts"
+description = "github.com/walmes/Tikz"
+url = "../../src/network-layers-and-layouts.tex"
+ 
+[[items]]
+title = "network-multilayer"
+image = "../../src/network-multilayer.png"
+thumb = "../../src/network-multilayer.png"
+alt = "network-multilayer"
+description = "github.com/walmes/Tikz"
+url = "../../src/network-multilayer.tex"
+ 
+[[items]]
+title = "network-read-csv"
+image = "../../src/network-read-csv.png"
+thumb = "../../src/network-read-csv.png"
+alt = "network-read-csv"
+description = "github.com/walmes/Tikz"
+url = "../../src/network-read-csv.tex"
  
 [[items]]
 title = "nn-02_auto_net+neuralnet+foreach+pgf+style+learn"
@@ -1605,6 +1653,14 @@ thumb = "../../src/tree_sibiling+tree.png"
 alt = "tree_sibiling+tree"
 description = "github.com/walmes/Tikz"
 url = "../../src/tree_sibiling+tree.tex"
+ 
+[[items]]
+title = "tree-filesystem+diagram"
+image = "../../src/tree-filesystem+diagram.png"
+thumb = "../../src/tree-filesystem+diagram.png"
+alt = "tree-filesystem+diagram"
+description = "github.com/walmes/Tikz"
+url = "../../src/tree-filesystem+diagram.tex"
  
 [[items]]
 title = "tree-networked_game"
