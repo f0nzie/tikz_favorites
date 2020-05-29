@@ -6,7 +6,7 @@ README.html
 site/data/items.toml
 utils/*.html
 src/*.pdf
-src/*.png
+# src/*.png
 src/*.gz
 src/*.aux
 src/*.log
