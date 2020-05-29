@@ -1,3 +1,5 @@
+% modified by +arr
+% change tick color and thickness 
 %\documentclass[tikz,border=15pt]{standalone}
 \documentclass[crop,border=15pt]{standalone}
 
@@ -7,6 +9,7 @@
 
 % ticks on the axes
 \begin{tikzpicture}[scale=3]
+
 	% draw the axes
 	\draw[->] (-1.5,0) -- (1.5,0);
 	\draw[->] (0,-1.5) -- (0,1.5);
@@ -16,9 +19,10 @@
 	
 	% draw the ticks
 	\foreach \x in {-1cm,-0.5cm,1cm}
-	\draw (\x,-1pt) -- (\x,1pt);
+		\draw[red,thick] (\x,-1pt) -- (\x,1pt);
 	\foreach \y in {-1cm,-0.5cm,0.5cm,1cm}
-	\draw (-1pt,\y) -- (1pt,\y);
+		\draw[red, thick] (-1pt,\y) -- (1pt,\y);
+		
 \end{tikzpicture}
 
 \end{document}
