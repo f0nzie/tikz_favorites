@@ -175,28 +175,12 @@ description = "github.com/walmes/Tikz"
 url = "../../src/elem-circle_grided+elem+geometry.tex"
  
 [[items]]
-title = "elem-circle_grided+elem+geometry+manual"
-image = "../../src/elem-circle_grided+elem+geometry+manual.png"
-thumb = "../../src/elem-circle_grided+elem+geometry+manual.png"
-alt = "elem-circle_grided+elem+geometry+manual"
-description = "github.com/walmes/Tikz"
-url = "../../src/elem-circle_grided+elem+geometry+manual.tex"
- 
-[[items]]
 title = "elem-circle_half+elem+geometry"
 image = "../../src/elem-circle_half+elem+geometry.png"
 thumb = "../../src/elem-circle_half+elem+geometry.png"
 alt = "elem-circle_half+elem+geometry"
 description = "github.com/walmes/Tikz"
 url = "../../src/elem-circle_half+elem+geometry.tex"
- 
-[[items]]
-title = "elem-cube_finer_grid+elem+foreach+command"
-image = "../../src/elem-cube_finer_grid+elem+foreach+command.png"
-thumb = "../../src/elem-cube_finer_grid+elem+foreach+command.png"
-alt = "elem-cube_finer_grid+elem+foreach+command"
-description = "github.com/walmes/Tikz"
-url = "../../src/elem-cube_finer_grid+elem+foreach+command.tex"
  
 [[items]]
 title = "elem-cube+elem+geometry+foreach"
@@ -247,28 +231,20 @@ description = "github.com/walmes/Tikz"
 url = "../../src/elem-equation+elem+foreach.tex"
  
 [[items]]
-title = "elem-grid_RBG-7x7+elem+3d+pgf+foreach"
-image = "../../src/elem-grid_RBG-7x7+elem+3d+pgf+foreach.png"
-thumb = "../../src/elem-grid_RBG-7x7+elem+3d+pgf+foreach.png"
-alt = "elem-grid_RBG-7x7+elem+3d+pgf+foreach"
+title = "elem-grid_RBG_draw_boxes+elem+foreach+style"
+image = "../../src/elem-grid_RBG_draw_boxes+elem+foreach+style.png"
+thumb = "../../src/elem-grid_RBG_draw_boxes+elem+foreach+style.png"
+alt = "elem-grid_RBG_draw_boxes+elem+foreach+style"
 description = "github.com/walmes/Tikz"
-url = "../../src/elem-grid_RBG-7x7+elem+3d+pgf+foreach.tex"
+url = "../../src/elem-grid_RBG_draw_boxes+elem+foreach+style.tex"
  
 [[items]]
-title = "elem-grid_RBG+elem+foreach+style"
-image = "../../src/elem-grid_RBG+elem+foreach+style.png"
-thumb = "../../src/elem-grid_RBG+elem+foreach+style.png"
-alt = "elem-grid_RBG+elem+foreach+style"
+title = "elem-grid_RBG_draw_lines+elem+3d+pgf+foreach"
+image = "../../src/elem-grid_RBG_draw_lines+elem+3d+pgf+foreach.png"
+thumb = "../../src/elem-grid_RBG_draw_lines+elem+3d+pgf+foreach.png"
+alt = "elem-grid_RBG_draw_lines+elem+3d+pgf+foreach"
 description = "github.com/walmes/Tikz"
-url = "../../src/elem-grid_RBG+elem+foreach+style.tex"
- 
-[[items]]
-title = "elem-helpme+elem+diagram"
-image = "../../src/elem-helpme+elem+diagram.png"
-thumb = "../../src/elem-helpme+elem+diagram.png"
-alt = "elem-helpme+elem+diagram"
-description = "github.com/walmes/Tikz"
-url = "../../src/elem-helpme+elem+diagram.tex"
+url = "../../src/elem-grid_RBG_draw_lines+elem+3d+pgf+foreach.tex"
  
 [[items]]
 title = "elem-magnification+elem+geometry"
@@ -333,6 +309,14 @@ thumb = "../../src/elem-system_measurement_model+elem+diagram.png"
 alt = "elem-system_measurement_model+elem+diagram"
 description = "github.com/walmes/Tikz"
 url = "../../src/elem-system_measurement_model+elem+diagram.tex"
+ 
+[[items]]
+title = "elem-text_boxes_helpme+elem+diagram+text"
+image = "../../src/elem-text_boxes_helpme+elem+diagram+text.png"
+thumb = "../../src/elem-text_boxes_helpme+elem+diagram+text.png"
+alt = "elem-text_boxes_helpme+elem+diagram+text"
+description = "github.com/walmes/Tikz"
+url = "../../src/elem-text_boxes_helpme+elem+diagram+text.tex"
  
 [[items]]
 title = "elem-tikz-01+elem+geometry"
