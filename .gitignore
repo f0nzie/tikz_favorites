@@ -4,13 +4,10 @@
 *.zip
 README.html
 site/data/items.toml
-README.html
 utils/*.html
-site/data/items.toml
 src/*.pdf
 src/*.png
 src/*.gz
 src/*.aux
 src/*.log
-
-.Rhistory
+*.html
