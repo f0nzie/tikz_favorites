@@ -1,5 +1,5 @@
 #/bin/sh
-# generate PDF and PNG files in a Mac
+# generate PDF and PNG files in Linux or Mac
 # the original file is in Linux machine ~/bin
 
 file=$1
