@@ -17,5 +17,8 @@ tree -h -F public/ -L 1
 # tree -h -F _site/tutorials
 
 # Open firefox from terminal https://superuser.com/a/476852/653825
-open -a firefox public/index.html
+# open -a firefox public/index.html
+
+# in Linux
+firefox public/index.html
 
