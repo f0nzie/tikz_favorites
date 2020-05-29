@@ -13,3 +13,4 @@ src/*.gz
 src/*.aux
 src/*.log
 
+.Rhistory
