@@ -11,3 +11,4 @@ src/*.gz
 src/*.aux
 src/*.log
 *.html
+child.Rmd
