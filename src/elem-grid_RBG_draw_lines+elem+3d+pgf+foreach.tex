@@ -1,5 +1,6 @@
 % https://tex.stackexchange.com/a/271584/173708
-% Modified by ARR for 7z7 plane
+% Modified by +arr for 7x7 plane, change paper size
+% add comments
 
 \documentclass[border={10}]{standalone}
 \usepackage{tikz}  
@@ -7,6 +8,7 @@
 
 \tdplotsetmaincoords{60}{125} % view angles
 \tdplotsetrotatedcoords{0}{0}{0} 
+
 \begin{document}
 
 \begin{tikzpicture}
@@ -17,12 +19,12 @@
 
     %draw a grid in the x-y plane
     \foreach \x in {0,1,...,7}
-        \foreach \y in {0,1,...,7}
-        {
-            \draw[grid] (\x,0) -- (\x,7);
-            \draw[grid] (0,\y) -- (7,\y);
+        \foreach \y in {0,1,...,7} {
+            \draw[grid] (\x,0) -- (\x,7);     % draw horizontal lines
+            \draw[grid] (0,\y) -- (7,\y);  % draw vertical lines
         };
-    \draw[fill=blue]    (0,0,0) -- (0,1,0) -- (1,1,0) -- (1,0,0) -- cycle;
+    
+    \draw[fill=blue]     (0,0,0) -- (0,1,0) -- (1,1,0) -- (1,0,0) -- cycle;
     \draw[fill=green ]  (1,1,0) -- (2,1,0) -- (2,2,0) -- (1,2,0) -- cycle;
 
 \end{tikzpicture}    
