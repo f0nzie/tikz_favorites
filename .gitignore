@@ -1,5 +1,4 @@
 .Rproj.user
-.Rhistory
 .DS_Store
 *.zip
 README.html
@@ -12,3 +11,4 @@ src/*.aux
 src/*.log
 *.html
 child.Rmd
+.Rhistory
