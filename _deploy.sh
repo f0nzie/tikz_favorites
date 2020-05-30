@@ -25,10 +25,10 @@ case "${unameOut}" in
 esac
 # echo ${machine}
 if [ ${machine} = Linux ];then
-    echo Linux rulez
+    # echo Linux rulez
     firefox public/index.html
 elif [ ${machine} = Mac ];then    
-    echo Mac rulez
+    # echo Mac rulez
     # Mac open firefox from terminal https://superuser.com/a/476852/653825
     open -a firefox public/index.html
 else 
