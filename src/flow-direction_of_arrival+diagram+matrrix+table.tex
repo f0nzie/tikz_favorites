@@ -19,6 +19,7 @@ This diagram explains a spatial filter with direction of arrival estimation.
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{shapes.arrows}
 \usepackage{array}
+
 \begin{document}
 \begin{tikzpicture} [
     auto,
@@ -35,7 +36,7 @@ This diagram explains a spatial filter with direction of arrival estimation.
                     & \node [text centered] (x) {$\mathbf{X}$};            & \\
                     & \node (null1) {};                                    & \\
                     & \node [block] (doa) {\textsf{DoAE}($\mathbf{X}$)};   & \\
-    \node(null3){}; & \node [decision] (uiddes)
+   			 		\node(null3){}; & \node [decision] (uiddes)
                         {\textsf{UID}($\hat{\mathbf{X}}$)};
                                   & \node[text centered](tra){$\mathbf{i}$}; \\
                     & \node [block] (track) {\textsf{DoAT}($\mathbf{x}$)}; & \\

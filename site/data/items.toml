@@ -7,12 +7,12 @@ description = "github.com/walmes/Tikz"
 url = "../../src/3d-cone_intersection+3d+pgf.tex"
  
 [[items]]
-title = "3d-cube_color_rotated"
-image = "../../src/3d-cube_color_rotated.png"
-thumb = "../../src/3d-cube_color_rotated.png"
-alt = "3d-cube_color_rotated"
+title = "3d-cube_color_rotated+3d+pgf+foreach+command+define"
+image = "../../src/3d-cube_color_rotated+3d+pgf+foreach+command+define.png"
+thumb = "../../src/3d-cube_color_rotated+3d+pgf+foreach+command+define.png"
+alt = "3d-cube_color_rotated+3d+pgf+foreach+command+define"
 description = "github.com/walmes/Tikz"
-url = "../../src/3d-cube_color_rotated.tex"
+url = "../../src/3d-cube_color_rotated+3d+pgf+foreach+command+define.tex"
  
 [[items]]
 title = "3d-cubes_isometric_shaded+3d"
@@ -55,28 +55,12 @@ description = "github.com/walmes/Tikz"
 url = "../../src/3d-torus+function+3d.tex"
  
 [[items]]
-title = "add_tikz_symbols_to_block_arr+symbol+diagram+command+style"
-image = "../../src/add_tikz_symbols_to_block_arr+symbol+diagram+command+style.png"
-thumb = "../../src/add_tikz_symbols_to_block_arr+symbol+diagram+command+style.png"
-alt = "add_tikz_symbols_to_block_arr+symbol+diagram+command+style"
-description = "github.com/walmes/Tikz"
-url = "../../src/add_tikz_symbols_to_block_arr+symbol+diagram+command+style.tex"
- 
-[[items]]
 title = "box_arrows+diagram"
 image = "../../src/box_arrows+diagram.png"
 thumb = "../../src/box_arrows+diagram.png"
 alt = "box_arrows+diagram"
 description = "github.com/walmes/Tikz"
 url = "../../src/box_arrows+diagram.tex"
- 
-[[items]]
-title = "break_text_lines+tree"
-image = "../../src/break_text_lines+tree.png"
-thumb = "../../src/break_text_lines+tree.png"
-alt = "break_text_lines+tree"
-description = "github.com/walmes/Tikz"
-url = "../../src/break_text_lines+tree.tex"
  
 [[items]]
 title = "circle_custom_with_arcs+symbol+geometry"
@@ -103,28 +87,12 @@ description = "github.com/walmes/Tikz"
 url = "../../src/colorized_equation+equation.tex"
  
 [[items]]
-title = "controller_system+diagram+style+learn"
-image = "../../src/controller_system+diagram+style+learn.png"
-thumb = "../../src/controller_system+diagram+style+learn.png"
-alt = "controller_system+diagram+style+learn"
-description = "github.com/walmes/Tikz"
-url = "../../src/controller_system+diagram+style+learn.tex"
- 
-[[items]]
 title = "cubes_factorials+physics+3d"
 image = "../../src/cubes_factorials+physics+3d.png"
 thumb = "../../src/cubes_factorials+physics+3d.png"
 alt = "cubes_factorials+physics+3d"
 description = "github.com/walmes/Tikz"
 url = "../../src/cubes_factorials+physics+3d.tex"
- 
-[[items]]
-title = "custom-three_objects+symbols+command"
-image = "../../src/custom-three_objects+symbols+command.png"
-thumb = "../../src/custom-three_objects+symbols+command.png"
-alt = "custom-three_objects+symbols+command"
-description = "github.com/walmes/Tikz"
-url = "../../src/custom-three_objects+symbols+command.tex"
  
 [[items]]
 title = "custom-use_library+symbol+pkg"
@@ -157,6 +125,14 @@ thumb = "../../src/elem-10_circles+elem+foreach.png"
 alt = "elem-10_circles+elem+foreach"
 description = "github.com/walmes/Tikz"
 url = "../../src/elem-10_circles+elem+foreach.tex"
+ 
+[[items]]
+title = "elem-add_tikz_symbols_to_block_arr+symbol+diagram+command+style"
+image = "../../src/elem-add_tikz_symbols_to_block_arr+symbol+diagram+command+style.png"
+thumb = "../../src/elem-add_tikz_symbols_to_block_arr+symbol+diagram+command+style.png"
+alt = "elem-add_tikz_symbols_to_block_arr+symbol+diagram+command+style"
+description = "github.com/walmes/Tikz"
+url = "../../src/elem-add_tikz_symbols_to_block_arr+symbol+diagram+command+style.tex"
  
 [[items]]
 title = "elem-circle_axes_ticks+elem+geometry+foreach"
@@ -197,6 +173,14 @@ thumb = "../../src/elem-cuboid_finer_grid+elem+foreach+command.png"
 alt = "elem-cuboid_finer_grid+elem+foreach+command"
 description = "github.com/walmes/Tikz"
 url = "../../src/elem-cuboid_finer_grid+elem+foreach+command.tex"
+ 
+[[items]]
+title = "elem-custom-three_objects+symbols+command"
+image = "../../src/elem-custom-three_objects+symbols+command.png"
+thumb = "../../src/elem-custom-three_objects+symbols+command.png"
+alt = "elem-custom-three_objects+symbols+command"
+description = "github.com/walmes/Tikz"
+url = "../../src/elem-custom-three_objects+symbols+command.tex"
  
 [[items]]
 title = "elem-cylinder+elem+3d+foreach+function"
@@ -271,12 +255,12 @@ description = "github.com/walmes/Tikz"
 url = "../../src/elem-network-ex_doc_4-13+elem+network.tex"
  
 [[items]]
-title = "elem-node_connector+elem+diagram+command"
-image = "../../src/elem-node_connector+elem+diagram+command.png"
-thumb = "../../src/elem-node_connector+elem+diagram+command.png"
-alt = "elem-node_connector+elem+diagram+command"
+title = "elem-node_connector+elem+diagram+command+params"
+image = "../../src/elem-node_connector+elem+diagram+command+params.png"
+thumb = "../../src/elem-node_connector+elem+diagram+command+params.png"
+alt = "elem-node_connector+elem+diagram+command+params"
 description = "github.com/walmes/Tikz"
-url = "../../src/elem-node_connector+elem+diagram+command.tex"
+url = "../../src/elem-node_connector+elem+diagram+command+params.tex"
  
 [[items]]
 title = "elem-physics-arrows_to_nodes+elem+phsyics"
@@ -351,12 +335,12 @@ description = "github.com/walmes/Tikz"
 url = "../../src/flow-android_lifecycle+block+style+learn.tex"
  
 [[items]]
-title = "flow-direction_of_arrival+diagram"
-image = "../../src/flow-direction_of_arrival+diagram.png"
-thumb = "../../src/flow-direction_of_arrival+diagram.png"
-alt = "flow-direction_of_arrival+diagram"
+title = "flow-direction_of_arrival+diagram+matrrix+table"
+image = "../../src/flow-direction_of_arrival+diagram+matrrix+table.png"
+thumb = "../../src/flow-direction_of_arrival+diagram+matrrix+table.png"
+alt = "flow-direction_of_arrival+diagram+matrrix+table"
 description = "github.com/walmes/Tikz"
-url = "../../src/flow-direction_of_arrival+diagram.tex"
+url = "../../src/flow-direction_of_arrival+diagram+matrrix+table.tex"
  
 [[items]]
 title = "flow-easy_flowchart+diagram"
@@ -1637,6 +1621,14 @@ thumb = "../../src/tree_sibiling+tree.png"
 alt = "tree_sibiling+tree"
 description = "github.com/walmes/Tikz"
 url = "../../src/tree_sibiling+tree.tex"
+ 
+[[items]]
+title = "tree-break_text_lines+tree"
+image = "../../src/tree-break_text_lines+tree.png"
+thumb = "../../src/tree-break_text_lines+tree.png"
+alt = "tree-break_text_lines+tree"
+description = "github.com/walmes/Tikz"
+url = "../../src/tree-break_text_lines+tree.tex"
  
 [[items]]
 title = "tree-filesystem+diagram"
