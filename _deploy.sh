@@ -26,7 +26,6 @@ esac
 # echo ${machine}
 if [ ${machine} = Linux ];then
     echo Linux rulez
-    # in Linux
     firefox public/index.html
 elif [ ${machine} = Mac ];then    
     echo Mac rulez

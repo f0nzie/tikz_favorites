@@ -1,12 +1,13 @@
 #/bin/sh
 # generate PDF and PNG files in Linux or Mac
-# the original file is in Linux machine ~/bin
+# It works for one file at a time. 
+# For multiple files, run "allpdfpng.sh"
 
 file=$1
 name=${file%.*}   # get the name of the file with no extension
-
 echo $file
 
+# detect operating system
 unameOut="$(uname -s)"
 case "${unameOut}" in
     Linux*)     machine=Linux;;
@@ -16,7 +17,6 @@ case "${unameOut}" in
     *)          machine="UNKNOWN:${unameOut}"
 esac
 # echo ${machine}
-
 
 if [ ${machine} = Linux ];then
     echo Linux rulez
@@ -29,8 +29,6 @@ else
     echo unknown
 fi
 
-
-# ls -lh $name.png | cut -d " " -f14 -f10 # FIX sometimes doesn't return right column
 du -sh $name.png   # returns file size and name of PNG
 
 rm $name.pdf   # will not include PDF files
