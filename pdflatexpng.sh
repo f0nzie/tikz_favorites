@@ -3,9 +3,14 @@
 # It works for one file at a time. 
 # For multiple files, run "allpdfpng.sh"
 
+# count the number of times this was executed
+< counter_file read counter
+counter=$(( $counter + 1 ))
+echo $counter > counter_file
+
 file=$1
 name=${file%.*}   # get the name of the file with no extension
-echo $file
+echo $counter $file
 
 # detect operating system
 unameOut="$(uname -s)"
@@ -19,18 +24,22 @@ esac
 # echo ${machine}
 
 if [ ${machine} = Linux ];then
-    echo Linux rulez
-    pdflatex -interaction=batchmode $file > /dev/null 2>&1
+    [ ! -f $name.pdf ] && \
+        pdflatex -interaction=batchmode $file > /dev/null 2>&1 && \
+        du -sh $name.pdf
     pdftoppm -q -png $name.pdf > $name.png # https://superuser.com/a/185897/653825
 elif [ ${machine} = Mac ];then    
-    echo Mac rulez
-    pdflatex -interaction=batchmode $file > /dev/null 2>&1 && gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$name.png -dNOPAUSE -r1200 $name.pdf
+    [ ! -f $name.pdf ] && \
+        pdflatex -interaction=batchmode $file > /dev/null 2>&1 && \
+        du -sh $name.pdf
+    gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$name.png -dNOPAUSE -r1200 $name.pdf
 else 
-    echo unknown
+    echo ${machine}
 fi
+
 
 du -sh $name.png   # returns file size and name of PNG
 
-rm $name.pdf   # will not include PDF files
-rm $name.log
-rm $name.aux
+# rm $name.pdf   # will not include PDF files
+rm $name.log  > /dev/null 2>&1 
+rm $name.aux > /dev/null 2>&1 
