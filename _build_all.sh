@@ -11,9 +11,8 @@ cd src/    # change to where tex files are
 # iterate through all .tex files (w/some exceptions). 
 # execute custom script "pdflatexpng.sh"
   echo 0 > counter_file
-  find . -maxdepth 1  -name \*.tex -not -name "*.code.tex" \ 
-    -not -name "*.lualatex.tex"  -print0 | \ 
-    xargs -0 -I{} ../pdflatexpng.sh {}
+  find . -maxdepth 1  -name \*.tex -not -name "*.code.tex" \
+    -not -name "*.lualatex.tex"  -print0 | xargs -0 -I{} ../pdflatexpng.sh {}
   # Explanation:
   # xargs -0 -I{} ../pdflatexpng {}  run pdfltexpng for each .tex file
   # `pdflatexpng.sh` located in the project root folder
