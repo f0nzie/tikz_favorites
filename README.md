@@ -43,11 +43,20 @@ There are 216 Tikz figures in this gallery.
 
 The figures are sorted by filename.
 
-Some useful tutorials or galleries:
+Some useful tutorials:
 
-  * <https://tobiw.de/en/teotm/tikz-adventskalender>.
-  * <http://math.et.info.free.fr/TikZ/bdd/TikZ-Impatient.pdf>.
-  * <http://www.mat.ufpb.br/lenimar/introtikz.pdf>.
+  * [TikZ Adventskalender](https://tobiw.de/en/teotm/tikz-adventskalender)
+  * [TikZ for the Impatient](http://math.et.info.free.fr/TikZ/bdd/TikZ-Impatient.pdf)
+  * <http://www.mat.ufpb.br/lenimar/introtikz.pdf>
+  * [LaTeX for Economists](http://nfpoitiers.eu/wp-content/uploads/2018/08/3-presentations_and_graphics.pdf)
+  * [Configurable Graph Drawing Algorithmsfor the TikZ Graphics Description Language](https://www.tcs.uni-luebeck.de/downloads/papers/2011/2011-configurable-graph-drawing-algorithms-jannis-pohlmann.pdf)
+  * [TikZ for Economics By Chiu Yu Ko](https://www.google.com/books/edition/_/t3ZZDwAAQBAJ?hl=en&gbpv=0)
+  * <http://www.statistiker-wg.de/pgf/tutorials.htm>
+  * [A very minimal introduction to TikZ](https://cremeronline.com/LaTeX/minimaltikz.pdf)
+  * [TikZ Tutorial](https://indico.scc.kit.edu/event/48/contributions/3405/attachments/1693/2321/tikz_tutorial.pdf)
+  
+  
+  
 
 
 
