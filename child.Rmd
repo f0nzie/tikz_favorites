@@ -12,14 +12,14 @@ cat(readLines("./src/3d-cone_intersection+3d+pgf.tex"), sep = "\n")
 `r b`
 ****
 
-![](./src/3d-cube_color_rotated.png)
+![](./src/3d-cube_color_rotated+3d+pgf+foreach+command+define.png)
 
-  * [3d-cube_color_rotated.tex](https://github.com/walmes/Tikz/blob/master/src/3d-cube_color_rotated.pgf)
+  * [3d-cube_color_rotated+3d+pgf+foreach+command+define.tex](https://github.com/walmes/Tikz/blob/master/src/3d-cube_color_rotated+3d+pgf+foreach+command+define.pgf)
 
 `r a`
 ```{r}
 # change pgf to tex
-cat(readLines("./src/3d-cube_color_rotated.tex"), sep = "\n")
+cat(readLines("./src/3d-cube_color_rotated+3d+pgf+foreach+command+define.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -84,14 +84,14 @@ cat(readLines("./src/3d-torus+function+3d.tex"), sep = "\n")
 `r b`
 ****
 
-![](./src/add_tikz_symbols_to_block_arr+symbol+diagram+command+style.png)
+![](./src/animation-dynamic_labels.png)
 
-  * [add_tikz_symbols_to_block_arr+symbol+diagram+command+style.tex](https://github.com/walmes/Tikz/blob/master/src/add_tikz_symbols_to_block_arr+symbol+diagram+command+style.pgf)
+  * [animation-dynamic_labels.tex](https://github.com/walmes/Tikz/blob/master/src/animation-dynamic_labels.pgf)
 
 `r a`
 ```{r}
 # change pgf to tex
-cat(readLines("./src/add_tikz_symbols_to_block_arr+symbol+diagram+command+style.tex"), sep = "\n")
+cat(readLines("./src/animation-dynamic_labels.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -104,18 +104,6 @@ cat(readLines("./src/add_tikz_symbols_to_block_arr+symbol+diagram+command+style.
 ```{r}
 # change pgf to tex
 cat(readLines("./src/box_arrows+diagram.tex"), sep = "\n")
-```
-`r b`
-****
-
-![](./src/break_text_lines+tree.png)
-
-  * [break_text_lines+tree.tex](https://github.com/walmes/Tikz/blob/master/src/break_text_lines+tree.pgf)
-
-`r a`
-```{r}
-# change pgf to tex
-cat(readLines("./src/break_text_lines+tree.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -156,18 +144,6 @@ cat(readLines("./src/colorized_equation+equation.tex"), sep = "\n")
 `r b`
 ****
 
-![](./src/controller_system+diagram+style+learn.png)
-
-  * [controller_system+diagram+style+learn.tex](https://github.com/walmes/Tikz/blob/master/src/controller_system+diagram+style+learn.pgf)
-
-`r a`
-```{r}
-# change pgf to tex
-cat(readLines("./src/controller_system+diagram+style+learn.tex"), sep = "\n")
-```
-`r b`
-****
-
 ![](./src/cubes_factorials+physics+3d.png)
 
   * [cubes_factorials+physics+3d.tex](https://github.com/walmes/Tikz/blob/master/src/cubes_factorials+physics+3d.pgf)
@@ -176,18 +152,6 @@ cat(readLines("./src/controller_system+diagram+style+learn.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/cubes_factorials+physics+3d.tex"), sep = "\n")
-```
-`r b`
-****
-
-![](./src/custom-three_objects+symbols+command.png)
-
-  * [custom-three_objects+symbols+command.tex](https://github.com/walmes/Tikz/blob/master/src/custom-three_objects+symbols+command.pgf)
-
-`r a`
-```{r}
-# change pgf to tex
-cat(readLines("./src/custom-three_objects+symbols+command.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -236,6 +200,30 @@ cat(readLines("./src/drawstack+diagram.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/elem-10_circles+elem+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-3_nodes_triangle+elem+foreach.png)
+
+  * [elem-3_nodes_triangle+elem+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/elem-3_nodes_triangle+elem+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-3_nodes_triangle+elem+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-add_tikz_symbols_to_block_arr+symbol+diagram+command+style.png)
+
+  * [elem-add_tikz_symbols_to_block_arr+symbol+diagram+command+style.tex](https://github.com/walmes/Tikz/blob/master/src/elem-add_tikz_symbols_to_block_arr+symbol+diagram+command+style.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-add_tikz_symbols_to_block_arr+symbol+diagram+command+style.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -300,6 +288,18 @@ cat(readLines("./src/elem-cuboid_finer_grid+elem+foreach+command.tex"), sep = "\
 `r b`
 ****
 
+![](./src/elem-custom-three_objects+symbols+command.png)
+
+  * [elem-custom-three_objects+symbols+command.tex](https://github.com/walmes/Tikz/blob/master/src/elem-custom-three_objects+symbols+command.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-custom-three_objects+symbols+command.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/elem-cylinder+elem+3d+foreach+function.png)
 
   * [elem-cylinder+elem+3d+foreach+function.tex](https://github.com/walmes/Tikz/blob/master/src/elem-cylinder+elem+3d+foreach+function.pgf)
@@ -308,6 +308,18 @@ cat(readLines("./src/elem-cuboid_finer_grid+elem+foreach+command.tex"), sep = "\
 ```{r}
 # change pgf to tex
 cat(readLines("./src/elem-cylinder+elem+3d+foreach+function.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-draw_circles_through+elem+geometry.png)
+
+  * [elem-draw_circles_through+elem+geometry.tex](https://github.com/walmes/Tikz/blob/master/src/elem-draw_circles_through+elem+geometry.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-draw_circles_through+elem+geometry.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -408,14 +420,14 @@ cat(readLines("./src/elem-network-ex_doc_4-13+elem+network.tex"), sep = "\n")
 `r b`
 ****
 
-![](./src/elem-node_connector+elem+diagram+command.png)
+![](./src/elem-node_connector+elem+diagram+command+params.png)
 
-  * [elem-node_connector+elem+diagram+command.tex](https://github.com/walmes/Tikz/blob/master/src/elem-node_connector+elem+diagram+command.pgf)
+  * [elem-node_connector+elem+diagram+command+params.tex](https://github.com/walmes/Tikz/blob/master/src/elem-node_connector+elem+diagram+command+params.pgf)
 
 `r a`
 ```{r}
 # change pgf to tex
-cat(readLines("./src/elem-node_connector+elem+diagram+command.tex"), sep = "\n")
+cat(readLines("./src/elem-node_connector+elem+diagram+command+params.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -440,6 +452,42 @@ cat(readLines("./src/elem-physics-arrows_to_nodes+elem+phsyics.tex"), sep = "\n"
 ```{r}
 # change pgf to tex
 cat(readLines("./src/elem-physics-example_atom+elem+physics.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-placing_labels_circle.png)
+
+  * [elem-placing_labels_circle.tex](https://github.com/walmes/Tikz/blob/master/src/elem-placing_labels_circle.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-placing_labels_circle.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-placing_labels.png)
+
+  * [elem-placing_labels.tex](https://github.com/walmes/Tikz/blob/master/src/elem-placing_labels.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-placing_labels.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/elem-simple_computations_pentagon+elem+style.png)
+
+  * [elem-simple_computations_pentagon+elem+style.tex](https://github.com/walmes/Tikz/blob/master/src/elem-simple_computations_pentagon+elem+style.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/elem-simple_computations_pentagon+elem+style.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -528,14 +576,14 @@ cat(readLines("./src/flow-android_lifecycle+block+style+learn.tex"), sep = "\n")
 `r b`
 ****
 
-![](./src/flow-direction_of_arrival+diagram.png)
+![](./src/flow-direction_of_arrival+diagram+matrrix+table.png)
 
-  * [flow-direction_of_arrival+diagram.tex](https://github.com/walmes/Tikz/blob/master/src/flow-direction_of_arrival+diagram.pgf)
+  * [flow-direction_of_arrival+diagram+matrrix+table.tex](https://github.com/walmes/Tikz/blob/master/src/flow-direction_of_arrival+diagram+matrrix+table.pgf)
 
 `r a`
 ```{r}
 # change pgf to tex
-cat(readLines("./src/flow-direction_of_arrival+diagram.tex"), sep = "\n")
+cat(readLines("./src/flow-direction_of_arrival+diagram+matrrix+table.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -584,6 +632,30 @@ cat(readLines("./src/flow-labs_class+diagram+style+pgf+command.tex"), sep = "\n"
 ```{r}
 # change pgf to tex
 cat(readLines("./src/flow-report_diagrams+diagram+learn+style.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/gears_simple+foreach.png)
+
+  * [gears_simple+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/gears_simple+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/gears_simple+foreach.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/gears+pgf+def.png)
+
+  * [gears+pgf+def.tex](https://github.com/walmes/Tikz/blob/master/src/gears+pgf+def.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/gears+pgf+def.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -900,6 +972,18 @@ cat(readLines("./src/matrix-product.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/matrix-spreadsheet_formula+matrix+command.png)
+
+  * [matrix-spreadsheet_formula+matrix+command.tex](https://github.com/walmes/Tikz/blob/master/src/matrix-spreadsheet_formula+matrix+command.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/matrix-spreadsheet_formula+matrix+command.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/mind_2nd_level_concentric+mindmap.png)
 
   * [mind_2nd_level_concentric+mindmap.tex](https://github.com/walmes/Tikz/blob/master/src/mind_2nd_level_concentric+mindmap.pgf)
@@ -1124,30 +1208,6 @@ cat(readLines("./src/mind_tutorials_videos+mindmap.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/mind_two_connected_roots+mindmap.tex"), sep = "\n")
-```
-`r b`
-****
-
-![](./src/multidimensional-array-inclined.png)
-
-  * [multidimensional-array-inclined.tex](https://github.com/walmes/Tikz/blob/master/src/multidimensional-array-inclined.pgf)
-
-`r a`
-```{r}
-# change pgf to tex
-cat(readLines("./src/multidimensional-array-inclined.tex"), sep = "\n")
-```
-`r b`
-****
-
-![](./src/multidimensional-array.png)
-
-  * [multidimensional-array.tex](https://github.com/walmes/Tikz/blob/master/src/multidimensional-array.pgf)
-
-`r a`
-```{r}
-# change pgf to tex
-cat(readLines("./src/multidimensional-array.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -1620,18 +1680,6 @@ cat(readLines("./src/noise+diagram.tex"), sep = "\n")
 `r b`
 ****
 
-![](./src/ocean.png)
-
-  * [ocean.tex](https://github.com/walmes/Tikz/blob/master/src/ocean.pgf)
-
-`r a`
-```{r}
-# change pgf to tex
-cat(readLines("./src/ocean.tex"), sep = "\n")
-```
-`r b`
-****
-
 ![](./src/paper_folding+misc+foreach.png)
 
   * [paper_folding+misc+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/paper_folding+misc+foreach.pgf)
@@ -1688,6 +1736,54 @@ cat(readLines("./src/physics-tau_decay_signatures+physics.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/pirates-games.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/planes_multiple_ocean+projection+style+scope+slant.png)
+
+  * [planes_multiple_ocean+projection+style+scope+slant.tex](https://github.com/walmes/Tikz/blob/master/src/planes_multiple_ocean+projection+style+scope+slant.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/planes_multiple_ocean+projection+style+scope+slant.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/planes-multidimensional-array-inclined.png)
+
+  * [planes-multidimensional-array-inclined.tex](https://github.com/walmes/Tikz/blob/master/src/planes-multidimensional-array-inclined.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/planes-multidimensional-array-inclined.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/planes-multidimensional-array.png)
+
+  * [planes-multidimensional-array.tex](https://github.com/walmes/Tikz/blob/master/src/planes-multidimensional-array.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/planes-multidimensional-array.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/planes-polarization+3d+foreach.png)
+
+  * [planes-polarization+3d+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/planes-polarization+3d+foreach.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/planes-polarization+3d+foreach.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -1868,18 +1964,6 @@ cat(readLines("./src/plot-two_plots_same_axis+fileio+pgf.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/poincare+physics+diagram+foreach+set+command.tex"), sep = "\n")
-```
-`r b`
-****
-
-![](./src/polarization+3d+foreach.png)
-
-  * [polarization+3d+foreach.tex](https://github.com/walmes/Tikz/blob/master/src/polarization+3d+foreach.pgf)
-
-`r a`
-```{r}
-# change pgf to tex
-cat(readLines("./src/polarization+3d+foreach.tex"), sep = "\n")
 ```
 `r b`
 ****
@@ -2456,6 +2540,30 @@ cat(readLines("./src/transparent_circles+multi+pgf+set.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/tree_sibiling+tree.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/tree-break_text_lines+tree.png)
+
+  * [tree-break_text_lines+tree.tex](https://github.com/walmes/Tikz/blob/master/src/tree-break_text_lines+tree.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/tree-break_text_lines+tree.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/tree-decision_to_drill+tree+command.png)
+
+  * [tree-decision_to_drill+tree+command.tex](https://github.com/walmes/Tikz/blob/master/src/tree-decision_to_drill+tree+command.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/tree-decision_to_drill+tree+command.tex"), sep = "\n")
 ```
 `r b`
 ****
