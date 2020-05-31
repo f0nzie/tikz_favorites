@@ -1,7 +1,7 @@
 # Site settings
 baseurl = "https://f0nzie.github.io/tikz_favorites/"
 languageCode = "en-us"
-title = "Tikz Favorites"
+title = "My Tikz Favorites"
 themesDir = "./themes/"
 theme = "hugrid"
 # Enter your tracking code to enable Google Analytics
@@ -10,15 +10,15 @@ theme = "hugrid"
 contentdir = "content"
 datadir = "data"
 layoutdir = "layouts"
-publishdir = "../docs"
+publishdir = "../docs"    # we go one level up to store site for GitHub pages
 
 [params]
     # Meta
-    title = "Alfonso R. Reyes · Favorite Tikz files"
+    title = "Alfonso R. Reyes · My Favorite Tikz Things"
     subtitle = "Favorite Tikz graphics"
-    author = "Collected"
+    author = "Collected from the world"
     description = "some modified and commented"
-    keywords = "LaTeX, Tikz, Graphics"
+    keywords = "LaTeX, TikZ, graphics, favorites"
 
     # Body background color
     bodybgcolor = "#f9f9f9"
