@@ -1,0 +1,20 @@
+% https://tex.stackexchange.com/a/58880/173708
+% set node label position more precisely
+\documentclass[border=3mm,tikz]{standalone}
+%\documentclass{article}
+\usepackage{tikz,comment}
+
+\begin{comment}
+	You can define the direction of the label by using label=<angle>:<label text>. To specify the distance on a per node distance, you have to supply it to the label options: label={[label distance=<distance>]<angle>:<label text>}
+\end{comment}
+
+\begin{document}
+\begin{tikzpicture}[
+	    every node/.style=draw,
+	    every label/.style=draw
+	]
+	\node [label={[label distance=1cm]30:label}] {Node};
+\end{tikzpicture}
+
+
+\end{document}
