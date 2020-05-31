@@ -33,7 +33,8 @@ cat(length(fls), "files \n")  # TODO: stop if length = 0; no PNG files
 
 item_content <- function(file) {
     filename <- sub("\\.png$", "", file)
-    # https://github.com/f0nzie/tikz_favorites/blob/master/src/3d-cone_intersection%2B3d%2Bpgf.png
+    # very important to point to raw instead to blob in the images
+    # https://github.com/f0nzie/tikz_favorites/raw/master/src/3d-cone_intersection%2B3d%2Bpgf.png
     # https://github.com/f0nzie/tikz_favorites/blob/master/src/3d-cylinder-planes%2B3d.tex
     proto <- paste0(c(
         '[[items]]',
