@@ -38,10 +38,10 @@ item_content <- function(file) {
     proto <- paste0(c(
         '[[items]]',
         'title = "%s"',
-        'image = "https://github.com/f0nzie/tikz_favorites/blob/master/src/%s.png"',
-        'thumb = "https://github.com/f0nzie/tikz_favorites/blob/master/src/%s.png"',
+        'image = "https://github.com/f0nzie/tikz_favorites/raw/master/src/%s.png"',
+        'thumb = "https://github.com/f0nzie/tikz_favorites/raw/master/src/%s.png"',
         'alt = "%s"',
-        'description = "https://github.com/f0nzie/tikz_favorites/"',
+        'description = "https://github.com/f0nzie/tikz_favorites"',
         'url = "https://github.com/f0nzie/tikz_favorites/blob/master/src/%s.tex"\n'),
         collapse = "\n")
     string <- do.call(sprintf,
