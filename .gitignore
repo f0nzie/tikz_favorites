@@ -12,3 +12,6 @@ src/*.log
 *.html
 child.Rmd
 .Rhistory
+src/counter_file
+src/data.csv
+src/data.txt
