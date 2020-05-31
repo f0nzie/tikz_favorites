@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tikz Favorites</title>
-    <link>http://leg.ufpr.br/~walmes/Tikz/</link>
+    <link>https://f0nzie.github.io/tikz_favorites/</link>
     <description>Recent content on Tikz Favorites</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="http://leg.ufpr.br/~walmes/Tikz/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://f0nzie.github.io/tikz_favorites/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

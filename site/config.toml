@@ -1,5 +1,5 @@
 # Site settings
-baseurl = "http://leg.ufpr.br/~walmes/Tikz/"
+baseurl = "https://f0nzie.github.io/tikz_favorites/"
 languageCode = "en-us"
 title = "Tikz Favorites"
 themesDir = "./themes/"
