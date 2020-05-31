@@ -2,10 +2,13 @@
 # script to build static website for Mac
 
 # build items.toml config file for Hugo static website
+# Rscript "setwd(rprojroot::find_rstudio_root_file());"
+
 Rscript _build.R
 
 cd site/
 hugo
+
 
 # Tree of the directories.
 echo "------------------------------------------------------------------------"
