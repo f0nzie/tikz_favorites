@@ -1,7 +1,7 @@
 # Site settings
 baseurl = "http://leg.ufpr.br/~walmes/Tikz/"
 languageCode = "en-us"
-title = "WZ Tikz Gallery"
+title = "Tikz Favorites"
 themesDir = "./themes/"
 theme = "hugrid"
 # Enter your tracking code to enable Google Analytics
@@ -14,11 +14,11 @@ publishdir = "public"
 
 [params]
     # Meta
-    title = "Walmes Zeviani · Tikz Gallery"
-    subtitle = "My personal collection of Tikz drawings"
-    author = "Walmes Zeviani"
-    description = "TODO TODO"
-    keywords = "LaTeX, Tikz, Drawing, Visualization, Fluxograms, Graphics"
+    title = "Alfonso R. Reyes · Favorite Tikz files"
+    subtitle = "Favorite Tikz graphics"
+    author = "Collected"
+    description = "some modified and commented"
+    keywords = "LaTeX, Tikz, Graphics"
 
     # Body background color
     bodybgcolor = "#f9f9f9"
