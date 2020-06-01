@@ -1,14 +1,12 @@
 #!/bin/sh
-# script to build static website for Mac
-
+# script to build static website for Mac and Linux
 # build items.toml config file for Hugo static website
-# Rscript "setwd(rprojroot::find_rstudio_root_file());"
 
 Rscript _build_remote.R
 
 cd site/
 hugo
-
+cd ..
 
 # Tree of the directories.
 echo "------------------------------------------------------------------------"
@@ -29,11 +27,11 @@ esac
 # echo ${machine}
 if [ ${machine} = Linux ];then
     # echo Linux rulez
-    firefox public/index.html
+    firefox docs/index.html
 elif [ ${machine} = Mac ];then    
     # echo Mac rulez
     # Mac open firefox from terminal https://superuser.com/a/476852/653825
-    open -a firefox public/index.html
+    open -a firefox docs/index.html
 else 
     echo unknown
 fi
