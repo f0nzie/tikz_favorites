@@ -33,14 +33,16 @@ cat(length(fls), "files \n")  # TODO: stop if length = 0; no PNG files
 
 item_content <- function(file) {
     filename <- sub("\\.png$", "", file)
+    # if deployed on site/public path must be "../../src/%s.png"
+    # if deployed on docs path must be "../src/%s.png"
     proto <- paste0(c(
         '[[items]]',
         'title = "%s"',
-        'image = "../../src/%s.png"',
-        'thumb = "../../src/%s.png"',
+        'image = "../src/%s.png"',
+        'thumb = "../src/%s.png"',
         'alt = "%s"',
-        'description = "github.com/walmes/Tikz"',
-        'url = "../../src/%s.tex"\n'),
+        'description = "github.com/f0nzie/tikz_favorites"',
+        'url = "../src/%s.tex"\n'),
         collapse = "\n")
     string <- do.call(sprintf,
                       c(list(fmt = proto),
