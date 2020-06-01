@@ -48,6 +48,18 @@ cat(readLines("./src/3d-cylinder-planes+3d.tex"), sep = "\n")
 `r b`
 ****
 
+![](./src/3d-hypersurface-3.png)
+
+  * [3d-hypersurface-3.tex](https://github.com/walmes/Tikz/blob/master/src/3d-hypersurface-3.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/3d-hypersurface-3.tex"), sep = "\n")
+```
+`r b`
+****
+
 ![](./src/3d-physics-jet-cones+3d+physics.png)
 
   * [3d-physics-jet-cones+3d+physics.tex](https://github.com/walmes/Tikz/blob/master/src/3d-physics-jet-cones+3d+physics.pgf)
@@ -68,6 +80,18 @@ cat(readLines("./src/3d-physics-jet-cones+3d+physics.tex"), sep = "\n")
 ```{r}
 # change pgf to tex
 cat(readLines("./src/3d-seismic_focal_mechanism+3d+set+foreach+eng.tex"), sep = "\n")
+```
+`r b`
+****
+
+![](./src/3d-solid-of-revolution.png)
+
+  * [3d-solid-of-revolution.tex](https://github.com/walmes/Tikz/blob/master/src/3d-solid-of-revolution.pgf)
+
+`r a`
+```{r}
+# change pgf to tex
+cat(readLines("./src/3d-solid-of-revolution.tex"), sep = "\n")
 ```
 `r b`
 ****

@@ -39,7 +39,7 @@ TikZ involves a source file, which carries the `tex` extension; the PDF that is 
 ## Summary 
 This is my collection of favorite TikZ graphics. It is necessary to store and organize them as gallery because it makes it easier to peek at the code for new designs.
 
-There are 216 Tikz figures in this gallery. 
+There are 218 Tikz figures in this gallery. 
 
 The figures are sorted by filename.
 
@@ -556,6 +556,60 @@ This code was written by Jake on TeX.SE.
 ```
 ****
 
+![](./src/3d-hypersurface-3.png)
+
+  * [3d-hypersurface-3.tex](https://github.com/walmes/Tikz/blob/master/src/3d-hypersurface-3.pgf)
+
+```tex
+% https://github.com/MartinThoma/LaTeX-examples/blob/master/tikz/hypersurface-3/hypersurface-3.tex
+\documentclass{article}
+\usepackage[pdftex,active,tightpage]{preview}
+\setlength\PreviewBorder{2mm}
+\usepackage{pgfplots}
+\usepackage{units}
+\pgfplotsset{compat=1.3}% <-- moves axis labels near ticklabels
+                        % (respects tick label widths)
+\usepackage{tikz}
+\usetikzlibrary{arrows, positioning, calc, intersections, decorations.markings}
+
+\usepackage{xcolor}
+\definecolor{horizontalLineColor}{HTML}{008000}
+\definecolor{verticalLineColor}{HTML}{FF0000}
+
+\begin{document}
+
+% Define this as a command to ensure that it is same in both cases
+\newcommand*{\ShowIntersection}[2]{
+\fill
+    [name intersections={of=#1 and #2, name=i, total=\t}]
+    [red, opacity=1, every node/.style={above left, black, opacity=1}]
+    \foreach \s in {1,...,\t}{(i-\s) circle (2pt)
+        node [above left] {\s}};
+}
+
+\begin{preview}
+\begin{tikzpicture}
+    \begin{axis}[
+        grid=both,
+        minor tick num=1,
+        xlabel=$x$,
+        ylabel=$y$,
+        zlabel=$z$,
+        %label distance=0mm,
+        %width=8cm, height=7cm,     % size of the image
+        axis lines=left,
+        %tick style={draw=none},
+        %xticklabels={,,},
+        %yticklabels={,,}
+    ]
+      \addplot3[surf, colormap name=viridis] {-3/25*x*x+1/25*y*y};
+    \end{axis}
+\end{tikzpicture}
+\end{preview}
+\end{document}
+```
+****
+
 ![](./src/3d-physics-jet-cones+3d+physics.png)
 
   * [3d-physics-jet-cones+3d+physics.tex](https://github.com/walmes/Tikz/blob/master/src/3d-physics-jet-cones+3d+physics.pgf)
@@ -823,6 +877,40 @@ book `Tikz pour l'impatient <http://math.et.info.free.fr/TikZ/>`_, available onl
     \node [anchor=north, yshift=-2mm] at (current bounding box.south)
         {Seismic focal mechanism and Pression-Tension axis.};
 \end{tikzpicture}
+\end{document}
+```
+****
+
+![](./src/3d-solid-of-revolution.png)
+
+  * [3d-solid-of-revolution.tex](https://github.com/walmes/Tikz/blob/master/src/3d-solid-of-revolution.pgf)
+
+```tex
+% https://github.com/MartinThoma/LaTeX-examples/blob/master/tikz/solid-of-revolution/solid-of-revolution.tex
+% Author: Marco Miani
+\documentclass[varwidth=true, border=2pt]{standalone}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+
+\begin{document}
+    \pgfplotsset{
+        colormap={whitered}{
+            color(0cm)=(white);
+            color(1cm)=(orange!75!red)
+        }
+        %colormap={color}{color(0cm)=(white); color(1cm)=(blue)}
+    }
+    \begin{tikzpicture}
+     \begin{axis}[view={60}{30}]
+      \addplot3[surf,
+      samples=50,
+      domain=1:2,y domain=0:2*pi,
+      z buffer=sort]
+      %({(2 + tan(deg(y)))*cos((deg(x)))}, {(2 + cos(x)) * sin(x)}, {x});
+      ({x * cos(deg(y))}, {x * sin(deg(y))}, {1/x});
+     \end{axis}
+    \end{tikzpicture}
 \end{document}
 ```
 ****
