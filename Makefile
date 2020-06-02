@@ -12,13 +12,12 @@ TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
 TIKZ_FILES = $(filter-out $(TIKZ_LUALATEX) $(TIKZ_LIBS), $(TIKZ_FILES_ALL))
 
 PNG_FILES = $(TIKZ_FILES:.tex=.png)
-# PDF_FILES = $(TIKZ_FILES:.tex=.pdf)
 PDF_FILES = $(addsuffix .pdf, $(basename $(TIKZ_FILES)))
 
-lua:
+showlua:
 	@echo $(TIKZ_LUALATEX)
 
-libs:
+showlibs:
 	@echo $(TIKZ_LIBS)
 
 info:
@@ -38,16 +37,26 @@ all: $(PDF_FILES) $(PNG_FILES)
 	@echo $<
 	@gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
 	
+lualatex: $(TIKZ_LUALATEX)
+	@echo $<
+	@cd src && \
+		lualatex -synctex=1 -interaction=nonstopmode $(<F) > /dev/null 2>&1
+	@cd src && \
+		gs -q -sDEVICE=png256 -sBATCH \
+			-sOutputFile=$(addsuffix .png, $(basename $(<F))) \
+			-dNOPAUSE -r1200 $(addsuffix .pdf, $(basename $(<F)))
+	
+	
 .PHONY: siteremote
 siteremote: 	
-	Rscript _build_remote.R
+	Rscript _build_site.R remote
 	cd site && hugo
 	tree -h -F docs/ -L 1
 	open -a firefox docs/index.html
 	
 .PHONY: sitelocal
 sitelocal: 	
-	Rscript _build_local.R
+	Rscript _build_site.R local
 	cd site && hugo
 	tree -h -F docs/ -L 1
 	open -a firefox docs/index.html
@@ -71,7 +80,7 @@ tidy: chrono
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.aux -delete
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.out -delete
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.gz -delete
-	@# remove counter
+	@# remove counter_file if exists
 	if [ -f "$(SOURCE_DIR)/counter_file" ]; then \
         rm  $(SOURCE_DIR)/counter_file; \
     fi \
@@ -84,12 +93,6 @@ chrono:
 
 
 	
-temp:
-	@find $(SOURCE_DIR) -name *.log -print0 | xargs -0 -I{} echo {}
-	#find $(SOURCE_DIR) -name $(LOG_FILES) -delete
-	#ls src/*.log
-	# find . -maxdepth 1  -name \*.tex -not -name "*.code.tex" \
-# -not -name "*.lualatex.tex"  -print0 | xargs -0 -I{} ../pdflatexpng.sh {}
 
 
 	
