@@ -9,6 +9,8 @@ src/*.pdf
 src/*.gz
 src/*.aux
 src/*.log
+src/*.snm
+src/*.toc
 child.Rmd
 .Rhistory
 src/counter_file
