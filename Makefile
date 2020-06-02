@@ -37,6 +37,20 @@ all: $(PDF_FILES) $(PNG_FILES)
 %.png: %.pdf
 	@echo $<
 	@gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
+	
+.PHONY: siteremote
+siteremote: 	
+	Rscript _build_remote.R
+	cd site && hugo
+	tree -h -F docs/ -L 1
+	open -a firefox docs/index.html
+	
+.PHONY: sitelocal
+sitelocal: 	
+	Rscript _build_local.R
+	cd site && hugo
+	tree -h -F docs/ -L 1
+	open -a firefox docs/index.html
 
 # remove PNG and PDF files
 .PHONY: clean
