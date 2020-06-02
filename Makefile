@@ -1,34 +1,42 @@
+export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
+
 PKGSRC  := $(shell basename `pwd`)
 
 SITE_DIR    = site
 PUBLISH_DIR = docs
 SOURCE_DIR  = src
 TIKZ_LIBS = code.tex
-LUA_TIKZ = lualatex.tex
-TIKZ_FILES := $(wildcard $(SOURCE_DIR)/*.tex)
 TIKZ_FILES_ALL = $(wildcard $(SOURCE_DIR)/*.tex)
 TIKZ_LUALATEX = $(wildcard $(SOURCE_DIR)/*.lualatex.tex)
 TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
 TIKZ_FILES = $(filter-out $(TIKZ_LUALATEX) $(TIKZ_LIBS), $(TIKZ_FILES_ALL))
 
 PNG_FILES = $(TIKZ_FILES:.tex=.png)
-PDF_FILES = $(TIKZ_FILES:.tex=.pdf)
+# PDF_FILES = $(TIKZ_FILES:.tex=.pdf)
+PDF_FILES = $(addsuffix .pdf, $(basename $(TIKZ_FILES)))
+
+lua:
+	@echo $(TIKZ_LUALATEX)
+
+libs:
+	@echo $(TIKZ_LIBS)
 
 info:
 	@echo $PKGSRC;
 	
-PDFs = $(addsuffix .pdf, $(basename $(wildcard $(SOURCE_DIR)/*.tex)))
+PDF_FILES = $(addsuffix .pdf, $(basename $(TIKZ_FILES)))
 
 all: $(PDF_FILES) $(PNG_FILES)
 
 %.pdf: %.tex
 	@echo $<
-	@pdflatex -interaction=batchmode -output-directory $(SOURCE_DIR) $<  > /dev/null 2>&1
+	@pdflatex -interaction=batchmode -halt-on-error \
+		-output-directory $(SOURCE_DIR) $<  > /dev/null 2>&1
 	
 
 %.png: %.pdf
 	@echo $<
-	gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
+	@gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
 
 # remove PNG and PDF files
 .PHONY: clean
@@ -49,12 +57,16 @@ tidy: chrono
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.aux -delete
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.out -delete
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.gz -delete
-	rm $(SOURCE_DIR)/counter_file
+	@# remove counter
+	if [ -f "$(SOURCE_DIR)/counter_file" ]; then \
+        rm  $(SOURCE_DIR)/counter_file; \
+    fi \
 
 	
 chrono:
 	find $(SOURCE_DIR) -name \*.snm -delete
-	find $(SOURCE_DIR) -name \*.toc -delete	
+	find $(SOURCE_DIR) -name \*.toc -delete
+	find $(SOURCE_DIR) -name \*.nav -delete
 
 
 	
