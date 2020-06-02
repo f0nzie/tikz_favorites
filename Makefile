@@ -9,6 +9,7 @@ TIKZ_FILES := $(wildcard $(SOURCE_DIR)/*.tex)
 TIKZ_FILES_ALL = $(wildcard $(SOURCE_DIR)/*.tex)
 TIKZ_LUALATEX = $(wildcard $(SOURCE_DIR)/*.lualatex.tex)
 TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
+TIKZ_FILES = $(filter-out $(TIKZ_LUALATEX) $(TIKZ_LIBS), $(TIKZ_FILES_ALL))
 
 PNG_FILES = $(TIKZ_FILES:.tex=.png)
 PDF_FILES = $(TIKZ_FILES:.tex=.pdf)
