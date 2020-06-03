@@ -37,14 +37,21 @@ all: $(PDF_FILES) $(PNG_FILES)
 	@echo $<
 	@gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
 	
-lualatex: $(TIKZ_LUALATEX)
-	@echo $<
+# these three rules are for .tex files to be compiled with lualatex
+.PHONY: lualatex
+lualatex: $(PDF_LUALATEX) $(PNG_LUALATEX)
+
+$(PDF_LUALATEX): src/%.lualatex.pdf: src/%.lualatex.tex
 	@cd src && \
-		lualatex -synctex=1 -interaction=nonstopmode $(<F) > /dev/null 2>&1
+		lualatex -synctex=1 -interaction=nonstopmode $(<F)  > /dev/null 2>&1
+	@printf "`du -sh $@` <- \n"
+
+$(PNG_LUALATEX): src/%.lualatex.png: src/%.lualatex.pdf
 	@cd src && \
-		gs -q -sDEVICE=png256 -sBATCH \
-			-sOutputFile=$(addsuffix .png, $(basename $(<F))) \
-			-dNOPAUSE -r1200 $(addsuffix .pdf, $(basename $(<F)))
+		gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$(@F) -dNOPAUSE -r1200 $(<F)
+	@printf "`du -sh $@` <- \n"
+
+# end of rules for lualatex ------
 	
 	
 .PHONY: siteremote
