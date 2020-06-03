@@ -51,14 +51,17 @@ PNG_FILES = $(TIKZ_FILES:.tex=.png)
 PDF_FILES = $(addsuffix .pdf, $(basename $(TIKZ_FILES)))
 
 
-all: $(PDF_FILES) $(PNG_FILES) $(PDF_LUALATEX) $(PNG_LUALATEX)
+all: $(PDF_FILES) $(PNG_FILES) $(PDF_LUALATEX) $(PNG_LUALATEX) $(README)
 
 # rules for .tex files to be compiled with pdflatex
 %.pdf: %.tex msg_pdf_files
 	@pdflatex -interaction=batchmode -halt-on-error \
 		-output-directory $(SOURCE_DIR) $<  > /dev/null 2>&1
 	@printf "`du -sh $@` <- \n"
-	
+
+# TODO: is ghostscript installed in all Linux machines?	
+#	    This rule works in Mac and Linux with TexLive
+#       but will it work in others?
 %.png: %.pdf msg_png_files
 	@gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
 	@printf "`du -sh $@` <- \n"
@@ -127,6 +130,7 @@ clean: tidy cleanlualatex
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.png -delete
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.pdf -delete
 
+
 # remove byproducts	
 .PHONY: tidy
 tidy: chrono
@@ -134,10 +138,13 @@ tidy: chrono
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.aux -delete
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.out -delete
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.gz -delete
-	@# remove counter_file if exists
-	if [ -f "$(SOURCE_DIR)/counter_file" ]; then \
-        rm  $(SOURCE_DIR)/counter_file; \
-    fi \
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.snm -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.toc -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.nav -delete
+	if [ -f "$(README)" ]; then \
+        rm  $(README); \
+    fi
+
 
 .PHONY: cleanlualatex
 cleanlualatex: tidylualatex
