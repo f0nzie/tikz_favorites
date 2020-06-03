@@ -1,3 +1,26 @@
+# Makefile to build a Hugo static website from TikZ code.
+# To reproduce this work, download or clone this repository
+# from https://github.com/f0nzie/tikz_favorites.
+# 
+# Change the URL to your own repository in two files:
+#	site/config.toml
+# 	Example: Mine is set like this:
+# 	baseurl = "https://f0nzie.github.io/tikz_favorites/"
+# 
+#	_build_site.R
+#	Example: 
+# 	'image = "https://github.com/f0nzie/tikz_favorites/raw/master/src/%s.png"',	
+#
+# Compile PDFs and PNGs with:
+#	make all
+#
+# Build a website to be published via GitHub Pages with:
+#	make siteremote
+#
+# Build a local website with local links in your computer:
+#	make sitelocal
+
+compile PDFs, PNGs from TikZ code
 # using folder src/texmf to save .sty .cls files
 export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
 # common
@@ -112,7 +135,6 @@ showlua:
 	@echo $(PDF_LUALATEX)
 	@echo $(PNG_LUALATEX)
 	
-
 info:
 	@echo $PKGSRC
 	@echo $(TIKZ_LIBS)
