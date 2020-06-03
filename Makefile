@@ -118,10 +118,3 @@ info:
 	@echo $(TIKZ_LIBS)
 	@echo $(TIKZ_FILES_ALL)
 
-
-
-# @cd src && \
-# gs -q -sDEVICE=png256 -sBATCH \
-# 	-sOutputFile=$(addsuffix .png, $(basename $(<F))) \
-# 	-dNOPAUSE -r1200 $(addsuffix .pdf, $(basename $(<F))) && \
-# printf "`du -sh $(addsuffix .png, $(basename $(<F)))` <- \n"
