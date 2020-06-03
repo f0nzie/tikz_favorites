@@ -4,15 +4,16 @@
 # For multiple files, run "allpdfpng.sh"
 
 # count the number of times this was executed
-< counter_file read counter
-counter=$(( $counter + 1 ))
-echo $counter > counter_file
+    # < counter_file read counter
+    # counter=$(( $counter + 1 ))
+    # echo $counter > counter_file
 
 file=$1
-name=${file%.*}   # get the name of the file with no extension
-echo $counter $file
+name=${file%.*}   # extract only the name of the file with no extension
+# echo $counter $file
 
 # detect operating system
+# we need this to generate the .png files in MacOS with ghostscript
 unameOut="$(uname -s)"
 case "${unameOut}" in
     Linux*)     machine=Linux;;
@@ -41,5 +42,5 @@ fi
 du -sh $name.png   # returns file size and name of PNG
 
 # rm $name.pdf   # will not include PDF files
-rm $name.log  > /dev/null 2>&1 
-rm $name.aux > /dev/null 2>&1 
+# rm $name.log  > /dev/null 2>&1 
+# rm $name.aux > /dev/null 2>&1 

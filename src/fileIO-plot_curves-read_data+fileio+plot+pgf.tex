@@ -2,24 +2,9 @@
 \documentclass[border=10pt]{standalone}
 %%%<
 \usepackage{verbatim}
-\usepackage{filecontents}
-% changes in this table make changes to CSV file
-\begin{filecontents}{data.csv}
-measuring   power1   result1   power2   result2
-1           2        0.2       3.5      0.39
-2           3        0.35      3.8      0.3
-3           4        0.45      7.9      0.35
-4           5        0.5       8.5      0.39
-5           6        0.65      8.0      0.38
-6           7        0.68      8.5      0.4
-7           8        0.7       9.5      0.41
-8           7.5      0.73      10.5     0.99
-9           6.7      0.75      {}       {}
-10          10       0.79      {}       {}
-\end{filecontents}
-%%%>
 \usepackage{pgfplots}
 \pgfplotsset{width=7cm, compat=1.8, grid style={dashed}}
+
 \begin{comment}
 :Title: Markers in a line diagram
 :Tags: 2D;Markers
@@ -29,7 +14,31 @@ measuring   power1   result1   power2   result2
 Besides x and y values, special markers illustrate the result.
 
 This topic was discussed on: http://texwelt.de/wissen/fragen/3363/
+
+Data file
+-------
+if you want the data to be saved as you modify this file, add this:
+
+	\usepackage{filecontents}
+	
+	% changes in this table make changes to CSV file
+	\begin{filecontents}{data.csv}
+	measuring   power1   result1   power2   result2
+	1           2        0.2       3.5      0.39
+	2           3        0.35      3.8      0.3
+	3           4        0.45      7.9      0.35
+	4           5        0.5       8.5      0.39
+	5           6        0.65      8.0      0.38
+	6           7        0.68      8.5      0.4
+	7           8        0.7       9.5      0.41
+	8           7.5      0.73      10.5     0.99
+	9           6.7      0.75      {}       {}
+	10          10       0.79      {}       {}
+	\end{filecontents}
+	%%%>
+
 \end{comment}
+
 \begin{document}
 \begin{tikzpicture}
   \begin{axis}[

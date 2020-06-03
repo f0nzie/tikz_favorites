@@ -1,0 +1,91 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+## Simple example of passing two arguments with `sapply`
+
+```{r}
+f <- function(x, y) {
+  x*x+y
+}
+```
+
+
+```{r}
+y <- 1.5
+numbers <- seq(1,10)
+sapply(numbers, f, y)
+```
+
+## Using text
+
+```{r}
+suffix <- ""
+ext <- "png"
+pattern <- paste0("^", suffix, ".*", "\\.", ext, "$")
+
+# pattern = "\\.png$"
+
+path <- file.path(rprojroot::find_rstudio_root_file(), "src")
+
+fls <- dir(path = path,
+           pattern = pattern,
+           full.names = FALSE)
+
+cat(length(fls), "files \n")  # TODO: stop if length = 0; no PNG files
+
+site_data <- file.path(rprojroot::find_rstudio_root_file(), "site", "data")
+
+if (file.exists("items.toml")) {   # remove older items.toml
+    invisible(file.remove("items.toml"))
+}
+```
+
+## Test original function
+
+```{r}
+item_content <- function(file, x) {
+    filename <- sub("\\.png$", "", file)
+    # very important to point to raw instead to blob in the images
+    # https://github.com/f0nzie/tikz_favorites/raw/master/src/3d-cone_intersection%2B3d%2Bpgf.png
+    # https://github.com/f0nzie/tikz_favorites/blob/master/src/3d-cylinder-planes%2B3d.tex
+    proto <- paste0(x,
+        collapse = "\n")
+    string <- do.call(sprintf,
+                      c(list(fmt = proto),
+                        replicate(n = 5,
+                                  expr = filename,
+                                  simplify = "list")))
+    # generate config file items.toml with all items to be processed: 
+    # title, image, thumbnail, alt text, description and url
+    # Hugo will use this file to generate web site.
+    cat(string, "\n",
+        file = "items.toml",  # remove site/data folder for this test
+        append = TRUE)
+}
+
+remote <- c(
+        '[[items]]',
+        'title = "%s"',
+        'image = "https://github.com/f0nzie/tikz_favorites/raw/master/src/%s.png"',
+        'thumb = "https://github.com/f0nzie/tikz_favorites/raw/master/src/%s.png"',
+        'alt = "%s"',
+        'description = "https://github.com/f0nzie/tikz_favorites"',
+        'url = "https://github.com/f0nzie/tikz_favorites/blob/master/src/%s.tex"\n')
+
+# TODO: if using docs/ folder at the root 'image = "../src/%s.png"'
+# if using site/public folder 'image = "../../src/%s.png"'
+local <- c(
+        '[[items]]',
+        'title = "%s"',
+        'image = "../src/%s.png"',
+        'thumb = "../src/%s.png"',
+        'alt = "%s"',
+        'description = "github.com/f0nzie/tikz_favorites"',
+        'url = "../src/%s.tex"\n')
+
+invisible(sapply(fls, item_content, local))
+
+```
+

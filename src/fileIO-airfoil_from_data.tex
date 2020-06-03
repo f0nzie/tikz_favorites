@@ -1,0 +1,50 @@
+% http://www.texample.net/tikz/examples/airfoil-profiles/
+% Read airfoils from data files
+% Airfoil profiles from the UIUC Airfoil Coordinates Database
+% http://www.ae.uiuc.edu/m-selig/ads/coord_database.html
+% Data is released under the GNU General Public Licence. See
+% http://www.ae.uiuc.edu/m-selig/pd/gpl.html for more details. 
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{verbatim}
+
+\begin{comment}
+:Title: Airfoil profiles
+:Tags: Plots, External file, Foreach
+
+A few airfoil profiles from the extensive `UIUC Airfoil Coordinates Database`_. The data
+is provided in a convenient x,y coordinate format suitable for plotting using PGF/TikZ's
+``plot file`` construct.
+
+Note that the data is released under the `GNU General Public License`_. To use the
+data files with PGF/TikZ, you have to comment out the lines not containing coordinates.
+
+Download the airfoils used in the example: `airfoildata.zip`_
+
+.. _UIUC Airfoil Coordinates Database: http://www.ae.uiuc.edu/m-selig/ads/coord_database.html
+.. _GNU General Public License: http://www.ae.uiuc.edu/m-selig/pd/gpl.html
+.. _airfoildata.zip: http://www.fauskes.net/media/pgftikzexamples/data/airfoildata.zip
+\end{comment}
+
+\begin{document}
+
+\newcounter{y}
+\setcounter{y}{0}
+
+\begin{tikzpicture}
+    \foreach \lbl / \fn in {EPPLER 625/e625.dat,
+                            WORTMANN FX 2/fx2.dat,
+                            EPPLER 664 (EXTENDED)/e664ex.dat,
+                            CLARK Y/clarcy.dat,
+                            Eiffel 10 (Wright)/eiffel10.dat,
+                            FX 69-PR-281/fx69pr281.dat,
+                            NACA Munk M-4 airfoil/m4.dat}{
+        % Some profiles look better when using plot[smooth]
+        \draw[yshift=-\arabic{y}cm,scale=3] node[left=0.5cm] {\lbl}
+        	% set the dasta folder in the next line
+            plot file{data/\fn} -- cycle;
+        \stepcounter{y}
+    }
+\end{tikzpicture}
+
+\end{document}

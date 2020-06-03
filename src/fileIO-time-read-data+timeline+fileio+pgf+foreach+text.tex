@@ -1,24 +1,35 @@
 % https://tex.stackexchange.com/a/457351/173708
 \documentclass[border=10pt]{standalone}
+\usepackage{verbatim}
+
+
+\begin{comment}
+
+Data file
+-------
+if you want the data to be saved as you modify this file, add this:
+
 \usepackage{filecontents}
 
 \begin{filecontents*}{events.csv}
-	X,Y,Event,Date
-	0,0,Abbotsford,January 1
-	3,0,Surrey,April 1
-	5,1,Vancouver,June 1
-	6,0,New\ Westminster,July 1
-	10,0,North\ Vancouver,November 1
-	0.75,4,Ended\ High\ School,Jan 26
-	3.3,4,Started\ Trade\ School,April 10
-	5.8,4,Ended\ Trade\ School,June 28
-	8,4,Started\ Job\ 1,Sept 1
-	10.8,4,Started\ Job\ 2,Nov 27
+X,Y,Event,Date
+0,0,Abbotsford,January 1
+3,0,Surrey,April 1
+5,1,Vancouver,June 1
+6,0,New\ Westminster,July 1
+10,0,North\ Vancouver,November 1
+0.75,4,Ended\ High\ School,Jan 26
+3.3,4,Started\ Trade\ School,April 10
+5.8,4,Ended\ Trade\ School,June 28
+8,4,Started\ Job\ 1,Sept 1
+10.8,4,Started\ Job\ 2,Nov 27
 \end{filecontents*}
+%%%>
+\end{comment}
 
 \usepackage{tikz}
 \usepackage{pgfplotstable}
-\pgfplotstableread[col sep=comma]{events.csv}\data
+\pgfplotstableread[col sep=comma]{./data/events.csv}\data  # in ./data folder
 % from https://tex.stackexchange.com/a/445369/121799
 \newcommand*{\ReadOutElement}[4]{%
     \pgfplotstablegetelem{#2}{#3}\of{#1}%
