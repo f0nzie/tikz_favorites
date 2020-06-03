@@ -1,4 +1,5 @@
-# Makefile to build a Hugo static website from TikZ code.
+# Makefile to build a Hugo static website from TikZ code using R.
+#
 # To reproduce this work, download or clone this repository
 # from https://github.com/f0nzie/tikz_favorites.
 # 
@@ -17,10 +18,18 @@
 # Build a website to be published via GitHub Pages with:
 #	make siteremote
 #
+# To make website deployment  easier for everyone, I am using the docs/
+# folder for publishing. Once you pushed your local changes, you
+# have to activate GitHub Pages from the repo settings.
+#
 # Build a local website with local links in your computer:
 #	make sitelocal
 #
-# compile PDFs, PNGs from TikZ code
+# This has been tested with Mac and Linux
+# Maybe sometime I will test it in Windows as well.
+#
+#
+#
 # using folder src/texmf to save .sty .cls files
 export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
 # common
@@ -75,6 +84,7 @@ endif
 	@printf "`du -sh $@` <- \n"
 ### end of rules for lualatex ------
 
+# one-time mesage
 .INTERMEDIATE: msg_pdf_files
 msg_pdf_files:
 	$(info generating pdf files)
@@ -158,7 +168,3 @@ info:
 # Source: https://www.cmcrossroads.com/article/printing-value-makefile-variable
 print-%  : ; @echo $* = $($*)
 
-
-
-	# @printf "\n generating .pdf files \n"
-	# @touch msg_pdf_files
