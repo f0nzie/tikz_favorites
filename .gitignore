@@ -2,21 +2,20 @@
 .DS_Store
 *.zip
 README.html
+child.Rmd
 site/data/items.toml
 utils/*.html
 src/*.pdf
-# src/*.png
 src/*.gz
 src/*.aux
 src/*.log
 src/*.snm
 src/*.toc
+src/*.nav
 src/*.log
 src/*.fdb_latexmk
 src/*.fls
-child.Rmd
 .Rhistory
-src/counter_file
 src/data.csv
 src/data.txt
 counter_file
