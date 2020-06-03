@@ -19,8 +19,8 @@
 #
 # Build a local website with local links in your computer:
 #	make sitelocal
-
-compile PDFs, PNGs from TikZ code
+#
+# compile PDFs, PNGs from TikZ code
 # using folder src/texmf to save .sty .cls files
 export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
 # common
