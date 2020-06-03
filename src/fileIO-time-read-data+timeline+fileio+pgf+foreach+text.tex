@@ -29,7 +29,7 @@ X,Y,Event,Date
 
 \usepackage{tikz}
 \usepackage{pgfplotstable}
-\pgfplotstableread[col sep=comma]{events.csv}\data
+\pgfplotstableread[col sep=comma]{./data/events.csv}\data  # in ./data folder
 % from https://tex.stackexchange.com/a/445369/121799
 \newcommand*{\ReadOutElement}[4]{%
     \pgfplotstablegetelem{#2}{#3}\of{#1}%
