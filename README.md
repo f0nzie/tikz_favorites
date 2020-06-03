@@ -39,6 +39,9 @@ The magic is provided by:
 * the chunks of code that you can see in this `README`  
 
 
+## Deployment of website in GitHub Pages (GHP)
+This is a very interesting article about publshing your TikZ site: [Simple deployment to GH Pages](https://www.gnu.org/software/make/manual/html_node/Conditional-Syntax.html). I chose to publish it in `/docs` instead of the `public` folder because it is much easier. GHP does not allow to publish a website on the `public` folder, unfortunately.
+
 
 ## Thanks. Original repository and idea 
 I found this valuable resource while exploring TikZ and R: https://github.com/walmes/Tikz
