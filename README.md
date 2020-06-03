@@ -86,7 +86,7 @@ The figures are sorted by filename.
 * There are 221 files under `src/` to be compiled with `pdflatex`
 * There are 2 files under `src/` to be compiled with `lualatex`
 * There are 18 data files under the folder `src/data` that are being used by the TikZ scripts
-* There are 2 Latex classes, styles and libraries under the `src/texmf` folder
+* There are 2 Latex classes, styles and library files under the `src/texmf` folder
 
 
 

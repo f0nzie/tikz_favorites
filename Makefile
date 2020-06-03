@@ -37,6 +37,7 @@ PKGSRC  := $(shell basename `pwd`)
 SITE_DIR    = site
 PUBLISH_DIR = docs
 SOURCE_DIR  = src
+README = README.md
 TIKZ_LIBS = code.tex
 TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
 TIKZ_FILES_ALL = $(wildcard $(SOURCE_DIR)/*.tex)
@@ -109,6 +110,15 @@ sitelocal:
 	cd site && hugo
 	tree -h -F docs/ -L 1
 	open -a firefox docs/index.html
+
+# render the README file
+$(README): $(addsuffix .Rmd, $(basename $(README)))
+	Rscript -e "rmarkdown::render('$<')"
+ifeq ($(shell uname -s), Darwin)	
+	open -a firefox $(addsuffix .html, $(basename $(README)))
+else 
+	firefox $(addsuffix .html, $(basename $(README)))
+endif	
 
 
 # remove PNG and PDF files
