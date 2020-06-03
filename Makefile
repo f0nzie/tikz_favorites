@@ -69,7 +69,7 @@ sitelocal:
 
 # remove PNG and PDF files
 .PHONY: clean
-clean: tidy 
+clean: tidy cleanlualatex
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.png -delete
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.pdf -delete
 
