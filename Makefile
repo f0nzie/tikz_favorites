@@ -92,6 +92,17 @@ tidy: chrono
         rm  $(SOURCE_DIR)/counter_file; \
     fi \
 
+.PHONY: cleanlualatex
+cleanlualatex: tidylualatex
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.lualatex.png -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.lualatex.pdf -delete
+
+.PHONY: tidylualatex
+tidylualatex:
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.lualatex.log -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.lualatex.aux -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.lualatex.out -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.lualatex.synctex.gz -delete
 	
 chrono:
 	find $(SOURCE_DIR) -name \*.snm -delete
