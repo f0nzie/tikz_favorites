@@ -39,7 +39,7 @@ TikZ involves a source file, which carries the `tex` extension; the PDF that is 
 ## Summary 
 This is my collection of favorite TikZ graphics. It is necessary to store and organize them as gallery because it makes it easier to peek at the code for new designs.
 
-There are 218 Tikz figures in this gallery. 
+There are 223 Tikz figures in this gallery. 
 
 The figures are sorted by filename.
 
@@ -76,13 +76,15 @@ Web: http://leg.ufpr.br/~walmes/Tikz/
 
 ****
 
-![](./src/3d-cone_intersection+3d+pgf.png)
+![](./src/3d-cone_intersection+3d+pgf.lualatex.png)
 
-  * [3d-cone_intersection+3d+pgf.tex](https://github.com/walmes/Tikz/blob/master/src/3d-cone_intersection+3d+pgf.pgf)
+  * [3d-cone_intersection+3d+pgf.lualatex.tex](https://github.com/walmes/Tikz/blob/master/src/3d-cone_intersection+3d+pgf.lualatex.pgf)
 
 ```tex
 % http://pgfplots.net/media/tikz/examples/TEX/intersection-surfaces.tex
 % +3d+pgf
+% compile with lualatex
+%
 \documentclass[border=10pt]{standalone}
 %%%<
 \usepackage{verbatim}
@@ -126,6 +128,48 @@ This code was written by Jake on TeX.SE.
       {-y+5};
     \end{axis}
   \end{tikzpicture}  
+\end{document}
+```
+****
+
+![](./src/3d-cone+pgf.png)
+
+  * [3d-cone+pgf.tex](https://github.com/walmes/Tikz/blob/master/src/3d-cone+pgf.pgf)
+
+```tex
+% page 142 of book PGFPLOTS
+% http://mirror.utexas.edu/ctan/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf
+\documentclass[border=15pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+
+\begin{document}
+	
+	\begin{tikzpicture}
+	\begin{axis}[
+		axis lines=center,
+		axis on top,
+		xlabel={$x$},
+		ylabel={$y$},
+		zlabel={$z$},
+		domain=0:1,y domain=0:2*pi,
+		xmin=-1.5,
+		xmax=1.5,
+		ymin=-1.5,
+		ymax=1.5,
+		zmin=0.0,
+		mesh/interior colormap=
+			{blueblack}{color=(black) color=(blue)},
+		colormap/blackwhite,
+		samples=10,
+		samples y=40,
+		z buffer=sort,
+	]
+		\addplot3 [  surf]
+			({x*cos(deg(y))},{x*sin(deg(y))},{x});
+	\end{axis}
+	\end{tikzpicture}
+	
 \end{document}
 ```
 ****
@@ -2862,6 +2906,490 @@ We are working on
 	\node [my node=blue, minimum width=1.5cm] at (2, 0) {C};
 \end{tikzpicture}
 	
+\end{document}
+```
+****
+
+![](./src/fileIO-airfoil_from_data.png)
+
+  * [fileIO-airfoil_from_data.tex](https://github.com/walmes/Tikz/blob/master/src/fileIO-airfoil_from_data.pgf)
+
+```tex
+% http://www.texample.net/tikz/examples/airfoil-profiles/
+% Read airfoils from data files
+% Airfoil profiles from the UIUC Airfoil Coordinates Database
+% http://www.ae.uiuc.edu/m-selig/ads/coord_database.html
+% Data is released under the GNU General Public Licence. See
+% http://www.ae.uiuc.edu/m-selig/pd/gpl.html for more details. 
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{verbatim}
+
+\begin{comment}
+:Title: Airfoil profiles
+:Tags: Plots, External file, Foreach
+
+A few airfoil profiles from the extensive `UIUC Airfoil Coordinates Database`_. The data
+is provided in a convenient x,y coordinate format suitable for plotting using PGF/TikZ's
+``plot file`` construct.
+
+Note that the data is released under the `GNU General Public License`_. To use the
+data files with PGF/TikZ, you have to comment out the lines not containing coordinates.
+
+Download the airfoils used in the example: `airfoildata.zip`_
+
+.. _UIUC Airfoil Coordinates Database: http://www.ae.uiuc.edu/m-selig/ads/coord_database.html
+.. _GNU General Public License: http://www.ae.uiuc.edu/m-selig/pd/gpl.html
+.. _airfoildata.zip: http://www.fauskes.net/media/pgftikzexamples/data/airfoildata.zip
+\end{comment}
+
+\begin{document}
+
+\newcounter{y}
+\setcounter{y}{0}
+
+\begin{tikzpicture}
+    \foreach \lbl / \fn in {EPPLER 625/e625.dat,
+                            WORTMANN FX 2/fx2.dat,
+                            EPPLER 664 (EXTENDED)/e664ex.dat,
+                            CLARK Y/clarcy.dat,
+                            Eiffel 10 (Wright)/eiffel10.dat,
+                            FX 69-PR-281/fx69pr281.dat,
+                            NACA Munk M-4 airfoil/m4.dat}{
+        % Some profiles look better when using plot[smooth]
+        \draw[yshift=-\arabic{y}cm,scale=3] node[left=0.5cm] {\lbl}
+        	% set the dasta folder in the next line
+            plot file{data/\fn} -- cycle;
+        \stepcounter{y}
+    }
+\end{tikzpicture}
+
+\end{document}
+```
+****
+
+![](./src/fileIO-circles_from_data.png)
+
+  * [fileIO-circles_from_data.tex](https://github.com/walmes/Tikz/blob/master/src/fileIO-circles_from_data.pgf)
+
+```tex
+% https://tex.stackexchange.com/a/20500/173708
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usepackage{pgfplotstable}
+
+\begin{document}
+\centering
+\begin{tikzpicture}
+	\pgfplotstableread{./data/circles.dat}\table
+	\pgfplotstablegetrowsof{\table}
+	\pgfmathsetmacro{\M}{\pgfplotsretval-1}
+	\pgfplotstablegetcolsof{\table}
+	\pgfmathsetmacro{\N}{\pgfplotsretval-1}
+	
+	\foreach \row in {0,...,\M}{
+	          \foreach \col in {0,...,\N}{
+	                 \pgfplotstablegetelem{\row}{[index]\col}\of\table
+	                 \ifnum\col=0
+	                       \xdef\x{\pgfplotsretval}
+	                 \fi
+	                 \ifnum\col=1
+	                       \xdef\y{\pgfplotsretval}
+	                 \fi
+	                 \ifnum\col=2
+	                       \xdef\radius{\pgfplotsretval}
+	                 \fi
+	                 }
+	                 \definecolor{mycolor}{RGB}{\pdfuniformdeviate 256,%
+	                                            \pdfuniformdeviate 256,%
+	                                            \pdfuniformdeviate 256}
+	                 \fill[mycolor,opacity=.5] (\x,\y)circle(\radius cm);
+	}
+\end{tikzpicture}
+\end{document}
+```
+****
+
+![](./src/fileIO-plot_curves-read_data+fileio+plot+pgf.png)
+
+  * [fileIO-plot_curves-read_data+fileio+plot+pgf.tex](https://github.com/walmes/Tikz/blob/master/src/fileIO-plot_curves-read_data+fileio+plot+pgf.pgf)
+
+```tex
+% http://pgfplots.net/media/tikz/examples/TEX/plot-markers.tex
+\documentclass[border=10pt]{standalone}
+%%%<
+\usepackage{verbatim}
+\usepackage{pgfplots}
+\pgfplotsset{width=7cm, compat=1.8, grid style={dashed}}
+
+\begin{comment}
+:Title: Markers in a line diagram
+:Tags: 2D;Markers
+:Author: Elke Schubert
+:Slug: plot-markers
+
+Besides x and y values, special markers illustrate the result.
+
+This topic was discussed on: http://texwelt.de/wissen/fragen/3363/
+
+Data file
+-------
+if you want the data to be saved as you modify this file, add this:
+
+	\usepackage{filecontents}
+	
+	% changes in this table make changes to CSV file
+	\begin{filecontents}{data.csv}
+	measuring   power1   result1   power2   result2
+	1           2        0.2       3.5      0.39
+	2           3        0.35      3.8      0.3
+	3           4        0.45      7.9      0.35
+	4           5        0.5       8.5      0.39
+	5           6        0.65      8.0      0.38
+	6           7        0.68      8.5      0.4
+	7           8        0.7       9.5      0.41
+	8           7.5      0.73      10.5     0.99
+	9           6.7      0.75      {}       {}
+	10          10       0.79      {}       {}
+	\end{filecontents}
+	%%%>
+
+\end{comment}
+
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[
+    scatter,
+    scatter src = explicite,
+    grid        = major, % draws coordinate grid
+    xlabel      = Force $\lbrack{}$ F $\rbrack$, 
+    ylabel      = Amperage $\lbrack{}$ kA $\rbrack$,
+    width       = \linewidth,
+    height      = 10cm,
+    xmin = 0, xmax = 15,
+    ymin = 0, ymax = 12,
+    ]
+    \addplot+ [
+      visualization depends on =
+        {10*\thisrow{result1} \as \perpointmarksize},
+      scatter/@pre marker code/.append style =
+        {/tikz/mark size = \perpointmarksize},
+    ]
+    table[x=measuring, y=power1, point meta=\thisrow{result1}] {./data/data.csv};
+    \addplot+ [
+      visualization depends on =
+        {10*\thisrow{result2} \as \perpointmarksize},
+      scatter/@pre marker code/.append style =
+        {/tikz/mark size = \perpointmarksize}
+    ]
+    table [x=measuring, y=power2, point meta=\thisrow{result2}] {./data/data.csv};
+    \fill [gray, fill opacity=0.25] (axis cs:5,0) rectangle (axis cs:7,12);
+  \end{axis}
+\end{tikzpicture}
+\end{document}
+```
+****
+
+![](./src/fileIO-plot-two_plots_same_axis+fileio+pgf.png)
+
+  * [fileIO-plot-two_plots_same_axis+fileio+pgf.tex](https://github.com/walmes/Tikz/blob/master/src/fileIO-plot-two_plots_same_axis+fileio+pgf.pgf)
+
+```tex
+\documentclass[border=10pt]{standalone}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+
+\begin{document}
+
+% Preamble: \pgfplotsset{width=7cm,compat=newest}
+\begin{tikzpicture}
+    \begin{axis}
+	    [
+	    height=9cm,
+	    width=9cm,
+	    grid=major,
+	    ]
+	    % \addplot gnuplot[id=filesuffix]{(-x**5 - 242)};
+	    \addlegendentry{model}
+		    
+		    \addplot coordinates {
+			    (-4.77778,2027.60977)
+			    (-3.55556,347.84069)
+			    (-2.33333,22.58953)
+			    (-1.11111,-493.50066)
+			    (0.11111,46.66082)
+			    (1.33333,-205.56286)
+			    (2.55556,-341.40638)
+			    (3.77778,-1169.24780)
+			    (5.00000,-3269.56775)
+			    };
+		    \addlegendentry{estimate}
+	    \end{axis}
+    \end{tikzpicture}
+
+
+\end{document}
+```
+****
+
+![](./src/fileIO-simple_read_coordinates.png)
+
+  * [fileIO-simple_read_coordinates.tex](https://github.com/walmes/Tikz/blob/master/src/fileIO-simple_read_coordinates.pgf)
+
+```tex
+\documentclass{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.11}
+
+\begin{document}
+    \begin{tikzpicture}
+        \begin{axis}
+            \addplot table {./data/coordinates.dat};
+        \end{axis}
+    \end{tikzpicture}
+\end{document}
+```
+****
+
+![](./src/fileIO-table-read_data+fileio+pgf+table.png)
+
+  * [fileIO-table-read_data+fileio+pgf+table.tex](https://github.com/walmes/Tikz/blob/master/src/fileIO-table-read_data+fileio+pgf+table.pgf)
+
+```tex
+% http://pgfplots.net/media/tikz/examples/TEX/graph-in-table.tex
+\documentclass[border=10pt]{standalone}
+%%%<
+\usepackage{verbatim}
+
+\begin{comment}
+
+Data file
+-------
+if you want the data to be saved as you modify this file, add this:
+
+	\usepackage{filecontents}
+	
+	\begin{filecontents}{./data/data.txt}
+	name z p mean lci uci
+	Afear -0.96  0.33 -0.42 -1.28 0.49
+	Anofear 0.09 0.93 0.04 -0.85 0.94
+	B+2 0.29 0.78 0.10 -0.59 0.79
+	B+1   0.84  0.40  0.30 -0.40 1.00 
+	B1:1   2.19  0.03  0.80 0.08 1.52 
+	B-1   1.02  0.31  0.37 -0.33 1.07 
+	B-2   -0.10  0.92  -0.03 -0.72 0.65 
+	C+2   -1.11  0.27  -0.30 -0.83 0.23 
+	C+1   1.15   0.25  0.32 -0.22 0.86 
+	C1:1   -1.34  0.18  -0.38 -0.93 0.17 
+	C-1   0.43  0.67  0.12 -0.42 0.66 
+	C-2   -0.37  0.71  -0.10 -0.63 0.43 
+	D+2   0.41  0.68  0.12 -0.44 0.67 
+	D+1   -0.69  0.49  -0.20 -0.77 0.37 
+	D1:1   -1.33  0.18  -0.39 -0.97 0.19 
+	D-1   -1.21  0.23  -0.35 -0.92 0.22 
+	D-2   0.32  0.75  0.09 -0.46 0.65 
+	\end{filecontents}
+	%%%>
+\end{comment}
+
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepackage{pgfplotstable}
+\usepackage{booktabs}
+\usepackage{multirow}
+\begin{comment}
+:Title: Graph within a table
+:Tags: 2D;PGFPlotstable;Styles
+:Author: Jake
+:Slug: graph-in-table
+
+We would like to plot a graph within a table column, similar to
+http://texample.net/tikz/examples/weather-stations-data/ .
+
+We will use the booktabs package for good table design,
+and the multirow package.
+
+The data is read using PGFPlotstable and the plot is typeset dynamically.
+
+This code was written by Jake on TeX.SE.
+\end{comment}
+
+% Read data file, create new column ``upper CI boundary - mean''
+\pgfplotstableread{./data/data.txt}\data
+\pgfplotstableset{create on use/error/.style={
+    create col/expr={\thisrow{uci}-\thisrow{mean}
+    }
+  }
+}
+
+% Define the command for the plot
+\newcommand{\errplot}{%
+  \begin{tikzpicture}[trim axis left,trim axis right]
+    \begin{axis}[y=-\baselineskip,
+        scale only axis,
+        width             = 6.5cm,
+        enlarge y limits  = {abs=0.5},
+        axis y line*      = middle,
+        y axis line style = dashed,
+        ytick             = \empty,
+        axis x line*      = bottom
+      ]
+      % ``mean'' must be present in the datafile,
+      %``error'' is the newly generated column
+      \addplot+[only marks][error bars/.cd,x dir=both, x explicit]
+        table [x=mean,y expr=\coordindex,x error=error]{\data};
+    \end{axis}
+  \end{tikzpicture}%
+}
+
+\begin{document}
+% Get number of rows in datafile
+\pgfplotstablegetrowsof{\data}
+\let\numberofrows=\pgfplotsretval
+
+% Print the table
+\pgfplotstabletypeset[columns={name,error,z,p,mean,ci},
+  % Booktabs rules
+  every head row/.style = {before row=\toprule, after row=\midrule},
+  every last row/.style = {after row=[3ex]\bottomrule},
+  % Set header name
+  columns/name/.style = {string type, column name=Name},
+  % Use the ``error'' column to call the \errplot command in a multirow cell
+  % in the first row, keep empty for all other rows
+  columns/error/.style = {
+    column name = {},
+    assign cell content/.code = {% use \multirow for Z column:
+    \ifnum\pgfplotstablerow=0
+    \pgfkeyssetvalue{/pgfplots/table/@cell content}
+    {\multirow{\numberofrows}{6.5cm}{\errplot}}%
+    \else
+    \pgfkeyssetvalue{/pgfplots/table/@cell content}{}%
+    \fi
+    }
+  },
+  % Format numbers and titles
+  columns/mean/.style = {column name = Mean, fixed ,fixed zerofill, dec sep align},
+  columns/z/.style    = {column name = $z$, fixed, fixed zerofill, dec sep align},
+  columns/p/.style    = {column name = $p$, fixed, fixed zerofill, dec sep align},
+  columns/ci/.style   = {string type, column name = 95\% CI},
+  % Create the ``(x to y)'' format, use \pgfmathprintnumber with `showpos`
+  % to make things align nicely
+  create on use/ci/.style={
+    create col/assign/.code={\edef\value{(
+      \noexpand\pgfmathprintnumber[showpos,fixed,fixed zerofill]{\thisrow{lci}}
+      to \noexpand\pgfmathprintnumber[showpos,fixed,fixed zerofill]{\thisrow{uci}})}
+      \pgfkeyslet{/pgfplots/table/create col/next content}\value
+    }
+  }
+]{\data}
+\end{document}
+```
+****
+
+![](./src/fileIO-time-read-data+timeline+fileio+pgf+foreach+text.png)
+
+  * [fileIO-time-read-data+timeline+fileio+pgf+foreach+text.tex](https://github.com/walmes/Tikz/blob/master/src/fileIO-time-read-data+timeline+fileio+pgf+foreach+text.pgf)
+
+```tex
+% https://tex.stackexchange.com/a/457351/173708
+\documentclass[border=10pt]{standalone}
+\usepackage{verbatim}
+
+
+\begin{comment}
+
+Data file
+-------
+if you want the data to be saved as you modify this file, add this:
+
+\usepackage{filecontents}
+
+\begin{filecontents*}{events.csv}
+X,Y,Event,Date
+0,0,Abbotsford,January 1
+3,0,Surrey,April 1
+5,1,Vancouver,June 1
+6,0,New\ Westminster,July 1
+10,0,North\ Vancouver,November 1
+0.75,4,Ended\ High\ School,Jan 26
+3.3,4,Started\ Trade\ School,April 10
+5.8,4,Ended\ Trade\ School,June 28
+8,4,Started\ Job\ 1,Sept 1
+10.8,4,Started\ Job\ 2,Nov 27
+\end{filecontents*}
+%%%>
+\end{comment}
+
+\usepackage{tikz}
+\usepackage{pgfplotstable}
+\pgfplotstableread[col sep=comma]{./data/events.csv}\data  %  in ./data folder
+% from https://tex.stackexchange.com/a/445369/121799
+\newcommand*{\ReadOutElement}[4]{%
+    \pgfplotstablegetelem{#2}{#3}\of{#1}%
+    \let#4\pgfplotsretval
+}
+
+
+%only necessary for overset
+\usetikzlibrary{positioning}
+\usepackage{makecell}%
+\usetikzlibrary{patterns}
+
+\begin{document}
+
+    \begin{tikzpicture}[node distance =2mm]
+
+       % draw horizontal line
+       \draw (0,0) coordinate (baseLine) -- (11,0);
+
+       % draw vertical lines and label below with months
+       \foreach \varXcoord/\varMonth [count=\xx] in {
+          0/Jan,
+          1/Feb,
+          2/Mar,
+          3/Apr,
+          4/May,
+          5/Jun,
+          6/Jul,
+          7/Aug,
+          8/Sep,
+          9/Oct,
+          10/Nov,
+          11/Dec
+       }
+          \draw (\varXcoord,3pt) -- +(0,-6pt) node (qBaseTick\xx) [below] {\varMonth};
+
+       \fill [pattern=north west lines, pattern color=yellow] (-1,0) rectangle (12.5,4); 
+
+       \node [above left = 2.5 and 1 of baseLine,rotate=90] 
+       {
+         Location
+       };
+
+       \fill [pattern=north west lines, pattern color=orange] (-1,4) rectangle (12.5,8); 
+
+       \node [above left = 7 and 1 of baseLine,rotate=90] 
+       {
+         Career
+       };
+
+      \pgfplotstablegetrowsof{\data}
+      \pgfmathtruncatemacro{\rownumber}{\pgfplotsretval-1}
+      \foreach \X in {0,...,\rownumber}
+      {
+          \ReadOutElement{\data}{\X}{X}{\varXcoord}
+          \ReadOutElement{\data}{\X}{Y}{\varYcoord}
+          \ReadOutElement{\data}{\X}{Event}{\varEvent}
+          \ReadOutElement{\data}{\X}{Date}{\varDate}
+          \draw[<-] (\varXcoord,0) -- (\varXcoord,\varYcoord+0.5);
+          \node [above right = \varYcoord and \varXcoord + 0.5 of baseLine, rotate=45, anchor=south west] {\makecell[l]{\small${\varEvent}$\\\tiny \varDate}};
+      }
+   \end{tikzpicture}
+
 \end{document}
 ```
 ****
@@ -7479,8 +8007,8 @@ rotate border/.style={shape border uses incircle, shape border rotate=#1},
 \begin{document} 
 
 \begin{tikzpicture}[multilayer=3d]
-	\Vertices[layer=1]{ml_vertices.csv}
-	\Edges[layer={1,1}]{ml_edges.csv}
+	\Vertices[layer=1]{data/ml_vertices.csv}
+	\Edges[layer={1,1}]{data/ml_edges.csv}
 \end{tikzpicture}
 
 \end{document}
@@ -7500,11 +8028,103 @@ rotate border/.style={shape border uses incircle, shape border rotate=#1},
 \begin{document} 
 
 \begin{tikzpicture}[multilayer=3d]
-	\Vertices{ml_vertices.csv}
-	\Edges{ml_edges.csv}
+	\Vertices{data/ml_vertices.csv}
+	\Edges{data/ml_edges.csv}
 \end{tikzpicture}
 
 \end{document}
+```
+****
+
+![](./src/network-ex_multilayer.lualatex.png)
+
+  * [network-ex_multilayer.lualatex.tex](https://github.com/walmes/Tikz/blob/master/src/network-ex_multilayer.lualatex.pgf)
+
+```tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% use lualatex to compile the pdf !!! %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%=============================================================================
+% File:  ex_multilayer_01.tex --  tikz-network example
+% Author(s): Jürgen Hackl <hackl@ibi.baug.ethz.ch>
+% Creation:  20 Sep 2017
+% Time-stamp: <Die 2018-06-12 07:45 juergen>
+%
+% Copyright (c) 2017 Jürgen Hackl <hackl@ibi.baug.ethz.ch>
+%               http://www.ibi.ethz.ch
+% $Id$
+%
+% More information on LaTeX: http://www.latex-project.org/
+% LaTeX symbol list: 
+%   http://www.ctan.org/tex-archive/info/symbols/comprehensive/symbols-a4.pdf
+%=============================================================================
+
+% https://github.com/hackl/tikz-network/blob/master/examples/multilayer/ex_multilayer_01.tex
+
+\RequirePackage{luatex85}
+\documentclass{standalone}
+
+% Used packages
+\usepackage{tikz-network}
+
+\begin{document}
+
+% Setting
+\SetCoordinates[xAngle = -20]
+\SetVertexStyle[MinSize = 4.5mm]
+\SetLayerDistance{-5}
+\SetPlaneWidth{10}
+\SetPlaneHeight{10}
+\begin{tikzpicture}[multilayer=3d]
+
+	%%
+	% Layer 2
+	
+	% Background
+	\Plane[layer=2,color=orange,opacity=.6,image=./data/ex_multilayer_01_layer_02.pdf,ImageAndFill,grid=1cm,InBG]
+	
+	% Text
+	\Text[x=1.2,y=-.1,layer=2,anchor=north west,style={scale=2.5}]{Layer $\beta$}
+	
+	% Vertices
+	\Vertices[color=orange]{./data/ex_multilayer_01_vertices.csv}
+	
+	% Intra-layer edges in layer 2
+	\Edges[color=black,layer={2,2}]{./data/ex_multilayer_01_edges.csv}
+	\EdgesNotInBG
+	
+	% Inter-layer edges between layer 1 and 2
+	\Edges[color=black,layer={1,2},style={dashed}]{./data/ex_multilayer_01_edges.csv}
+	
+	%%
+	% Layer 1
+	
+	% Background
+	\Plane[opacity=.6,image=./data/ex_multilayer_01_layer_01.pdf,ImageAndFill,grid=1cm]
+	
+	% Text
+	\Text[x=1.2,y=-.1,layer=1,anchor=north west,style={scale=2.5}]{Layer $\alpha$}
+	
+	% Intra-layer edges in layer 1
+	\Edges[color=black,layer={1,1}]{./data/ex_multilayer_01_edges.csv}
+	
+	% Vertices in layer 1
+	\Vertices[layer=1]{./data/ex_multilayer_01_vertices.csv}
+
+
+\end{tikzpicture}
+\end{document}
+%=============================================================================
+% eof
+%
+% Local Variables:
+% mode: latex
+% mode: linum
+% mode: auto-fill
+% fill-column: 80
+% TeX-master: t
+% End:
 ```
 ****
 
@@ -7523,8 +8143,8 @@ rotate border/.style={shape border uses incircle, shape border rotate=#1},
         \draw[very thick] (-.5,-.5) rectangle (2.5,2);
         \node at (-.5,-.5)[below right]{Layer 1};
     \end{Layer}
-	\Vertices[layer=1]{ml_vertices.csv}
-	\Edges[layer={1,1}]{ml_edges.csv}
+	\Vertices[layer=1]{data/ml_vertices.csv}
+	\Edges[layer={1,1}]{data/ml_edges.csv}
 \end{tikzpicture}
 
 \end{document}
@@ -7567,8 +8187,8 @@ rotate border/.style={shape border uses incircle, shape border rotate=#1},
 
 \begin{document} 
 \begin{tikzpicture}
-	\Vertices{vertices.csv}
-	\Edges{edges.csv}
+	\Vertices{data/vertices.csv}
+	\Edges{data/edges.csv}
 
 \end{tikzpicture}
 \end{document} 
@@ -10960,77 +11580,6 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
 ```
 ****
 
-![](./src/plot-curves-read_data+fileio+plot+pgf.png)
-
-  * [plot-curves-read_data+fileio+plot+pgf.tex](https://github.com/walmes/Tikz/blob/master/src/plot-curves-read_data+fileio+plot+pgf.pgf)
-
-```tex
-% http://pgfplots.net/media/tikz/examples/TEX/plot-markers.tex
-\documentclass[border=10pt]{standalone}
-%%%<
-\usepackage{verbatim}
-\usepackage{filecontents}
-% changes in this table make changes to CSV file
-\begin{filecontents}{data.csv}
-measuring   power1   result1   power2   result2
-1           2        0.2       3.5      0.39
-2           3        0.35      3.8      0.3
-3           4        0.45      7.9      0.35
-4           5        0.5       8.5      0.39
-5           6        0.65      8.0      0.38
-6           7        0.68      8.5      0.4
-7           8        0.7       9.5      0.41
-8           7.5      0.73      10.5     0.99
-9           6.7      0.75      {}       {}
-10          10       0.79      {}       {}
-\end{filecontents}
-%%%>
-\usepackage{pgfplots}
-\pgfplotsset{width=7cm, compat=1.8, grid style={dashed}}
-\begin{comment}
-:Title: Markers in a line diagram
-:Tags: 2D;Markers
-:Author: Elke Schubert
-:Slug: plot-markers
-
-Besides x and y values, special markers illustrate the result.
-
-This topic was discussed on: http://texwelt.de/wissen/fragen/3363/
-\end{comment}
-\begin{document}
-\begin{tikzpicture}
-  \begin{axis}[
-    scatter,
-    scatter src = explicite,
-    grid        = major, % draws coordinate grid
-    xlabel      = Force $\lbrack{}$ F $\rbrack$, 
-    ylabel      = Amperage $\lbrack{}$ kA $\rbrack$,
-    width       = \linewidth,
-    height      = 10cm,
-    xmin = 0, xmax = 15,
-    ymin = 0, ymax = 12,
-    ]
-    \addplot+ [
-      visualization depends on =
-        {10*\thisrow{result1} \as \perpointmarksize},
-      scatter/@pre marker code/.append style =
-        {/tikz/mark size = \perpointmarksize},
-    ]
-    table[x=measuring, y=power1, point meta=\thisrow{result1}] {data.csv};
-    \addplot+ [
-      visualization depends on =
-        {10*\thisrow{result2} \as \perpointmarksize},
-      scatter/@pre marker code/.append style =
-        {/tikz/mark size = \perpointmarksize}
-    ]
-    table [x=measuring, y=power2, point meta=\thisrow{result2}] {data.csv};
-    \fill [gray, fill opacity=0.25] (axis cs:5,0) rectangle (axis cs:7,12);
-  \end{axis}
-\end{tikzpicture}
-\end{document}
-```
-****
-
 ![](./src/plot-derivatives+plot.png)
 
   * [plot-derivatives+plot.tex](https://github.com/walmes/Tikz/blob/master/src/plot-derivatives+plot.pgf)
@@ -11877,50 +12426,6 @@ postaction=decorate] #1 -- #2 ;
 	
 	
 	
-\end{document}
-```
-****
-
-![](./src/plot-two_plots_same_axis+fileio+pgf.png)
-
-  * [plot-two_plots_same_axis+fileio+pgf.tex](https://github.com/walmes/Tikz/blob/master/src/plot-two_plots_same_axis+fileio+pgf.pgf)
-
-```tex
-\documentclass[border=10pt]{standalone}
-
-\usepackage{pgfplots}
-\pgfplotsset{compat=newest}
-
-
-\begin{document}
-
-% Preamble: \pgfplotsset{width=7cm,compat=newest}
-\begin{tikzpicture}
-    \begin{axis}
-	    [
-	    height=9cm,
-	    width=9cm,
-	    grid=major,
-	    ]
-	    % \addplot gnuplot[id=filesuffix]{(-x**5 - 242)};
-	    \addlegendentry{model}
-		    
-		    \addplot coordinates {
-			    (-4.77778,2027.60977)
-			    (-3.55556,347.84069)
-			    (-2.33333,22.58953)
-			    (-1.11111,-493.50066)
-			    (0.11111,46.66082)
-			    (1.33333,-205.56286)
-			    (2.55556,-341.40638)
-			    (3.77778,-1169.24780)
-			    (5.00000,-3269.56775)
-			    };
-		    \addlegendentry{estimate}
-	    \end{axis}
-    \end{tikzpicture}
-
-
 \end{document}
 ```
 ****
@@ -12913,131 +13418,6 @@ pinstyle/.style = {pin edge={to-,thin,black}
 %\caption{A PID Control System} \label{fig6_10}
 %\end{figure}
 
-\end{document}
-```
-****
-
-![](./src/table-read_data+fileio+pgf+table.png)
-
-  * [table-read_data+fileio+pgf+table.tex](https://github.com/walmes/Tikz/blob/master/src/table-read_data+fileio+pgf+table.pgf)
-
-```tex
-% http://pgfplots.net/media/tikz/examples/TEX/graph-in-table.tex
-\documentclass[border=10pt]{standalone}
-%%%<
-\usepackage{verbatim}
-\usepackage{filecontents}
-\begin{filecontents}{data.txt}
-name z p mean lci uci
-Afear -0.96  0.33 -0.42 -1.28 0.49
-Anofear 0.09 0.93 0.04 -0.85 0.94
-B+2 0.29 0.78 0.10 -0.59 0.79
-B+1   0.84  0.40  0.30 -0.40 1.00 
-B1:1   2.19  0.03  0.80 0.08 1.52 
-B-1   1.02  0.31  0.37 -0.33 1.07 
-B-2   -0.10  0.92  -0.03 -0.72 0.65 
-C+2   -1.11  0.27  -0.30 -0.83 0.23 
-C+1   1.15   0.25  0.32 -0.22 0.86 
-C1:1   -1.34  0.18  -0.38 -0.93 0.17 
-C-1   0.43  0.67  0.12 -0.42 0.66 
-C-2   -0.37  0.71  -0.10 -0.63 0.43 
-D+2   0.41  0.68  0.12 -0.44 0.67 
-D+1   -0.69  0.49  -0.20 -0.77 0.37 
-D1:1   -1.33  0.18  -0.39 -0.97 0.19 
-D-1   -1.21  0.23  -0.35 -0.92 0.22 
-D-2   0.32  0.75  0.09 -0.46 0.65 
-\end{filecontents}
-%%%>
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.8}
-\usepackage{pgfplotstable}
-\usepackage{booktabs}
-\usepackage{multirow}
-\begin{comment}
-:Title: Graph within a table
-:Tags: 2D;PGFPlotstable;Styles
-:Author: Jake
-:Slug: graph-in-table
-
-We would like to plot a graph within a table column, similar to
-http://texample.net/tikz/examples/weather-stations-data/ .
-
-We will use the booktabs package for good table design,
-and the multirow package.
-
-The data is read using PGFPlotstable and the plot is typeset dynamically.
-
-This code was written by Jake on TeX.SE.
-\end{comment}
-
-% Read data file, create new column ``upper CI boundary - mean''
-\pgfplotstableread{data.txt}\data
-\pgfplotstableset{create on use/error/.style={
-    create col/expr={\thisrow{uci}-\thisrow{mean}
-    }
-  }
-}
-
-% Define the command for the plot
-\newcommand{\errplot}{%
-  \begin{tikzpicture}[trim axis left,trim axis right]
-    \begin{axis}[y=-\baselineskip,
-        scale only axis,
-        width             = 6.5cm,
-        enlarge y limits  = {abs=0.5},
-        axis y line*      = middle,
-        y axis line style = dashed,
-        ytick             = \empty,
-        axis x line*      = bottom
-      ]
-      % ``mean'' must be present in the datafile,
-      %``error'' is the newly generated column
-      \addplot+[only marks][error bars/.cd,x dir=both, x explicit]
-        table [x=mean,y expr=\coordindex,x error=error]{\data};
-    \end{axis}
-  \end{tikzpicture}%
-}
-
-\begin{document}
-% Get number of rows in datafile
-\pgfplotstablegetrowsof{\data}
-\let\numberofrows=\pgfplotsretval
-
-% Print the table
-\pgfplotstabletypeset[columns={name,error,z,p,mean,ci},
-  % Booktabs rules
-  every head row/.style = {before row=\toprule, after row=\midrule},
-  every last row/.style = {after row=[3ex]\bottomrule},
-  % Set header name
-  columns/name/.style = {string type, column name=Name},
-  % Use the ``error'' column to call the \errplot command in a multirow cell
-  % in the first row, keep empty for all other rows
-  columns/error/.style = {
-    column name = {},
-    assign cell content/.code = {% use \multirow for Z column:
-    \ifnum\pgfplotstablerow=0
-    \pgfkeyssetvalue{/pgfplots/table/@cell content}
-    {\multirow{\numberofrows}{6.5cm}{\errplot}}%
-    \else
-    \pgfkeyssetvalue{/pgfplots/table/@cell content}{}%
-    \fi
-    }
-  },
-  % Format numbers and titles
-  columns/mean/.style = {column name = Mean, fixed ,fixed zerofill, dec sep align},
-  columns/z/.style    = {column name = $z$, fixed, fixed zerofill, dec sep align},
-  columns/p/.style    = {column name = $p$, fixed, fixed zerofill, dec sep align},
-  columns/ci/.style   = {string type, column name = 95\% CI},
-  % Create the ``(x to y)'' format, use \pgfmathprintnumber with `showpos`
-  % to make things align nicely
-  create on use/ci/.style={
-    create col/assign/.code={\edef\value{(
-      \noexpand\pgfmathprintnumber[showpos,fixed,fixed zerofill]{\thisrow{lci}}
-      to \noexpand\pgfmathprintnumber[showpos,fixed,fixed zerofill]{\thisrow{uci}})}
-      \pgfkeyslet{/pgfplots/table/create col/next content}\value
-    }
-  }
-]{\data}
 \end{document}
 ```
 ****
@@ -14470,99 +14850,6 @@ on grid
 	\eventpoint[start date=17/8,end date=19/9,event color=red,yshift=5pt]{test 2} % shift just to show you can hook into standard tikz keys to change the event's features ad-hoc
 
 \end{tikzpicture}
-\end{document}
-```
-****
-
-![](./src/time-read-data+timeline+fileio+pgf+foreach+text.png)
-
-  * [time-read-data+timeline+fileio+pgf+foreach+text.tex](https://github.com/walmes/Tikz/blob/master/src/time-read-data+timeline+fileio+pgf+foreach+text.pgf)
-
-```tex
-% https://tex.stackexchange.com/a/457351/173708
-\documentclass[border=10pt]{standalone}
-\usepackage{filecontents}
-
-\begin{filecontents*}{events.csv}
-	X,Y,Event,Date
-	0,0,Abbotsford,January 1
-	3,0,Surrey,April 1
-	5,1,Vancouver,June 1
-	6,0,New\ Westminster,July 1
-	10,0,North\ Vancouver,November 1
-	0.75,4,Ended\ High\ School,Jan 26
-	3.3,4,Started\ Trade\ School,April 10
-	5.8,4,Ended\ Trade\ School,June 28
-	8,4,Started\ Job\ 1,Sept 1
-	10.8,4,Started\ Job\ 2,Nov 27
-\end{filecontents*}
-
-\usepackage{tikz}
-\usepackage{pgfplotstable}
-\pgfplotstableread[col sep=comma]{events.csv}\data
-% from https://tex.stackexchange.com/a/445369/121799
-\newcommand*{\ReadOutElement}[4]{%
-    \pgfplotstablegetelem{#2}{#3}\of{#1}%
-    \let#4\pgfplotsretval
-}
-
-
-%only necessary for overset
-\usetikzlibrary{positioning}
-\usepackage{makecell}%
-\usetikzlibrary{patterns}
-
-\begin{document}
-
-    \begin{tikzpicture}[node distance =2mm]
-
-       % draw horizontal line
-       \draw (0,0) coordinate (baseLine) -- (11,0);
-
-       % draw vertical lines and label below with months
-       \foreach \varXcoord/\varMonth [count=\xx] in {
-          0/Jan,
-          1/Feb,
-          2/Mar,
-          3/Apr,
-          4/May,
-          5/Jun,
-          6/Jul,
-          7/Aug,
-          8/Sep,
-          9/Oct,
-          10/Nov,
-          11/Dec
-       }
-          \draw (\varXcoord,3pt) -- +(0,-6pt) node (qBaseTick\xx) [below] {\varMonth};
-
-       \fill [pattern=north west lines, pattern color=yellow] (-1,0) rectangle (12.5,4); 
-
-       \node [above left = 2.5 and 1 of baseLine,rotate=90] 
-       {
-         Location
-       };
-
-       \fill [pattern=north west lines, pattern color=orange] (-1,4) rectangle (12.5,8); 
-
-       \node [above left = 7 and 1 of baseLine,rotate=90] 
-       {
-         Career
-       };
-
-      \pgfplotstablegetrowsof{\data}
-      \pgfmathtruncatemacro{\rownumber}{\pgfplotsretval-1}
-      \foreach \X in {0,...,\rownumber}
-      {
-          \ReadOutElement{\data}{\X}{X}{\varXcoord}
-          \ReadOutElement{\data}{\X}{Y}{\varYcoord}
-          \ReadOutElement{\data}{\X}{Event}{\varEvent}
-          \ReadOutElement{\data}{\X}{Date}{\varDate}
-          \draw[<-] (\varXcoord,0) -- (\varXcoord,\varYcoord+0.5);
-          \node [above right = \varYcoord and \varXcoord + 0.5 of baseLine, rotate=45, anchor=south west] {\makecell[l]{\small${\varEvent}$\\\tiny \varDate}};
-      }
-   \end{tikzpicture}
-
 \end{document}
 ```
 ****
