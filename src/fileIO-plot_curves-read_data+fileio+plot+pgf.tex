@@ -58,14 +58,14 @@ if you want the data to be saved as you modify this file, add this:
       scatter/@pre marker code/.append style =
         {/tikz/mark size = \perpointmarksize},
     ]
-    table[x=measuring, y=power1, point meta=\thisrow{result1}] {data.csv};
+    table[x=measuring, y=power1, point meta=\thisrow{result1}] {./data/data.csv};
     \addplot+ [
       visualization depends on =
         {10*\thisrow{result2} \as \perpointmarksize},
       scatter/@pre marker code/.append style =
         {/tikz/mark size = \perpointmarksize}
     ]
-    table [x=measuring, y=power2, point meta=\thisrow{result2}] {data.csv};
+    table [x=measuring, y=power2, point meta=\thisrow{result2}] {./data/data.csv};
     \fill [gray, fill opacity=0.25] (axis cs:5,0) rectangle (axis cs:7,12);
   \end{axis}
 \end{tikzpicture}
