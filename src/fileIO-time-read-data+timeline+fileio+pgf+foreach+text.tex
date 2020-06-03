@@ -1,0 +1,96 @@
+% https://tex.stackexchange.com/a/457351/173708
+\documentclass[border=10pt]{standalone}
+\usepackage{verbatim}
+
+
+\begin{comment}
+
+Data file
+-------
+if you want the data to be saved as you modify this file, add this:
+
+\usepackage{filecontents}
+
+\begin{filecontents*}{events.csv}
+X,Y,Event,Date
+0,0,Abbotsford,January 1
+3,0,Surrey,April 1
+5,1,Vancouver,June 1
+6,0,New\ Westminster,July 1
+10,0,North\ Vancouver,November 1
+0.75,4,Ended\ High\ School,Jan 26
+3.3,4,Started\ Trade\ School,April 10
+5.8,4,Ended\ Trade\ School,June 28
+8,4,Started\ Job\ 1,Sept 1
+10.8,4,Started\ Job\ 2,Nov 27
+\end{filecontents*}
+%%%>
+\end{comment}
+
+\usepackage{tikz}
+\usepackage{pgfplotstable}
+\pgfplotstableread[col sep=comma]{events.csv}\data
+% from https://tex.stackexchange.com/a/445369/121799
+\newcommand*{\ReadOutElement}[4]{%
+    \pgfplotstablegetelem{#2}{#3}\of{#1}%
+    \let#4\pgfplotsretval
+}
+
+
+%only necessary for overset
+\usetikzlibrary{positioning}
+\usepackage{makecell}%
+\usetikzlibrary{patterns}
+
+\begin{document}
+
+    \begin{tikzpicture}[node distance =2mm]
+
+       % draw horizontal line
+       \draw (0,0) coordinate (baseLine) -- (11,0);
+
+       % draw vertical lines and label below with months
+       \foreach \varXcoord/\varMonth [count=\xx] in {
+          0/Jan,
+          1/Feb,
+          2/Mar,
+          3/Apr,
+          4/May,
+          5/Jun,
+          6/Jul,
+          7/Aug,
+          8/Sep,
+          9/Oct,
+          10/Nov,
+          11/Dec
+       }
+          \draw (\varXcoord,3pt) -- +(0,-6pt) node (qBaseTick\xx) [below] {\varMonth};
+
+       \fill [pattern=north west lines, pattern color=yellow] (-1,0) rectangle (12.5,4); 
+
+       \node [above left = 2.5 and 1 of baseLine,rotate=90] 
+       {
+         Location
+       };
+
+       \fill [pattern=north west lines, pattern color=orange] (-1,4) rectangle (12.5,8); 
+
+       \node [above left = 7 and 1 of baseLine,rotate=90] 
+       {
+         Career
+       };
+
+      \pgfplotstablegetrowsof{\data}
+      \pgfmathtruncatemacro{\rownumber}{\pgfplotsretval-1}
+      \foreach \X in {0,...,\rownumber}
+      {
+          \ReadOutElement{\data}{\X}{X}{\varXcoord}
+          \ReadOutElement{\data}{\X}{Y}{\varYcoord}
+          \ReadOutElement{\data}{\X}{Event}{\varEvent}
+          \ReadOutElement{\data}{\X}{Date}{\varDate}
+          \draw[<-] (\varXcoord,0) -- (\varXcoord,\varYcoord+0.5);
+          \node [above right = \varYcoord and \varXcoord + 0.5 of baseLine, rotate=45, anchor=south west] {\makecell[l]{\small${\varEvent}$\\\tiny \varDate}};
+      }
+   \end{tikzpicture}
+
+\end{document}

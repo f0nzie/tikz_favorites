@@ -1,0 +1,36 @@
+\documentclass[border=10pt]{standalone}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+
+\begin{document}
+
+% Preamble: \pgfplotsset{width=7cm,compat=newest}
+\begin{tikzpicture}
+    \begin{axis}
+	    [
+	    height=9cm,
+	    width=9cm,
+	    grid=major,
+	    ]
+	    % \addplot gnuplot[id=filesuffix]{(-x**5 - 242)};
+	    \addlegendentry{model}
+		    
+		    \addplot coordinates {
+			    (-4.77778,2027.60977)
+			    (-3.55556,347.84069)
+			    (-2.33333,22.58953)
+			    (-1.11111,-493.50066)
+			    (0.11111,46.66082)
+			    (1.33333,-205.56286)
+			    (2.55556,-341.40638)
+			    (3.77778,-1169.24780)
+			    (5.00000,-3269.56775)
+			    };
+		    \addlegendentry{estimate}
+	    \end{axis}
+    \end{tikzpicture}
+
+
+\end{document}
