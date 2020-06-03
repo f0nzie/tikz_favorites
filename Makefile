@@ -44,33 +44,44 @@ PDF_FILES = $(addsuffix .pdf, $(basename $(TIKZ_FILES)))
 all: $(PDF_FILES) $(PNG_FILES) $(PDF_LUALATEX) $(PNG_LUALATEX)
 
 # rules for .tex files to be compiled with pdflatex
-%.pdf: %.tex
+%.pdf: %.tex msg_pdf_files
 	@pdflatex -interaction=batchmode -halt-on-error \
 		-output-directory $(SOURCE_DIR) $<  > /dev/null 2>&1
 	@printf "`du -sh $@` <- \n"
 	
-%.png: %.pdf
+%.png: %.pdf msg_png_files
 	@gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
 	@printf "`du -sh $@` <- \n"
-
-# end of peflatex -----
+### end of pdflatex rules -----
 
 
 # these three rules are for .tex files to be compiled with lualatex
 .PHONY: lualatex
 lualatex: $(PDF_LUALATEX) $(PNG_LUALATEX)
 
-$(PDF_LUALATEX): src/%.lualatex.pdf: src/%.lualatex.tex
+$(PDF_LUALATEX): src/%.lualatex.pdf: src/%.lualatex.tex msg_pdf_files
 	@cd src && \
 		lualatex -synctex=1 -interaction=nonstopmode $(<F)  > /dev/null 2>&1
 	@printf "`du -sh $@` <- \n"
 
-$(PNG_LUALATEX): src/%.lualatex.png: src/%.lualatex.pdf
+$(PNG_LUALATEX): src/%.lualatex.png: src/%.lualatex.pdf msg_png_files
+# cross-platform check	
+ifeq ($(shell uname -s), Darwin)
 	@cd src && \
 		gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$(@F) -dNOPAUSE -r1200 $(<F)
+else
+	@pdftoppm -q -png $< > $@
+endif
 	@printf "`du -sh $@` <- \n"
+### end of rules for lualatex ------
 
-# end of rules for lualatex ------
+.INTERMEDIATE: msg_pdf_files
+msg_pdf_files:
+	$(info generating pdf files)
+
+.INTERMEDIATE: msg_png_files
+msg_png_files:
+	@printf "\n generating .png files \n"
 
 
 # generate Hugo static website with GitHub links		
@@ -136,7 +147,18 @@ showlua:
 	@echo $(PNG_LUALATEX)
 	
 info:
-	@echo $PKGSRC
 	@echo $(TIKZ_LIBS)
-	@echo $(TIKZ_FILES_ALL)
+	@make print-TIKZ_FILES_ALL
+	@make print-TIKZ_FILES
+	@make print-TIKZ_LUALATEX
+	@echo $PKGSRC
 
+
+# to debug Makefile from the command line
+# Source: https://www.cmcrossroads.com/article/printing-value-makefile-variable
+print-%  : ; @echo $* = $($*)
+
+
+
+	# @printf "\n generating .pdf files \n"
+	# @touch msg_pdf_files
