@@ -63,7 +63,11 @@ all: $(PDF_FILES) $(PNG_FILES) $(PDF_LUALATEX) $(PNG_LUALATEX) $(README)
 #	    This rule works in Mac and Linux with TexLive
 #       but will it work in others?
 %.png: %.pdf msg_png_files
+ifeq ($(shell uname -s), Darwin)
 	@gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
+else
+	@pdftoppm -q -png $< > $@ 
+endif
 	@printf "`du -sh $@` <- \n"
 ### end of pdflatex rules -----
 
