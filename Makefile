@@ -119,7 +119,7 @@ sitelocal:
 	open -a firefox docs/index.html
 
 # render the README file
-$(README): $(addsuffix .Rmd, $(basename $(README)))
+$(README): $(addsuffix .Rmd, $(basename $(README))) $(PNG_FILES) $(PNG_LUALATEX)
 	Rscript -e "rmarkdown::render('$<')"
 ifeq ($(shell uname -s), Darwin)	
 	open -a firefox $(addsuffix .html, $(basename $(README)))
