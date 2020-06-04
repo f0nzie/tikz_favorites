@@ -16,14 +16,14 @@
 #	make all
 #
 # Build a website to be published via GitHub Pages with:
-#	make siteremote
+#	make website remote
 #
 # To make website deployment  easier for everyone, I am using the docs/
 # folder for publishing. Once you pushed your local changes, you
 # have to activate GitHub Pages from the repo settings.
 #
 # Build a local website with local links in your computer:
-#	make sitelocal
+#	make website local
 #
 # This has been tested with Mac and Linux
 # Maybe sometime I will test it in Windows as well.
@@ -52,6 +52,7 @@ PDF_FILES = $(addsuffix .pdf, $(basename $(TIKZ_FILES)))
 
 
 all: $(PDF_FILES) $(PNG_FILES) $(PDF_LUALATEX) $(PNG_LUALATEX) $(README)
+
 
 # rules for .tex files to be compiled with pdflatex
 %.pdf: %.tex msg_pdf_files
@@ -92,6 +93,7 @@ endif
 	@printf "`du -sh $@` <- \n"
 ### end of rules for lualatex ------
 
+
 # one-time mesage
 .INTERMEDIATE: msg_pdf_files
 msg_pdf_files:
@@ -102,21 +104,6 @@ msg_png_files:
 	@printf "\n generating .png files \n"
 
 
-# generate Hugo static website with GitHub links		
-.PHONY: siteremote
-siteremote: 	
-	Rscript _build_site.R remote
-	cd site && hugo
-	tree -h -F docs/ -L 1
-	open -a firefox docs/index.html
-
-# generate Hugo static website with local links	
-.PHONY: sitelocal
-sitelocal: 	
-	Rscript _build_site.R local
-	cd site && hugo
-	tree -h -F docs/ -L 1
-	open -a firefox docs/index.html
 
 # render the README file
 $(README): $(addsuffix .Rmd, $(basename $(README))) $(PNG_FILES) $(PNG_LUALATEX)
@@ -189,7 +176,27 @@ info:
 	@echo $PKGSRC
 
 
+# simplify the website construction with one rule
+website:
+	@echo Generating Hugo website as $(word 2, $(MAKECMDGOALS))
+	Rscript _build_site.R $(word 2, $(MAKECMDGOALS))
+	@cd site && hugo
+	@tree -h -F docs/ -L 1
+ifeq ($(shell uname -s), Darwin)	
+	@open -a firefox  docs/index.html
+endif
+ifeq ($(shell uname -s), Linux)
+	@firefox  docs/index.html
+endif	
+ifeq ($(shell uname -s), MSYS_NT-10.0-WOW)
+	@"C:\Program Files\Mozilla Firefox\firefox"  docs/index.html
+endif	
+
+
+%:
+	@:
+
+
 # to debug Makefile from the command line
 # Source: https://www.cmcrossroads.com/article/printing-value-makefile-variable
 print-%  : ; @echo $* = $($*)
-
