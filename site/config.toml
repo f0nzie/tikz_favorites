@@ -12,8 +12,6 @@ datadir = "data"
 layoutdir = "layouts"
 publishdir = "../docs"    # we go one level up to store site for GitHub pages
 
-srcFolder = "../src"      # folder should be relative to where site is located
-
 [params]
     # Meta
     title = "Alfonso R. Reyes · My Favorite Tikz Things"
@@ -34,3 +32,7 @@ srcFolder = "../src"      # folder should be relative to where site is located
     # add extra-css
     # custom_css = ['css/extra1.css', 'css/extra2.css']
 
+
+[custom]
+    srcFolder = "../src"      # folder should be relative to where site is located
+    outFolder = "../out"      # folder where .png and .pdf files will be stored
