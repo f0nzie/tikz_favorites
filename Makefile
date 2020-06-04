@@ -123,7 +123,8 @@ $(README): $(addsuffix .Rmd, $(basename $(README)))
 	Rscript -e "rmarkdown::render('$<')"
 ifeq ($(shell uname -s), Darwin)	
 	open -a firefox $(addsuffix .html, $(basename $(README)))
-else 
+endif
+ifeq ($(shell uname -s), Linux)
 	firefox $(addsuffix .html, $(basename $(README)))
 endif	
 
