@@ -34,7 +34,6 @@
 export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
 # common
 PKGSRC  := $(shell basename `pwd`)
-SITE_DIR    = site
 PUBLISH_DIR = docs
 SOURCE_DIR  = src
 README = README.md
