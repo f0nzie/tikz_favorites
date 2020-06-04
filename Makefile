@@ -1,4 +1,5 @@
 # Makefile to build a Hugo static website from TikZ code using R.
+
 #
 # To reproduce this work, download or clone this repository
 # from https://github.com/f0nzie/tikz_favorites.
@@ -34,7 +35,6 @@
 export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
 # common
 PKGSRC  := $(shell basename `pwd`)
-PUBLISH_DIR = docs
 SOURCE_DIR  = src
 README = README.md
 TIKZ_LIBS = code.tex
@@ -199,3 +199,6 @@ endif
 # to debug Makefile from the command line
 # Source: https://www.cmcrossroads.com/article/printing-value-makefile-variable
 print-%  : ; @echo $* = $($*)
+
+# TODO: read values from site/config.toml file 
+# TODO: use R to read .toml parameters and values
