@@ -40,7 +40,7 @@ The magic is provided by:
 
 
 ## Deployment of website in GitHub Pages (GHP)
-This is a very interesting article about publshing your TikZ site: [Simple deployment to GH Pages](https://www.gnu.org/software/make/manual/html_node/Conditional-Syntax.html). I chose to publish it in `/docs` instead of the `public` folder because it is much easier. GHP does not allow to publish a website on the `public` folder, unfortunately.
+This is a very interesting article about publshing your TikZ site: [Simple deployment to GH Pages](https://www.gnu.org/software/make/manual/html_node/Conditional-Syntax.html). I chose to publish it in `/docs` instead of the `public` folder because it is much easier to deploy. GHP does not allow to publish a website on a folder named `public`, unfortunately.
 
 
 ## Thanks. Original repository and idea 
