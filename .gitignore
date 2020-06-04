@@ -5,7 +5,6 @@ README.html
 child.Rmd
 site/data/items.toml
 utils/*.html
-src/*.pdf
 src/*.gz
 src/*.aux
 src/*.log
