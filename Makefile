@@ -122,6 +122,17 @@ tidy: chrono
         rm  $(README); \
     fi
 
+.PHONY: cleansource
+cleansource:
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.png -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.pdf -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.log -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.aux -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.out -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.gz -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.snm -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.toc -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.nav -delete
 
 .PHONY: cleanlualatex
 cleanlualatex: tidylualatex
