@@ -59,13 +59,13 @@ all: $(PDF_LATEX) $(PNG_LATEX) $(PDF_LUALATEX) $(PNG_LUALATEX)
 
 
 # rules for .tex files to be compiled with pdflatex
-$(PDF_LATEX): out/%.pdf: src/%.tex msg_pdf_files
+out/%.pdf:: src/%.tex msg_pdf_files
 	@cd $(SOURCE_DIR) && \
 		pdflatex --interaction=batchmode -halt-on-error \
 		-output-directory ../$(OUTPUT_DIR) $(<F)  > /dev/null 2>&1
 	@printf "`du -sh $@` <- \n"
 
-$(PNG_LATEX): out/%.png: out/%.pdf msg_png_files
+out/%.png:: out/%.pdf msg_png_files
 ifeq ($(shell uname -s), Darwin)
 	@cd $(OUTPUT_DIR) && \
 		gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$(@F) -dNOPAUSE -r1200 $(<F)
@@ -81,12 +81,12 @@ endif
 .PHONY: lualatex
 lualatex: $(PDF_LUALATEX) $(PNG_LUALATEX)
 
-$(PDF_LUALATEX): out/%.lualatex.pdf: src/%.lualatex.tex msg_pdf_files
+out/%.lualatex.pdf:: src/%.lualatex.tex msg_pdf_files
 	@cd $(SOURCE_DIR) && \
 		lualatex --synctex=1 --output-directory=../$(OUTPUT_DIR) --interaction=batchmode $(<F)  > /dev/null 2>&1
 	@printf "`du -sh $@` <- \n"
 
-$(PNG_LUALATEX): out/%.lualatex.png: out/%.lualatex.pdf msg_png_files
+out/%.lualatex.png:: out/%.lualatex.pdf msg_png_files
 # cross-platform check	
 ifeq ($(shell uname -s), Darwin)
 	@cd $(OUTPUT_DIR) && gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
