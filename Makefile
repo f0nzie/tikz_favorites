@@ -56,16 +56,27 @@ PNG_LATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LATE
 
 .PHONY: all
 #all: $(PDF_LATEX) $(PNG_LATEX) $(PDF_LUALATEX) $(PNG_LUALATEX)
-all:  $(PDF_LATEX) $(PDF_LUALATEX)
+all:  $(PDF_LUALATEX) $(PNG_LUALATEX) $(PDF_LATEX) $(PNG_LATEX) 
 
 # rules for .tex files to be compiled with pdflatex
 out/%.pdf:: src/%.tex msg_pdf_files
 	@if test $(findstring .lualatex.tex, $<); then \
-		echo "lualatex"; \
+		cd $(SOURCE_DIR) && \
+			lualatex --synctex=1 --output-directory=../$(OUTPUT_DIR) --interaction=batchmode $(<F)  > /dev/null 2>&1; \
 	else \
-		echo "pdflatex"; \
-	fi;
+		cd $(SOURCE_DIR) && \
+			pdflatex --interaction=batchmode -halt-on-error -output-directory ../$(OUTPUT_DIR) $(<F)  > /dev/null 2>&1; \
+	fi; 
+	@printf "`du -sh $@` <- \n"
 
+# here we check for the operating system. ghostscript to be used in Mac
+out/%.png:: out/%.pdf msg_png_files
+	@if test $(findstring $(shell uname -s), "Darwin"); then \
+		gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<; \
+	else \
+		cd $(OUTPUT_DIR) && pdftoppm -q -png $(<F) > $(@F); \
+	fi; 
+	@printf "`du -sh $@` <- \n"
 
 # one-time mesage
 .INTERMEDIATE: msg_pdf_files
