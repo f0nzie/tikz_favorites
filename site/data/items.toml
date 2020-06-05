@@ -95,14 +95,6 @@ description = "github.com/f0nzie/tikz_favorites"
 url = "../src/fileIO-time-read-data+timeline+fileio+pgf+foreach+text.tex"
  
 [[items]]
-title = "network-complex-networks-only-layer1"
-image = "../out/network-complex-networks-only-layer1.png"
-thumb = "../out/network-complex-networks-only-layer1.png"
-alt = "network-complex-networks-only-layer1"
-description = "github.com/f0nzie/tikz_favorites"
-url = "../src/network-complex-networks-only-layer1.tex"
- 
-[[items]]
 title = "network-complex-networks"
 image = "../out/network-complex-networks.png"
 thumb = "../out/network-complex-networks.png"
@@ -125,14 +117,6 @@ thumb = "../out/network-layers-and-layouts.png"
 alt = "network-layers-and-layouts"
 description = "github.com/f0nzie/tikz_favorites"
 url = "../src/network-layers-and-layouts.tex"
- 
-[[items]]
-title = "network-read-csv"
-image = "../out/network-read-csv.png"
-thumb = "../out/network-read-csv.png"
-alt = "network-read-csv"
-description = "github.com/f0nzie/tikz_favorites"
-url = "../src/network-read-csv.tex"
  
 [[items]]
 title = "physics-vanderpol_oscilator"
