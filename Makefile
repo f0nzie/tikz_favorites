@@ -42,19 +42,35 @@ TIKZ_LIBS = code.tex
 TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
 TIKZ_FILES_ALL = $(wildcard $(SOURCE_DIR)/*.tex)
 # files that need to be compiled with lualatex
-TIKZ_LUALATEX = $(wildcard $(SOURCE_DIR)/*.lualatex.tex)
+#TIKZ_LUALATEX = $(wildcard $(SOURCE_DIR)/*.lualatex.tex)
 
 # extract the directory
-PDF_LUALATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_LUALATEX) ) )))  
-PNG_LUALATEX = $(TIKZ_LUALATEX:.tex=.png)
-# files to be compiled with pdflatex
-TIKZ_FILES = $(filter-out $(TIKZ_LUALATEX) $(TIKZ_LIBS), $(TIKZ_FILES_ALL))
-PNG_FILES = $(TIKZ_FILES:.tex=.png)
-PDF_FILES = $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_FILES) ) ))
+TIKZ_LUALATEX = $(filter %.lualatex.tex, $(TIKZ_FILES_ALL))
+TIKZ_LATEX = $(filter-out  $(TIKZ_LUALATEX), $(TIKZ_FILES_ALL))
+
+PDF_LUALATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_LUALATEX) ))))  
+PNG_LUALATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LUALATEX) )))) 
+# PNG_LUALATEX = $(TIKZ_LUALATEX:.tex=.png)
+# # files to be compiled with pdflatex
+# TIKZ_FILES = $(filter-out $(TIKZ_LUALATEX) $(TIKZ_LIBS), $(TIKZ_FILES_ALL))
+# PNG_FILES = $(TIKZ_FILES:.tex=.png)
+# PDF_FILES = $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_FILES) ) ))
+
+
+info:
+	#@echo $(PDF_FILES)
+	@echo $(words $(TIKZ_FILES_ALL))
+	@echo $(words $(TIKZ_LATEX)) 
+	@echo $(words $(TIKZ_LUALATEX)) 
+	@echo $(PDF_LUALATEX)
+	@echo $(PNG_LUALATEX)
+	# @make print-TIKZ_FILES
+	# @make print-TIKZ_LUALATEX
+	# @echo $PKGSRC
 
 
 # all: $(PDF_FILES) $(PNG_FILES) $(PDF_LUALATEX) $(PNG_LUALATEX) $(README)
-all: $(PDF_LUALATEX)
+all: $(PDF_LUALATEX) $(PNG_LUALATEX)
 
 # rules for .tex files to be compiled with pdflatex
 out/%.pdf: %.tex msg_pdf_files
@@ -83,12 +99,11 @@ $(PDF_LUALATEX): out/%.lualatex.pdf: src/%.lualatex.tex msg_pdf_files
 		lualatex -synctex=1 --output-directory=../$(OUTPUT_DIR) -interaction=nonstopmode $(<F)   > /dev/null 2>&1
 	@printf "`du -sh $@` <- \n"
 
-$(PNG_LUALATEX): src/%.lualatex.png: src/%.lualatex.pdf msg_png_files
+$(PNG_LUALATEX): out/%.lualatex.png: out/%.lualatex.pdf msg_png_files
 # cross-platform check	
 ifeq ($(shell uname -s), Darwin)
-	@cd src && \
-		`pwd` && \
-		gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$(@F) -dNOPAUSE -r1200 $(<F)
+	@cd out && \
+		gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
 else
 	@pdftoppm -q -png $< > $@
 endif
@@ -170,13 +185,7 @@ showlua:
 	@echo $(PDF_LUALATEX)
 	@echo $(PNG_LUALATEX)
 	
-info:
-	@echo $(PDF_FILES)
-	@echo $(PDF_LUALATEX)
-	# @make print-TIKZ_FILES_ALL
-	# @make print-TIKZ_FILES
-	# @make print-TIKZ_LUALATEX
-	# @echo $PKGSRC
+
 
 
 # simplify the website construction with one rule
