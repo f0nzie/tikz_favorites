@@ -36,30 +36,32 @@ export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
 # common
 PKGSRC  := $(shell basename `pwd`)
 SOURCE_DIR  = src
+OUTPUT_DIR = out
 README = README.md
 TIKZ_LIBS = code.tex
 TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
 TIKZ_FILES_ALL = $(wildcard $(SOURCE_DIR)/*.tex)
 # files that need to be compiled with lualatex
 TIKZ_LUALATEX = $(wildcard $(SOURCE_DIR)/*.lualatex.tex)
-PDF_LUALATEX = $(addsuffix .pdf, $(basename $(TIKZ_LUALATEX)))
+
+# extract the directory
+PDF_LUALATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_LUALATEX) ) )))  
 PNG_LUALATEX = $(TIKZ_LUALATEX:.tex=.png)
 # files to be compiled with pdflatex
 TIKZ_FILES = $(filter-out $(TIKZ_LUALATEX) $(TIKZ_LIBS), $(TIKZ_FILES_ALL))
 PNG_FILES = $(TIKZ_FILES:.tex=.png)
-PDF_FILES = $(addsuffix .pdf, $(basename $(TIKZ_FILES)))
+PDF_FILES = $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_FILES) ) ))
 
 
-all: $(PDF_FILES) $(PNG_FILES) $(PDF_LUALATEX) $(PNG_LUALATEX) $(README)
-
+# all: $(PDF_FILES) $(PNG_FILES) $(PDF_LUALATEX) $(PNG_LUALATEX) $(README)
+all: $(PDF_LUALATEX)
 
 # rules for .tex files to be compiled with pdflatex
-%.pdf: %.tex msg_pdf_files
+out/%.pdf: %.tex msg_pdf_files
 	@pdflatex -interaction=batchmode -halt-on-error \
-		-output-directory $(SOURCE_DIR) $<  > /dev/null 2>&1
+		-output-directory $(OUTPUT_DIR) $<  > /dev/null 2>&1
 	@printf "`du -sh $@` <- \n"
 
-# TODO: is ghostscript installed in all Linux machines?	
 #	    This rule works in Mac and Linux with TexLive
 #       but will it work in others?
 %.png: %.pdf msg_png_files
@@ -76,15 +78,16 @@ endif
 .PHONY: lualatex
 lualatex: $(PDF_LUALATEX) $(PNG_LUALATEX)
 
-$(PDF_LUALATEX): src/%.lualatex.pdf: src/%.lualatex.tex msg_pdf_files
+$(PDF_LUALATEX): out/%.lualatex.pdf: src/%.lualatex.tex msg_pdf_files
 	@cd src && \
-		lualatex -synctex=1 -interaction=nonstopmode $(<F)  > /dev/null 2>&1
+		lualatex -synctex=1 --output-directory=../$(OUTPUT_DIR) -interaction=nonstopmode $(<F)   > /dev/null 2>&1
 	@printf "`du -sh $@` <- \n"
 
 $(PNG_LUALATEX): src/%.lualatex.png: src/%.lualatex.pdf msg_png_files
 # cross-platform check	
 ifeq ($(shell uname -s), Darwin)
 	@cd src && \
+		`pwd` && \
 		gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$(@F) -dNOPAUSE -r1200 $(<F)
 else
 	@pdftoppm -q -png $< > $@
@@ -142,15 +145,15 @@ tidy: chrono
 
 .PHONY: cleanlualatex
 cleanlualatex: tidylualatex
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.lualatex.png -delete
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.lualatex.pdf -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.lualatex.png -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.lualatex.pdf -delete
 
 .PHONY: tidylualatex
 tidylualatex:
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.lualatex.log -delete
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.lualatex.aux -delete
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.lualatex.out -delete
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.lualatex.synctex.gz -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.lualatex.log -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.lualatex.aux -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.lualatex.out -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.lualatex.synctex.gz -delete
 	
 chrono:
 	find $(SOURCE_DIR) -name \*.snm -delete
@@ -168,11 +171,12 @@ showlua:
 	@echo $(PNG_LUALATEX)
 	
 info:
-	@echo $(TIKZ_LIBS)
-	@make print-TIKZ_FILES_ALL
-	@make print-TIKZ_FILES
-	@make print-TIKZ_LUALATEX
-	@echo $PKGSRC
+	@echo $(PDF_FILES)
+	@echo $(PDF_LUALATEX)
+	# @make print-TIKZ_FILES_ALL
+	# @make print-TIKZ_FILES
+	# @make print-TIKZ_LUALATEX
+	# @echo $PKGSRC
 
 
 # simplify the website construction with one rule
