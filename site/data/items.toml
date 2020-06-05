@@ -15,6 +15,46 @@ description = "github.com/f0nzie/tikz_favorites"
 url = "../src/3d-gradient-colored.tex"
  
 [[items]]
+title = "elem-highlight_curve"
+image = "../out/elem-highlight_curve.png"
+thumb = "../out/elem-highlight_curve.png"
+alt = "elem-highlight_curve"
+description = "github.com/f0nzie/tikz_favorites"
+url = "../src/elem-highlight_curve.tex"
+ 
+[[items]]
+title = "elem-mass_inclined_plane"
+image = "../out/elem-mass_inclined_plane.png"
+thumb = "../out/elem-mass_inclined_plane.png"
+alt = "elem-mass_inclined_plane"
+description = "github.com/f0nzie/tikz_favorites"
+url = "../src/elem-mass_inclined_plane.tex"
+ 
+[[items]]
+title = "eng-machanical_system"
+image = "../out/eng-machanical_system.png"
+thumb = "../out/eng-machanical_system.png"
+alt = "eng-machanical_system"
+description = "github.com/f0nzie/tikz_favorites"
+url = "../src/eng-machanical_system.tex"
+ 
+[[items]]
+title = "eng-quarter_car_model"
+image = "../out/eng-quarter_car_model.png"
+thumb = "../out/eng-quarter_car_model.png"
+alt = "eng-quarter_car_model"
+description = "github.com/f0nzie/tikz_favorites"
+url = "../src/eng-quarter_car_model.tex"
+ 
+[[items]]
+title = "eng-spring_mass"
+image = "../out/eng-spring_mass.png"
+thumb = "../out/eng-spring_mass.png"
+alt = "eng-spring_mass"
+description = "github.com/f0nzie/tikz_favorites"
+url = "../src/eng-spring_mass.tex"
+ 
+[[items]]
 title = "fileIO-plot_curves-read_data+fileio+plot+pgf"
 image = "../out/fileIO-plot_curves-read_data+fileio+plot+pgf.png"
 thumb = "../out/fileIO-plot_curves-read_data+fileio+plot+pgf.png"
@@ -93,4 +133,12 @@ thumb = "../out/network-read-csv.png"
 alt = "network-read-csv"
 description = "github.com/f0nzie/tikz_favorites"
 url = "../src/network-read-csv.tex"
+ 
+[[items]]
+title = "physics-vanderpol_oscilator"
+image = "../out/physics-vanderpol_oscilator.png"
+thumb = "../out/physics-vanderpol_oscilator.png"
+alt = "physics-vanderpol_oscilator"
+description = "github.com/f0nzie/tikz_favorites"
+url = "../src/physics-vanderpol_oscilator.tex"
  
