@@ -56,7 +56,7 @@ PNG_LATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LATE
 
 .PHONY: all
 #all: $(PDF_LATEX) $(PNG_LATEX) $(PDF_LUALATEX) $(PNG_LUALATEX)
-all:  $(PDF_LUALATEX) $(PNG_LUALATEX) $(PDF_LATEX) $(PNG_LATEX) 
+all:  $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) 
 
 # rules for .tex files to be compiled with pdflatex
 out/%.pdf:: src/%.tex msg_pdf_files
