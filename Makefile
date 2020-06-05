@@ -55,7 +55,6 @@ PNG_LATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LATE
 
 
 .PHONY: all
-#all: $(PDF_LATEX) $(PNG_LATEX) $(PDF_LUALATEX) $(PNG_LUALATEX)
 all:  $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) 
 
 # rules for .tex files to be compiled with pdflatex
@@ -86,7 +85,6 @@ msg_pdf_files:
 .INTERMEDIATE: msg_png_files
 msg_png_files:
 	@printf "\n generating .png files \n"
-
 
 
 # render the README file
@@ -151,7 +149,7 @@ tikz_list:
 
 # simplify the website construction with one rule
 website:
-	@echo Generating Hugo website as $(word 2, $(MAKECMDGOALS))
+	@echo "\nGenerating Hugo website as " $(word 2, $(MAKECMDGOALS))
 	Rscript _build_site.R $(word 2, $(MAKECMDGOALS))
 	@cd site && hugo
 	@tree -h -F docs/ -L 1
