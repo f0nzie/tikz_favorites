@@ -14,7 +14,7 @@ output_dir <- "out"
 website_url <- "https://github.com/f0nzie/tikz_favorites"
 all_png <- "%s.png"
 all_tex <- "%s.tex"
-dir_level <- ".."
+dir_level <- ".."    # directory level of src/ with respect to publishing folder
 
 get_item_toml <- function(site_mode) {
 

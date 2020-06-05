@@ -28,7 +28,7 @@ library(magrittr)
 readLines('template.Rmd') %>% 
   gsub("\\{png_dir\\}",  png_dir, .)  %>% 
   gsub("\\{image_ext\\}", image_ext, .) %>% 
-  # only replacing one occurrence per line
+  # sub only replaces one occurrence per line
   gsub("\\{tikz_ext\\}", tikz_ext, .) %>% 
   gsub("\\{source_dir\\}", source_dir, .) %>% 
   gsub("\\{url_source\\}", url_source, .) %>% 
