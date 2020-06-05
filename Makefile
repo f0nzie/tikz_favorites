@@ -50,6 +50,9 @@ TIKZ_LATEX = $(filter-out  $(TIKZ_LUALATEX), $(TIKZ_FILES_ALL))
 
 PDF_LUALATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_LUALATEX) ))))  
 PNG_LUALATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LUALATEX) )))) 
+PDF_LATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_LATEX) ))))  
+PNG_LATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LATEX) )))) 
+
 # PNG_LUALATEX = $(TIKZ_LUALATEX:.tex=.png)
 # # files to be compiled with pdflatex
 # TIKZ_FILES = $(filter-out $(TIKZ_LUALATEX) $(TIKZ_LIBS), $(TIKZ_FILES_ALL))
@@ -57,34 +60,24 @@ PNG_LUALATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_L
 # PDF_FILES = $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_FILES) ) ))
 
 
-info:
-	#@echo $(PDF_FILES)
-	@echo $(words $(TIKZ_FILES_ALL))
-	@echo $(words $(TIKZ_LATEX)) 
-	@echo $(words $(TIKZ_LUALATEX)) 
-	@echo $(PDF_LUALATEX)
-	@echo $(PNG_LUALATEX)
-	# @make print-TIKZ_FILES
-	# @make print-TIKZ_LUALATEX
-	# @echo $PKGSRC
-
 
 # all: $(PDF_FILES) $(PNG_FILES) $(PDF_LUALATEX) $(PNG_LUALATEX) $(README)
-all: $(PDF_LUALATEX) $(PNG_LUALATEX)
+all: $(PDF_LATEX) $(PNG_LATEX) $(PDF_LUALATEX) $(PNG_LUALATEX) 
 
 # rules for .tex files to be compiled with pdflatex
-out/%.pdf: %.tex msg_pdf_files
-	@pdflatex -interaction=batchmode -halt-on-error \
-		-output-directory $(OUTPUT_DIR) $<  > /dev/null 2>&1
+out/%.pdf: src/%.tex msg_pdf_files
+	@cd src && \
+		pdflatex -interaction=batchmode -halt-on-error \
+		-output-directory ../$(OUTPUT_DIR) $(<F)  > /dev/null 2>&1
 	@printf "`du -sh $@` <- \n"
 
-#	    This rule works in Mac and Linux with TexLive
-#       but will it work in others?
-%.png: %.pdf msg_png_files
+out/%.png: out/%.pdf msg_png_files
 ifeq ($(shell uname -s), Darwin)
-	@gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
+	@cd out && \
+		gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$(@F) -dNOPAUSE -r1200 $(<F)
 else
-	@pdftoppm -q -png $< > $@ 
+	@cd out; \
+		pdftoppm -q -png $(<F) > $(@F) 
 endif
 	@printf "`du -sh $@` <- \n"
 ### end of pdflatex rules -----
@@ -139,20 +132,20 @@ endif
 # remove PNG and PDF files
 .PHONY: clean
 clean: tidy cleanlualatex
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.png -delete
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.pdf -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.png -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.pdf -delete
 
 
 # remove byproducts	
 .PHONY: tidy
 tidy: chrono
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.log -delete
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.aux -delete
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.out -delete
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.gz -delete
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.snm -delete
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.toc -delete
-	find $(SOURCE_DIR) -maxdepth 1 -name \*.nav -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.log -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.aux -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.out -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.gz -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.snm -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.toc -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.nav -delete
 	if [ -f "$(README)" ]; then \
         rm  $(README); \
     fi
@@ -171,20 +164,14 @@ tidylualatex:
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.lualatex.synctex.gz -delete
 	
 chrono:
-	find $(SOURCE_DIR) -name \*.snm -delete
-	find $(SOURCE_DIR) -name \*.toc -delete
-	find $(SOURCE_DIR) -name \*.nav -delete
+	find $(OUTPUT_DIR) -name \*.snm -delete
+	find $(OUTPUT_DIR) -name \*.toc -delete
+	find $(OUTPUT_DIR) -name \*.nav -delete
 
 tikz_list:
 	@cd $(SOURCE_DIR) && \
 		echo `pwd` && \
 		find . -name \*.tex	
-
-showlua:
-	@echo $(TIKZ_LUALATEX)
-	@echo $(PDF_LUALATEX)
-	@echo $(PNG_LUALATEX)
-	
 
 
 
@@ -203,6 +190,19 @@ endif
 ifeq ($(shell uname -s), MSYS_NT-10.0-WOW)
 	@"C:\Program Files\Mozilla Firefox\firefox"  docs/index.html
 endif	
+
+info:
+	#@echo $(PDF_FILES)
+	@echo $(words $(TIKZ_FILES_ALL))
+	@echo $(words $(TIKZ_LATEX)) 
+	@echo $(words $(TIKZ_LUALATEX)) 
+	@echo $(PDF_LUALATEX)
+	@echo $(PNG_LUALATEX)
+	@echo $(PDF_LATEX)
+	@echo $(PNG_LATEX)
+	# @make print-TIKZ_FILES
+	# @make print-TIKZ_LUALATEX
+	# @echo $PKGSRC
 
 
 %:
