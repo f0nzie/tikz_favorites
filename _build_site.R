@@ -2,14 +2,27 @@
 # replaces the other R scripts that were building the Hugo site
 # this script can be called from Makefile
 
+source_dir <- "src"
+output_dir <- "out"
+website_url <- "https://github.com/f0nzie/tikz_favorites"
+image <- paste(website_url, "raw/master", output_dir, "%s.png", sep = "/")
+thumb <- paste(website_url, "raw/master", output_dir, "%s.png", sep = "/")
+url   <- paste(website_url, "blob/master", output_dir, "%s.tex", sep = "/")
+
+# 'image = "https://github.com/f0nzie/tikz_favorites/raw/master/src/%s.png"'
+#'description = "https://github.com/f0nzie/tikz_favorites"'
+#'url = "https://github.com/f0nzie/tikz_favorites/blob/master/src/%s.tex"\n'
+
 remote <- c(
   '[[items]]',
   'title = "%s"',
-  'image = "https://github.com/f0nzie/tikz_favorites/raw/master/src/%s.png"',
-  'thumb = "https://github.com/f0nzie/tikz_favorites/raw/master/src/%s.png"',
+  paste('image = ', '"', image, '"'),
+  paste('thumb = ', '"', thumb, '"'),
   'alt = "%s"',
-  'description = "https://github.com/f0nzie/tikz_favorites"',
-  'url = "https://github.com/f0nzie/tikz_favorites/blob/master/src/%s.tex"\n')
+  paste('description = ', '"', website_url, '"'),
+  paste0('url = ', '"', url, '"', "\n")
+  )
+remote
 
 # TODO: if using docs/ folder at the root 'image = "../src/%s.png"'
 # if using site/public folder 'image = "../../src/%s.png"'
