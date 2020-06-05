@@ -53,30 +53,24 @@ PNG_LUALATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_L
 PDF_LATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_LATEX) ))))  
 PNG_LATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LATEX) )))) 
 
-# PNG_LUALATEX = $(TIKZ_LUALATEX:.tex=.png)
-# # files to be compiled with pdflatex
-# TIKZ_FILES = $(filter-out $(TIKZ_LUALATEX) $(TIKZ_LIBS), $(TIKZ_FILES_ALL))
-# PNG_FILES = $(TIKZ_FILES:.tex=.png)
-# PDF_FILES = $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_FILES) ) ))
 
+.PHONY: all
+all: $(PDF_LATEX) $(PNG_LATEX) $(PDF_LUALATEX) $(PNG_LUALATEX)
 
-
-# all: $(PDF_FILES) $(PNG_FILES) $(PDF_LUALATEX) $(PNG_LUALATEX) $(README)
-all: $(PDF_LATEX) $(PNG_LATEX) $(PDF_LUALATEX) $(PNG_LUALATEX) 
 
 # rules for .tex files to be compiled with pdflatex
-out/%.pdf: src/%.tex msg_pdf_files
-	@cd src && \
-		pdflatex -interaction=batchmode -halt-on-error \
+$(PDF_LATEX): out/%.pdf: src/%.tex msg_pdf_files
+	@cd $(SOURCE_DIR) && \
+		pdflatex --interaction=batchmode -halt-on-error \
 		-output-directory ../$(OUTPUT_DIR) $(<F)  > /dev/null 2>&1
 	@printf "`du -sh $@` <- \n"
 
-out/%.png: out/%.pdf msg_png_files
+$(PNG_LATEX): out/%.png: out/%.pdf msg_png_files
 ifeq ($(shell uname -s), Darwin)
-	@cd out && \
+	@cd $(OUTPUT_DIR) && \
 		gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$(@F) -dNOPAUSE -r1200 $(<F)
 else
-	@cd out; \
+	@cd $(OUTPUT_DIR); \
 		pdftoppm -q -png $(<F) > $(@F) 
 endif
 	@printf "`du -sh $@` <- \n"
@@ -88,17 +82,17 @@ endif
 lualatex: $(PDF_LUALATEX) $(PNG_LUALATEX)
 
 $(PDF_LUALATEX): out/%.lualatex.pdf: src/%.lualatex.tex msg_pdf_files
-	@cd src && \
-		lualatex -synctex=1 --output-directory=../$(OUTPUT_DIR) -interaction=nonstopmode $(<F)   > /dev/null 2>&1
+	@cd $(SOURCE_DIR) && \
+		lualatex --synctex=1 --output-directory=../$(OUTPUT_DIR) --interaction=batchmode $(<F)  > /dev/null 2>&1
 	@printf "`du -sh $@` <- \n"
 
 $(PNG_LUALATEX): out/%.lualatex.png: out/%.lualatex.pdf msg_png_files
 # cross-platform check	
 ifeq ($(shell uname -s), Darwin)
-	@cd out && \
-		gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
+	@cd $(OUTPUT_DIR) && gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
 else
-	@pdftoppm -q -png $< > $@
+	@cd $(OUTPUT_DIR); \
+		pdftoppm -q -png $(<F) > $(@F) 
 endif
 	@printf "`du -sh $@` <- \n"
 ### end of rules for lualatex ------
@@ -191,6 +185,7 @@ ifeq ($(shell uname -s), MSYS_NT-10.0-WOW)
 	@"C:\Program Files\Mozilla Firefox\firefox"  docs/index.html
 endif	
 
+.PHONY: info
 info:
 	#@echo $(PDF_FILES)
 	@echo $(words $(TIKZ_FILES_ALL))
