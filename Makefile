@@ -55,47 +55,16 @@ PNG_LATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LATE
 
 
 .PHONY: all
-all: $(PDF_LATEX) $(PNG_LATEX) $(PDF_LUALATEX) $(PNG_LUALATEX)
-
+#all: $(PDF_LATEX) $(PNG_LATEX) $(PDF_LUALATEX) $(PNG_LUALATEX)
+all:  $(PDF_LATEX) $(PDF_LUALATEX)
 
 # rules for .tex files to be compiled with pdflatex
 out/%.pdf:: src/%.tex msg_pdf_files
-	@cd $(SOURCE_DIR) && \
-		pdflatex --interaction=batchmode -halt-on-error \
-		-output-directory ../$(OUTPUT_DIR) $(<F)  > /dev/null 2>&1
-	@printf "`du -sh $@` <- \n"
-
-out/%.png:: out/%.pdf msg_png_files
-ifeq ($(shell uname -s), Darwin)
-	@cd $(OUTPUT_DIR) && \
-		gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$(@F) -dNOPAUSE -r1200 $(<F)
-else
-	@cd $(OUTPUT_DIR); \
-		pdftoppm -q -png $(<F) > $(@F) 
-endif
-	@printf "`du -sh $@` <- \n"
-### end of pdflatex rules -----
-
-
-# these three rules are for .tex files to be compiled with lualatex
-.PHONY: lualatex
-lualatex: $(PDF_LUALATEX) $(PNG_LUALATEX)
-
-out/%.lualatex.pdf:: src/%.lualatex.tex msg_pdf_files
-	@cd $(SOURCE_DIR) && \
-		lualatex --synctex=1 --output-directory=../$(OUTPUT_DIR) --interaction=batchmode $(<F)  > /dev/null 2>&1
-	@printf "`du -sh $@` <- \n"
-
-out/%.lualatex.png:: out/%.lualatex.pdf msg_png_files
-# cross-platform check	
-ifeq ($(shell uname -s), Darwin)
-	@cd $(OUTPUT_DIR) && gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<
-else
-	@cd $(OUTPUT_DIR); \
-		pdftoppm -q -png $(<F) > $(@F) 
-endif
-	@printf "`du -sh $@` <- \n"
-### end of rules for lualatex ------
+	@if test $(findstring .lualatex.tex, $<); then \
+		echo "lualatex"; \
+	else \
+		echo "pdflatex"; \
+	fi;
 
 
 # one-time mesage
