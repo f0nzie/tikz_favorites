@@ -3,7 +3,6 @@
 *.zip
 README.html
 child.Rmd
-site/data/items.toml
 utils/*.html
 out/*.gz
 out/*.aux

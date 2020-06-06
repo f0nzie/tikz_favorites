@@ -37,7 +37,14 @@ readLines('template.Rmd') %>%
 # TODO: use a temporary file for this.
 ```
 
-
+## NEWS
+* Output files like .png and .pdf are now being stored in `./out`
+* The `README.Rmd` document now allows to customize variables for the folders
+* The Hugo website through the `_build_site.R` script also allow some customization
+* The source folder with TikZ files are now only saved in `src`. Only `tex` files
+* The template file `template.Rmd` includes now special identifiers so it can be updated with user custom settings that `child.Rmd` uses to retrieve all graphics and code for each of the examples
+* The `Makefile` has been optimized to avoid code repetition
+* All data files for the TikZ examples now live under `src/data`
 
 ## Introduction
 This is a repository of the best TikZ examples I have found around the web and from papers, slides, tutorials, and books. Most of the examples are simple enough to encourage anyone to start learning TikZ. By having the result (graphic) on a web page, and be able to click on it to see the code, it rapidly helps to make the connection between **code** and **output**. I find this idea fantastic.
