@@ -9,6 +9,43 @@ output:
     number_sections: false
 ---
 
+```{r, include=FALSE}
+# These are variables that need to be set for any TikZ website
+website_url <- "https://github.com/f0nzie/tikz_favorites"
+source_dir <- "src"
+output_dir <- "out"
+tikz_ext <- ".tex"
+image_ext <- ".png"
+png_dir <- output_dir
+data_files <- file.path(source_dir, "data")
+cls_sty_files <- file.path(source_dir, "texmf")
+url_source <- paste(website_url, "blob/master", source_dir, sep = "/")
+dir_level <- "./"
+
+# This will generate the template that will be used to add a TikZ page per graphic
+# gsub makes many replacements per line. very greedy
+library(magrittr)
+readLines('template.Rmd') %>% 
+  gsub("\\{png_dir\\}",  png_dir, .)  %>% 
+  gsub("\\{image_ext\\}", image_ext, .) %>% 
+  # sub only replaces one occurrence per line
+  gsub("\\{tikz_ext\\}", tikz_ext, .) %>% 
+  gsub("\\{source_dir\\}", source_dir, .) %>% 
+  gsub("\\{url_source\\}", url_source, .) %>% 
+  gsub("\\{dir_level\\}", dir_level, .) %>% 
+  writeLines("_template.Rmd")     # this should be deleted at the end
+# TODO: use a temporary file for this.
+```
+
+## NEWS
+* Output files like .png and .pdf are now being stored in `./out`
+* The `README.Rmd` document now allows to customize variables for the folders
+* The Hugo website through the `_build_site.R` script also allow some customization
+* The source folder with TikZ files are now only saved in `src`. Only `tex` files
+* The template file `template.Rmd` includes now special identifiers so it can be updated with user custom settings that `child.Rmd` uses to retrieve all graphics and code for each of the examples
+* The `Makefile` has been optimized to avoid code repetition
+* All data files for the TikZ examples now live under `src/data`
+
 ## Introduction
 This is a repository of the best TikZ examples I have found around the web and from papers, slides, tutorials, and books. Most of the examples are simple enough to encourage anyone to start learning TikZ. By having the result (graphic) on a web page, and be able to click on it to see the code, it rapidly helps to make the connection between **code** and **output**. I find this idea fantastic.
 
@@ -91,21 +128,21 @@ ext <- "png"
 pattern <- paste0("^", suffix, ".*", "\\.", ext, "$")
 
 
-file.remove("child.Rmd")
-tmp <- readLines("template.Rmd")
+if (file.exists("child.Rmd")) file.remove("child.Rmd")
+tmp <- readLines("_template.Rmd")
 
 # get all PGF files
-pgf <- sub(x = list.files(path = "./src/", pattern = "*.pgf$"),
+pgf <- sub(x = list.files(path = source_dir, pattern = "*.pgf$"),
            pattern = "\\.pgf$",
            replacement = "")
 
 
-tikz_files_all <- list.files(path = "./src/", pattern = "*\\.tex$")
+tikz_files_all <- list.files(path = source_dir, pattern = "*\\.tex$")
 tikz_lualatex <- grep(pattern = "\\.lualatex\\.tex$", x = tikz_files_all, value = TRUE)
 tikz_pdflatex <- grep(pattern = "^.*(?<!\\.lualatex\\.tex)$", x = tikz_files_all, 
                       value = TRUE, perl = TRUE)
-data_files <- list.files(path = "./src/data", pattern = "*\\.dat$|*\\.csv$|*\\.txt$")
-texmf_files <- list.files(path = "./src/texmf")
+data_files <- list.files(path = data_files, pattern = "*\\.dat$|*\\.csv$|*\\.txt$")
+texmf_files <- list.files(path = cls_sty_files)
 
 tex <- sub(x = tikz_files_all,
            pattern = "\\.tex$",
@@ -113,11 +150,11 @@ tex <- sub(x = tikz_files_all,
 
 
 # get all PNG files
-png <- sub(x = list.files(path = "./src/", pattern = pattern),
+png <- sub(x = list.files(path = output_dir, pattern = pattern),
            pattern = "\\.png$",
            replacement = "")
 
-print(length(png))
+if (length(png) == 0) stop("No TikZ objects available")
 
 # Common tex and png files
 # if a PDF has its PNG generated file
@@ -159,6 +196,10 @@ The figures are sorted by filename.
 ```{r, child = "child.Rmd"}
 ```
 
+```{r}
+# delete dummy template
+if (file.exists("_template.Rmd")) file.remove("_template.Rmd") 
+```
 
 
 ## Implementation of a simple tag system for files
