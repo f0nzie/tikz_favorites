@@ -37,6 +37,7 @@ readLines('template.Rmd') %>%
 # TODO: use a temporary file for this.
 ```
 
+
 ## NEWS
 * Output files like .png and .pdf are now being stored in `./out`
 * The `README.Rmd` document now allows to customize variables for the folders
