@@ -1,12 +1,13 @@
 ****
 
-![](./src/&PGF_FILE&.png)
+![]({dir_level}{png_dir}/&PGF_FILE&{image_ext})
 
-  * [&PGF_FILE&.tex](https://github.com/walmes/Tikz/blob/master/src/&PGF_FILE&.pgf)
+  
+  * [&PGF_FILE&{tikz_ext}]({url_source}/&PGF_FILE&{tikz_ext})
 
 `r a`
 ```{r}
 # change pgf to tex
-cat(readLines("./src/&PGF_FILE&.tex"), sep = "\n")
+cat(readLines("{dir_level}{source_dir}/&PGF_FILE&{tikz_ext}"), sep = "\n")
 ```
 `r b`

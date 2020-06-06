@@ -32,7 +32,7 @@ publishdir = "../docs"    # we go one level up to store site for GitHub pages
     # add extra-css
     # custom_css = ['css/extra1.css', 'css/extra2.css']
 
-
+# experimental. maybe will be done much later
 [custom]
     srcFolder = "../src"      # folder should be relative to where site is located
     outFolder = "../out"      # folder where .png and .pdf files will be stored
