@@ -37,18 +37,13 @@ export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
 PKGSRC  := $(shell basename `pwd`)
 SOURCE_DIR  = src
 OUTPUT_DIR = out
-PUBLISH_DIR = docs
+PUBLISH_DIR := docs
 README = README.md
 TIKZ_LIBS = code.tex
 TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
 TIKZ_FILES_ALL = $(wildcard $(SOURCE_DIR)/*.tex)
-# files that need to be compiled with lualatex
-#TIKZ_LUALATEX = $(wildcard $(SOURCE_DIR)/*.lualatex.tex)
-
-# extract the directory
 TIKZ_LUALATEX = $(filter %.lualatex.tex, $(TIKZ_FILES_ALL))
 TIKZ_LATEX = $(filter-out  $(TIKZ_LUALATEX), $(TIKZ_FILES_ALL))
-
 PDF_LUALATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_LUALATEX) ))))  
 PNG_LUALATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LUALATEX) )))) 
 PDF_LATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_LATEX) ))))  
@@ -118,10 +113,10 @@ ifeq ($(shell uname -s), Linux)
 	@firefox  $(PUBLISH_DIR)/index.html
 endif	
 ifeq ($(shell uname -s), MSYS_NT-10.0-WOW)
-	@"C:\Program Files\Mozilla Firefox\firefox"  $(PUBLISH_DIR)/index.html
+	@"C:\Program Files\Mozilla Firefox\firefox" $(PUBLISH_DIR)/index.html
 endif
 ifeq ($(shell uname -s), MINGW64_NT-10.0-18362)
-	"C:\Program Files\Mozilla Firefox\firefox" $(PUBLISH_DIR)/index.html
+	@"C:\Program Files\Mozilla Firefox\firefox" $(PUBLISH_DIR)/index.html
 endif	
 
 # remove PNG and PDF files
