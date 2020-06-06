@@ -37,6 +37,7 @@ export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
 PKGSRC  := $(shell basename `pwd`)
 SOURCE_DIR  = src
 OUTPUT_DIR = out
+PUBLISH_DIR = docs
 README = README.md
 TIKZ_LIBS = code.tex
 TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
@@ -98,7 +99,7 @@ ifeq ($(shell uname -s), Linux)
 endif	
 ifeq ($(shell uname -s), MSYS_NT-10.0-WOW)
 	"C:\Program Files\Mozilla Firefox\firefox" $(addsuffix .html, $(basename $(README)))
-endif	
+endif
 ifeq ($(shell uname -s), MINGW64_NT-10.0-18362)
 	"C:\Program Files\Mozilla Firefox\firefox" $(addsuffix .html, $(basename $(README)))
 endif	
@@ -168,13 +169,16 @@ website:
 	@cd site && hugo
 	@tree -h -F docs/ -L 1
 ifeq ($(shell uname -s), Darwin)	
-	@open -a firefox  docs/index.html
+	@open -a firefox  $(PUBLISH_DIR)/index.html
 endif
 ifeq ($(shell uname -s), Linux)
-	@firefox  docs/index.html
+	@firefox  $(PUBLISH_DIR)/index.html
 endif	
 ifeq ($(shell uname -s), MSYS_NT-10.0-WOW)
-	@"C:\Program Files\Mozilla Firefox\firefox"  docs/index.html
+	@"C:\Program Files\Mozilla Firefox\firefox"  $(PUBLISH_DIR)/index.html
+endif
+ifeq ($(shell uname -s), MINGW64_NT-10.0-18362)
+	"C:\Program Files\Mozilla Firefox\firefox" $(PUBLISH_DIR)/index.html
 endif	
 
 .PHONY: info
