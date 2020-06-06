@@ -162,6 +162,13 @@ cleanlualatex: tidylualatex
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.lualatex.png -delete
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.lualatex.pdf -delete
 
+# for testing
+.PHONY: cleanpdflatex
+cleanpdflatex:
+	find $(OUTPUT_DIR) -maxdepth 1 -name \physics-*.png -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \physics-*.pdf -delete
+
+
 .PHONY: tidylualatex
 tidylualatex:
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.lualatex.log -delete
