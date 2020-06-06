@@ -99,6 +99,9 @@ endif
 ifeq ($(shell uname -s), MSYS_NT-10.0-WOW)
 	"C:\Program Files\Mozilla Firefox\firefox" $(addsuffix .html, $(basename $(README)))
 endif	
+ifeq ($(shell uname -s), MINGW64_NT-10.0-18362)
+	"C:\Program Files\Mozilla Firefox\firefox" $(addsuffix .html, $(basename $(README)))
+endif	
 
 
 # remove PNG and PDF files
