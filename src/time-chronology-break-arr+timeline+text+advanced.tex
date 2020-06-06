@@ -1,0 +1,104 @@
+% https://tex.stackexchange.com/a/439457/173708
+\documentclass[10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{chronology}
+
+\newlength{\myunit}
+\makeatletter%
+\newif\ifchronology@star%
+\renewenvironment{chronology}{%
+    \@ifstar{\chronology@startrue\chronology@i*}{\chronology@starfalse\chronology@i*}%
+}{%
+\end{tikzpicture}%
+\end{lrbox}%
+\usebox{\timelinebox}
+}%
+\def\chronology@i*{%
+\@ifnextchar[{\chronology@ii*}{\chronology@ii*[{5}]}%
+}%
+\def\chronology@ii*[#1]#2#3#4#5{%
+\newif\ifflipped%
+\ifchronology@star%
+\flippedtrue%
+\else%
+\flippedfalse%
+\fi%
+\setcounter{step}{#1}%
+\setcounter{yearstart}{#2}\setcounter{yearstop}{#3}%
+\setcounter{deltayears}{\theyearstop-\theyearstart}%
+\setlength{\timelinewidth}{#4}%
+\setlength{\myunit}{#5}%
+\pgfmathsetcounter{stepstart}{\theyearstart-mod(\theyearstart,\thestep)}%
+\pgfmathsetcounter{stepstop}{\theyearstop-mod(\theyearstop,\thestep)}%
+\addtocounter{step}{\thestepstart}%
+\begin{lrbox}{\timelinebox}%
+\begin{tikzpicture}[baseline={(current bounding box.north)}]%,x=\timelinewidth,y=\p@]%
+\draw [|->] (0,0) -- (\timelinewidth, 0);%
+%\foreach \x in {1,...,\thedeltayears}%
+%\draw[xshift=\x/\thedeltayears*\timelinewidth] (0,-.5\myunit) -- (0,.5\myunit);%
+\addtocounter{deltayears}{1}%
+\foreach \x in {\thestepstart,\thestep,...,\thestepstop}{%
+    \pgfmathsetlength\xstop{(\x-\theyearstart)/\thedeltayears*\timelinewidth}%
+    \draw[xshift=\xstop] (0,-\myunit) -- (0,\myunit);%
+    \ifflipped%
+    \node[chrontickslabel] at (\xstop,0) [above=\myunit] {\x};%
+    \else%
+    \node[chrontickslabel] at (\xstop,0) [below=\myunit] {\x};%
+    \fi%
+}%
+}%
+\makeatother%
+
+\RenewDocumentCommand{\event}{o m m}{%
+    \pgfmathsetlength\xstop{(#2-\theyearstart)/\thedeltayears*\timelinewidth}%
+    \IfNoValueTF {#1} {%
+        \ifflipped%
+        \draw[chronevent]%
+        (\xstop, 0) circle (.7\myunit);%
+        \draw[chronevent]
+        (\xstop,-.5\myunit+2pt) node[flippedeventlabel] {#3};%
+        \else%
+        \draw[chronevent]%
+        (\xstop, 0) circle (.7\myunit);%
+        \draw[chronevent]
+        (\xstop,.5\myunit-2pt) node[eventlabel] {#3} ;%
+        \fi%
+    }{%
+        \pgfmathsetlength\xstart{(#1-\theyearstart)/\thedeltayears*\timelinewidth}%
+        \ifflipped%
+        \draw[chronevent,rounded corners=.7\myunit]%
+        (\xstart,-.7\myunit) rectangle%
+        node[flippedeventlabel] {#3} (\xstop,.7\myunit) [below=\myunit];%
+        \else%
+        \draw[chronevent,rounded corners=.7\myunit]%
+        (\xstart,-.7\myunit) rectangle%
+        node[eventlabel] {#3} (\xstop,.7\myunit);%
+        \fi%
+    }%
+}
+
+
+\begin{document}
+\begin{frame}{Timeline}
+\vspace*{-5ex}
+\begin{chronology}[50]{1800}{2020}{.9\linewidth}{1ex}
+    \event{\decimaldate{}{}{1812}}{\small Beginnings of Gerrymandering}
+    \event[\decimaldate{}{}{1960}]{\decimaldate{}{}{2020}}{}
+\end{chronology}
+
+\par
+\begin{chronology}[10]{1960}{2020}{.9\linewidth}{1ex}
+    \event{\decimaldate{26}{3}{1962}}{\small Baker v. Carr}
+    \event{\decimaldate{15}{12}{1964}}{\small Reynold v. Sims}
+    \event{\decimaldate{15}{10}{1964}}{\small Alfonso R. Reyes}
+    \event{\decimaldate{2}{10}{1985}}{\small Bandermer v. Davis}
+    \event{\decimaldate{}{}{1991}}{\small Third Criterion}
+    \event{\decimaldate{}{}{2004}}{\small Vieth v. Jubelirer}
+    \event{\decimaldate{31}{12}{2006}}{\small LULAC v. Perry}
+    \event{\decimaldate{}{}{2015}}{\small Efficiency Gap}
+    \event{\decimaldate{}{}{2018}}{\small Gill v. Whitford}
+\end{chronology}
+\end{frame}
+\end{document}

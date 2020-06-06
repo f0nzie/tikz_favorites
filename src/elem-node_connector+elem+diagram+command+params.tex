@@ -1,0 +1,26 @@
+% https://hugoideler.com/2013/01/tikz-node-connector/
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+
+\newcommand*{\connectorH}[4][]{
+  \draw[#1] (#3) -| ($(#3) !#2! (#4)$) |- (#4);
+}
+\newcommand*{\connectorV}[4][]{
+  \draw[#1] (#3) |- ($(#3) !#2! (#4)$) -| (#4);
+}
+
+\begin{document}
+
+\begin{tikzpicture}[every node/.style={draw, minimum size=1cm, thick, fill=white}]
+  \node[] (a) {A};
+  \node[above right=1cm and 2cm of a] (b) {B};
+  \node[below right=1cm and 2cm of a] (c) {C};
+
+  \connectorH[->, red]{0.50}{a}{b}
+  \connectorH[->, blue]{0.75}{a}{c}
+\end{tikzpicture}
+
+\end{document}

@@ -1,0 +1,18 @@
+\documentclass[tikz,border=10pt]{standalone}
+%\documentclass[crop, tikz]{standalone}
+
+\usepackage{tikz}
+
+\begin{document}
+	
+\begin{tikzpicture}
+	% draw axis
+	\draw (-1.5,0) -- (1.5,0);
+	\draw (0,-1.5) -- (0,1.5);
+	
+	\draw (-1,0) .. controls (-1,0.555) and (-0.555,1) .. (0,1)
+	.. controls (0.555,1) and (1,0.555) .. (1,0);
+\end{tikzpicture}
+	
+\end{document}
+

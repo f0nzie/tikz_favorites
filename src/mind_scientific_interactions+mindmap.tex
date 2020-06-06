@@ -1,0 +1,123 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author  : Andrei Sobolevski (April 2009)
+% License : Creative Commons attribution license
+% Title   : Map of scientific interactions of researchers 
+%           affiliated in 2008 to the J.-V. Poncelet laboratory 
+%           (UMI 2615 CNRS, http://www.poncelet.ru)
+% Notes   : Produced for the 2008 annual report of the lab;
+%           layout of subnodes is a result of manual optimization
+% Tags    : mindmap, layers
+% Submitted to TeXample.net on 16 January 2010
+
+\documentclass{article}
+\usepackage{tikz,times}
+%\usepackage[paperwidth=25cm,paperheight=22cm,left=1cm,top=1cm]{geometry} % prevent print PDF and png in page 1
+\usepackage{geometry}
+\usetikzlibrary{mindmap,backgrounds}
+
+%\pagestyle{empty}
+
+\begin{document}
+\centering\begin{tikzpicture}[mindmap,
+  level 1 concept/.append style={level distance=130,sibling angle=30},
+  extra concept/.append style={color=blue!50,text=black}]
+
+  % Applied area: computer science and its subfields
+
+  \begin{scope}[mindmap, concept color=orange, text=white]
+    \node [concept] {Informatique}[clockwise from=-5] 
+      child {node [concept] (log) {M{\'e}thodes cat{\'e}goriques}}
+      child {node [concept] (alg) {Algorithmique}}
+      child {node [concept] (cod) {Compression \& transmission}}
+      child {node [concept] (img) {Tra{\^i}tement des images}}
+      child {node [concept] (opt) {Optimisation}}
+      child {node [concept] (res) {R{\'e}seaux}};
+  \end{scope}
+
+  % Applied area: theoretical physics and its subfields
+
+  \begin{scope}[mindmap, concept color=red,text=white]
+    \node [concept] at (-5,-15) {Physique}
+      child [grow=-10, level distance=160]
+        {node [concept] (qin) {Calcul quantique}}
+      child [grow=20] 
+        {node [concept] (csm) {Astronomie \& cosmologie}}
+      child [grow=110] 
+        {node [concept] (mat) {Mati{\`e}re condens{\'e}e}};
+  \end{scope}
+
+  % Applied area: biology and its subfields
+
+  \begin{scope}[mindmap, concept color=green!50!black,text=white]
+    \node [concept] at (6.5,-15) {Biologie} 
+      child [grow=165, level distance=120] 
+        {node [concept] (med) {M{\'e}decine}}
+      child [grow=60] 
+        {node [concept] (gen) {G{\'e}nomique}};
+  \end{scope}
+
+  % Applied area: economics (one subfield)
+
+  \begin{scope}[mindmap, concept color=violet, text=white]
+    \node [concept] at (11,-14) {{\'E}conomie}
+      child [grow=70, level distance=120] 
+        {node [concept] (dec) {Choix \& prise de d{\'e}cision}};
+  \end{scope}
+
+  % Researchers listed by their main specialization in mathematics
+
+  \begin{scope}[mindmap, concept color=blue]
+
+    % Combinatorics and discrete mathematics 
+    \node [concept, text=white] at (5.2,-10.8) 
+      {Combinatoire \& math{\'e}matiques discr{\`e}tes} 
+      [clockwise from=150]
+      child [concept color=blue!50] {node [concept] (ver) {Vereschagin}}
+      child [concept color=blue!50, level distance=125] 
+        {node [concept] (kab) {Kabatyanski, Tsfasman, Rybakov, Zykin}}
+      child [concept color=blue!50] 
+        {node [concept] (kch) {Kucherov, Roytberg}}
+      child [concept color=blue!50] {node [concept] (raf) {Raffinot}}
+      child [concept color=blue!50, level distance=135]
+        {node [concept] (ksh) {Koshevoy}};
+
+    % Partial differential equations
+    \node [concept, text=white] at (-3,-11) 
+      {Equations aux d{\'e}riv{\'e}es partielles 
+        \& m{\'e}thodes num{\'e}riques}
+      child [concept color=blue!50, grow=0, level distance=140] 
+        {node [concept] (lhc) {Loh{\'e}ac}}
+      child [concept color=blue!50, grow=60, level distance=115] 
+        {node [concept] (otr) {OTARIE (Sobolevski)}}
+      child [concept color=blue!50, grow=95] {node [concept] (ndr) 
+        {Nadirashvili}};
+
+    % Probability
+    \node [concept, text=white] at (-7.2,-3.2) {Probabilit{\'e}s}
+      child [concept color=blue!50, grow=-70, level distance=120] 
+        {node [concept] (rbk) {Rybko}};
+
+    % Logic
+    \node [concept, text=white] at (11.5,-5) {Logique}
+      child [concept color=blue!50, grow=165, level distance=120] 
+        {node [concept] (sht) {Shehtman}};
+  \end{scope}
+
+  % Connections of researchers to applied subfields
+
+  \begin{pgfonlayer}{background}
+    \draw [circle connection bar]
+      (kab) edge (cod)
+      (kch) edge (alg) edge (gen)
+      (lhc) edge (med)
+      (ksh) edge (dec)
+      (ndr) edge (mat)
+      (otr) edge (opt) edge (csm) edge (img)
+      (raf) edge (alg) edge (gen)
+      (rbk) edge (res) edge (mat)
+      (sht) edge (log) edge (dec)
+      (ver) edge (qin) edge (cod);
+  \end{pgfonlayer}
+\end{tikzpicture}
+
+\end{document}

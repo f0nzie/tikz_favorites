@@ -1,0 +1,35 @@
+% https://tex.stackexchange.com/a/20500/173708
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usepackage{pgfplotstable}
+
+\begin{document}
+\centering
+\begin{tikzpicture}
+	\pgfplotstableread{./data/circles.dat}\table
+	\pgfplotstablegetrowsof{\table}
+	\pgfmathsetmacro{\M}{\pgfplotsretval-1}
+	\pgfplotstablegetcolsof{\table}
+	\pgfmathsetmacro{\N}{\pgfplotsretval-1}
+	
+	\foreach \row in {0,...,\M}{
+	          \foreach \col in {0,...,\N}{
+	                 \pgfplotstablegetelem{\row}{[index]\col}\of\table
+	                 \ifnum\col=0
+	                       \xdef\x{\pgfplotsretval}
+	                 \fi
+	                 \ifnum\col=1
+	                       \xdef\y{\pgfplotsretval}
+	                 \fi
+	                 \ifnum\col=2
+	                       \xdef\radius{\pgfplotsretval}
+	                 \fi
+	                 }
+	                 \definecolor{mycolor}{RGB}{\pdfuniformdeviate 256,%
+	                                            \pdfuniformdeviate 256,%
+	                                            \pdfuniformdeviate 256}
+	                 \fill[mycolor,opacity=.5] (\x,\y)circle(\radius cm);
+	}
+\end{tikzpicture}
+\end{document}

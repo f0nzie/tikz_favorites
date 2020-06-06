@@ -1,0 +1,70 @@
+% https://tex.stackexchange.com/questions/353993/neural-network-graph
+\documentclass[landscape]{article}
+\usepackage{tikz}
+
+%%%<
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+%%%>
+
+\usepackage{tikz}
+\usetikzlibrary{matrix,chains,positioning,decorations.pathreplacing,arrows}
+
+\begin{document}
+
+    \begin{figure}[htp]
+    \centering
+    \begin{tikzpicture}[
+plain/.style={
+    draw=none,
+    fill=none,
+},
+net/.style={
+    matrix of nodes,
+    nodes={
+        draw,
+        circle,
+        inner sep=8.5pt
+    },
+    nodes in empty cells,
+    column sep=0.6cm,
+    row sep=-11pt
+},
+>=latex
+]
+
+\matrix[net] (mat)
+{
+    |[plain]| \parbox{1cm}{\centering Input\\layer} & |[plain]| \parbox{1cm}{\centering Hidden\\layer} & |[plain]| \parbox{1cm}{\centering Output\\layer} \\
+    |[plain]| & \\
+    & |[plain]| \\
+    |[plain]| & &  \\
+    & |[plain]| \\
+    |[plain]| & &  \\
+    & |[plain]| \\
+    |[plain]| & \\
+};
+\foreach \ai [count=\mi ]in {3,5,7}
+\draw[<-] (mat-\ai-1) -- node[above] {Input \mi} +(-2cm,0);
+\foreach \ai in {3,5,7}
+{\foreach \aii in {2,4,...,8}
+    \draw[->] (mat-\ai-1) -- (mat-\aii-2);
+}
+\foreach \ai in {2,4,...,8}
+\draw[->] (mat-\ai-2) -- (mat-6-3);
+
+\foreach \ai in {2,4,...,8}
+\draw[->] (mat-\ai-2) -- (mat-4-3);
+
+\foreach \ai [count=\mi ]in {4,6}
+\draw[->] (mat-\ai-3) -- node[above] {Output \mi} +(2cm,0);
+\foreach \ai in {3,5,7}
+{\foreach \aii in {2,4,...,8}
+    \draw[->] (mat-\ai-1) -- (mat-\aii-2);
+}
+\end{tikzpicture}
+
+\end{figure}
+\end{document}

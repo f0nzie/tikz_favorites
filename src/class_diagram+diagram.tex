@@ -1,0 +1,236 @@
+% Class diagram
+% Author: Remus Mihail Prunescu
+\documentclass{minimal}
+\usepackage[a4paper,margin=1cm,landscape]{geometry}
+\usepackage{tikz}
+
+%%%<
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+%%%>
+
+\begin{comment}
+:Title:  Class diagram
+
+\end{comment}
+\usetikzlibrary{positioning,shapes,shadows,arrows}
+
+\begin{document}
+\tikzstyle{abstract}=[rectangle, draw=black, rounded corners, fill=blue!40, drop shadow,
+        text centered, anchor=north, text=white, text width=3cm]
+\tikzstyle{comment}=[rectangle, draw=black, rounded corners, fill=green, drop shadow,
+        text centered, anchor=north, text=white, text width=3cm]
+\tikzstyle{myarrow}=[->, >=open triangle 90, thick]
+\tikzstyle{line}=[-, thick]
+        
+\begin{center}
+\begin{tikzpicture}[node distance=2cm]
+    \node (Item) [abstract, rectangle split, rectangle split parts=2]
+        {
+            \textbf{ITEM}
+            \nodepart{second}name
+        };
+    \node (AuxNode01) [text width=4cm, below=of Item] {};
+    \node (Component) [abstract, rectangle split, rectangle split parts=2, left=of AuxNode01]
+        {
+            \textbf{COMPONENT}
+            \nodepart{second}nil
+        };
+    \node (System) [abstract, rectangle split, rectangle split parts=2, right=of AuxNode01]
+        {
+            \textbf{SYSTEM}
+            \nodepart{second}parts
+        };
+    \node (AuxNode02) [text width=0.5cm, below=of Component] {};
+    \node (Sensor) [abstract, rectangle split, rectangle split parts=2, left=of AuxNode02]
+        {
+            \textbf{SENSOR}
+            \nodepart{second}nil
+        };
+    \node (Part) [abstract, rectangle split, rectangle split parts=2, right=of AuxNode02]
+        {
+            \textbf{PART}
+            \nodepart{second}nil
+        };
+        
+    \node (AuxNode03) [below=of Sensor] {};
+    \node (Pressure) [abstract, rectangle split, rectangle split parts=2, left=of AuxNode03, xshift=2cm]
+        {
+            \textbf{Pressure}
+            \nodepart{second}nil
+        };
+    \node (Temperature) [abstract, rectangle split, rectangle split parts=2, right=of AuxNode03, xshift=-2cm]
+        {
+            \textbf{Temperature}
+            \nodepart{second}nil
+        };
+    \node (PressureInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of Pressure, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}fw-p-suction\newline fw-p-delivery\newline fw-p-loop\newline sw-p-suction\newline sw-p-delivery
+                \newline sw-p-loop
+        };
+    \node (ClOp) [abstract, rectangle split, rectangle split parts=2, below=0.4cm of PressureInstants]
+        {
+            \textbf{Closed/Open}
+            \nodepart{second}nil
+        };
+    \node (ClOpInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of ClOp, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}fw-clop-warm-up\newline sw-clop-control
+        };
+    \node (TemperatureInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of Temperature, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}fw-t-engine\newline fw-t-heat-exch.\newline sw-t-heat-exch.
+        };
+    \node (Level) [abstract, rectangle split, rectangle split parts=2, below=0.4cm of TemperatureInstants]
+        {
+            \textbf{Level}
+            \nodepart{second}nil
+        };
+    \node (LevelInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of Level, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}fw-l-tank
+        };
+    \node (Ammeter) [abstract, rectangle split, rectangle split parts=2, below=0.4cm of LevelInstants]
+        {
+            \textbf{Ammeter}
+            \nodepart{second}nil
+        };
+    \node (AmmeterInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of Ammeter, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}fw-pump-ammeter\newline sw-pump-ammeter
+        };
+        
+    \node (AuxNode04) [below=of Part] {};
+    \node (Pump) [abstract, rectangle split, rectangle split parts=2, left=of AuxNode04, xshift=2cm]
+        {
+            \textbf{Pump}
+            \nodepart{second}nil
+        };
+    \node (Valve) [abstract, rectangle split, rectangle split parts=2, right=of AuxNode04, xshift=-2cm]
+        {
+            \textbf{Valve}
+            \nodepart{second}nil
+        };
+    \node (PumpInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of Pump, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}fw-pump\newline sw-pump
+        };
+    \node (Tank) [abstract, rectangle split, rectangle split parts=2, below=0.4cm of PumpInstants]
+        {
+            \textbf{Tank}
+            \nodepart{second}nil
+        };
+    \node (ValveInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of Valve, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}fw-suction-valve\newline fw-delivery-valve\newline sw-suction-valve\newline sw-delivery-valve
+                \newline sw-discharge-valve\newline sw-control-valve
+        };
+    \node (Engine) [abstract, rectangle split, rectangle split parts=2, below=0.4cm of ValveInstants]
+        {
+            \textbf{Engine}
+            \nodepart{second}nil
+        };
+    \node (TankInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of Tank, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}fw-expansion-tank
+        };
+    \node (HeatExchanger) [abstract, rectangle split, rectangle split parts=2, below=0.4cm of TankInstants]
+        {
+            \textbf{Heat Exchanger}
+            \nodepart{second}nil
+        };
+    \node (HeatExchangerInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of HeatExchanger, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}fw-heat-exchanger
+        };
+    \node (EngineInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of Engine, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}fw-engine
+        };
+    \node (Strainer) [abstract, rectangle split, rectangle split parts=2, below=0.4cm of HeatExchangerInstants]
+        {
+            \textbf{Strainer}
+            \nodepart{second}nil
+        };
+    \node (StrainerInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of Strainer, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}sw-strainer
+        };
+    \node (Coolant) [abstract, rectangle split, rectangle split parts=2, below=0.4cm of EngineInstants]
+        {
+            \textbf{Coolant}
+            \nodepart{second}nil
+        };
+    \node (CoolantInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of Coolant, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}fw-coolant\newline sw-coolant
+        };  
+
+    \node (AuxNode05) [below=of System] {};
+    \node (CoolingSystem) [abstract, rectangle split, rectangle split parts=2, left=of AuxNode05, xshift=2cm]
+        {
+            \textbf{Cooling System}
+            \nodepart{second}nil
+        };
+    \node (CoolingLoop) [abstract, rectangle split, rectangle split parts=2, right=of AuxNode05, xshift=-2cm]
+        {
+            \textbf{Cooling Loop}
+            \nodepart{second}nil
+        };
+    \node (CoolingSystemInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of CoolingSystem, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}cool
+        };
+    \node (CoolingLoopInstants) [comment, rectangle split, rectangle split parts=2, below=0.2cm of CoolingLoop, text justified]
+        {
+            \textbf{Instants}
+            \nodepart{second}fw-loop\newline sw-loop
+        };
+    
+    \draw[myarrow] (Component.north) -- ++(0,0.8) -| (Item.south);
+    \draw[line] (Component.north) -- ++(0,0.8) -| (System.north);
+    
+    \draw[myarrow] (Sensor.north) -- ++(0,0.8) -| (Component.south);
+    \draw[line] (Sensor.north) -- ++(0,0.8) -| (Part.north);
+    
+    \draw[line] (Pressure.west) -- ++(-0.2,0);
+    \draw[line] (Temperature.east) -- ++(0.2,0);
+    \draw[line] (Level.east) -- ++(0.2,0);
+    \draw[myarrow] (ClOp.west) -- ++(-0.2,0) -- ([yshift=0.5cm, xshift=-0.2cm] Pressure.north west) -|
+     ([xshift=-1cm]Sensor.south);
+    \draw[myarrow] (Ammeter.east) -- ++(0.2,0) -- ([yshift=0.5cm, xshift=0.2cm] Temperature.north east) -|
+     ([xshift=1cm]Sensor.south);
+     
+    \draw[line] (Tank.west) -- ++(-0.2,0);
+    \draw[line] (HeatExchanger.west) -- ++(-0.2,0);
+    \draw[line] (Pump.west) -- ++(-0.2,0);
+    \draw[line] (Valve.east) -- ++(0.2,0);
+    \draw[line] (Engine.east) -- ++(0.2,0);
+    \draw[myarrow] (Strainer.west) -- ++(-0.2,0) -- ([yshift=0.5cm, xshift=-0.2cm] Pump.north west) -|
+     ([xshift=-1cm]Part.south);
+    \draw[myarrow] (Coolant.east) -- ++(0.2,0) -- ([yshift=0.5cm, xshift=0.2cm] Valve.north east) -|
+     ([xshift=1cm]Part.south);
+     
+    \draw[myarrow] (CoolingSystem.north) -- ++(0,0.8) -| (System.south);
+    \draw[line] (CoolingSystem.north) -- ++(0,0.8) -| (CoolingLoop.north);
+        
+        
+\end{tikzpicture}
+\end{center}
+\end{document}

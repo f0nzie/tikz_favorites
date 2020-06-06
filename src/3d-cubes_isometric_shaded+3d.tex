@@ -1,0 +1,183 @@
+% https://tex.stackexchange.com/questions/29877/need-help-creating-a-3d-cube-from-a-2d-set-of-nodes-in-tikz
+\documentclass[parskip]{scrartcl}
+\usepackage[margin=15mm,landscape]{geometry}
+\usepackage{tikz}
+
+\newif\ifcuboidshade
+\newif\ifcuboidemphedge
+
+\tikzset{
+  cuboid/.is family,
+  cuboid,
+  shiftx/.initial=0,
+  shifty/.initial=0,
+  dimx/.initial=3,
+  dimy/.initial=3,
+  dimz/.initial=3,
+  scale/.initial=1,
+  densityx/.initial=1,
+  densityy/.initial=1,
+  densityz/.initial=1,
+  rotation/.initial=0,
+  anglex/.initial=0,
+  angley/.initial=90,
+  anglez/.initial=225,
+  scalex/.initial=1,
+  scaley/.initial=1,
+  scalez/.initial=0.5,
+  front/.style={draw=black,fill=white},
+  top/.style={draw=black,fill=white},
+  right/.style={draw=black,fill=white},
+  shade/.is if=cuboidshade,
+  shadecolordark/.initial=black,
+  shadecolorlight/.initial=white,
+  shadeopacity/.initial=0.15,
+  shadesamples/.initial=16,
+  emphedge/.is if=cuboidemphedge,
+  emphstyle/.style={thick},
+}
+
+\newcommand{\tikzcuboidkey}[1]{\pgfkeysvalueof{/tikz/cuboid/#1}}
+
+% Commands
+\newcommand{\tikzcuboid}[1]{
+    \tikzset{cuboid,#1} % Process Keys passed to command
+  \pgfmathsetlengthmacro{\vectorxx}{\tikzcuboidkey{scalex}*cos(\tikzcuboidkey{anglex})*28.452756}
+  \pgfmathsetlengthmacro{\vectorxy}{\tikzcuboidkey{scalex}*sin(\tikzcuboidkey{anglex})*28.452756}
+  \pgfmathsetlengthmacro{\vectoryx}{\tikzcuboidkey{scaley}*cos(\tikzcuboidkey{angley})*28.452756}
+  \pgfmathsetlengthmacro{\vectoryy}{\tikzcuboidkey{scaley}*sin(\tikzcuboidkey{angley})*28.452756}
+  \pgfmathsetlengthmacro{\vectorzx}{\tikzcuboidkey{scalez}*cos(\tikzcuboidkey{anglez})*28.452756}
+  \pgfmathsetlengthmacro{\vectorzy}{\tikzcuboidkey{scalez}*sin(\tikzcuboidkey{anglez})*28.452756}
+  \begin{scope}[xshift=\tikzcuboidkey{shiftx}, yshift=\tikzcuboidkey{shifty}, scale=\tikzcuboidkey{scale}, rotate=\tikzcuboidkey{rotation}, x={(\vectorxx,\vectorxy)}, y={(\vectoryx,\vectoryy)}, z={(\vectorzx,\vectorzy)}]
+    \pgfmathsetmacro{\steppingx}{1/\tikzcuboidkey{densityx}}
+  \pgfmathsetmacro{\steppingy}{1/\tikzcuboidkey{densityy}}
+  \pgfmathsetmacro{\steppingz}{1/\tikzcuboidkey{densityz}}
+  \newcommand{\dimx}{\tikzcuboidkey{dimx}}
+  \newcommand{\dimy}{\tikzcuboidkey{dimy}}
+  \newcommand{\dimz}{\tikzcuboidkey{dimz}}
+  \pgfmathsetmacro{\secondx}{2*\steppingx}
+  \pgfmathsetmacro{\secondy}{2*\steppingy}
+  \pgfmathsetmacro{\secondz}{2*\steppingz}
+  \foreach \x in {\steppingx,\secondx,...,\dimx}
+  { \foreach \y in {\steppingy,\secondy,...,\dimy}
+    {   \pgfmathsetmacro{\lowx}{(\x-\steppingx)}
+      \pgfmathsetmacro{\lowy}{(\y-\steppingy)}
+      \filldraw[cuboid/front] (\lowx,\lowy,\dimz) -- (\lowx,\y,\dimz) -- (\x,\y,\dimz) -- (\x,\lowy,\dimz) -- cycle;
+    }
+    }
+  \foreach \x in {\steppingx,\secondx,...,\dimx}
+  { \foreach \z in {\steppingz,\secondz,...,\dimz}
+    {   \pgfmathsetmacro{\lowx}{(\x-\steppingx)}
+      \pgfmathsetmacro{\lowz}{(\z-\steppingz)}
+      \filldraw[cuboid/top] (\lowx,\dimy,\lowz) -- (\lowx,\dimy,\z) -- (\x,\dimy,\z) -- (\x,\dimy,\lowz) -- cycle;
+        }
+    }
+    \foreach \y in {\steppingy,\secondy,...,\dimy}
+  { \foreach \z in {\steppingz,\secondz,...,\dimz}
+    {   \pgfmathsetmacro{\lowy}{(\y-\steppingy)}
+      \pgfmathsetmacro{\lowz}{(\z-\steppingz)}
+      \filldraw[cuboid/right] (\dimx,\lowy,\lowz) -- (\dimx,\lowy,\z) -- (\dimx,\y,\z) -- (\dimx,\y,\lowz) -- cycle;
+    }
+  }
+  \ifcuboidemphedge
+    \draw[cuboid/emphstyle] (0,\dimy,0) -- (\dimx,\dimy,0) -- (\dimx,\dimy,\dimz) -- (0,\dimy,\dimz) -- cycle;%
+    \draw[cuboid/emphstyle] (0,\dimy,\dimz) -- (0,0,\dimz) -- (\dimx,0,\dimz) -- (\dimx,\dimy,\dimz);%
+    \draw[cuboid/emphstyle] (\dimx,\dimy,0) -- (\dimx,0,0) -- (\dimx,0,\dimz);%
+    \fi
+
+    \ifcuboidshade
+    \pgfmathsetmacro{\cstepx}{\dimx/\tikzcuboidkey{shadesamples}}
+    \pgfmathsetmacro{\cstepy}{\dimy/\tikzcuboidkey{shadesamples}}
+    \pgfmathsetmacro{\cstepz}{\dimz/\tikzcuboidkey{shadesamples}}
+    \foreach \s in {1,...,\tikzcuboidkey{shadesamples}}
+    {   \pgfmathsetmacro{\lows}{\s-1}
+        \pgfmathsetmacro{\cpercent}{(\lows)/(\tikzcuboidkey{shadesamples}-1)*100}
+        \fill[opacity=\tikzcuboidkey{shadeopacity},color=\tikzcuboidkey{shadecolorlight}!\cpercent!\tikzcuboidkey{shadecolordark}] (0,\s*\cstepy,\dimz) -- (\s*\cstepx,\s*\cstepy,\dimz) -- (\s*\cstepx,0,\dimz) -- (\lows*\cstepx,0,\dimz) -- (\lows*\cstepx,\lows*\cstepy,\dimz) -- (0,\lows*\cstepy,\dimz) -- cycle;
+        \fill[opacity=\tikzcuboidkey{shadeopacity},color=\tikzcuboidkey{shadecolorlight}!\cpercent!\tikzcuboidkey{shadecolordark}] (0,\dimy,\s*\cstepz) -- (\s*\cstepx,\dimy,\s*\cstepz) -- (\s*\cstepx,\dimy,0) -- (\lows*\cstepx,\dimy,0) -- (\lows*\cstepx,\dimy,\lows*\cstepz) -- (0,\dimy,\lows*\cstepz) -- cycle;
+        \fill[opacity=\tikzcuboidkey{shadeopacity},color=\tikzcuboidkey{shadecolorlight}!\cpercent!\tikzcuboidkey{shadecolordark}] (\dimx,0,\s*\cstepz) -- (\dimx,\s*\cstepy,\s*\cstepz) -- (\dimx,\s*\cstepy,0) -- (\dimx,\lows*\cstepy,0) -- (\dimx,\lows*\cstepy,\lows*\cstepz) -- (\dimx,0,\lows*\cstepz) -- cycle;
+    }
+    \fi 
+
+  \end{scope}
+}
+
+\makeatother
+
+
+\begin{document}
+
+
+\begin{tikzpicture}
+    \tikzcuboid{%
+    shiftx=0cm,%
+    shifty=8cm,%
+    scale=1.00,%
+    rotation=0,%
+    densityx=2,%
+    densityy=2,%
+    densityz=2,%
+    dimx=3,%
+    dimy=3,%
+    dimz=3,%
+    scalex=1,%
+    scaley=1,%
+    scalez=1,%
+    anglex=-30,%
+    angley=90,%
+    anglez=210,%
+    front/.style={draw=green!50!black,fill=green!50!white},%
+    top/.style={draw=green!50!black,fill=green!50!white},%
+    right/.style={draw=green!50!black,fill=green!50!white},%
+    emphedge,%
+    emphstyle/.style={line width=1pt, green!12!black,densely dashed},
+    shade,%
+    shadesamples=64,%
+    shadeopacity=0.15,%
+    }
+    \tikzcuboid{%
+    shiftx=8cm,%
+    shifty=8cm,%
+    shadeopacity=0.30,%
+    }   
+    \tikzcuboid{%
+    shiftx=16cm,%
+    shifty=8cm,%
+    shadeopacity=0.60,%
+    }   
+    \tikzcuboid{%
+    shiftx=0cm,%
+    shifty=0cm,%
+    scale=1.00,%
+    rotation=0,%
+    densityx=1,%
+    densityy=1,%
+    densityz=1,%
+    dimx=4,%
+    dimy=4,%
+    dimz=4,%
+    front/.style={draw=blue!75!black,fill=blue!25!white},%
+    right/.style={draw=blue!25!black,fill=blue!75!white},%
+    top/.style={draw=blue!50!black,fill=blue!50!white},%
+    anglex=-7,%
+    angley=90,%
+    anglez=221.5,%
+    scalex=1,%
+    scaley=1,%
+    scalez=0.5,%
+    emphedge=false,%
+    shade,%
+    shadeopacity=0.15,%
+    }
+    \tikzcuboid{%
+    shiftx=8cm,%
+    shifty=0cm,%
+    shadeopacity=0.30,%
+    }
+    \tikzcuboid{%
+    shiftx=16cm,%
+    shifty=0cm,%
+    shadeopacity=0.60,%
+    }
+\end{tikzpicture}
+
+\end{document}

@@ -1,0 +1,26 @@
+\documentclass[tikz,border=2mm]{standalone}
+
+
+\begin{document}
+
+
+\begin{tikzpicture}
+[   cnode/.style={draw=black,fill=#1,minimum width=3mm,circle},
+]
+    \node[cnode=red,label=0:$\Sigma$] (s) at (6,-3) {};
+    \node at (0,-4) {$\vdots$};
+    \node at (3,-4) {$\vdots$};
+    \foreach \x in {1,...,4}
+    {   \pgfmathparse{\x<4 ? \x : "n"}
+        \node[cnode=blue,label=180:$x_{\pgfmathresult}$] (x-\x) at (0,{-\x-div(\x,4)}) {};
+        \node[cnode=gray,label=90:$\varphi_{\pgfmathresult}$] (p-\x) at (3,{-\x-div(\x,4)}) {};
+        \draw (p-\x) -- node[above,sloped,pos=0.3] {$\omega_{\pgfmathresult}$} (s);
+    }
+    \foreach \x in {1,...,4}
+    {   \foreach \y in {1,...,4}
+        {   \draw (x-\x) -- (p-\y);
+        }
+    }
+\end{tikzpicture}
+
+\end{document}

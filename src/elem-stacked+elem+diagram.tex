@@ -1,0 +1,16 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes.multipart}
+
+\begin{document}
+
+\begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,draw, anchor=center}]
+	\node[stack=5]  {
+	\nodepart{two}a
+	\nodepart{three}b
+	\nodepart{four}c
+	\nodepart{five}d
+	};
+\end{tikzpicture}
+
+\end{document}

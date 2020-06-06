@@ -1,0 +1,119 @@
+% https://wiki.physik.uzh.ch/cms/latex:tikz:jet_cones
+\documentclass{article}
+
+\usepackage{amsmath} % for \dfrac
+\usepackage{tikz}
+
+\usepackage{tikz-3dplot}
+\tikzset{>=latex} % for LaTeX arrow head
+\usetikzlibrary{decorations.pathmorphing} % for snake
+
+% colors
+\definecolor{mylightred}{RGB}{255,200,200}
+\definecolor{myblue}{RGB}{172,188,63}
+\definecolor{mylightgreen}{RGB}{150,220,150}
+
+
+% split figures into pages
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{1pt}%
+
+\begin{document}
+	
+
+	% TikZ code
+	% 2D CONE
+	\begin{tikzpicture}%,scale=0.85
+	
+	% cone variables
+	\def\x{2.0}
+	\def\y{4.0}
+	\def\R{\x}
+	\def\yc{\y+0.02}
+	\def\e{0.4}
+	
+	% cone shades + frame
+	\shade[right color=white,left color=mylightgreen,opacity=0.3]
+	(-\x,\yc) -- (-2,4) arc (180:360:{\R} and \e) -- (\x,\yc) -- (0,0) -- cycle;
+	\draw[fill=green,opacity=0.2]
+	(0,\yc) circle ({\R} and \e);
+	\draw
+	(-\x,\y) -- (0,0) -- (\x,\y);
+	\draw
+	(0,\yc) circle ({\R} and \e);
+	
+	% tracks
+	\draw[thick]
+	(0,0) arc (320:360:-3 and 6.0); %node[above] {1};
+	\draw[thick]
+	(0,0) arc (-70:  0:0.8 and 3.5); %node[above] {2};
+	\draw[thick]
+	(0,0) arc (  0: 70:0.9 and 4.5); %node[above] {3};
+	\draw[thick]
+	(0,0) arc (180:140:2 and 6.0); %node[above] {4};
+	\draw[thick,dashed]
+	(0,0) -- (1,4.6);
+	
+\end{tikzpicture}
+	
+	
+	
+	% BOOSTED TAU
+	\begin{tikzpicture}
+	
+	% AK8 variables
+	\def\x{2.4}
+	\def\y{3.5}
+	\def\R{\x+0.02}
+	\def\yc{\y+0.08}
+	\def\e{0.6}
+	
+	% AK8 cone
+	\shade[right color=white,left color=blue,opacity=0.2]
+	(-\x,\y) -- (-\x,\yc) arc (180:360:{\R} and \e) -- (\x,\y) -- (0,0) -- cycle;
+	%\shade[right color=white,left color=blue,opacity=0.2]
+	%(0,\yc) circle ({\R} and \e);
+	%(-\x,\yc) -- ( \x,\yc) arc ( -2:182:{\R} and \e) -- (\x,\yc) -- (0,0) -- cycle;
+	\draw[fill=blue,opacity=0.2]
+	(0,\yc) circle ({\R} and \e);
+	\draw
+	(-\x,\y) -- (0,0) -- (\x,\y);
+	\draw
+	(0,\yc) circle ({\R} and \e);
+	
+	% AK4 variables
+	\def\x{1.0}
+	\def\y{4.0}
+	\def\R{\x+0.005}
+	\def\yc{\y+0.04}
+	\def\e{0.4}
+	
+	% AK4 cone 1
+	\begin{scope}[rotate=12]
+	\shade[right color=white,left color=green,opacity=0.3]
+	(-\x,\yc) -- (-\x,\yc) arc (180:360:{\R} and \e) -- (\x,\yc) -- (0,0) -- cycle;
+	\draw[fill=green,opacity=0.2]
+	(0,\yc) circle ({\R} and \e);
+	\draw
+	(-\x,\y) -- (0,0) -- (\x,\y);
+	\draw
+	(0,\yc) circle ({\R} and \e);
+	\end{scope}
+	
+	% AK4 cone 2
+	\begin{scope}[rotate=-10]
+	\shade[right color=white,left color=red,opacity=0.3]
+	(-\x,\yc) -- (-\x,\yc) arc (180:360:{\R} and \e) -- (\x,\yc) -- (0,0) -- cycle;
+	\draw[fill=red,opacity=0.2]
+	(0,\yc) circle ({\R} and \e);
+	\draw
+	(-\x,\y) -- (0,0) -- (\x,\y);
+	\draw
+	(0,\yc) circle ({\R} and \e);
+	\end{scope}
+	
+
+\end{tikzpicture}
+
+\end{document}
