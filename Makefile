@@ -105,6 +105,25 @@ ifeq ($(shell uname -s), MINGW64_NT-10.0-18362)
 endif	
 
 
+# simplify the website construction with one rule
+website:
+	@echo "\nGenerating Hugo website as " $(word 2, $(MAKECMDGOALS))
+	Rscript _build_site.R $(word 2, $(MAKECMDGOALS))
+	@cd site && hugo
+	@tree -h -F docs/ -L 1
+ifeq ($(shell uname -s), Darwin)	
+	@open -a firefox  $(PUBLISH_DIR)/index.html
+endif
+ifeq ($(shell uname -s), Linux)
+	@firefox  $(PUBLISH_DIR)/index.html
+endif	
+ifeq ($(shell uname -s), MSYS_NT-10.0-WOW)
+	@"C:\Program Files\Mozilla Firefox\firefox"  $(PUBLISH_DIR)/index.html
+endif
+ifeq ($(shell uname -s), MINGW64_NT-10.0-18362)
+	"C:\Program Files\Mozilla Firefox\firefox" $(PUBLISH_DIR)/index.html
+endif	
+
 # remove PNG and PDF files
 .PHONY: clean
 clean: tidy cleanlualatex
@@ -160,26 +179,6 @@ tikz_list:
 		echo `pwd` && \
 		find . -name \*.tex	
 
-
-
-# simplify the website construction with one rule
-website:
-	@echo "\nGenerating Hugo website as " $(word 2, $(MAKECMDGOALS))
-	Rscript _build_site.R $(word 2, $(MAKECMDGOALS))
-	@cd site && hugo
-	@tree -h -F docs/ -L 1
-ifeq ($(shell uname -s), Darwin)	
-	@open -a firefox  $(PUBLISH_DIR)/index.html
-endif
-ifeq ($(shell uname -s), Linux)
-	@firefox  $(PUBLISH_DIR)/index.html
-endif	
-ifeq ($(shell uname -s), MSYS_NT-10.0-WOW)
-	@"C:\Program Files\Mozilla Firefox\firefox"  $(PUBLISH_DIR)/index.html
-endif
-ifeq ($(shell uname -s), MINGW64_NT-10.0-18362)
-	"C:\Program Files\Mozilla Firefox\firefox" $(PUBLISH_DIR)/index.html
-endif	
 
 .PHONY: info
 info:
