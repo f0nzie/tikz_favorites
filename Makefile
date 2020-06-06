@@ -89,7 +89,7 @@ msg_png_files:
 
 
 # render the README file
-$(README): $(addsuffix .Rmd, $(basename $(README))) $(PNG_LUALATEX)  $(PNG_LATEX) 
+$(README): $(addsuffix .Rmd, $(basename $(README))) $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX) $(PNG_LATEX) 
 	Rscript -e "rmarkdown::render('$<')"
 ifeq ($(shell uname -s), Darwin)	
 	open -a firefox $(addsuffix .html, $(basename $(README)))
