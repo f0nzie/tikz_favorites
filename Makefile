@@ -60,6 +60,7 @@
 # add that folder to the computer PATH.
 #
 export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
+UNAME_S = $(shell uname -s)
 PKGSRC  := $(shell basename `pwd`)
 SOURCE_DIR  = src
 OUTPUT_DIR = out
@@ -74,6 +75,18 @@ PDF_LUALATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_L
 PNG_LUALATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LUALATEX) )))) 
 PDF_LATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_LATEX) ))))  
 PNG_LATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LATEX) )))) 
+OSFLAG :=
+ifeq ($(OS), Windows_NT)
+	OSFLAG = WINDOWS
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S), Linux)
+		OSFLAG = LINUX
+	endif
+	ifeq ($(UNAME_S),Darwin)
+		OSFLAG = OSX
+	endif
+endif
 
 
 .PHONY: all
@@ -131,13 +144,13 @@ website:
 	Rscript _build_site.R $(word 2, $(MAKECMDGOALS))
 	@cd site && hugo
 	@tree -h -F docs/ -L 1
-ifeq ($(shell uname -s), Darwin)	
+ifeq ($(OSFLAG), OSX)	
 	@open -a firefox  $(PUBLISH_DIR)/index.html
 endif
-ifeq ($(shell uname -s), Linux)
+ifeq ($(OSFLAG), LINUX)
 	@firefox  $(PUBLISH_DIR)/index.html
 endif	
-ifeq ($(shell echo %OS%), Windows_NT)
+ifeq (OSFLAG), WINDOWS)
 	@"C:\Program Files\Mozilla Firefox\firefox" $(PUBLISH_DIR)/index.html
 endif
 
@@ -214,10 +227,17 @@ info:
 	@echo $(words $(TIKZ_LUALATEX)) 
 	@echo $(TIKZ_LIBS)
 
+
+
+
+
 .PHONY: getos
 getos:
 	@echo $(shell uname -a)
-	@echo $(OS)
+	@if test $(findstring $(OS), Windows_NT) ; then echo "WINDOWS"; fi;
+	@if [ "$(findstring $(OS), )" = "" ]; then echo "WINDOWS not found"; fi;
+	@if [ "$(findstring $(OS), Windows_NT)" != "" ]; then echo "WINDOWS found"; fi;
+	@echo $(OSFLAG)
 
 
 %:
