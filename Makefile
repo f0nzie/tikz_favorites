@@ -92,12 +92,10 @@ endif
 ifeq ($(shell uname -s), Linux)
 	firefox $(addsuffix .html, $(basename $(README)))
 endif	
-ifeq ($(shell uname -s), MSYS_NT-10.0-WOW)
+ifeq ($(shell uname -m), x86_64)
 	"C:\Program Files\Mozilla Firefox\firefox" $(addsuffix .html, $(basename $(README)))
 endif
-ifeq ($(shell uname -s), MINGW64_NT-10.0-18362)
-	"C:\Program Files\Mozilla Firefox\firefox" $(addsuffix .html, $(basename $(README)))
-endif	
+
 
 
 # simplify the website construction with one rule
@@ -112,12 +110,10 @@ endif
 ifeq ($(shell uname -s), Linux)
 	@firefox  $(PUBLISH_DIR)/index.html
 endif	
-ifeq ($(shell uname -s), MSYS_NT-10.0-WOW)
+ifeq ($(shell uname -m), x86_64)
 	@"C:\Program Files\Mozilla Firefox\firefox" $(PUBLISH_DIR)/index.html
 endif
-ifeq ($(shell uname -s), MINGW64_NT-10.0-18362)
-	@"C:\Program Files\Mozilla Firefox\firefox" $(PUBLISH_DIR)/index.html
-endif	
+
 
 # remove PNG and PDF files
 .PHONY: clean
