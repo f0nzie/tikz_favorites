@@ -265,6 +265,8 @@ getos:
 	@if test $(findstring $(OSFLAG), WINDOWS); then echo "findstring of OSFLAG found WINDOWS"; fi
 	@if test $(OSFLAG) = WINDOWS; then echo "OSFLAG is WINDOWS"; fi
 	@if test $(findstring $(OSFLAG), OSX); then echo "it is a Mac"; fi	
+	$(eval NUMWORDS = $(words $(findstring $(OS), Windows_NT)))
+	@echo NUMWORDS $(NUMWORDS)
 
 
 %:
