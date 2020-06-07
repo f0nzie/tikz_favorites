@@ -191,7 +191,6 @@ The figures are sorted by filename.
 
 
 
-
 ## TikZ graphics and code
 
 ```{r, child = "child.Rmd"}
@@ -203,6 +202,7 @@ invisible(if (file.exists("_template.Rmd")) file.remove("_template.Rmd") )
 ```
 
 
+
 ## Implementation of a simple tag system for files
 
 I am implementing a very primitive tag system based of identifiers that are included in the filenames. I started to do this in TikZ because the graphics could belong to different categories at the same time. My plan is using what is available in the operating systems. Tools like `grep`, `find`, `regex`, etc., should make this possible. I have done a pilot of this and seems to be working.
@@ -212,3 +212,4 @@ To tag the file -as you will see in the repository- I use the plus sign. I tried
 * Characters that pass the search test at OS level: `@`, `!`, `=`, `+`.
 * Character that do not pass: `#`.
 
+> Other possibilities include using the comments section of the TikZ file to add the tags and categories.
