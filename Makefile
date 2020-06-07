@@ -217,6 +217,7 @@ info:
 .PHONY: getos
 getos:
 	@echo $(shell uname -a)
+	@echo $(OS)
 
 
 %:
