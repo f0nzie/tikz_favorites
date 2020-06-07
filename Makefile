@@ -94,6 +94,7 @@ PDF_LUALATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_L
 PNG_LUALATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LUALATEX) )))) 
 PDF_LATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_LATEX) ))))  
 PNG_LATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LATEX) )))) 
+# Detect operating system. Sort of tricky for Windows because of MSYS, cygwin, MGWIN
 OSFLAG :=
 ifeq ($(OS), Windows_NT)
 	OSFLAG = WINDOWS
@@ -102,7 +103,7 @@ else
 	ifeq ($(UNAME_S), Linux)
 		OSFLAG = LINUX
 	endif
-	ifeq ($(UNAME_S),Darwin)
+	ifeq ($(UNAME_S), Darwin)
 		OSFLAG = OSX
 	endif
 endif
@@ -154,8 +155,6 @@ endif
 ifeq ($(OSFLAG), WINDOWS)
 	@"C:\Program Files\Mozilla Firefox\firefox.exe" $(addsuffix .html, $(basename $(README)))
 endif
-
-
 
 
 # simplify the website construction with one rule
@@ -248,8 +247,6 @@ info:
 	@echo $(words $(TIKZ_LATEX)) 
 	@echo $(words $(TIKZ_LUALATEX)) 
 	@echo $(TIKZ_LIBS)
-
-
 
 
 
