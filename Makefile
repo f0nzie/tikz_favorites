@@ -124,7 +124,7 @@ out/%.pdf:: src/%.tex msg_pdf_files
 
 # here we check for the operating system. ghostscript to be used in Mac
 out/%.png:: out/%.pdf msg_png_files
-	@if test $(findstring $(shell uname -s), "Darwin"); then \
+	@if test $(OSFLAG) = OSX; then \
 		gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<; \
 	else \
 		cd $(OUTPUT_DIR) && pdftoppm -q -png $(<F) > $(@F); \
@@ -144,14 +144,15 @@ msg_png_files:
 # render the README file
 $(README): $(addsuffix .Rmd, $(basename $(README))) $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX) $(PNG_LATEX) 
 	Rscript -e "rmarkdown::render('$<')"
-ifeq ($(shell uname -s), Darwin)	
+	@echo "Operating system is:" $(OSFLAG)
+ifeq ($(OSFLAG), OSX)		
 	@open -a firefox $(addsuffix .html, $(basename $(README)))
 endif
-ifeq ($(shell uname -s), Linux)
+ifeq ($(OSFLAG), LINUX)
 	@firefox $(addsuffix .html, $(basename $(README)))
 endif	
-ifeq ($(shell echo %OS%), Windows_NT)
-	@"C:\Program Files\Mozilla Firefox\firefox" $(addsuffix .html, $(basename $(README)))
+ifeq ($(OSFLAG), WINDOWS)
+	@"C:\Program Files\Mozilla Firefox\firefox.exe" $(addsuffix .html, $(basename $(README)))
 endif
 
 
@@ -160,8 +161,10 @@ endif
 # simplify the website construction with one rule
 website:
 	@echo "\nGenerating Hugo website as " $(word 2, $(MAKECMDGOALS))
+	@echo "Operating system is" $(OSFLAG)
 	Rscript _build_site.R $(word 2, $(MAKECMDGOALS))
 	@cd site && hugo
+	@# TODO: what happens if "tree" is not installed in Linux. Windows has its own "tree".
 	@tree -h -F docs/ -L 1
 ifeq ($(OSFLAG), OSX)	
 	@open -a firefox  $(PUBLISH_DIR)/index.html
@@ -169,7 +172,7 @@ endif
 ifeq ($(OSFLAG), LINUX)
 	@firefox  $(PUBLISH_DIR)/index.html
 endif	
-ifeq (OSFLAG), WINDOWS)
+ifeq ($(OSFLAG), WINDOWS)
 	@"C:\Program Files\Mozilla Firefox\firefox" $(PUBLISH_DIR)/index.html
 endif
 
