@@ -255,11 +255,29 @@ info:
 
 .PHONY: getos
 getos:
-	@echo $(shell uname -a)
-	@if test $(findstring $(OS), Windows_NT) ; then echo "WINDOWS"; fi;
-	@if [ "$(findstring $(OS), )" = "" ]; then echo "WINDOWS not found"; fi;
-	@if [ "$(findstring $(OS), Windows_NT)" != "" ]; then echo "WINDOWS found"; fi;
-	@echo $(OSFLAG)
+	@# Testing different ways of detecting the OS
+	@echo "OS is:" $(OSFLAG)
+	@# these two are equivalent
+	@echo "Number of words in OS env var:" $(words $(OS))
+	@if [ $(words $(findstring $(OS),)) = 0 ]; then \
+		echo "OS does not return empty string means OS env filled by WINDOWS"; \
+	else \
+		echo "OS env variable returns empty string"; \
+	fi
+	@if [  $(words $(OS)) -gt 0 ]; then echo "OS env word count it is greater than zero, means it is WINDOWS"; fi
+# Using pre-processor
+ifneq (0,$(words $(findstring $(OS),)))
+	@echo "Not Windows"
+else
+	@echo "Word count of OS not zero, then it is WINDOWS"
+endif
+	@# Using if
+	@if [ "$(findstring $(OS), Windows_NT)" != "" ]; then echo "OS returns Windows_NT, not an empty string"; fi
+	@# using test
+	@if test $(findstring $(OS), Windows_NT) ; then echo "WINDOWS passed the test"; fi;
+	@if test $(findstring $(OSFLAG), WINDOWS); then echo "findstring of OSFLAG found WINDOWS"; fi
+	@if test $(OSFLAG) = WINDOWS; then echo "OSFLAG is WINDOWS"; fi
+	@if test $(findstring $(OSFLAG), OSX); then echo "it is a Mac"; fi	
 
 
 %:
