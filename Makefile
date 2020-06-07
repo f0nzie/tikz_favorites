@@ -113,14 +113,15 @@ msg_png_files:
 $(README): $(addsuffix .Rmd, $(basename $(README))) $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX) $(PNG_LATEX) 
 	Rscript -e "rmarkdown::render('$<')"
 ifeq ($(shell uname -s), Darwin)	
-	open -a firefox $(addsuffix .html, $(basename $(README)))
+	@open -a firefox $(addsuffix .html, $(basename $(README)))
 endif
 ifeq ($(shell uname -s), Linux)
-	firefox $(addsuffix .html, $(basename $(README)))
+	@firefox $(addsuffix .html, $(basename $(README)))
 endif	
-ifeq ($(shell uname -m), x86_64)
-	"C:\Program Files\Mozilla Firefox\firefox" $(addsuffix .html, $(basename $(README)))
+ifeq ($(shell echo %OS%), Windows_NT)
+	@"C:\Program Files\Mozilla Firefox\firefox" $(addsuffix .html, $(basename $(README)))
 endif
+
 
 
 
@@ -136,7 +137,7 @@ endif
 ifeq ($(shell uname -s), Linux)
 	@firefox  $(PUBLISH_DIR)/index.html
 endif	
-ifeq ($(shell uname -m), x86_64)
+ifeq ($(shell echo %OS%), Windows_NT)
 	@"C:\Program Files\Mozilla Firefox\firefox" $(PUBLISH_DIR)/index.html
 endif
 
@@ -212,6 +213,10 @@ info:
 	@echo $(words $(TIKZ_LATEX)) 
 	@echo $(words $(TIKZ_LUALATEX)) 
 	@echo $(TIKZ_LIBS)
+
+.PHONY: getos
+getos:
+	@echo $(shell uname -a)
 
 
 %:
