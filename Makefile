@@ -27,19 +27,44 @@
 #	make website local
 #
 # This has been tested with Mac and Linux
-# Maybe sometime I will test it in Windows as well.
 #
 #
+# This Makefile
 #
-# using folder src/texmf to save .sty .cls files
+# Using folder "src/texmf" to save .sty .cls files. Indicate that with:
+#
+# 	export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
+#
+# But this requires manually setting "texmf" in the machine. So we are leaving open
+# the possibility of the user placing libraries, styles and classes in the same
+# folder "src/" using these three lines:
+#
+#   TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
+# 	TIKZ_FILES_ALL_ = $(wildcard $(SOURCE_DIR)/*.tex)
+# 	TIKZ_FILES_ALL  = $(filter-out $(TIKZ_LIBS), $(TIKZ_FILES_ALL_))
+#
+# Files that are libraries such as "tikzlibraryunitcircle.code.tex" are not
+# included in the compilation.
+#
+# Since we are naming TikZ files to be compiled with "lualatex", we are filtering
+# those files with
+#
+# 	TIKZ_LUALATEX = $(filter %.lualatex.tex, $(TIKZ_FILES_ALL))
+# 	TIKZ_LATEX = $(filter-out  $(TIKZ_LUALATEX), $(TIKZ_FILES_ALL))
+#
+# To be able to generate the website you need "Hugo". This can be downloaded
+# and istalled manually. Also the R package "blogdown" can be use used to
+# download and install "Hugo" automatically. Just be sure that the "hugo.exe"
+# is installed in a folder that is in the PATH. It is recommended that you 
+# put "hugo.exe" in a folder "/Users/user/bin", or "home/user/bin" and then 
+# add that folder to the computer PATH.
+#
 export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
-# common
 PKGSRC  := $(shell basename `pwd`)
 SOURCE_DIR  = src
 OUTPUT_DIR = out
 PUBLISH_DIR := docs
 README = README.md
-TIKZ_LIBS = code.tex
 TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
 TIKZ_FILES_ALL_ = $(wildcard $(SOURCE_DIR)/*.tex)
 TIKZ_FILES_ALL  = $(filter-out $(TIKZ_LIBS), $(TIKZ_FILES_ALL_))
@@ -181,17 +206,12 @@ tikz_list:
 
 .PHONY: info
 info:
-	#@echo $(PDF_FILES)
+	@echo $(words $(TIKZ_LIBS))
+	@echo $(words $(TIKZ_FILES_ALL_))
 	@echo $(words $(TIKZ_FILES_ALL))
 	@echo $(words $(TIKZ_LATEX)) 
 	@echo $(words $(TIKZ_LUALATEX)) 
-	@echo $(PDF_LUALATEX)
-	@echo $(PNG_LUALATEX)
-	@echo $(PDF_LATEX)
-	@echo $(PNG_LATEX)
-	# @make print-TIKZ_FILES
-	# @make print-TIKZ_LUALATEX
-	# @echo $PKGSRC
+	@echo $(TIKZ_LIBS)
 
 
 %:
@@ -204,3 +224,11 @@ print-%  : ; @echo $* = $($*)
 
 # TODO: read values from site/config.toml file 
 # TODO: use R to read .toml parameters and values
+# Use the following for some debugging:
+	# @make print-TIKZ_FILES
+	# @make print-TIKZ_LUALATEX
+	# @echo $PKGSRC
+	# @echo $(PDF_LUALATEX)
+	# @echo $(PNG_LUALATEX)
+	# @echo $(PDF_LATEX)
+	# @echo $(PNG_LATEX)
