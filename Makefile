@@ -267,6 +267,11 @@ getos:
 	@if test $(findstring $(OSFLAG), OSX); then echo "it is a Mac"; fi	
 	$(eval NUMWORDS = $(words $(findstring $(OS), Windows_NT)))
 	@echo NUMWORDS $(NUMWORDS)
+ifeq ($(strip $(findstring $(OS), Windows_NT) ),)
+	@echo "findstring found OS empty. No WINDOWS here"
+else	
+	@echo "findstring found OS filled, so it is WINDOWS"
+endif
 
 
 %:
