@@ -59,6 +59,25 @@
 # put "hugo.exe" in a folder "/Users/user/bin", or "home/user/bin" and then 
 # add that folder to the computer PATH.
 #
+# Must have software:
+#	LaTeX, TeX compiler
+#	R, Rtools
+# Linux and Mac OSX:
+#	texlive
+# Windows:
+#	MixTeX
+#
+# Other useful sofware to install (optional):
+# All operating systems:
+# 	TexStudio
+#	Texmaker
+#	VS Code
+#	Firefox
+# Linux:
+# 	tree
+# Windows:
+#	Git for Windows. Set "Bash" as default terminal in "vscode"
+# 
 export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
 UNAME_S = $(shell uname -s)
 PKGSRC  := $(shell basename `pwd`)
