@@ -96,10 +96,10 @@ Some useful tutorials:
 
 ## Useful statistics
 
-* There are 229 total Tikz figures saved as `.tex` files in this gallery. 
+* There are 228 total Tikz figures saved as `.tex` files in this gallery. 
 The figures are sorted by filename.
-* There are 227 files under `src/` to be compiled with `pdflatex`
-* There are 2 files under `src/` to be compiled with `lualatex`
+* There are 228 files under `src/` to be compiled with `pdflatex`
+* There are 1 files under `src/` to be compiled with `lualatex`
 * There are 19 data files under the folder `src/data` that are being used by the TikZ scripts
 * There are 2 Latex classes, styles and library files under the `src/texmf` folder
 
@@ -8545,99 +8545,6 @@ rotate border/.style={shape border uses incircle, shape border rotate=#1},
 ```
 ****
 
-![](./out/network-ex_multilayer.lualatex.png)
-
-  
-  * [network-ex_multilayer.lualatex.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/network-ex_multilayer.lualatex.tex)
-
-```tex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% use lualatex to compile the pdf !!! %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%=============================================================================
-% File:  ex_multilayer_01.tex --  tikz-network example
-% Author(s): Jürgen Hackl <hackl@ibi.baug.ethz.ch>
-% Creation:  20 Sep 2017
-% Time-stamp: <Die 2018-06-12 07:45 juergen>
-%
-% Copyright (c) 2017 Jürgen Hackl <hackl@ibi.baug.ethz.ch>
-%               http://www.ibi.ethz.ch
-% $Id$
-%
-% More information on LaTeX: http://www.latex-project.org/
-% LaTeX symbol list: 
-%   http://www.ctan.org/tex-archive/info/symbols/comprehensive/symbols-a4.pdf
-%=============================================================================
-
-% https://github.com/hackl/tikz-network/blob/master/examples/multilayer/ex_multilayer_01.tex
-
-\RequirePackage{luatex85}
-\documentclass{standalone}
-
-% Used packages
-\usepackage{tikz-network}
-
-\begin{document}
-
-% Setting
-\SetCoordinates[xAngle = -20]
-\SetVertexStyle[MinSize = 4.5mm]
-\SetLayerDistance{-5}
-\SetPlaneWidth{10}
-\SetPlaneHeight{10}
-\begin{tikzpicture}[multilayer=3d]
-
-	%%
-	% Layer 2
-	
-	% Background
-	\Plane[layer=2,color=orange,opacity=.6,image=./data/ex_multilayer_01_layer_02.pdf,ImageAndFill,grid=1cm,InBG]
-	
-	% Text
-	\Text[x=1.2,y=-.1,layer=2,anchor=north west,style={scale=2.5}]{Layer $\beta$}
-	
-	% Vertices
-	\Vertices[color=orange]{./data/ex_multilayer_01_vertices.csv}
-	
-	% Intra-layer edges in layer 2
-	\Edges[color=black,layer={2,2}]{./data/ex_multilayer_01_edges.csv}
-	\EdgesNotInBG
-	
-	% Inter-layer edges between layer 1 and 2
-	\Edges[color=black,layer={1,2},style={dashed}]{./data/ex_multilayer_01_edges.csv}
-	
-	%%
-	% Layer 1
-	
-	% Background
-	\Plane[opacity=.6,image=./data/ex_multilayer_01_layer_01.pdf,ImageAndFill,grid=1cm]
-	
-	% Text
-	\Text[x=1.2,y=-.1,layer=1,anchor=north west,style={scale=2.5}]{Layer $\alpha$}
-	
-	% Intra-layer edges in layer 1
-	\Edges[color=black,layer={1,1}]{./data/ex_multilayer_01_edges.csv}
-	
-	% Vertices in layer 1
-	\Vertices[layer=1]{./data/ex_multilayer_01_vertices.csv}
-
-
-\end{tikzpicture}
-\end{document}
-%=============================================================================
-% eof
-%
-% Local Variables:
-% mode: latex
-% mode: linum
-% mode: auto-fill
-% fill-column: 80
-% TeX-master: t
-% End:
-```
-****
-
 ![](./out/network-layers-and-layouts.png)
 
   
@@ -17066,7 +16973,7 @@ child {node {20}
 \end{document}
 ```
 
-[1] TRUE
+
 
 
 ## Implementation of a simple tag system for files
