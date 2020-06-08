@@ -193,6 +193,8 @@ tidy: chrono
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.snm -delete
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.toc -delete
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.nav -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.fls -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.fdb_latexmk -delete
 	if [ -f "$(README)" ]; then \
         rm  $(README); \
     fi
