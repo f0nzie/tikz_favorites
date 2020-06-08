@@ -153,7 +153,7 @@ ifeq ($(OSFLAG), LINUX)
 	@firefox $(addsuffix .html, $(basename $(README)))
 endif	
 ifeq ($(OSFLAG), WINDOWS)
-	@"C:\Program Files\Mozilla Firefox\firefox.exe" $(addsuffix .html, $(basename $(README)))
+	@"C:\Program Files\Mozilla Firefox\firefox" $(addsuffix .html, $(basename $(README)))
 endif
 
 
