@@ -210,6 +210,8 @@ cleansource:
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.snm -delete
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.toc -delete
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.nav -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.fls -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.fdb_latexmk -delete
 
 .PHONY: cleanlualatex
 cleanlualatex: tidylualatex
