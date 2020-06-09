@@ -20,12 +20,12 @@
     %draw a grid in the x-y plane
     \foreach \x in {0,1,...,7}
         \foreach \y in {0,1,...,7} {
-            \draw[grid] (\x,0) -- (\x,7);     % draw horizontal lines
+            \draw[grid] (\x,0) -- (\x,7);  % draw horizontal lines
             \draw[grid] (0,\y) -- (7,\y);  % draw vertical lines
         };
-    
-    \draw[fill=blue]     (0,0,0) -- (0,1,0) -- (1,1,0) -- (1,0,0) -- cycle;
-    \draw[fill=green ]  (1,1,0) -- (2,1,0) -- (2,2,0) -- (1,2,0) -- cycle;
+    % draw the color filled squares
+    \draw[fill=blue]   (0,0,0) -- (0,1,0) -- (1,1,0) -- (1,0,0) -- cycle;
+    \draw[fill=green]  (1,1,0) -- (2,1,0) -- (2,2,0) -- (1,2,0) -- cycle;
 
 \end{tikzpicture}    
 \end{document}

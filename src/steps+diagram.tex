@@ -56,7 +56,7 @@ pinstyle/.style = {pin edge={to-,thin,black}
     \node [sum, right of=controller,node distance=2cm] (sum2) {};
     \node [block, above = 2cm of sum2](extra){$\frac{1}{\alpha_{\beta2}}$};  %
     \node [block, right of=sum2,node distance=2cm] (system) 
-{$\frac{a_{\beta 2}}{s+a_{\beta 1}}$};
+    {$\frac{a_{\beta 2}}{s+a_{\beta 1}}$};
     \node [output, right of=system, node distance=2cm] (output) {};
     \node [tmp, below of=controller] (tmp1){$H(s)$};
     \draw [->] (rinput) -- node{$R(s)$} (sum1);
@@ -71,7 +71,7 @@ pinstyle/.style = {pin edge={to-,thin,black}
     \draw [->] (y) |- (tmp1)-| node[pos=0.99] {$-$} (sum1);
     \draw [->] (extra)--(sum2);
     \draw [->] ($(0,1.5cm)+(extra)$)node[above]{$d_{\beta 2}$} -- (extra);
-    \end{tikzpicture}
+\end{tikzpicture}
 %\caption{A PID Control System} \label{fig6_10}
 %\end{figure}
 

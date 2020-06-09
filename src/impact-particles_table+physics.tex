@@ -56,42 +56,42 @@
 
   % draw all particles  
   \node at(0, 0)   {\particle[gray!20!white]
-                   {$u$}        {up}       {$2.3$ MeV}{1/2}{$2/3$}{R/G/B}};
+                    {$u$}        {up}       {$2.3$ MeV}{1/2}{$2/3$}{R/G/B}};
   \node at(0,-1)   {\particle[gray!20!white]
-                   {$d$}        {down}    {$4.8$ MeV}{1/2}{$-1/3$}{R/G/B}};
+                    {$d$}        {down}    {$4.8$ MeV}{1/2}{$-1/3$}{R/G/B}};
   \node at(0,-2)   {\particle[gray!20!white]
-                   {$e$}        {electron}       {$511$ keV}{1/2}{$-1$}{}};
+                    {$e$}        {electron}       {$511$ keV}{1/2}{$-1$}{}};
   \node at(0,-3)   {\particle[gray!20!white]
-                   {$\nu_e$}    {$e$ neutrino}         {$<2$ eV}{1/2}{}{}};
+                    {$\nu_e$}    {$e$ neutrino}         {$<2$ eV}{1/2}{}{}};
   \node at(1, 0)   {\particle
-                   {$c$}        {charm}   {$1.28$ GeV}{1/2}{$2/3$}{R/G/B}};
+                    {$c$}        {charm}   {$1.28$ GeV}{1/2}{$2/3$}{R/G/B}};
   \node at(1,-1)   {\particle 
-                   {$s$}        {strange}  {$95$ MeV}{1/2}{$-1/3$}{R/G/B}};
+                    {$s$}        {strange}  {$95$ MeV}{1/2}{$-1/3$}{R/G/B}};
   \node at(1,-2)   {\particle
-                   {$\mu$}      {muon}         {$105.7$ MeV}{1/2}{$-1$}{}};
+                    {$\mu$}      {muon}         {$105.7$ MeV}{1/2}{$-1$}{}};
   \node at(1,-3)   {\particle
-                   {$\nu_\mu$}  {$\mu$ neutrino}    {$<190$ keV}{1/2}{}{}};
+                    {$\nu_\mu$}  {$\mu$ neutrino}    {$<190$ keV}{1/2}{}{}};
   \node at(2, 0)   {\particle
-                   {$t$}        {top}    {$173.2$ GeV}{1/2}{$2/3$}{R/G/B}};
+                    {$t$}        {top}    {$173.2$ GeV}{1/2}{$2/3$}{R/G/B}};
   \node at(2,-1)   {\particle
-                   {$b$}        {bottom}  {$4.7$ GeV}{1/2}{$-1/3$}{R/G/B}};
+                    {$b$}        {bottom}  {$4.7$ GeV}{1/2}{$-1/3$}{R/G/B}};
   \node at(2,-2)   {\particle
-                   {$\tau$}     {tau}          {$1.777$ GeV}{1/2}{$-1$}{}};
+                    {$\tau$}     {tau}          {$1.777$ GeV}{1/2}{$-1$}{}};
   \node at(2,-3)   {\particle
-                   {$\nu_\tau$} {$\tau$ neutrino}  {$<18.2$ MeV}{1/2}{}{}};
+                    {$\nu_\tau$} {$\tau$ neutrino}  {$<18.2$ MeV}{1/2}{}{}};
   \node at(3,-3)   {\particle[orange!20!white]
-                   {$W^{\hspace{-.3ex}\scalebox{.5}{$\pm$}}$}               
+                    {$W^{\hspace{-.3ex}\scalebox{.5}{$\pm$}}$}               
                                 {}              {$80.4$ GeV}{1}{$\pm1$}{}}; % W
   \node at(4,-3)   {\particle[orange!20!white]
-                   {$Z$}        {}                    {$91.2$ GeV}{1}{}{}}; % Z
+                    {$Z$}        {}                    {$91.2$ GeV}{1}{}{}}; % Z
   \node at(3.5,-2) {\particle[green!50!black!20]
-                   {$\gamma$}   {photon}                        {}{1}{}{}}; % gamma-photon
+                    {$\gamma$}   {photon}                        {}{1}{}{}}; % gamma-photon
   \node at(3.5,-1) {\particle[purple!20!white]
-                   {$g$}        {gluon}                    {}{1}{}{color}}; % g-gluon
+                    {$g$}        {gluon}                    {}{1}{}{color}}; % g-gluon
   \node at(5,0)    {\particle[gray!50!white]
-                   {$H$}        {Higgs}              {$125.1$ GeV}{0}{}{}}; % H-Higgs
+                    {$H$}        {Higgs}              {$125.1$ GeV}{0}{}{}}; % H-Higgs
   \node at(6.1,-3) {\particle[gray!5!white]
-                   {}           {graviton}                       {}{}{}{}}; % graviton
+                    {}           {graviton}                       {}{}{}{}}; % graviton
 
   % add text labels for forces
   \node at(4.25,-0.5) [force]      {strong nuclear force (color)};
@@ -107,15 +107,15 @@
 
   % draw vertical braces and labels
   \draw [mbrace] (-0.8,0.5)  -- (-0.8,-1.5)
-                 node[leftlabel] {6 quarks\\(+6 anti-quarks)};
+                  node[leftlabel] {6 quarks\\(+6 anti-quarks)};
   \draw [mbrace] (-0.8,-1.5) -- (-0.8,-3.5)
-                 node[leftlabel] {6 leptons\\(+6 anti-leptons)};
+                  node[leftlabel] {6 leptons\\(+6 anti-leptons)};
   % draw bottom braces and labels                  
   \draw [mbrace] (-0.5,-3.6) -- (2.5,-3.6)
-                 node[bottomlabel]
-                 {12 fermions\\(+12 anti-fermions)\\increasing mass $\to$};
+                  node[bottomlabel]
+                  {12 fermions\\(+12 anti-fermions)\\increasing mass $\to$};
   \draw [mbrace] (2.5,-3.6) -- (5.5,-3.6)
-                 node[bottomlabel] {5 bosons\\(+1 opposite charge $W$)};
+                  node[bottomlabel] {5 bosons\\(+1 opposite charge $W$)};
 
   % draw top braces and add text labels
   \draw [brace] (-0.5,.8) -- (0.5,.8) node[toplabel]         {standard matter};

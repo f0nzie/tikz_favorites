@@ -17,7 +17,7 @@ This topic was discussed on: http://texwelt.de/wissen/fragen/3363/
 
 Data file
 -------
-if you want the data to be saved as you modify this file, add this:
+if you want the data to be saved as you modify this file, add this above the comments:
 
 	\usepackage{filecontents}
 	
@@ -41,16 +41,17 @@ if you want the data to be saved as you modify this file, add this:
 
 \begin{document}
 \begin{tikzpicture}
-  \begin{axis}[
-    scatter,
-    scatter src = explicite,
-    grid        = major, % draws coordinate grid
-    xlabel      = Force $\lbrack{}$ F $\rbrack$, 
-    ylabel      = Amperage $\lbrack{}$ kA $\rbrack$,
-    width       = \linewidth,
-    height      = 10cm,
-    xmin = 0, xmax = 15,
-    ymin = 0, ymax = 12,
+  \begin{axis}
+    [
+      scatter,
+      scatter src = explicite,
+      grid        = major, % draws coordinate grid
+      xlabel      = Force $\lbrack{}$ F $\rbrack$, 
+      ylabel      = Amperage $\lbrack{}$ kA $\rbrack$,
+      width       = \linewidth,
+      height      = 10cm,
+      xmin = 0, xmax = 15,
+      ymin = 0, ymax = 12,
     ]
     \addplot+ [
       visualization depends on =
@@ -58,6 +59,8 @@ if you want the data to be saved as you modify this file, add this:
       scatter/@pre marker code/.append style =
         {/tikz/mark size = \perpointmarksize},
     ]
+    % read the table
+    % read the column result1
     table[x=measuring, y=power1, point meta=\thisrow{result1}] {./data/data.csv};
     \addplot+ [
       visualization depends on =
@@ -65,6 +68,7 @@ if you want the data to be saved as you modify this file, add this:
       scatter/@pre marker code/.append style =
         {/tikz/mark size = \perpointmarksize}
     ]
+    % read the column result2
     table [x=measuring, y=power2, point meta=\thisrow{result2}] {./data/data.csv};
     \fill [gray, fill opacity=0.25] (axis cs:5,0) rectangle (axis cs:7,12);
   \end{axis}

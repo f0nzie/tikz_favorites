@@ -48,34 +48,34 @@
 }
 
 \begin{document}
-    \begin{tikzpicture}[
-        % Environment Cfg
-        font=\sf    \scriptsize,
-        % Styles
-        myarrow/.style={
-            thick,
-            -latex,
-        },
-        Center/.style ={
-            circle,
-            fill=ocre,
-            text=white,
-            align=center,
-            font =\footnotesize\bf,
-            inner sep=1pt,          
-        },
-        RedArc/.style ={
-            color=black,
-            thick,
-            fill=ocre,
-            blur shadow, %Tikzedt not suport online view
-        },
-        SkyArc/.style ={
-            color=skybox,
-            thick,
-            fill=sky,
-            blur shadow, %Tikzedt not suport online view
-        },
+\begin{tikzpicture}[
+    % Environment Cfg
+    font=\sf    \scriptsize,
+    % Styles
+    myarrow/.style={
+        thick,
+        -latex,
+    },
+    Center/.style ={
+        circle,
+        fill=ocre,
+        text=white,
+        align=center,
+        font =\footnotesize\bf,
+        inner sep=1pt,          
+    },
+    RedArc/.style ={
+        color=black,
+        thick,
+        fill=ocre,
+        blur shadow, %Tikzedt not suport online view
+    },
+    SkyArc/.style ={
+        color=skybox,
+        thick,
+        fill=sky,
+        blur shadow, %Tikzedt not suport online view
+    },
     ]
 
     % Drawing the center
@@ -120,10 +120,10 @@
     \draw[myarrow] (left SSN) -- (left SRel);
     \draw[myarrow] (left SCap) -- (right SSN);
 
-     \draw[myarrow] (-5,-3.5) coordinate (legend) -- ++(.8,0) node[anchor=west] {owl: imports (extends)};
-     \draw[RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node[anchor=west] {normative};
-     \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {non-normative};
+        \draw[myarrow] (-5,-3.5) coordinate (legend) -- ++(.8,0) node[anchor=west] {owl: imports (extends)};
+        \draw[RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node[anchor=west] {normative};
+        \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {non-normative};
 
-    \end{tikzpicture}
+\end{tikzpicture}
 
 \end{document}

@@ -1,11 +1,26 @@
 % https://tex.stackexchange.com/a/347917/173708
-% create the gif with:
-% convert -delay 0 -density 120 animation-dynamic_labels.pdf animation-dynamic_labels.gif
+
 \documentclass[tikz]{standalone}
+
+\usepackage{verbatim}
+
+\begin{comment}
+This example is a demonstration of an animation by creating a GIF file out of
+a PDF file with several pages. Once the PDF file has been created with the 
+"pgfmathsetmacro" macor, convert the PDF file to a GIF. 
+Create the gif with:
+
+  convert -delay 0 -density 120 animation-dynamic_labels.pdf animation-dynamic_labels.gif
+
+\end{comment}  
+
 \begin{document}
+% this will produce the animation by creating 80 small PDF files
+% later we will need to build the GIF file
 \foreach {\tangle} in {80,79,...,10}{
   \pgfmathsetmacro{\sangle}{-\tangle}
-  \begin{tikzpicture}[auto]
+
+\begin{tikzpicture}[auto]
     % constants
     \def\rinn{2}
     \def\rout{3.8}
@@ -29,6 +44,6 @@
     \path (S1) ++(\sangle-45:5mm) node{S1};
     \path (S2) ++(\sangle-45:5mm) node{S2};
 
-  \end{tikzpicture}
+\end{tikzpicture}
 }
 \end{document}

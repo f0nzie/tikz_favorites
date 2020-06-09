@@ -1,13 +1,15 @@
 % page 142 of book PGFPLOTS
 % http://mirror.utexas.edu/ctan/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf
+% arr: reindent
 \documentclass[border=15pt]{standalone}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.16}
 
 \begin{document}
 	
-	\begin{tikzpicture}
-	\begin{axis}[
+\begin{tikzpicture}
+	\begin{axis}
+		[
 		axis lines=center,
 		axis on top,
 		xlabel={$x$},
@@ -20,15 +22,15 @@
 		ymax=1.5,
 		zmin=0.0,
 		mesh/interior colormap=
-			{blueblack}{color=(black) color=(blue)},
+		{blueblack}{color=(black) color=(blue)},
 		colormap/blackwhite,
 		samples=10,
 		samples y=40,
 		z buffer=sort,
-	]
-		\addplot3 [  surf]
+		]
+			\addplot3 [surf]
 			({x*cos(deg(y))},{x*sin(deg(y))},{x});
 	\end{axis}
-	\end{tikzpicture}
+\end{tikzpicture}
 	
 \end{document}

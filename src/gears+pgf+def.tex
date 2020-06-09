@@ -41,19 +41,19 @@
 }}
 
 \begin{document}
-    \begin{tikzpicture}
-        % observations:
-        %
-        %  - param #1 and #3 must be equal for gears to mesh
-        %  - the required distance is (#2_1 + #2_2) * #1 / 2
-        %  - for odd numbers of teeth, gears on a horizontal axis fit without rotation
+\begin{tikzpicture}
+    % observations:
+    %
+    %  - param #1 and #3 must be equal for gears to mesh
+    %  - the required distance is (#2_1 + #2_2) * #1 / 2
+    %  - for odd numbers of teeth, gears on a horizontal axis fit without rotation
 
-        \pic[draw,fill=red!20!white]                     at (0,0)   {gear={0.50}{17}{15}};
-        \pic[draw,fill=red!20!white]                     at (6,0)   {gear={0.50}{ 7}{15}};
+    \pic[draw,fill=red!20!white]                     at (0,0)   {gear={0.50}{17}{15}};
+    \pic[draw,fill=red!20!white]                     at (6,0)   {gear={0.50}{ 7}{15}};
 
-        \pic[draw,fill=blue!20!white,rotate=-60 + 90/11] at (0,0)   {gear={0.25}{11}{20}};
-        \pic[draw,fill=blue!20!white,rotate=-60 - 90/29] at (-60:5) {gear={0.25}{29}{20}};
+    \pic[draw,fill=blue!20!white,rotate=-60 + 90/11] at (0,0)   {gear={0.25}{11}{20}};
+    \pic[draw,fill=blue!20!white,rotate=-60 - 90/29] at (-60:5) {gear={0.25}{29}{20}};
 
-        \foreach \p in {(0,0),(6,0),(-60:5)} \fill \p circle (3pt);
-    \end{tikzpicture}
+    \foreach \p in {(0,0),(6,0),(-60:5)} \fill \p circle (3pt);
+\end{tikzpicture}
 \end{document}

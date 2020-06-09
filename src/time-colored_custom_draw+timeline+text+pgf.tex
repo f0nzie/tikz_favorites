@@ -48,19 +48,19 @@
 }
 
 \begin{document}
-    \begin{tikzpicture}[event/.style={very thick, solid, line cap=round}]
-        \drawtimeline[%
-            gray,
-            timeline style={thick},
-            labeled years step=6,
-            minor tick step=0.25]{2002}{2016}{10cm};
-        \drawtimeline[
-            yshift=-2cm,
-            labeled years step=2,
-            timeline style={-stealth, shorten <=-5pt, very thick},
-            year tick style={{Triangle[reversed, scale=0.75]}-, tick size=5pt, yshift=2.5pt},
-            minor tick style={tick size=2pt, yshift=1pt},
-            year label style={anchor=west, rotate=60, outer sep=2pt, yshift=4pt}]{2002}{2016}{10cm};
-         \draw[event, red] (Y-2002-2) -- (Y-2003);
-    \end{tikzpicture}
+\begin{tikzpicture}[event/.style={very thick, solid, line cap=round}]
+    \drawtimeline[%
+        gray,
+        timeline style={thick},
+        labeled years step=6,
+        minor tick step=0.25]{2002}{2016}{10cm};
+    \drawtimeline[
+        yshift=-2cm,
+        labeled years step=2,
+        timeline style={-stealth, shorten <=-5pt, very thick},
+        year tick style={{Triangle[reversed, scale=0.75]}-, tick size=5pt, yshift=2.5pt},
+        minor tick style={tick size=2pt, yshift=1pt},
+        year label style={anchor=west, rotate=60, outer sep=2pt, yshift=4pt}]{2002}{2016}{10cm};
+      \draw[event, red] (Y-2002-2) -- (Y-2003);
+\end{tikzpicture}
 \end{document}

@@ -18,16 +18,16 @@
 
 \begin{document}
 	
-	% DRAW PLOT: sin, cos, tan
-	\begin{tikzpicture}[domain=-pi:pi,xscale=2/pi]
-	
+% DRAW PLOT: sin, cos, tan
+\begin{tikzpicture}[domain=-pi:pi,xscale=2/pi]
+
 	% limits
 	\def\xa{ -pi-0.3}
 	\def\xb{3*pi+0.4}
 	\def\ya{-3.4}
 	\def\yb{ 3.6}
 	\def\N{100} % number of points
-	
+
 	% axes & grid
 	\draw[xstep=pi/2,very thin, color=gray]
 	(\xa,\ya) grid (\xb,\yb);
@@ -37,7 +37,7 @@
 	\draw[->]
 	(0,\ya) -- (0,\yb)
 	node[left] {$y$};
-	
+
 	% ticks
 	\draw[] % x
 	node[below,scale=0.9] at ( -pi,   0) {$-\pi$}
@@ -58,7 +58,7 @@
 	node[left,scale=0.9] at ( 0, -1) {$-1$}
 	node[left,scale=0.9] at ( 0, -2) {$-2$}
 	node[left,scale=0.9] at ( 0, -3) {$-3$};
-	
+
 	% functions
 	\def\ea{0.28}
 	\def\eb{0.26}
@@ -75,13 +75,13 @@
 	plot[samples=\N,domain= 3*pi/2+\ea: 5*pi/2-\eb] (\x, {tan(\x r)})
 	plot[samples=\N,domain= 5*pi/2+\ea:  \xb      ] (\x, {tan(\x r)})
 	node[samples=\N,right=-2pt] at (pi/2,2.5) {$\tan(x)$};
-	
-	\end{tikzpicture}
+
+\end{tikzpicture}
 	
 \vspace{24pt}
 	
-	% AXIS ENVIRONMENT: sin, cos, tan
-	\begin{tikzpicture}
+% AXIS ENVIRONMENT: sin, cos, tan
+\begin{tikzpicture}
 	\begin{axis}[enlargelimits=false,
 	axis lines=middle,
 	scale=1.2,
@@ -95,15 +95,15 @@
 	grid=major, % only a grid on the defined ticks
 	samples=100 % number of points
 	]
-	
+
 	% sin
 	\addplot[blue,no marks,domain=-1.2*pi:3*pi]{sin(deg(x))}; % deg to convert radians
 	\node[right=10pt,above] at (axis cs:5*pi/2,1){\color{blue}$\sin(x)$};
-	
+
 	% cos
 	\addplot[red,no marks,domain=-1.2*pi:3*pi] {cos(deg(x))};
 	\node[above left] at (axis cs:2*pi,1){\color{red}$\cos(x)$};
-	
+
 	% tan, multiple parts because of singularities
 	\addplot[orange,no marks,domain=-1.2*pi:-0.583*pi, ]{tan(deg(x))};
 	\addplot[orange,no marks,domain=-0.4*pi:5*pi/12,   ]{tan(deg(x))};
@@ -111,14 +111,14 @@
 	\addplot[orange,no marks,domain=1.6*pi:29*pi/12,   ]{tan(deg(x))};
 	\addplot[orange,no marks,domain=2.6*pi:36*pi/12,   ]{tan(deg(x))};
 	\node[right] at (axis cs:pi/2,2.5){\color{orange}$\tan(x)$};
-	
+
 	\end{axis}
-	\end{tikzpicture}
+\end{tikzpicture}
 	
 \vspace{24pt}	
 	
-	% AXIS ENVIRONMENT: arcsin, arccos, arctan
-	\begin{tikzpicture}
+% AXIS ENVIRONMENT: arcsin, arccos, arctan
+\begin{tikzpicture}
 	\begin{axis}[enlargelimits=false,
 	axis lines=middle,
 	xtick={-2,-1,0,1,2},
@@ -127,21 +127,21 @@
 	grid=major,
 	samples=100
 	]
-	
+
 	% arcsin
 	\addplot[domain=-1:1,no marks,blue] {rad(asin(x))};
 	\node at (axis cs:1.52,1.4){\color{blue}$\arcsin(x)$};
-	
+
 	% arccos
 	\addplot[domain=-1:1,no marks,red] {rad(acos(x))};
 	\node at (axis cs:-1.5,2.8){\color{red}$\arccos(x)$};
-	
+
 	% arctan
 	\addplot[domain=-2:2,no marks,orange] {rad(atan(x))};
 	\node at (axis cs:1.52,.67){\color{orange}$\arctan(x)$};
-	
+
 	\end{axis}
-	\end{tikzpicture}
+\end{tikzpicture}
 	
 \end{document}
 

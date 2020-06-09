@@ -4,13 +4,18 @@
     \usetikzlibrary{positioning, shapes.symbols}
 
 \begin{document}
-   \begin{tikzpicture}[ 
-   node distance = 4mm and 16mm,
-   mynode/.style = {shape=signal, signal to=west and east,
-			                 draw, color = #1,
-			                 text width=1.3cm, align=flush center, 
-			                 inner xsep=0mm, inner ysep=2mm, font=\small}
-                 ]
+\begin{tikzpicture}
+	[ 
+   	node distance = 4mm and 16mm,
+	   mynode/.style = {shape=signal, 
+	   	signal to=west and east,
+		draw, color = #1,
+		text width=1.3cm, 
+		align=flush center, 
+		inner xsep=0mm, 
+		inner ysep=2mm, 
+		font=\small}
+	]
 	% main nodes
 	\node (A) [mynode=magenta]            {Text 2};
 	\node (B) [mynode=blue, below=of A]   {Text 3};
@@ -29,21 +34,21 @@
 	\draw (out2) circle (3pt);
 	
 	% dashed arrows
-	    \begin{scope}[latex-, dashed, shorten >=1mm]
-			\draw[magenta] (A.west) -- + (-0.8,0) -- (in2);
-			\draw[blue]     (B.west) -- (in2);
-			\draw[magenta] (C.west) -- + (-0.8,0) -- (in2);
-	    \end{scope}
-	    
-	    \begin{scope}[-latex, dashed, shorten >=1mm]
-			\draw[magenta] (A.east) -- + (0.8,0) -- (out1);
-			\draw[blue]     (B.east) -- (out1);
-			\draw[magenta] (C.east) -- + (0.8,0) -- (out1);
-	    \end{scope}
+	\begin{scope}[latex-, dashed, shorten >=1mm]
+		\draw[magenta] (A.west) -- + (-0.8,0) -- (in2);
+		\draw[blue]     (B.west) -- (in2);
+		\draw[magenta] (C.west) -- + (-0.8,0) -- (in2);
+	\end{scope}
+	
+	\begin{scope}[-latex, dashed, shorten >=1mm]
+		\draw[magenta] (A.east) -- + (0.8,0) -- (out1);
+		\draw[blue]     (B.east) -- (out1);
+		\draw[magenta] (C.east) -- + (0.8,0) -- (out1);
+	\end{scope}
 	    
 	% arrows with text
 	\draw[-latex] (in1) -- node[above] {Text 1} (in2);
 	\draw[-latex] (out1) -- node[above] {Text 5} (out2);
 	%--------------
-   \end{tikzpicture}
+\end{tikzpicture}
 \end{document}

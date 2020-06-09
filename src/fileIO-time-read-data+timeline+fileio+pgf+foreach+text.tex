@@ -44,53 +44,53 @@ X,Y,Event,Date
 
 \begin{document}
 
-    \begin{tikzpicture}[node distance =2mm]
+\begin{tikzpicture}[node distance =2mm]
 
-       % draw horizontal line
-       \draw (0,0) coordinate (baseLine) -- (11,0);
+   % draw horizontal line
+   \draw (0,0) coordinate (baseLine) -- (11,0);
 
-       % draw vertical lines and label below with months
-       \foreach \varXcoord/\varMonth [count=\xx] in {
-          0/Jan,
-          1/Feb,
-          2/Mar,
-          3/Apr,
-          4/May,
-          5/Jun,
-          6/Jul,
-          7/Aug,
-          8/Sep,
-          9/Oct,
-          10/Nov,
-          11/Dec
-       }
-          \draw (\varXcoord,3pt) -- +(0,-6pt) node (qBaseTick\xx) [below] {\varMonth};
+   % draw vertical lines and label below with months
+   \foreach \varXcoord/\varMonth [count=\xx] in {
+      0/Jan,
+      1/Feb,
+      2/Mar,
+      3/Apr,
+      4/May,
+      5/Jun,
+      6/Jul,
+      7/Aug,
+      8/Sep,
+      9/Oct,
+      10/Nov,
+      11/Dec
+   }
+      \draw (\varXcoord,3pt) -- +(0,-6pt) node (qBaseTick\xx) [below] {\varMonth};
 
-       \fill [pattern=north west lines, pattern color=yellow] (-1,0) rectangle (12.5,4); 
+   \fill [pattern=north west lines, pattern color=yellow] (-1,0) rectangle (12.5,4); 
 
-       \node [above left = 2.5 and 1 of baseLine,rotate=90] 
-       {
-         Location
-       };
+   \node [above left = 2.5 and 1 of baseLine,rotate=90] 
+   {
+   Location
+   };
 
-       \fill [pattern=north west lines, pattern color=orange] (-1,4) rectangle (12.5,8); 
+   \fill [pattern=north west lines, pattern color=orange] (-1,4) rectangle (12.5,8); 
 
-       \node [above left = 7 and 1 of baseLine,rotate=90] 
-       {
-         Career
-       };
+   \node [above left = 7 and 1 of baseLine,rotate=90] 
+   {
+   Career
+   };
 
-      \pgfplotstablegetrowsof{\data}
-      \pgfmathtruncatemacro{\rownumber}{\pgfplotsretval-1}
-      \foreach \X in {0,...,\rownumber}
-      {
-          \ReadOutElement{\data}{\X}{X}{\varXcoord}
-          \ReadOutElement{\data}{\X}{Y}{\varYcoord}
-          \ReadOutElement{\data}{\X}{Event}{\varEvent}
-          \ReadOutElement{\data}{\X}{Date}{\varDate}
-          \draw[<-] (\varXcoord,0) -- (\varXcoord,\varYcoord+0.5);
-          \node [above right = \varYcoord and \varXcoord + 0.5 of baseLine, rotate=45, anchor=south west] {\makecell[l]{\small${\varEvent}$\\\tiny \varDate}};
-      }
-   \end{tikzpicture}
+   \pgfplotstablegetrowsof{\data}
+   \pgfmathtruncatemacro{\rownumber}{\pgfplotsretval-1}
+   \foreach \X in {0,...,\rownumber}
+   {
+         \ReadOutElement{\data}{\X}{X}{\varXcoord}
+         \ReadOutElement{\data}{\X}{Y}{\varYcoord}
+         \ReadOutElement{\data}{\X}{Event}{\varEvent}
+         \ReadOutElement{\data}{\X}{Date}{\varDate}
+         \draw[<-] (\varXcoord,0) -- (\varXcoord,\varYcoord+0.5);
+         \node [above right = \varYcoord and \varXcoord + 0.5 of baseLine, rotate=45, anchor=south west] {\makecell[l]{\small${\varEvent}$\\\tiny \varDate}};
+   }
+\end{tikzpicture}
 
 \end{document}

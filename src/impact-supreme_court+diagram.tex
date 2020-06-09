@@ -40,13 +40,13 @@
     Your typical \textit{Judge Judy} case. Hears either criminal or civil cases, and deals verdicts.
   };
   \draw [->] 
-  	(trial-court) 	edge (state-appeals) 
-  	(state-appeals) edge (state) 
-  	(state) edge (scotus) 
-  	(legis-courts) edge (court-appeals) 
-  	(court-appeals) edge (scotus.south -| court-appeals) 
-  	(94-district) 	edge (12-appeals) 
-  	(12-appeals) -- 
-  	(12-appeals |- scotus.south) ;
+    (trial-court) 	edge (state-appeals) 
+    (state-appeals) edge (state) 
+    (state) edge (scotus) 
+    (legis-courts) edge (court-appeals) 
+    (court-appeals) edge (scotus.south -| court-appeals) 
+    (94-district) 	edge (12-appeals) 
+    (12-appeals) -- 
+    (12-appeals |- scotus.south) ;
 \end{tikzpicture}
 \end{document}  

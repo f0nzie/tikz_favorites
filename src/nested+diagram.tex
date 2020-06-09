@@ -7,12 +7,16 @@
 \usetikzlibrary{positioning,fit,backgrounds}
 
 \begin{document}
-\begin{tikzpicture}[mynode/.style = {rectangle, draw, align=center,
-            text width=4cm,fill=white,
-            inner xsep=6mm, inner ysep=3mm, rounded corners},
-            my arrow/.style={single arrow, draw,minimum height=1.1cm},
-rotate border/.style={shape border uses incircle, shape border rotate=#1},
-            font=\sffamily]
+\begin{tikzpicture}
+    [
+        mynode/.style = {rectangle, draw, align=center,
+        text width=4cm,fill=white,
+        inner xsep=6mm, inner ysep=3mm, rounded corners},
+        my arrow/.style={single arrow, draw,minimum height=1.1cm},
+        rotate border/.style={shape border uses incircle, shape border rotate=#1},
+        font=\sffamily
+    ]
+    
     \node[mynode, label={[name=lab]Camera \& Infrared Sensor}] (inner1) {Time Synchronization};
     \node[mynode, below=2mm of inner1] (justbelow1) {Resampling};
     %
@@ -41,5 +45,5 @@ rotate border/.style={shape border uses incircle, shape border rotate=#1},
     \path (outer1) -- (outer2) node[pos=0.45,my arrow]{}
     (outer2) -- (outer3) node[pos=0.45,my arrow]{}
     (outer4) -- (outer3) node[pos=0.45,my arrow,shape border rotate=180]{};
-    \end{tikzpicture}
+\end{tikzpicture}
 \end{document}

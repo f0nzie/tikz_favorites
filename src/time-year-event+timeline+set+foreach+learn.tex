@@ -1,7 +1,7 @@
 % https://tex.stackexchange.com/a/369484/173708
 \documentclass[margin=10pt]{standalone}
-\usepackage{tikz}
 
+\usepackage{tikz}
 \usetikzlibrary{
     shapes.geometric
     ,positioning
@@ -18,8 +18,10 @@
         \node[zeitmarkernode,pic actions,rotate=90](-u){};
     }
 }
+
 \begin{document}
-    \begin{tikzpicture}[x=6cm,thick]
+
+\begin{tikzpicture}[x=6cm,thick]
     % Achse und Beschriftung unterhalb
     \draw (11.9,0) -- (12,0) coordinate (s) -- (12+18/25,0) coordinate (a) 
         -- (12+27/25,0) coordinate (b) -- (14,0) coordinate (e) -- (14.2,0);
@@ -40,5 +42,6 @@
     }
     \node[below left =.5cm and 1cm of s, text width=5em, align=center, text height=1.5ex,text depth=.25ex] {\emph{Year}};
     \node[above left =.5cm and 1cm of s, text width=5em, align=center] {\emph{Approaches}};
-    \end{tikzpicture}
+\end{tikzpicture}
+
 \end{document}

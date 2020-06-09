@@ -5,6 +5,7 @@
 % Data is released under the GNU General Public Licence. See
 % http://www.ae.uiuc.edu/m-selig/pd/gpl.html for more details. 
 \documentclass{standalone}
+
 \usepackage{tikz}
 \usepackage{verbatim}
 
@@ -32,17 +33,20 @@ Download the airfoils used in the example: `airfoildata.zip`_
 \setcounter{y}{0}
 
 \begin{tikzpicture}
+    % read all the data files. Don't set the data folder here
+    % read the label \lbl and the filename \fn with the for loop
     \foreach \lbl / \fn in {EPPLER 625/e625.dat,
                             WORTMANN FX 2/fx2.dat,
                             EPPLER 664 (EXTENDED)/e664ex.dat,
                             CLARK Y/clarcy.dat,
                             Eiffel 10 (Wright)/eiffel10.dat,
                             FX 69-PR-281/fx69pr281.dat,
-                            NACA Munk M-4 airfoil/m4.dat}{
+                            NACA Munk M-4 airfoil/m4.dat}
+    {
         % Some profiles look better when using plot[smooth]
         \draw[yshift=-\arabic{y}cm,scale=3] node[left=0.5cm] {\lbl}
-        	% set the dasta folder in the next line
-            plot file{data/\fn} -- cycle;
+        % set the data folder in the next line
+        plot file{data/\fn} -- cycle;
         \stepcounter{y}
     }
 \end{tikzpicture}

@@ -3,16 +3,15 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
 
-
 \begin{document}
 
 % Preamble: \pgfplotsset{width=7cm,compat=newest}
 \begin{tikzpicture}
     \begin{axis}
 	    [
-	    height=9cm,
-	    width=9cm,
-	    grid=major,
+			height=9cm,
+			width=9cm,
+			grid=major,
 	    ]
 	    % \addplot gnuplot[id=filesuffix]{(-x**5 - 242)};
 	    \addlegendentry{model}
@@ -31,6 +30,5 @@
 		    \addlegendentry{estimate}
 	    \end{axis}
     \end{tikzpicture}
-
 
 \end{document}

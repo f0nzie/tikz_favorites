@@ -57,6 +57,7 @@
 \define@key{tikzcuboid}{newcoords}[\tikzcuboid@newcoords]{\renewcommand{\tikzcuboid@newcoords}{#1}}
 \define@key{tikzcuboid}{filled}[\tikzcuboid@filled]{\renewcommand{\tikzcuboid@filled}{#1}}
 \define@key{tikzcuboid}{shaded}[\tikzcuboid@shaded]{\renewcommand{\tikzcuboid@shaded}{#1}}
+
 % Commands
 \newcommand{\tikzcuboid}[1]{
     \setkeys{tikzcuboid}{#1} % Process Keys passed to command
@@ -130,7 +131,6 @@
 
 
 \begin{document}
-
 
 \begin{tikzpicture}
     \tikzcuboid{shiftx=0cm,%

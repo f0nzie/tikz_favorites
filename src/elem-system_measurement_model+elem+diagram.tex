@@ -10,7 +10,13 @@
 \tikzstyle{joint} = [draw, circle, minimum size=1em, anchor=center]
 \tikzstyle{layer} = [draw, rectangle, dashed, fill=gray!20, minimum width=7cm, minimum height=8mm, align=center, anchor=center]
 
-\begin{tikzpicture}[>=stealth, auto, node distance=2cm]
+\begin{tikzpicture}
+    [
+        >=stealth, 
+        auto, 
+        node distance=2cm
+    ]
+    
     % Place nodes
     \node [block] (system) {System};
     \node [block, below=of system] (model) {Model};

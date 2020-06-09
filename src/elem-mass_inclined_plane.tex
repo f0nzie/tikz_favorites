@@ -7,18 +7,17 @@
 
 \begin{tikzpicture}[every node/.style={draw}]
 
-\begin{scope}[rotate=-30]
-\node at (3,0) [draw,name=A,rectangle, minimum width=2cm,minimum height=1cm,anchor=south,label=$m_1$,transform shape] {};
-\node at (6,0) [name=B,rectangle, minimum width=1cm,minimum height=0.75cm,anchor=south,label=$m_2$,transform shape] {};
-\node at (0,0) [name=C,circle,minimum size=.8cm,transform shape] {};
+    \begin{scope}[rotate=-30]
+        \node at (3,0) [draw,name=A,rectangle, minimum width=2cm,minimum height=1cm,anchor=south,label=$m_1$,transform shape] {};
+        \node at (6,0) [name=B,rectangle, minimum width=1cm,minimum height=0.75cm,anchor=south,label=$m_2$,transform shape] {};
+        \node at (0,0) [name=C,circle,minimum size=.8cm,transform shape] {}; % pulley
 
-\draw (C.north) -- ($(A.south west)!(C.north)!(A.north west)$);
-\draw ($(A.south east)!(C.north)!(A.north east)$) -- ($(B.south west)!(C.north)!(B.north west)$);
-\draw(1,0) -- (8,0);
-\end{scope}
-
-
-\node at (-0.4,-5) [draw,name=D,rectangle, minimum width=1cm,minimum height=2cm,anchor=south,label=right:$m_3$] {};
-\draw ($(D.north west)!(C.210)!(D.north east)$) -- (C.210)  arc [start angle=180,end angle=60,radius=0.4cm];
+        \draw (C.north) -- ($(A.south west)!(C.north)!(A.north west)$);
+        \draw ($(A.south east)!(C.north)!(A.north east)$) -- ($(B.south west)!(C.north)!(B.north west)$);
+        \draw(1,0) -- (8,0);
+    \end{scope}
+    % draw the vertical part
+    \node at (-0.4,-5) [draw,name=D,rectangle, minimum width=1cm,minimum height=2cm,anchor=south,label=right:$m_3$] {};
+    \draw ($(D.north west)!(C.210)!(D.north east)$) -- (C.210)  arc [start angle=180,end angle=60,radius=0.4cm];
 \end{tikzpicture}
 \end{document}

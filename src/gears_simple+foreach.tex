@@ -4,11 +4,10 @@
 
 \begin{document}
 \begin{tikzpicture}
-
 	\draw[thick]
 	\foreach \i in {1,2,...,10} {%
-	  [rotate=(\i-1)*36] 
-	 (0:2)  arc (0:18:2) {[rounded corners=2pt] -- ++(18: 0.3)  arc (18:36:2.3) } -- ++(36: -0.3) 
+		[rotate=(\i-1)*36] 
+		(0:2)  arc (0:18:2) {[rounded corners=2pt] -- ++(18: 0.3)  arc (18:36:2.3) } -- ++(36: -0.3) 
 	};
 \end{tikzpicture}
 \end{document} 

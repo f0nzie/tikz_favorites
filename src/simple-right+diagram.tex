@@ -4,22 +4,20 @@
 
 \begin{document}
 	
-	\tikzset{
-		block/.style = {draw, fill=white, rectangle, minimum height=3em, minimum width=3em},
-		tmp/.style  = {coordinate}, 
-		sum/.style= {draw, fill=white, circle, node distance=1cm},
-		input/.style = {coordinate},
-		output/.style= {coordinate},
-		pinstyle/.style = {pin edge={to-,thin,black}
-		}
+\tikzset{
+	block/.style = {draw, fill=white, rectangle, minimum height=3em, minimum width=3em},
+	tmp/.style  = {coordinate}, 
+	sum/.style= {draw, fill=white, circle, node distance=1cm},
+	input/.style = {coordinate},
+	output/.style= {coordinate},
+	pinstyle/.style = {pin edge={to-,thin,black}
 	}
-	
-	
-	
-	%\begin{figure}[!htb]
-	%\centering
-	
-	\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+}
+
+%\begin{figure}[!htb]
+%\centering
+
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
 	\node [input, name=rinput] (rinput) {};
 	\node [sum, right of=rinput] (sum1) {};
 	\node [block, right of=sum1] (controller) {$k_{p\beta}$};
@@ -43,8 +41,8 @@
 	\draw [->] (y) |- (tmp1)-| node[pos=0.99] {$-$} (sum1);
 	\draw [->] (extra)--(sum2);
 	\draw [->] ($(0,1.5cm)+(extra)$)node[above]{$d_{\beta 2}$} -- (extra);
-	\end{tikzpicture}
-	%\caption{A PID Control System} \label{fig6_10}
-	%\end{figure}
+\end{tikzpicture}
+%\caption{A PID Control System} \label{fig6_10}
+%\end{figure}
 	
 \end{document}

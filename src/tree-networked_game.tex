@@ -1,6 +1,7 @@
 % % https://github.com/FriendlyUser/LatexDiagrams
 \documentclass{standalone}
 \usepackage{forest}
+
 \usetikzlibrary{arrows.meta,shapes,positioning,shadows,trees}
 %
 \tikzset{
@@ -16,30 +17,31 @@
 }
 %
 \begin{document}
-\begin{forest} for tree={
-    grow=east,
-    growth parent anchor=east,
-    parent anchor=east,
-    child anchor=west,
-    edge path={\noexpand\path[\forestoption{edge},->, >={latex}] 
-         (!u.parent anchor) -- +(5pt,0pt) |- (.child anchor)
-         \forestoption{edge label};}
-}
-[Networked Game Work BreakDown, root
-    [Software Engineering Report, xnode
-        [Setting shape, tnode]
-        [Choosing color, tnode]
-        [Adding shading, tnode] ]
-    [Game Demo Preparation, onode
-        [Using a Matrix, tnode]
-        [Relatively, tnode]
-        [Absolutely, tnode] 
-        [Using overlays, wnode] ]
-    [Project Proposal and Game Logic, onode
-        [Default arrows, tnode]
-        [Arrow library, tnode]
-        [Resizing tips, tnode] 
-        [Shortening, tnode]
-        [Bending, tnode] ] ]
-\end{forest}
+
+    \begin{forest} for tree={
+        grow=east,
+        growth parent anchor=east,
+        parent anchor=east,
+        child anchor=west,
+        edge path={\noexpand\path[\forestoption{edge},->, >={latex}] 
+            (!u.parent anchor) -- +(5pt,0pt) |- (.child anchor)
+            \forestoption{edge label};}
+    }
+    [Networked Game Work BreakDown, root
+        [Software Engineering Report, xnode
+            [Setting shape, tnode]
+            [Choosing color, tnode]
+            [Adding shading, tnode] ]
+        [Game Demo Preparation, onode
+            [Using a Matrix, tnode]
+            [Relatively, tnode]
+            [Absolutely, tnode] 
+            [Using overlays, wnode] ]
+        [Project Proposal and Game Logic, onode
+            [Default arrows, tnode]
+            [Arrow library, tnode]
+            [Resizing tips, tnode] 
+            [Shortening, tnode]
+            [Bending, tnode] ] ]
+    \end{forest}
 \end{document}

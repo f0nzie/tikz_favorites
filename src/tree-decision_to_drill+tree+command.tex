@@ -11,11 +11,11 @@
 	%---
 	\linespread{1}% <--- locally defined vertical line spacing in nodes
 	%---
-	  \node {Decision}
-	    child {node {No Drill\\\$0} }
-	    child {node {Drill\\-\$1 million}
-	      child {node {Oil\\\$4 million} edge from parent node [above] {.6} }
-	      child {node {No Oil\\\$0} edge from parent node [above] {.4} }
-	      };
+	\node {Decision}
+	child {node {No Drill\\\$0} }
+	child {node {Drill\\-\$1 million}
+		child {node {Oil\\\$4 million} edge from parent node [above] {.6} }
+		child {node {No Oil\\\$0} edge from parent node [above] {.4} }
+		};
 \end{tikzpicture}
 \end{document}

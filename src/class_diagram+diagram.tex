@@ -1,5 +1,7 @@
 % Class diagram
 % Author: Remus Mihail Prunescu
+
+% arr: change colors. 
 \documentclass{minimal}
 \usepackage[a4paper,margin=1cm,landscape]{geometry}
 \usepackage{tikz}
@@ -15,12 +17,13 @@
 :Title:  Class diagram
 
 \end{comment}
+
 \usetikzlibrary{positioning,shapes,shadows,arrows}
 
 \begin{document}
-\tikzstyle{abstract}=[rectangle, draw=black, rounded corners, fill=blue!40, drop shadow,
+\tikzstyle{abstract}=[rectangle, draw=black, rounded corners, fill=black!40!blue!60, drop shadow,
         text centered, anchor=north, text=white, text width=3cm]
-\tikzstyle{comment}=[rectangle, draw=black, rounded corners, fill=green, drop shadow,
+\tikzstyle{comment}=[rectangle, draw=black, rounded corners, fill=black!60!green, drop shadow,
         text centered, anchor=north, text=white, text width=3cm]
 \tikzstyle{myarrow}=[->, >=open triangle 90, thick]
 \tikzstyle{line}=[-, thick]
