@@ -150,6 +150,7 @@ polar functions easier.
 
 This code was written by Jake on TeX.SE.
 \end{comment}
+
 \begin{document}
   \begin{tikzpicture}
     \begin{axis}[grid=major,view={20}{40},z buffer=sort, data cs=polar]
@@ -175,14 +176,16 @@ This code was written by Jake on TeX.SE.
 ```tex
 % page 142 of book PGFPLOTS
 % http://mirror.utexas.edu/ctan/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf
+% arr: reindent
 \documentclass[border=15pt]{standalone}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.16}
 
 \begin{document}
 	
-	\begin{tikzpicture}
-	\begin{axis}[
+\begin{tikzpicture}
+	\begin{axis}
+		[
 		axis lines=center,
 		axis on top,
 		xlabel={$x$},
@@ -195,16 +198,16 @@ This code was written by Jake on TeX.SE.
 		ymax=1.5,
 		zmin=0.0,
 		mesh/interior colormap=
-			{blueblack}{color=(black) color=(blue)},
+		{blueblack}{color=(black) color=(blue)},
 		colormap/blackwhite,
 		samples=10,
 		samples y=40,
 		z buffer=sort,
-	]
-		\addplot3 [  surf]
+		]
+			\addplot3 [surf]
 			({x*cos(deg(y))},{x*sin(deg(y))},{x});
 	\end{axis}
-	\end{tikzpicture}
+\end{tikzpicture}
 	
 \end{document}
 ```
@@ -275,6 +278,7 @@ This code was written by Jake on TeX.SE.
 \define@key{tikzcuboid}{newcoords}[\tikzcuboid@newcoords]{\renewcommand{\tikzcuboid@newcoords}{#1}}
 \define@key{tikzcuboid}{filled}[\tikzcuboid@filled]{\renewcommand{\tikzcuboid@filled}{#1}}
 \define@key{tikzcuboid}{shaded}[\tikzcuboid@shaded]{\renewcommand{\tikzcuboid@shaded}{#1}}
+
 % Commands
 \newcommand{\tikzcuboid}[1]{
     \setkeys{tikzcuboid}{#1} % Process Keys passed to command
@@ -349,7 +353,6 @@ This code was written by Jake on TeX.SE.
 
 \begin{document}
 
-
 \begin{tikzpicture}
     \tikzcuboid{shiftx=0cm,%
         shifty=0cm,%
@@ -399,8 +402,11 @@ This code was written by Jake on TeX.SE.
 
 ```tex
 % https://tex.stackexchange.com/questions/29877/need-help-creating-a-3d-cube-from-a-2d-set-of-nodes-in-tikz
+% \documentclass{article}
+% arr: add comments; reindent
+%
 \documentclass[parskip]{scrartcl}
-\usepackage[margin=15mm,landscape]{geometry}
+\usepackage[margin=10mm,landscape]{geometry}
 \usepackage{tikz}
 
 \newif\ifcuboidshade
@@ -442,141 +448,146 @@ This code was written by Jake on TeX.SE.
 % Commands
 \newcommand{\tikzcuboid}[1]{
     \tikzset{cuboid,#1} % Process Keys passed to command
-  \pgfmathsetlengthmacro{\vectorxx}{\tikzcuboidkey{scalex}*cos(\tikzcuboidkey{anglex})*28.452756}
-  \pgfmathsetlengthmacro{\vectorxy}{\tikzcuboidkey{scalex}*sin(\tikzcuboidkey{anglex})*28.452756}
-  \pgfmathsetlengthmacro{\vectoryx}{\tikzcuboidkey{scaley}*cos(\tikzcuboidkey{angley})*28.452756}
-  \pgfmathsetlengthmacro{\vectoryy}{\tikzcuboidkey{scaley}*sin(\tikzcuboidkey{angley})*28.452756}
-  \pgfmathsetlengthmacro{\vectorzx}{\tikzcuboidkey{scalez}*cos(\tikzcuboidkey{anglez})*28.452756}
-  \pgfmathsetlengthmacro{\vectorzy}{\tikzcuboidkey{scalez}*sin(\tikzcuboidkey{anglez})*28.452756}
-  \begin{scope}[xshift=\tikzcuboidkey{shiftx}, yshift=\tikzcuboidkey{shifty}, scale=\tikzcuboidkey{scale}, rotate=\tikzcuboidkey{rotation}, x={(\vectorxx,\vectorxy)}, y={(\vectoryx,\vectoryy)}, z={(\vectorzx,\vectorzy)}]
-    \pgfmathsetmacro{\steppingx}{1/\tikzcuboidkey{densityx}}
-  \pgfmathsetmacro{\steppingy}{1/\tikzcuboidkey{densityy}}
-  \pgfmathsetmacro{\steppingz}{1/\tikzcuboidkey{densityz}}
-  \newcommand{\dimx}{\tikzcuboidkey{dimx}}
-  \newcommand{\dimy}{\tikzcuboidkey{dimy}}
-  \newcommand{\dimz}{\tikzcuboidkey{dimz}}
-  \pgfmathsetmacro{\secondx}{2*\steppingx}
-  \pgfmathsetmacro{\secondy}{2*\steppingy}
-  \pgfmathsetmacro{\secondz}{2*\steppingz}
-  \foreach \x in {\steppingx,\secondx,...,\dimx}
-  { \foreach \y in {\steppingy,\secondy,...,\dimy}
-    {   \pgfmathsetmacro{\lowx}{(\x-\steppingx)}
-      \pgfmathsetmacro{\lowy}{(\y-\steppingy)}
-      \filldraw[cuboid/front] (\lowx,\lowy,\dimz) -- (\lowx,\y,\dimz) -- (\x,\y,\dimz) -- (\x,\lowy,\dimz) -- cycle;
+    \pgfmathsetlengthmacro{\vectorxx}{\tikzcuboidkey{scalex}*cos(\tikzcuboidkey{anglex})*28.452756}
+    \pgfmathsetlengthmacro{\vectorxy}{\tikzcuboidkey{scalex}*sin(\tikzcuboidkey{anglex})*28.452756}
+    \pgfmathsetlengthmacro{\vectoryx}{\tikzcuboidkey{scaley}*cos(\tikzcuboidkey{angley})*28.452756}
+    \pgfmathsetlengthmacro{\vectoryy}{\tikzcuboidkey{scaley}*sin(\tikzcuboidkey{angley})*28.452756}
+    \pgfmathsetlengthmacro{\vectorzx}{\tikzcuboidkey{scalez}*cos(\tikzcuboidkey{anglez})*28.452756}
+    \pgfmathsetlengthmacro{\vectorzy}{\tikzcuboidkey{scalez}*sin(\tikzcuboidkey{anglez})*28.452756}
+    \begin{scope}[xshift=\tikzcuboidkey{shiftx}, yshift=\tikzcuboidkey{shifty}, scale=\tikzcuboidkey{scale}, rotate=\tikzcuboidkey{rotation}, x={(\vectorxx,\vectorxy)}, y={(\vectoryx,\vectoryy)}, z={(\vectorzx,\vectorzy)}]
+      \pgfmathsetmacro{\steppingx}{1/\tikzcuboidkey{densityx}}
+    \pgfmathsetmacro{\steppingy}{1/\tikzcuboidkey{densityy}}
+    \pgfmathsetmacro{\steppingz}{1/\tikzcuboidkey{densityz}}
+    \newcommand{\dimx}{\tikzcuboidkey{dimx}}
+    \newcommand{\dimy}{\tikzcuboidkey{dimy}}
+    \newcommand{\dimz}{\tikzcuboidkey{dimz}}
+    \pgfmathsetmacro{\secondx}{2*\steppingx}
+    \pgfmathsetmacro{\secondy}{2*\steppingy}
+    \pgfmathsetmacro{\secondz}{2*\steppingz}
+    \foreach \x in {\steppingx,\secondx,...,\dimx}
+    { \foreach \y in {\steppingy,\secondy,...,\dimy}
+      {   \pgfmathsetmacro{\lowx}{(\x-\steppingx)}
+        \pgfmathsetmacro{\lowy}{(\y-\steppingy)}
+        \filldraw[cuboid/front] (\lowx,\lowy,\dimz) -- (\lowx,\y,\dimz) -- (\x,\y,\dimz) -- (\x,\lowy,\dimz) -- cycle;
+      }
+      }
+    \foreach \x in {\steppingx,\secondx,...,\dimx}
+    { \foreach \z in {\steppingz,\secondz,...,\dimz}
+      {   \pgfmathsetmacro{\lowx}{(\x-\steppingx)}
+        \pgfmathsetmacro{\lowz}{(\z-\steppingz)}
+        \filldraw[cuboid/top] (\lowx,\dimy,\lowz) -- (\lowx,\dimy,\z) -- (\x,\dimy,\z) -- (\x,\dimy,\lowz) -- cycle;
+          }
+      }
+      \foreach \y in {\steppingy,\secondy,...,\dimy}
+    { \foreach \z in {\steppingz,\secondz,...,\dimz}
+      {   \pgfmathsetmacro{\lowy}{(\y-\steppingy)}
+        \pgfmathsetmacro{\lowz}{(\z-\steppingz)}
+        \filldraw[cuboid/right] (\dimx,\lowy,\lowz) -- (\dimx,\lowy,\z) -- (\dimx,\y,\z) -- (\dimx,\y,\lowz) -- cycle;
+      }
     }
-    }
-  \foreach \x in {\steppingx,\secondx,...,\dimx}
-  { \foreach \z in {\steppingz,\secondz,...,\dimz}
-    {   \pgfmathsetmacro{\lowx}{(\x-\steppingx)}
-      \pgfmathsetmacro{\lowz}{(\z-\steppingz)}
-      \filldraw[cuboid/top] (\lowx,\dimy,\lowz) -- (\lowx,\dimy,\z) -- (\x,\dimy,\z) -- (\x,\dimy,\lowz) -- cycle;
-        }
-    }
-    \foreach \y in {\steppingy,\secondy,...,\dimy}
-  { \foreach \z in {\steppingz,\secondz,...,\dimz}
-    {   \pgfmathsetmacro{\lowy}{(\y-\steppingy)}
-      \pgfmathsetmacro{\lowz}{(\z-\steppingz)}
-      \filldraw[cuboid/right] (\dimx,\lowy,\lowz) -- (\dimx,\lowy,\z) -- (\dimx,\y,\z) -- (\dimx,\y,\lowz) -- cycle;
-    }
-  }
-  \ifcuboidemphedge
-    \draw[cuboid/emphstyle] (0,\dimy,0) -- (\dimx,\dimy,0) -- (\dimx,\dimy,\dimz) -- (0,\dimy,\dimz) -- cycle;%
-    \draw[cuboid/emphstyle] (0,\dimy,\dimz) -- (0,0,\dimz) -- (\dimx,0,\dimz) -- (\dimx,\dimy,\dimz);%
-    \draw[cuboid/emphstyle] (\dimx,\dimy,0) -- (\dimx,0,0) -- (\dimx,0,\dimz);%
-    \fi
+    \ifcuboidemphedge
+      \draw[cuboid/emphstyle] (0,\dimy,0) -- (\dimx,\dimy,0) -- (\dimx,\dimy,\dimz) -- (0,\dimy,\dimz) -- cycle;%
+      \draw[cuboid/emphstyle] (0,\dimy,\dimz) -- (0,0,\dimz) -- (\dimx,0,\dimz) -- (\dimx,\dimy,\dimz);%
+      \draw[cuboid/emphstyle] (\dimx,\dimy,0) -- (\dimx,0,0) -- (\dimx,0,\dimz);%
+      \fi
 
-    \ifcuboidshade
-    \pgfmathsetmacro{\cstepx}{\dimx/\tikzcuboidkey{shadesamples}}
-    \pgfmathsetmacro{\cstepy}{\dimy/\tikzcuboidkey{shadesamples}}
-    \pgfmathsetmacro{\cstepz}{\dimz/\tikzcuboidkey{shadesamples}}
-    \foreach \s in {1,...,\tikzcuboidkey{shadesamples}}
-    {   \pgfmathsetmacro{\lows}{\s-1}
-        \pgfmathsetmacro{\cpercent}{(\lows)/(\tikzcuboidkey{shadesamples}-1)*100}
-        \fill[opacity=\tikzcuboidkey{shadeopacity},color=\tikzcuboidkey{shadecolorlight}!\cpercent!\tikzcuboidkey{shadecolordark}] (0,\s*\cstepy,\dimz) -- (\s*\cstepx,\s*\cstepy,\dimz) -- (\s*\cstepx,0,\dimz) -- (\lows*\cstepx,0,\dimz) -- (\lows*\cstepx,\lows*\cstepy,\dimz) -- (0,\lows*\cstepy,\dimz) -- cycle;
-        \fill[opacity=\tikzcuboidkey{shadeopacity},color=\tikzcuboidkey{shadecolorlight}!\cpercent!\tikzcuboidkey{shadecolordark}] (0,\dimy,\s*\cstepz) -- (\s*\cstepx,\dimy,\s*\cstepz) -- (\s*\cstepx,\dimy,0) -- (\lows*\cstepx,\dimy,0) -- (\lows*\cstepx,\dimy,\lows*\cstepz) -- (0,\dimy,\lows*\cstepz) -- cycle;
-        \fill[opacity=\tikzcuboidkey{shadeopacity},color=\tikzcuboidkey{shadecolorlight}!\cpercent!\tikzcuboidkey{shadecolordark}] (\dimx,0,\s*\cstepz) -- (\dimx,\s*\cstepy,\s*\cstepz) -- (\dimx,\s*\cstepy,0) -- (\dimx,\lows*\cstepy,0) -- (\dimx,\lows*\cstepy,\lows*\cstepz) -- (\dimx,0,\lows*\cstepz) -- cycle;
-    }
-    \fi 
+      \ifcuboidshade
+      \pgfmathsetmacro{\cstepx}{\dimx/\tikzcuboidkey{shadesamples}}
+      \pgfmathsetmacro{\cstepy}{\dimy/\tikzcuboidkey{shadesamples}}
+      \pgfmathsetmacro{\cstepz}{\dimz/\tikzcuboidkey{shadesamples}}
+      \foreach \s in {1,...,\tikzcuboidkey{shadesamples}}
+      {   \pgfmathsetmacro{\lows}{\s-1}
+          \pgfmathsetmacro{\cpercent}{(\lows)/(\tikzcuboidkey{shadesamples}-1)*100}
+          \fill[opacity=\tikzcuboidkey{shadeopacity},color=\tikzcuboidkey{shadecolorlight}!\cpercent!\tikzcuboidkey{shadecolordark}] (0,\s*\cstepy,\dimz) -- (\s*\cstepx,\s*\cstepy,\dimz) -- (\s*\cstepx,0,\dimz) -- (\lows*\cstepx,0,\dimz) -- (\lows*\cstepx,\lows*\cstepy,\dimz) -- (0,\lows*\cstepy,\dimz) -- cycle;
+          \fill[opacity=\tikzcuboidkey{shadeopacity},color=\tikzcuboidkey{shadecolorlight}!\cpercent!\tikzcuboidkey{shadecolordark}] (0,\dimy,\s*\cstepz) -- (\s*\cstepx,\dimy,\s*\cstepz) -- (\s*\cstepx,\dimy,0) -- (\lows*\cstepx,\dimy,0) -- (\lows*\cstepx,\dimy,\lows*\cstepz) -- (0,\dimy,\lows*\cstepz) -- cycle;
+          \fill[opacity=\tikzcuboidkey{shadeopacity},color=\tikzcuboidkey{shadecolorlight}!\cpercent!\tikzcuboidkey{shadecolordark}] (\dimx,0,\s*\cstepz) -- (\dimx,\s*\cstepy,\s*\cstepz) -- (\dimx,\s*\cstepy,0) -- (\dimx,\lows*\cstepy,0) -- (\dimx,\lows*\cstepy,\lows*\cstepz) -- (\dimx,0,\lows*\cstepz) -- cycle;
+      }
+      \fi 
 
-  \end{scope}
+    \end{scope}
 }
 
 \makeatother
-
 
 \begin{document}
 
 
 \begin{tikzpicture}
+    % cuboid #1
     \tikzcuboid{%
-    shiftx=0cm,%
-    shifty=8cm,%
-    scale=1.00,%
-    rotation=0,%
-    densityx=2,%
-    densityy=2,%
-    densityz=2,%
-    dimx=3,%
-    dimy=3,%
-    dimz=3,%
-    scalex=1,%
-    scaley=1,%
-    scalez=1,%
-    anglex=-30,%
-    angley=90,%
-    anglez=210,%
-    front/.style={draw=green!50!black,fill=green!50!white},%
-    top/.style={draw=green!50!black,fill=green!50!white},%
-    right/.style={draw=green!50!black,fill=green!50!white},%
-    emphedge,%
-    emphstyle/.style={line width=1pt, green!12!black,densely dashed},
-    shade,%
-    shadesamples=64,%
-    shadeopacity=0.15,%
+      shiftx=0cm,%
+      shifty=8cm,%
+      scale=1.00,%
+      rotation=0,%
+      densityx=2,%
+      densityy=2,%
+      densityz=2,%
+      dimx=3,%
+      dimy=3,%
+      dimz=3,%
+      scalex=1,%
+      scaley=1,%
+      scalez=1,%
+      anglex=-30,%
+      angley=90,%
+      anglez=210,%
+      front/.style={draw=green!50!black,fill=green!50!white},%
+      top/.style={draw=green!50!black,fill=green!50!white},%
+      right/.style={draw=green!50!black,fill=green!50!white},%
+      emphedge,%
+      emphstyle/.style={line width=1pt, green!12!black,densely dashed},
+      shade,%
+      shadesamples=64,%
+      shadeopacity=0.15,%
     }
     \tikzcuboid{%
-    shiftx=8cm,%
-    shifty=8cm,%
-    shadeopacity=0.30,%
+      % cuboid #2
+      shiftx=8cm,%
+      shifty=8cm,%
+      shadeopacity=0.30,%
     }   
     \tikzcuboid{%
-    shiftx=16cm,%
-    shifty=8cm,%
-    shadeopacity=0.60,%
+      % cuboid #3
+      shiftx=16cm,%
+      shifty=8cm,%
+      shadeopacity=0.60,%
     }   
     \tikzcuboid{%
-    shiftx=0cm,%
-    shifty=0cm,%
-    scale=1.00,%
-    rotation=0,%
-    densityx=1,%
-    densityy=1,%
-    densityz=1,%
-    dimx=4,%
-    dimy=4,%
-    dimz=4,%
-    front/.style={draw=blue!75!black,fill=blue!25!white},%
-    right/.style={draw=blue!25!black,fill=blue!75!white},%
-    top/.style={draw=blue!50!black,fill=blue!50!white},%
-    anglex=-7,%
-    angley=90,%
-    anglez=221.5,%
-    scalex=1,%
-    scaley=1,%
-    scalez=0.5,%
-    emphedge=false,%
-    shade,%
-    shadeopacity=0.15,%
+      % cuboid #4
+      shiftx=0cm,%
+      shifty=0cm,%
+      scale=1.00,%
+      rotation=0,%
+      densityx=1,%
+      densityy=1,%
+      densityz=1,%
+      dimx=4,%
+      dimy=4,%
+      dimz=4,%
+      front/.style={draw=blue!75!black,fill=blue!25!white},%
+      right/.style={draw=blue!25!black,fill=blue!75!white},%
+      top/.style={draw=blue!50!black,fill=blue!50!white},%
+      anglex=-7,%
+      angley=90,%
+      anglez=221.5,%
+      scalex=1,%
+      scaley=1,%
+      scalez=0.5,%
+      emphedge=false,%
+      shade,%
+      shadeopacity=0.15,%
     }
     \tikzcuboid{%
-    shiftx=8cm,%
-    shifty=0cm,%
-    shadeopacity=0.30,%
+      % cuboid #5
+      shiftx=8cm,%
+      shifty=0cm,%
+      shadeopacity=0.30,%
     }
     \tikzcuboid{%
-    shiftx=16cm,%
-    shifty=0cm,%
-    shadeopacity=0.60,%
+      % cuboid #6
+      shiftx=16cm,%
+      shifty=0cm,%
+      shadeopacity=0.60,%
     }
 \end{tikzpicture}
 
@@ -592,6 +603,7 @@ This code was written by Jake on TeX.SE.
 ```tex
 \documentclass[landscape]{article}
 \usepackage{tikz}
+% arr: new page size; clean up redundant packages
 
 %%%<
 \usepackage{verbatim}
@@ -600,40 +612,40 @@ This code was written by Jake on TeX.SE.
 \setlength\PreviewBorder{5pt}%
 %%%>
 
-\usepackage{tikz,tikz-3dplot}
+\usepackage{tikz-3dplot}
 
 \begin{document}
 
 \begin{figure}
-\centering
-\tdplotsetmaincoords{70}{120}
+	\centering
+	\tdplotsetmaincoords{70}{120}
 
-\begin{tikzpicture}[tdplot_main_coords][scale=0.75]
-	\tikzstyle{every node}=[font=\small]
-	\draw[thick,-latex] (0,0,0) -- (6,0,0) node[anchor=north east]{$x$};
-	\draw[thick,-latex] (0,0,0) -- (0,6,0) node[anchor=north west]{$y$};
-	\draw[thick,-latex] (0,0,0) -- (0,0,6) node[anchor=south]{$z$};
-	\draw [thick](0,0,0) circle (3);
-	\draw [thick](0,0,4) circle (3);
-	\draw [thick](1.9,-2.35,0) -- (1.9,-2.35,4) node[midway, left]{$r=r_1$ surface};
-	\draw [thick](-1.9,2.35,0) -- (-1.9,2.35,4);
-	\filldraw[fill=orange, nearly transparent] (-4,-4,4) -- (4,-4,4) --  (4,5,4) -- (-4,5,4) -- (-4,-4,4);
-	\filldraw[fill=blue, nearly transparent] (0,0,4) -- (5.2,6,4) --  (5.2,6,0) -- (0,0,0) -- (0,0,4);
-	\filldraw [color=blue](2,2.25,4) circle (0.075cm) ;
-	\draw (-4,5,4) node[anchor=south]{$z=z_1$ plane};
-	\draw (5.2,6,0) node[anchor=south west]{$\phi=\phi_1$ plane};
-	\node at (1.8,1,4)  { $P_1(r_1,\phi_1,z_1)$};
-	\draw[ultra thick,-latex](2,2.25,4) -- (3,3.45,4) node[anchor=north] {$\mathbf{a}_r$};
-	\draw[ultra thick,-latex](2,2.25,4) -- (1,2.5,4) node[anchor=north west] {$\mathbf{a}_\phi$};
-	\draw[ultra thick,-latex](2,2.25,4) -- (2,2.25,4.75) node[anchor=north west] {$\mathbf{a}_z$};
-	\draw [thick,->](4,0,0) arc (0:45:4 and 4.5);
-	\draw (3.6,2,0) node[anchor=north] {$\phi_1$};
-	\draw[ultra thick,-latex](0,0,0) -- (2,2.35,0);
-	\draw (1,1,0) node[anchor=north] {$r_1$};
-	\draw [ultra thick] (2,2.25,4)--(1.95,2.25,0);
-	
-	\draw[ultra thick](0.1,0,4) -- (-0.1,0,4) node[anchor=south west] {$z_1$};
-\end{tikzpicture}
+	\begin{tikzpicture}[tdplot_main_coords][scale=0.75]
+		\tikzstyle{every node}=[font=\small]
+		\draw[thick,-latex] (0,0,0) -- (6,0,0) node[anchor=north east]{$x$};
+		\draw[thick,-latex] (0,0,0) -- (0,6,0) node[anchor=north west]{$y$};
+		\draw[thick,-latex] (0,0,0) -- (0,0,6) node[anchor=south]{$z$};
+		\draw [thick](0,0,0) circle (3);
+		\draw [thick](0,0,4) circle (3);
+		\draw [thick](1.9,-2.35,0) -- (1.9,-2.35,4) node[midway, left]{$r=r_1$ surface};
+		\draw [thick](-1.9,2.35,0) -- (-1.9,2.35,4);
+		\filldraw[fill=orange, nearly transparent] (-4,-4,4) -- (4,-4,4) --  (4,5,4) -- (-4,5,4) -- (-4,-4,4);
+		\filldraw[fill=blue, nearly transparent] (0,0,4) -- (5.2,6,4) --  (5.2,6,0) -- (0,0,0) -- (0,0,4);
+		\filldraw [color=blue](2,2.25,4) circle (0.075cm) ;
+		\draw (-4,5,4) node[anchor=south]{$z=z_1$ plane};
+		\draw (5.2,6,0) node[anchor=south west]{$\phi=\phi_1$ plane};
+		\node at (1.8,1,4)  { $P_1(r_1,\phi_1,z_1)$};
+		\draw[ultra thick,-latex](2,2.25,4) -- (3,3.45,4) node[anchor=north] {$\mathbf{a}_r$};
+		\draw[ultra thick,-latex](2,2.25,4) -- (1,2.5,4) node[anchor=north west] {$\mathbf{a}_\phi$};
+		\draw[ultra thick,-latex](2,2.25,4) -- (2,2.25,4.75) node[anchor=north west] {$\mathbf{a}_z$};
+		\draw [thick,->](4,0,0) arc (0:45:4 and 4.5);
+		\draw (3.6,2,0) node[anchor=north] {$\phi_1$};
+		\draw[ultra thick,-latex](0,0,0) -- (2,2.35,0);
+		\draw (1,1,0) node[anchor=north] {$r_1$};
+		\draw [ultra thick] (2,2.25,4)--(1.95,2.25,0);
+		
+		\draw[ultra thick](0.1,0,4) -- (-0.1,0,4) node[anchor=south west] {$z_1$};
+	\end{tikzpicture}
 \end{figure}
 \end{document}
 ```
@@ -646,10 +658,12 @@ This code was written by Jake on TeX.SE.
 
 ```tex
 % https://github.com/MartinThoma/LaTeX-examples/blob/master/tikz/3d-gradient-colored/3d-gradient-colored.tex
+% arr: reindenting
 \documentclass[varwidth=true, border=2pt]{standalone}
 
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{pgfplots}
+
 \pgfplotsset{compat=1.13}
 \usetikzlibrary{arrows.meta}
 
@@ -667,6 +681,7 @@ This code was written by Jake on TeX.SE.
         color(1.000cm)=(red!50!black)
     }
 }
+
 \begin{tikzpicture}
     \begin{axis}[
         domain=-2:2,
@@ -677,31 +692,34 @@ This code was written by Jake on TeX.SE.
         axis equal image,
         point meta rel=per plot
     ]
-        \addplot3[surf,
-                  samples=50,
-                  shader=interp,
-                  colormap name=whitered]
+        \addplot3
+            [surf,
+            samples=50,
+            shader=interp,
+            colormap name=whitered
+            ]
                 {x/exp(x^2+y^2)};
         % \addplot3[contour gnuplot={number=15, labels=false},
         %           very thick,
         %           samples=30]
         %         {x/exp(x^2+y^2)};
-        \addplot3[blue,
-        point meta={
-            sqrt(
-                ((1-2*x^2)*exp(-x^2-y^2))^2+
-                (-2*x*y*exp(-x^2-y^2))^2
-            )
-        },
-                  quiver={
-                          u={(1-2*x^2)*exp(-x^2-y^2)},
-                          v={-2*x*y*exp(-x^2-y^2)},
-                          scale arrows=0.3,
-                          every arrow/.append style={%
-                             -{Latex[scale length={max(0.01,\pgfplotspointmetatransformed/1000)}]},
-                             },
-                         },
-                         samples=15]
+        \addplot3
+            [blue,
+            point meta={
+                sqrt(
+                    ((1-2*x^2)*exp(-x^2-y^2))^2+
+                    (-2*x*y*exp(-x^2-y^2))^2
+                )
+            },
+            quiver={
+                    u={(1-2*x^2)*exp(-x^2-y^2)},
+                    v={-2*x*y*exp(-x^2-y^2)},
+                    scale arrows=0.3,
+                    every arrow/.append style={%
+                        -{Latex[scale length={max(0.01,\pgfplotspointmetatransformed/1000)}]},
+                        },
+            },
+            samples=15]
                 {x/exp(x^2+y^2)};
     \end{axis}
 \end{tikzpicture}
@@ -717,10 +735,12 @@ This code was written by Jake on TeX.SE.
 ```tex
 % https://github.com/MartinThoma/LaTeX-examples/blob/master/tikz/hypersurface-3/hypersurface-3.tex
 \documentclass{article}
+
 \usepackage[pdftex,active,tightpage]{preview}
 \setlength\PreviewBorder{2mm}
 \usepackage{pgfplots}
 \usepackage{units}
+
 \pgfplotsset{compat=1.3}% <-- moves axis labels near ticklabels
                         % (respects tick label widths)
 \usepackage{tikz}
@@ -729,6 +749,7 @@ This code was written by Jake on TeX.SE.
 \usepackage{xcolor}
 \definecolor{horizontalLineColor}{HTML}{008000}
 \definecolor{verticalLineColor}{HTML}{FF0000}
+
 
 \begin{document}
 
@@ -760,6 +781,7 @@ This code was written by Jake on TeX.SE.
     \end{axis}
 \end{tikzpicture}
 \end{preview}
+
 \end{document}
 ```
 ****
@@ -771,12 +793,12 @@ This code was written by Jake on TeX.SE.
 
 ```tex
 % https://wiki.physik.uzh.ch/cms/latex:tikz:jet_cones
-\documentclass{article}
+\documentclass{standalone}
 
 \usepackage{amsmath} % for \dfrac
 \usepackage{tikz}
-
 \usepackage{tikz-3dplot}
+
 \tikzset{>=latex} % for LaTeX arrow head
 \usetikzlibrary{decorations.pathmorphing} % for snake
 
@@ -785,55 +807,16 @@ This code was written by Jake on TeX.SE.
 \definecolor{myblue}{RGB}{172,188,63}
 \definecolor{mylightgreen}{RGB}{150,220,150}
 
-
 % split figures into pages
 \usepackage[active,tightpage]{preview}
 \PreviewEnvironment{tikzpicture}
 \setlength\PreviewBorder{1pt}%
 
+% draw two cones
 \begin{document}
-	
 
-	% TikZ code
-	% 2D CONE
-	\begin{tikzpicture}%,scale=0.85
-	
-	% cone variables
-	\def\x{2.0}
-	\def\y{4.0}
-	\def\R{\x}
-	\def\yc{\y+0.02}
-	\def\e{0.4}
-	
-	% cone shades + frame
-	\shade[right color=white,left color=mylightgreen,opacity=0.3]
-	(-\x,\yc) -- (-2,4) arc (180:360:{\R} and \e) -- (\x,\yc) -- (0,0) -- cycle;
-	\draw[fill=green,opacity=0.2]
-	(0,\yc) circle ({\R} and \e);
-	\draw
-	(-\x,\y) -- (0,0) -- (\x,\y);
-	\draw
-	(0,\yc) circle ({\R} and \e);
-	
-	% tracks
-	\draw[thick]
-	(0,0) arc (320:360:-3 and 6.0); %node[above] {1};
-	\draw[thick]
-	(0,0) arc (-70:  0:0.8 and 3.5); %node[above] {2};
-	\draw[thick]
-	(0,0) arc (  0: 70:0.9 and 4.5); %node[above] {3};
-	\draw[thick]
-	(0,0) arc (180:140:2 and 6.0); %node[above] {4};
-	\draw[thick,dashed]
-	(0,0) -- (1,4.6);
-	
-\end{tikzpicture}
-	
-	
-	
-	% BOOSTED TAU
-	\begin{tikzpicture}
-	
+% BOOSTED TAU
+\begin{tikzpicture}
 	% AK8 variables
 	\def\x{2.4}
 	\def\y{3.5}
@@ -863,31 +846,61 @@ This code was written by Jake on TeX.SE.
 	
 	% AK4 cone 1
 	\begin{scope}[rotate=12]
-	\shade[right color=white,left color=green,opacity=0.3]
-	(-\x,\yc) -- (-\x,\yc) arc (180:360:{\R} and \e) -- (\x,\yc) -- (0,0) -- cycle;
+		\shade[right color=white,left color=green,opacity=0.3]
+		(-\x,\yc) -- (-\x,\yc) arc (180:360:{\R} and \e) -- (\x,\yc) -- (0,0) -- cycle;
+		\draw[fill=green,opacity=0.2]
+		(0,\yc) circle ({\R} and \e);
+		\draw
+		(-\x,\y) -- (0,0) -- (\x,\y);
+		\draw
+		(0,\yc) circle ({\R} and \e);
+	\end{scope}
+	
+	% AK4 cone 2
+	\begin{scope}[rotate=-10]
+		\shade[right color=white,left color=red,opacity=0.3]
+		(-\x,\yc) -- (-\x,\yc) arc (180:360:{\R} and \e) -- (\x,\yc) -- (0,0) -- cycle;
+		\draw[fill=red,opacity=0.2]
+		(0,\yc) circle ({\R} and \e);
+		\draw
+		(-\x,\y) -- (0,0) -- (\x,\y);
+		\draw
+		(0,\yc) circle ({\R} and \e);
+	\end{scope}
+\end{tikzpicture}
+
+% TikZ code
+% 2D CONE
+\begin{tikzpicture}%,scale=0.85
+	% cone variables
+	\def\x{2.0}
+	\def\y{4.0}
+	\def\R{\x}
+	\def\yc{\y+0.02}
+	\def\e{0.4}
+	
+	% cone shades + frame
+	\shade[right color=white,left color=mylightgreen,opacity=0.3]
+	(-\x,\yc) -- (-2,4) arc (180:360:{\R} and \e) -- (\x,\yc) -- (0,0) -- cycle;
 	\draw[fill=green,opacity=0.2]
 	(0,\yc) circle ({\R} and \e);
 	\draw
 	(-\x,\y) -- (0,0) -- (\x,\y);
 	\draw
 	(0,\yc) circle ({\R} and \e);
-	\end{scope}
 	
-	% AK4 cone 2
-	\begin{scope}[rotate=-10]
-	\shade[right color=white,left color=red,opacity=0.3]
-	(-\x,\yc) -- (-\x,\yc) arc (180:360:{\R} and \e) -- (\x,\yc) -- (0,0) -- cycle;
-	\draw[fill=red,opacity=0.2]
-	(0,\yc) circle ({\R} and \e);
-	\draw
-	(-\x,\y) -- (0,0) -- (\x,\y);
-	\draw
-	(0,\yc) circle ({\R} and \e);
-	\end{scope}
-	
-
+	% tracks
+	\draw[thick]
+	(0,0) arc (320:360:-3 and 6.0); %node[above] {1};
+	\draw[thick]
+	(0,0) arc (-70:  0:0.8 and 3.5); %node[above] {2};
+	\draw[thick]
+	(0,0) arc (  0: 70:0.9 and 4.5); %node[above] {3};
+	\draw[thick]
+	(0,0) arc (180:140:2 and 6.0); %node[above] {4};
+	\draw[thick,dashed]
+	(0,0) -- (1,4.6);
 \end{tikzpicture}
-
 \end{document}
 ```
 ****
@@ -1051,23 +1064,24 @@ book `Tikz pour l'impatient <http://math.et.info.free.fr/TikZ/>`_, available onl
 \pgfplotsset{compat=1.9}
 
 \begin{document}
-    \pgfplotsset{
-        colormap={whitered}{
-            color(0cm)=(white);
-            color(1cm)=(orange!75!red)
-        }
-        %colormap={color}{color(0cm)=(white); color(1cm)=(blue)}
+\pgfplotsset{
+    colormap={whitered}{
+        color(0cm)=(white);
+        color(1cm)=(orange!75!red)
     }
-    \begin{tikzpicture}
-     \begin{axis}[view={60}{30}]
-      \addplot3[surf,
-      samples=50,
-      domain=1:2,y domain=0:2*pi,
-      z buffer=sort]
-      %({(2 + tan(deg(y)))*cos((deg(x)))}, {(2 + cos(x)) * sin(x)}, {x});
-      ({x * cos(deg(y))}, {x * sin(deg(y))}, {1/x});
-     \end{axis}
-    \end{tikzpicture}
+    %colormap={color}{color(0cm)=(white); color(1cm)=(blue)}
+}
+
+\begin{tikzpicture}
+    \begin{axis}[view={60}{30}]
+        \addplot3[surf,
+        samples=50,
+        domain=1:2,y domain=0:2*pi,
+        z buffer=sort]
+        %({(2 + tan(deg(y)))*cos((deg(x)))}, {(2 + cos(x)) * sin(x)}, {x});
+        ({x * cos(deg(y))}, {x * sin(deg(y))}, {1/x});
+    \end{axis}
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -1131,13 +1145,28 @@ This code was written by cmhughes on TeX.SE.
 
 ```tex
 % https://tex.stackexchange.com/a/347917/173708
-% create the gif with:
-% convert -delay 0 -density 120 animation-dynamic_labels.pdf animation-dynamic_labels.gif
+
 \documentclass[tikz]{standalone}
+
+\usepackage{verbatim}
+
+\begin{comment}
+This example is a demonstration of an animation by creating a GIF file out of
+a PDF file with several pages. Once the PDF file has been created with the 
+"pgfmathsetmacro" macor, convert the PDF file to a GIF. 
+Create the gif with:
+
+  convert -delay 0 -density 120 animation-dynamic_labels.pdf animation-dynamic_labels.gif
+
+\end{comment}  
+
 \begin{document}
+% this will produce the animation by creating 80 small PDF files
+% later we will need to build the GIF file
 \foreach {\tangle} in {80,79,...,10}{
   \pgfmathsetmacro{\sangle}{-\tangle}
-  \begin{tikzpicture}[auto]
+
+\begin{tikzpicture}[auto]
     % constants
     \def\rinn{2}
     \def\rout{3.8}
@@ -1161,7 +1190,7 @@ This code was written by cmhughes on TeX.SE.
     \path (S1) ++(\sangle-45:5mm) node{S1};
     \path (S2) ++(\sangle-45:5mm) node{S2};
 
-  \end{tikzpicture}
+\end{tikzpicture}
 }
 \end{document}
 ```
@@ -1175,6 +1204,7 @@ This code was written by cmhughes on TeX.SE.
 ```tex
 % https://tex.stackexchange.com/a/52766/173708
 \documentclass{standalone}
+
 \usepackage{tikz}
 \usetikzlibrary{shapes,positioning,arrows,calc}
 
@@ -1184,20 +1214,20 @@ This code was written by cmhughes on TeX.SE.
   rectangle split, rectangle split parts=5, draw, anchor=center},
   myarrow/.style={single arrow, draw=none}]
 
-\node [stack] (ini)  {$a=0$\nodepart{two}$b=10$%
-   \nodepart{three}$c=100$\nodepart{four}$d=-10$\nodepart{five}$\cdots$};
+  \node [stack] (ini)  {$a=0$\nodepart{two}$b=10$%
+    \nodepart{three}$c=100$\nodepart{four}$d=-10$\nodepart{five}$\cdots$};
 
-\node [draw,rectangle,align=left,right=of ini,label=above:{Computer Program}] (mid)
-  {instruction 0;\\ instruction 1;\\$\ldots$\\instruction $n$;};
+  \node [draw,rectangle,align=left,right=of ini,label=above:{Computer Program}] (mid)
+    {instruction 0;\\ instruction 1;\\$\ldots$\\instruction $n$;};
 
-\node [stack,right=of mid] (fin) {$a=10$\nodepart{two}$b=100$%
-  \nodepart{three}$c=-10$\nodepart{four}$d=110$\nodepart{five}$\cdots$};
+  \node [stack,right=of mid] (fin) {$a=10$\nodepart{two}$b=100$%
+    \nodepart{three}$c=-10$\nodepart{four}$d=110$\nodepart{five}$\cdots$};
 
-\node [above=of ini,anchor=north,align=left] {Initial values of\\variables};
-\node [above=of fin,anchor=north,align=left] {Final values of\\variables};
+  \node [above=of ini,anchor=north,align=left] {Initial values of\\variables};
+  \node [above=of fin,anchor=north,align=left] {Final values of\\variables};
 
-\node [myarrow,draw,anchor=west] at ($(ini.east)+(2.5pt,0)$) {\phantom{te}} ;
-\node [myarrow,draw,anchor=west] at ($(mid.east)+(2.5pt,0)$) {\phantom{te}} ;
+  \node [myarrow,draw,anchor=west] at ($(ini.east)+(2.5pt,0)$) {\phantom{te}} ;
+  \node [myarrow,draw,anchor=west] at ($(mid.east)+(2.5pt,0)$) {\phantom{te}} ;
 
 \end{tikzpicture}
 
@@ -1284,6 +1314,8 @@ This code was written by cmhughes on TeX.SE.
 ```tex
 % Class diagram
 % Author: Remus Mihail Prunescu
+
+% arr: change colors. 
 \documentclass{minimal}
 \usepackage[a4paper,margin=1cm,landscape]{geometry}
 \usepackage{tikz}
@@ -1299,12 +1331,13 @@ This code was written by cmhughes on TeX.SE.
 :Title:  Class diagram
 
 \end{comment}
+
 \usetikzlibrary{positioning,shapes,shadows,arrows}
 
 \begin{document}
-\tikzstyle{abstract}=[rectangle, draw=black, rounded corners, fill=blue!40, drop shadow,
+\tikzstyle{abstract}=[rectangle, draw=black, rounded corners, fill=black!40!blue!60, drop shadow,
         text centered, anchor=north, text=white, text width=3cm]
-\tikzstyle{comment}=[rectangle, draw=black, rounded corners, fill=green, drop shadow,
+\tikzstyle{comment}=[rectangle, draw=black, rounded corners, fill=black!60!green, drop shadow,
         text centered, anchor=north, text=white, text width=3cm]
 \tikzstyle{myarrow}=[->, >=open triangle 90, thick]
 \tikzstyle{line}=[-, thick]
@@ -2136,6 +2169,8 @@ $$
   * [elem-cuboid_finer_grid+elem+foreach+command.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/elem-cuboid_finer_grid+elem+foreach+command.tex)
 
 ```tex
+% https://www.overleaf.com/learn/latex/page_size_and_margins
+%
 % arr: move draw to two tikz environments not document
 %	change paper size with geometry
 % add manual way of creating a cuboid
@@ -2146,25 +2181,24 @@ $$
 	a5paper,
 	left=10mm,
 	top=20mm,
-} % https://www.overleaf.com/learn/latex/page_size_and_margins
+} 
 
 \usepackage{tikz}
-
 
 \newcommand{\tikzcuboid}[4]{% width, height, depth, scale
 	% define tikz object
 	\begin{tikzpicture}[scale=#4]
 		\foreach \x in {0,...,#1}
 		{   \draw (\x ,0  ,#3 ) -- (\x ,#2 ,#3 );
-		    \draw (\x ,#2 ,#3 ) -- (\x ,#2 ,0  );
+			\draw (\x ,#2 ,#3 ) -- (\x ,#2 ,0  );
 		}
 		\foreach \x in {0,...,#2}
 		{   \draw (#1 ,\x ,#3 ) -- (#1 ,\x ,0  );
-		    \draw (0  ,\x ,#3 ) -- (#1 ,\x ,#3 );
+			\draw (0  ,\x ,#3 ) -- (#1 ,\x ,#3 );
 		}
 		\foreach \x in {0,...,#3}
 		{   \draw (#1 ,0  ,\x ) -- (#1 ,#2 ,\x );
-		    \draw (0  ,#2 ,\x ) -- (#1 ,#2 ,\x );
+			\draw (0  ,#2 ,\x ) -- (#1 ,#2 ,\x );
 		}
 	\end{tikzpicture}
 }
@@ -2203,8 +2237,6 @@ $$
 \begin{tikzpicture}
 	\tikzcube{13}{0.25}
 \end{tikzpicture}
-
-
 
 \end{document}
 ```
@@ -2387,24 +2419,26 @@ $$
 
 ```tex
 % https://tex.stackexchange.com/a/55242/173708
+% arr: reindent; change page size
 \documentclass[border=10]{standalone}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 
 
 \newcommand{\symbolA}{
-\tikz \draw[red] (0,0)--(0,0.2)--(0.2,0.2)--(0.2,0.4)--(0.4,0.4);
+	\tikz \draw[red] (0,0)--(0,0.2)--(0.2,0.2)--(0.2,0.4)--(0.4,0.4);
 }
 
 \newcommand{\symbolB}{
-\tikz[y={(0,-1)}] \draw[blue] (0,0)--(0,0.2)--(0.2,0.2)--(0.2,0.4)--(0.4,0.4);
+	\tikz[y={(0,-1)}] \draw[blue] (0,0)--(0,0.2)--(0.2,0.2)--(0.2,0.4)--(0.4,0.4);
 }
 
 \newcommand{\symbolC}{
-\begin{tikzpicture}
-	\draw[fill=green] (0,0) circle (0.2cm);
-\end{tikzpicture}
+	\begin{tikzpicture}
+		\draw[fill=green] (0,0) circle (0.2cm);
+	\end{tikzpicture}
 }
+
 
 \begin{document}
 
@@ -2506,12 +2540,12 @@ $$
     %draw a grid in the x-y plane
     \foreach \x in {0,1,...,7}
         \foreach \y in {0,1,...,7} {
-            \draw[grid] (\x,0) -- (\x,7);     % draw horizontal lines
+            \draw[grid] (\x,0) -- (\x,7);  % draw horizontal lines
             \draw[grid] (0,\y) -- (7,\y);  % draw vertical lines
         };
-    
-    \draw[fill=blue]     (0,0,0) -- (0,1,0) -- (1,1,0) -- (1,0,0) -- cycle;
-    \draw[fill=green ]  (1,1,0) -- (2,1,0) -- (2,2,0) -- (1,2,0) -- cycle;
+    % draw the color filled squares
+    \draw[fill=blue]   (0,0,0) -- (0,1,0) -- (1,1,0) -- (1,0,0) -- cycle;
+    \draw[fill=green]  (1,1,0) -- (2,1,0) -- (2,2,0) -- (1,2,0) -- cycle;
 
 \end{tikzpicture}    
 \end{document}
@@ -2525,6 +2559,7 @@ $$
 
 ```tex
 % https://latexdraw.com/how-to-highlight-parts-of-a-function-and-change-the-background-color-in-latex-using-tikz/
+% arr: indenting code; add comments
 \documentclass[dvipsnames]{standalone}
 
 \usepackage{tikz}
@@ -2532,27 +2567,31 @@ $$
 \pgfplotsset{compat = newest}
 
 \begin{document}
-	\begin{tikzpicture}
-	\begin{axis}[
-	xmin = 0, xmax = 7,
-	ymin = -20, ymax = 20,
-	width = 8cm,
-	height = 6.5cm,
-	xtick distance = 1,
-	ytick distance = 4,
-	smooth,
-	xlabel=$x$-axis,
-	ylabel=$y$-axis,
-	set layers,
-	]
-	\begin{pgfonlayer}{axis background}
-	\fill [yellow!5] (0,-20) rectangle (7,20);
-	\end{pgfonlayer}
-	\addplot[Green!20, domain = 0:7, line width=4mm] {(x-1)*(x-3)^2*(x-6)};
-	\addplot[Green!30, domain = 0:7, line width=2mm] {(x-1)*(x-3)^2*(x-6)};
-	\addplot[Green, domain = 0:7, thick] {(x-1)*(x-3)^2*(x-6)};
+\begin{tikzpicture}
+	\begin{axis}
+		[
+			xmin = 0, xmax = 7,
+			ymin = -20, ymax = 20,
+			width = 8cm,
+			height = 6.5cm,
+			xtick distance = 1,
+			ytick distance = 4,
+			smooth,
+			xlabel=$x$-axis,
+			ylabel=$y$-axis,
+			set layers,
+		]
+		% plot background yellowish
+		\begin{pgfonlayer}{axis background}
+			\fill [yellow!10] (0,-20) rectangle (7,20);
+		\end{pgfonlayer}
+		% superposing three curves with different thickness and colors
+		\addplot[Green!20, domain = 0:7, line width=4mm] {(x-1)*(x-3)^2*(x-6)};   % very thick curve
+		\addplot[Green!30, domain = 0:7, line width=2mm] {(x-1)*(x-3)^2*(x-6)}; % thick curve
+		\addplot[Green, domain = 0:7, thick] {(x-1)*(x-3)^2*(x-6)};             % thin curve
 	\end{axis}
-	\end{tikzpicture}
+
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -2566,16 +2605,17 @@ $$
 \documentclass{standalone}
 \usepackage{tikz} % http://ctan.org/pkg/pgf
 \usetikzlibrary{spy, backgrounds}
+
 \begin{document}
 
 \begin{tikzpicture} [spy using outlines={circle, magnification=8, size=2cm, connect spies, transform shape}]
-	  \draw[red] (2.9,0) -- (2.9,4);
-	  \draw[help lines] (0,0) grid (4,4);
-	  \draw (0,0) -- (3,3) -- (3,0);
+	\draw[red] (2.9,0) -- (2.9,4);
+	\draw[help lines] (0,0) grid (4,4);
+	\draw (0,0) -- (3,3) -- (3,0);
 	%   \begin{pgfonlayer}{background}
 	%    \draw[red] (2.9,0) -- (2.9,4);
 	%   \end{pgfonlayer}
-	  \spy [black] on (3,3) in node [left] at (6,5.5);
+	\spy [black] on (3,3) in node [left] at (6,5.5);
 \end{tikzpicture}
 \end{document}
 ```
@@ -2596,19 +2636,18 @@ $$
 
 \begin{tikzpicture}[every node/.style={draw}]
 
-\begin{scope}[rotate=-30]
-\node at (3,0) [draw,name=A,rectangle, minimum width=2cm,minimum height=1cm,anchor=south,label=$m_1$,transform shape] {};
-\node at (6,0) [name=B,rectangle, minimum width=1cm,minimum height=0.75cm,anchor=south,label=$m_2$,transform shape] {};
-\node at (0,0) [name=C,circle,minimum size=.8cm,transform shape] {};
+    \begin{scope}[rotate=-30]
+        \node at (3,0) [draw,name=A,rectangle, minimum width=2cm,minimum height=1cm,anchor=south,label=$m_1$,transform shape] {};
+        \node at (6,0) [name=B,rectangle, minimum width=1cm,minimum height=0.75cm,anchor=south,label=$m_2$,transform shape] {};
+        \node at (0,0) [name=C,circle,minimum size=.8cm,transform shape] {}; % pulley
 
-\draw (C.north) -- ($(A.south west)!(C.north)!(A.north west)$);
-\draw ($(A.south east)!(C.north)!(A.north east)$) -- ($(B.south west)!(C.north)!(B.north west)$);
-\draw(1,0) -- (8,0);
-\end{scope}
-
-
-\node at (-0.4,-5) [draw,name=D,rectangle, minimum width=1cm,minimum height=2cm,anchor=south,label=right:$m_3$] {};
-\draw ($(D.north west)!(C.210)!(D.north east)$) -- (C.210)  arc [start angle=180,end angle=60,radius=0.4cm];
+        \draw (C.north) -- ($(A.south west)!(C.north)!(A.north west)$);
+        \draw ($(A.south east)!(C.north)!(A.north east)$) -- ($(B.south west)!(C.north)!(B.north west)$);
+        \draw(1,0) -- (8,0);
+    \end{scope}
+    % draw the vertical part
+    \node at (-0.4,-5) [draw,name=D,rectangle, minimum width=1cm,minimum height=2cm,anchor=south,label=right:$m_3$] {};
+    \draw ($(D.north west)!(C.210)!(D.north east)$) -- (C.210)  arc [start angle=180,end angle=60,radius=0.4cm];
 \end{tikzpicture}
 \end{document}
 ```
@@ -2626,12 +2665,14 @@ $$
 \begin{document}
 \begin{tikzpicture}
 	\draw[help lines] (0,0) grid (4,2);
+	% draw a matrix table
 	\node [matrix,fill=red!20,draw=blue,very thick] (my matrix) at (2,1)
+	% draw four elements, each in one of the cells
 	{
-		\draw (0,0) circle (4mm); & \node[rotate=10] {Hello}; \\
+		\draw (0,0) circle (4mm);   & \node[rotate=10] {Hello}; \\
 		\draw (0.2,0) circle (2mm); & \fill[red] (0,0) circle (3mm); \\
 	};
-	
+	% draw the arrow from the origin
 	\draw [very thick,->] (0,0) |- (my matrix.west);
 \end{tikzpicture}
 \end{document}
@@ -2657,9 +2698,11 @@ $$
 \usepackage{tikz-network}
 
 \begin{document}
+
 \begin{tikzpicture}[multilayer=3d]
-	  \Plane[x=-.5,y=-.5,width=3,height=2.5,grid=5mm]
+	\Plane[x=-.5,y=-.5,width=3,height=2.5,grid=5mm]
 \end{tikzpicture}
+
 \end{document}
 % =============================================================================
 % eof
@@ -2716,6 +2759,7 @@ $$
 \documentclass[border=3pt,tikz]{standalone}
 \usepackage{amsmath} % for \;
 \usepackage{tikz}
+
 \usepackage{xcolor}
 \colorlet{myblue}{blue!70!black}
 \colorlet{mylightblue}{blue!10}
@@ -2754,7 +2798,6 @@ $$
   \end{scope}
 
 \end{tikzpicture}
-
 
 \end{document}
 ```
@@ -2857,11 +2900,9 @@ $$
 \begin{document} 
 
 \begin{tikzpicture}
-
- \node [draw,circle ] (a) { Real label}; 
- \node  at (a.60) {$\bullet$}; 
- \node [draw] at ([shift={(95:1)}]a.60) {Second label};
-
+    \node [draw,circle ] (a) { Real label}; 
+    \node  at (a.60) {$\bullet$}; 
+    \node [draw] at ([shift={(95:1)}]a.60) {Second label};
 \end{tikzpicture}
 
 \end{document}  
@@ -2885,13 +2926,14 @@ $$
 \end{comment}
 
 \begin{document}
-\begin{tikzpicture}[
-	    every node/.style=draw,
-	    every label/.style=draw
+
+\begin{tikzpicture}
+	[
+		every node/.style=draw,
+		every label/.style=draw
 	]
 	\node [label={[label distance=1cm]30:label}] {Node};
 \end{tikzpicture}
-
 
 \end{document}
 ```
@@ -2939,17 +2981,25 @@ $$
 
 ```tex
 \documentclass[border=10pt]{standalone}
+% arr: reindent
 \usepackage{tikz}
 \usetikzlibrary{shapes.multipart}
 
 \begin{document}
 
-\begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,draw, anchor=center}]
+\begin{tikzpicture}
+	[
+		stack/.style={rectangle split, 
+			rectangle split parts=#1,
+			draw, 
+			anchor=center}
+	]
+
 	\node[stack=5]  {
-	\nodepart{two}a
-	\nodepart{three}b
-	\nodepart{four}c
-	\nodepart{five}d
+		\nodepart{two}a
+		\nodepart{three}b
+		\nodepart{four}c
+		\nodepart{five}d
 	};
 \end{tikzpicture}
 
@@ -2975,7 +3025,13 @@ $$
 \tikzstyle{joint} = [draw, circle, minimum size=1em, anchor=center]
 \tikzstyle{layer} = [draw, rectangle, dashed, fill=gray!20, minimum width=7cm, minimum height=8mm, align=center, anchor=center]
 
-\begin{tikzpicture}[>=stealth, auto, node distance=2cm]
+\begin{tikzpicture}
+    [
+        >=stealth, 
+        auto, 
+        node distance=2cm
+    ]
+    
     % Place nodes
     \node [block] (system) {System};
     \node [block, below=of system] (model) {Model};
@@ -3013,13 +3069,18 @@ $$
     \usetikzlibrary{positioning, shapes.symbols}
 
 \begin{document}
-   \begin{tikzpicture}[ 
-   node distance = 4mm and 16mm,
-   mynode/.style = {shape=signal, signal to=west and east,
-			                 draw, color = #1,
-			                 text width=1.3cm, align=flush center, 
-			                 inner xsep=0mm, inner ysep=2mm, font=\small}
-                 ]
+\begin{tikzpicture}
+	[ 
+   	node distance = 4mm and 16mm,
+	   mynode/.style = {shape=signal, 
+	   	signal to=west and east,
+		draw, color = #1,
+		text width=1.3cm, 
+		align=flush center, 
+		inner xsep=0mm, 
+		inner ysep=2mm, 
+		font=\small}
+	]
 	% main nodes
 	\node (A) [mynode=magenta]            {Text 2};
 	\node (B) [mynode=blue, below=of A]   {Text 3};
@@ -3038,23 +3099,23 @@ $$
 	\draw (out2) circle (3pt);
 	
 	% dashed arrows
-	    \begin{scope}[latex-, dashed, shorten >=1mm]
-			\draw[magenta] (A.west) -- + (-0.8,0) -- (in2);
-			\draw[blue]     (B.west) -- (in2);
-			\draw[magenta] (C.west) -- + (-0.8,0) -- (in2);
-	    \end{scope}
-	    
-	    \begin{scope}[-latex, dashed, shorten >=1mm]
-			\draw[magenta] (A.east) -- + (0.8,0) -- (out1);
-			\draw[blue]     (B.east) -- (out1);
-			\draw[magenta] (C.east) -- + (0.8,0) -- (out1);
-	    \end{scope}
+	\begin{scope}[latex-, dashed, shorten >=1mm]
+		\draw[magenta] (A.west) -- + (-0.8,0) -- (in2);
+		\draw[blue]     (B.west) -- (in2);
+		\draw[magenta] (C.west) -- + (-0.8,0) -- (in2);
+	\end{scope}
+	
+	\begin{scope}[-latex, dashed, shorten >=1mm]
+		\draw[magenta] (A.east) -- + (0.8,0) -- (out1);
+		\draw[blue]     (B.east) -- (out1);
+		\draw[magenta] (C.east) -- + (0.8,0) -- (out1);
+	\end{scope}
 	    
 	% arrows with text
 	\draw[-latex] (in1) -- node[above] {Text 1} (in2);
 	\draw[-latex] (out1) -- node[above] {Text 5} (out2);
 	%--------------
-   \end{tikzpicture}
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -3090,7 +3151,6 @@ We are working on
 
 \begin{document}
 
-
 \begin{tikzpicture}
 	\filldraw [gray] (0,0) circle (2pt)
 	(1,1) circle (2pt)
@@ -3098,7 +3158,6 @@ We are working on
 	(2,0) circle (2pt);
 	\draw (0,0) .. controls (1,1) and (2,1) .. (2,0);
 \end{tikzpicture}
-
 
 \end{document}
 ```
@@ -3152,46 +3211,46 @@ We are working on
 \begin{document}
 
 \begin{tikzpicture}
-\tikzstyle{spring}=[thick,decorate,decoration={zigzag,pre length=0.3cm,post length=0.3cm,segment length=6}]
-\tikzstyle{damper}=[thick,decoration={markings,  
-	mark connection node=dmp,
-	mark=at position 0.5 with 
-	{
-		\node (dmp) [thick,inner sep=0pt,transform shape,rotate=-90,minimum width=15pt,minimum height=3pt,draw=none] {};
-		\draw [thick] ($(dmp.north east)+(2pt,0)$) -- (dmp.south east) -- (dmp.south west) -- ($(dmp.north west)+(2pt,0)$);
-		\draw [thick] ($(dmp.north)+(0,-5pt)$) -- ($(dmp.north)+(0,5pt)$);
-	}
-}, decorate]
-\tikzstyle{ground}=[fill,pattern=north east lines,draw=none,minimum width=0.75cm,minimum height=0.3cm]
+	\tikzstyle{spring}=[thick,decorate,decoration={zigzag,pre length=0.3cm,post length=0.3cm,segment length=6}]
+	\tikzstyle{damper}=[thick,decoration={markings,  
+		mark connection node=dmp,
+		mark=at position 0.5 with 
+		{
+			\node (dmp) [thick,inner sep=0pt,transform shape,rotate=-90,minimum width=15pt,minimum height=3pt,draw=none] {};
+			\draw [thick] ($(dmp.north east)+(2pt,0)$) -- (dmp.south east) -- (dmp.south west) -- ($(dmp.north west)+(2pt,0)$);
+			\draw [thick] ($(dmp.north)+(0,-5pt)$) -- ($(dmp.north)+(0,5pt)$);
+		}
+	}, decorate]
+	\tikzstyle{ground}=[fill,pattern=north east lines,draw=none,minimum width=0.75cm,minimum height=0.3cm]
 
-\node (M) [draw,outer sep=0pt,thick,minimum width=1cm, minimum height=2cm] {$m_1$};
-\node (M2) [draw,outer sep=0pt,thick,minimum width=1cm, minimum height=2cm] at (2,0) {$m_2$};
-\node (M3) [draw,outer sep=0pt,thick,minimum width=1cm, minimum height=2cm] at (4,0) {$m_3$};
-\node (M4) [draw,outer sep=0pt,thick,minimum width=1cm, minimum height=2cm] at (6,0) {$m_4$};
+	\node (M) [draw,outer sep=0pt,thick,minimum width=1cm, minimum height=2cm] {$m_1$};
+	\node (M2) [draw,outer sep=0pt,thick,minimum width=1cm, minimum height=2cm] at (2,0) {$m_2$};
+	\node (M3) [draw,outer sep=0pt,thick,minimum width=1cm, minimum height=2cm] at (4,0) {$m_3$};
+	\node (M4) [draw,outer sep=0pt,thick,minimum width=1cm, minimum height=2cm] at (6,0) {$m_4$};
 
-\node (ground) [ground,anchor=north,xshift=3cm,yshift=-0.25cm,minimum width=9.5cm] at (M.south) {};
+	\node (ground) [ground,anchor=north,xshift=3cm,yshift=-0.25cm,minimum width=9.5cm] at (M.south) {};
 
-\draw (ground.north east) -- (ground.north west);
-\draw [thick] (M.south west) ++ (0.2cm,-0.125cm) circle (0.125cm)  (M.south east) ++ (-0.2cm,-0.125cm) circle (0.125cm);
-\draw [thick] (M2.south west) ++ (0.2cm,-0.125cm) circle (0.125cm)  (M2.south east) ++ (-0.2cm,-0.125cm) circle (0.125cm);
-\draw [thick] (M3.south west) ++ (0.2cm,-0.125cm) circle (0.125cm)  (M3.south east) ++ (-0.2cm,-0.125cm) circle (0.125cm);
-\draw [thick] (M4.south west) ++ (0.2cm,-0.125cm) circle (0.125cm)  (M4.south east) ++ (-0.2cm,-0.125cm) circle (0.125cm);
+	\draw (ground.north east) -- (ground.north west);
+	\draw [thick] (M.south west) ++ (0.2cm,-0.125cm) circle (0.125cm)  (M.south east) ++ (-0.2cm,-0.125cm) circle (0.125cm);
+	\draw [thick] (M2.south west) ++ (0.2cm,-0.125cm) circle (0.125cm)  (M2.south east) ++ (-0.2cm,-0.125cm) circle (0.125cm);
+	\draw [thick] (M3.south west) ++ (0.2cm,-0.125cm) circle (0.125cm)  (M3.south east) ++ (-0.2cm,-0.125cm) circle (0.125cm);
+	\draw [thick] (M4.south west) ++ (0.2cm,-0.125cm) circle (0.125cm)  (M4.south east) ++ (-0.2cm,-0.125cm) circle (0.125cm);
 
-\draw [spring] (M2.220) -- ($(M.north east)!(M.220)!(M.south east)$);
-\draw [spring] (M3.220) -- ($(M2.north east)!(M2.220)!(M2.south east)$);
-\draw [spring] (M4.220) -- ($(M3.north east)!(M3.220)!(M3.south east)$);
+	\draw [spring] (M2.220) -- ($(M.north east)!(M.220)!(M.south east)$);
+	\draw [spring] (M3.220) -- ($(M2.north east)!(M2.220)!(M2.south east)$);
+	\draw [spring] (M4.220) -- ($(M3.north east)!(M3.220)!(M3.south east)$);
 
-\draw [damper] (M2.170) -- ($(M.north east)!(M2.170)!(M.south east)$);
-\draw [damper] (M3.170) -- ($(M2.north east)!(M3.170)!(M2.south east)$);
-\draw [damper] (M4.170) -- ($(M3.north east)!(M4.170)!(M3.south east)$);
+	\draw [damper] (M2.170) -- ($(M.north east)!(M2.170)!(M.south east)$);
+	\draw [damper] (M3.170) -- ($(M2.north east)!(M3.170)!(M2.south east)$);
+	\draw [damper] (M4.170) -- ($(M3.north east)!(M4.170)!(M3.south east)$);
 
-\node at (1,.8) {$d_1$};
-\node at (3,.8) {$d_2$};
-\node at (5,.8) {$d_3$};
+	\node at (1,.8) {$d_1$};
+	\node at (3,.8) {$d_2$};
+	\node at (5,.8) {$d_3$};
 
-\node at (1,-.8) {$k_1$};
-\node at (3,-.8) {$k_2$};
-\node at (5,-.8) {$k_3$};
+	\node at (1,-.8) {$k_1$};
+	\node at (3,-.8) {$k_2$};
+	\node at (5,-.8) {$k_3$};
 
 \end{tikzpicture}
 
@@ -3209,15 +3268,16 @@ We are working on
 \documentclass[tikz,border=10pt]{standalone}
 \usepackage{tikz}
 
-\usetikzlibrary{arrows, calc,decorations.pathmorphing,positioning,decorations.markings}
+\usetikzlibrary{arrows,calc,decorations.pathmorphing,positioning,decorations.markings}
 
 \tikzset{
+    % build the shaded rectangle
     shadedrec/.style={
         rectangle,
         draw=black,
-        top color=gray, 
-        bottom color=white, 
-        shading angle={135},
+        top color=gray,        % this is part of the shade
+        bottom color=white,    % this is part of the shade
+        shading angle={135},   % this is part of the shade
         text width=3cm,
         inner sep=1em,
         rounded corners=1.2ex,
@@ -3243,44 +3303,39 @@ We are working on
 \pagestyle{empty}
 
 \begin{tikzpicture}
-
-% Shapes
-
+    % Shapes
     \node[shadedrec, anchor=center] (S1) at (4,3) {$M$};
     \node[shadedrec, anchor=center, below=2 of S1] (S2) {$m$};
 
-%Nodes side
+    %Nodes side
     \node[anchor=center,text centered,right=2cm of S1.east] (sm) {Sprung mass};
     \node[below=of sm] (susp) {Suspension};
     \node[below=of susp] (usm) {Unsprung mass};
     \node[below=of usm] {Tire};
 
-% Paths
+    % Paths
 
-%side arrows
+    %side arrows
     \draw[->,very thick] (S1.west) -- ++ (-1.5,0) -- ++ (0,-1.5) node[below] {$Z$};
     \draw[->,very thick] (S2.west) -- ++ (-1.5,0) -- ++ (0,-1.5) node[below] {$Z_u$};
 
-%zigzag lines
+    %zigzag lines
     \draw[very thick, snake arrow] ($(S1.south west)!.5!(S1.south)$) -- ++ (0,-2) node[left,midway,xshift=-1em] {$K_s$};
     \draw[very thick, snake arrow] (S2.south) -- ++ (0,-2) 
         node[left,midway,xshift=-1em] {$K_t$};
 
-%Connector shape
+    %Connector shape
     \draw[damper] ($(S2.north east)!.5!(S2.north)$) -- ($(S1.south east)!.5!(S1.south)$) node[right,midway,xshift=1em] {$C_s$};
 
-
-% Road
+    % Road
     \coordinate (A) at ($(S2.west)+(5.5,-2.45)$);
     \draw[->,very thick] (A) -- ++(-7,0) -- ++ (0,-1.5) node[below] {$Z_r$};
 
-\begin{scope}[shift={($(S2.west)+(-1.5,-2.45)$)}]
-
-    \foreach \x in {0.5,1,...,7} { %This one draws the little diagonal lines
-    \draw (\x,0) -- ({\x-.5},-.5);
-    }
-
-\end{scope} 
+    \begin{scope}[shift={($(S2.west)+(-1.5,-2.45)$)}]
+        \foreach \x in {0.5,1,...,7} { %This one draws the little diagonal lines
+        \draw (\x,0) -- ({\x-.5},-.5);
+        }
+    \end{scope} 
 \end{tikzpicture}
 
 \end{document}
@@ -3301,50 +3356,50 @@ We are working on
 \begin{document}
 
 \begin{tikzpicture}[every node/.style={draw,outer sep=0pt,thick}]
-\tikzstyle{spring}=[thick,decorate,decoration={zigzag,pre length=0.3cm,post length=0.3cm,segment length=6}]
-\tikzstyle{damper}=[thick,decoration={markings,  
-  mark connection node=dmp,
-  mark=at position 0.5 with 
-  {
-    \node (dmp) [thick,inner sep=0pt,transform shape,rotate=-90,minimum width=15pt,minimum height=3pt,draw=none] {};
-    \draw [thick] ($(dmp.north east)+(2pt,0)$) -- (dmp.south east) -- (dmp.south west) -- ($(dmp.north west)+(2pt,0)$);
-    \draw [thick] ($(dmp.north)+(0,-5pt)$) -- ($(dmp.north)+(0,5pt)$);
-  }
-}, decorate]
-\tikzstyle{ground}=[fill,pattern=north east lines,draw=none,minimum width=0.75cm,minimum height=0.3cm]
+  \tikzstyle{spring}=[thick,decorate,decoration={zigzag,pre length=0.3cm,post length=0.3cm,segment length=6}]
+  \tikzstyle{damper}=[thick,decoration={markings,  
+    mark connection node=dmp,
+    mark=at position 0.5 with 
+    {
+      \node (dmp) [thick,inner sep=0pt,transform shape,rotate=-90,minimum width=15pt,minimum height=3pt,draw=none] {};
+      \draw [thick] ($(dmp.north east)+(2pt,0)$) -- (dmp.south east) -- (dmp.south west) -- ($(dmp.north west)+(2pt,0)$);
+      \draw [thick] ($(dmp.north)+(0,-5pt)$) -- ($(dmp.north)+(0,5pt)$);
+    }
+  }, decorate]
 
+  \tikzstyle{ground}=[fill,pattern=north east lines,draw=none,minimum width=0.75cm,minimum height=0.3cm]
 
-\node (M) [minimum width=3.5cm,minimum height=2cm] {mass, $m$};
+  \node (M) [minimum width=3.5cm,minimum height=2cm] {mass, $m$};
 
-\node (ground1) at (M.south) [ground,yshift=-1.5cm,xshift=-1.25cm,anchor=north] {};
-\draw (ground1.north west) -- (ground1.north east);
-\draw [spring] (ground1.north) -- ($(M.south east)!(ground1.north)!(M.south west)$);
+  \node (ground1) at (M.south) [ground,yshift=-1.5cm,xshift=-1.25cm,anchor=north] {};
+  \draw (ground1.north west) -- (ground1.north east);
+  \draw [spring] (ground1.north) -- ($(M.south east)!(ground1.north)!(M.south west)$);
 
-\node (ground2) at (M.south) [ground,yshift=-1.5cm,anchor=north] {};
-\draw (ground2.north west) -- (ground2.north east);
-\draw [damper] (ground2.north) -- ($(M.south east)!(ground2.north)!(M.south west)$);
+  \node (ground2) at (M.south) [ground,yshift=-1.5cm,anchor=north] {};
+  \draw (ground2.north west) -- (ground2.north east);
+  \draw [damper] (ground2.north) -- ($(M.south east)!(ground2.north)!(M.south west)$);
 
-\node (ground3) at (M.south) [ground,yshift=-1.5cm,xshift=1.25cm,anchor=north] {};
-\draw (ground3.north west) -- (ground3.north east);
-\draw [spring] (ground3.north) -- ($(M.south east)!(ground3.north)!(M.south west)$);
+  \node (ground3) at (M.south) [ground,yshift=-1.5cm,xshift=1.25cm,anchor=north] {};
+  \draw (ground3.north west) -- (ground3.north east);
+  \draw [spring] (ground3.north) -- ($(M.south east)!(ground3.north)!(M.south west)$);
 
-\draw [-latex,ultra thick] (M.north) ++(0,0.2cm) -- +(0,1cm);
+  \draw [-latex,ultra thick] (M.north) ++(0,0.2cm) -- +(0,1cm);
 
-\begin{scope}[xshift=7cm]
-\node (M) [minimum width=1cm, minimum height=2.5cm] {$m$};
+  \begin{scope}[xshift=7cm]
+    \node (M) [minimum width=1cm, minimum height=2.5cm] {$m$};
 
-\node (ground) [ground,anchor=north,yshift=-0.25cm,minimum width=1.5cm] at (M.south) {};
-\draw (ground.north east) -- (ground.north west);
-\draw [thick] (M.south west) ++ (0.2cm,-0.125cm) circle (0.125cm)  (M.south east) ++ (-0.2cm,-0.125cm) circle (0.125cm);
+    \node (ground) [ground,anchor=north,yshift=-0.25cm,minimum width=1.5cm] at (M.south) {};
+    \draw (ground.north east) -- (ground.north west);
+    \draw [thick] (M.south west) ++ (0.2cm,-0.125cm) circle (0.125cm)  (M.south east) ++ (-0.2cm,-0.125cm) circle (0.125cm);
 
-\node (wall) [ground, rotate=-90, minimum width=3cm,yshift=-3cm] {};
-\draw (wall.north east) -- (wall.north west);
+    \node (wall) [ground, rotate=-90, minimum width=3cm,yshift=-3cm] {};
+    \draw (wall.north east) -- (wall.north west);
 
-\draw [spring] (wall.170) -- ($(M.north west)!(wall.170)!(M.south west)$);
-\draw [damper] (wall.10) -- ($(M.north west)!(wall.10)!(M.south west)$);
+    \draw [spring] (wall.170) -- ($(M.north west)!(wall.170)!(M.south west)$);
+    \draw [damper] (wall.10) -- ($(M.north west)!(wall.10)!(M.south west)$);
 
-\draw [-latex,ultra thick] (M.east) ++ (0.2cm,0) -- +(1cm,0);
-\end{scope}
+    \draw [-latex,ultra thick] (M.east) ++ (0.2cm,0) -- +(1cm,0);
+  \end{scope}
 \end{tikzpicture}
 
 \end{document}
@@ -3364,6 +3419,7 @@ We are working on
 % Data is released under the GNU General Public Licence. See
 % http://www.ae.uiuc.edu/m-selig/pd/gpl.html for more details. 
 \documentclass{standalone}
+
 \usepackage{tikz}
 \usepackage{verbatim}
 
@@ -3391,17 +3447,20 @@ Download the airfoils used in the example: `airfoildata.zip`_
 \setcounter{y}{0}
 
 \begin{tikzpicture}
+    % read all the data files. Don't set the data folder here
+    % read the label \lbl and the filename \fn with the for loop
     \foreach \lbl / \fn in {EPPLER 625/e625.dat,
                             WORTMANN FX 2/fx2.dat,
                             EPPLER 664 (EXTENDED)/e664ex.dat,
                             CLARK Y/clarcy.dat,
                             Eiffel 10 (Wright)/eiffel10.dat,
                             FX 69-PR-281/fx69pr281.dat,
-                            NACA Munk M-4 airfoil/m4.dat}{
+                            NACA Munk M-4 airfoil/m4.dat}
+    {
         % Some profiles look better when using plot[smooth]
         \draw[yshift=-\arabic{y}cm,scale=3] node[left=0.5cm] {\lbl}
-        	% set the dasta folder in the next line
-            plot file{data/\fn} -- cycle;
+        % set the data folder in the next line
+        plot file{data/\fn} -- cycle;
         \stepcounter{y}
     }
 \end{tikzpicture}
@@ -3418,36 +3477,37 @@ Download the airfoils used in the example: `airfoildata.zip`_
 ```tex
 % https://tex.stackexchange.com/a/20500/173708
 \documentclass{standalone}
-
+% arr: reindenting
 \usepackage{tikz}
 \usepackage{pgfplotstable}
 
 \begin{document}
 \centering
 \begin{tikzpicture}
-	\pgfplotstableread{./data/circles.dat}\table
+	\pgfplotstableread{./data/circles.dat}\table   % read the data table
 	\pgfplotstablegetrowsof{\table}
 	\pgfmathsetmacro{\M}{\pgfplotsretval-1}
 	\pgfplotstablegetcolsof{\table}
 	\pgfmathsetmacro{\N}{\pgfplotsretval-1}
 	
-	\foreach \row in {0,...,\M}{
-	          \foreach \col in {0,...,\N}{
-	                 \pgfplotstablegetelem{\row}{[index]\col}\of\table
-	                 \ifnum\col=0
-	                       \xdef\x{\pgfplotsretval}
-	                 \fi
-	                 \ifnum\col=1
-	                       \xdef\y{\pgfplotsretval}
-	                 \fi
-	                 \ifnum\col=2
-	                       \xdef\radius{\pgfplotsretval}
-	                 \fi
-	                 }
-	                 \definecolor{mycolor}{RGB}{\pdfuniformdeviate 256,%
-	                                            \pdfuniformdeviate 256,%
-	                                            \pdfuniformdeviate 256}
-	                 \fill[mycolor,opacity=.5] (\x,\y)circle(\radius cm);
+	\foreach \row in {0,...,\M}{       % read the table rows
+		\foreach \col in {0,...,\N}{   % read the columns
+			\pgfplotstablegetelem{\row}{[index]\col}\of\table
+			\ifnum\col=0
+				\xdef\x{\pgfplotsretval}
+			\fi
+			\ifnum\col=1
+				\xdef\y{\pgfplotsretval}
+			\fi
+			\ifnum\col=2
+				\xdef\radius{\pgfplotsretval}
+			\fi
+		}
+		\definecolor{mycolor}{RGB}{
+			\pdfuniformdeviate 256,%
+			\pdfuniformdeviate 256,%
+			\pdfuniformdeviate 256}
+		\fill[mycolor,opacity=.5] (\x,\y)circle(\radius cm);
 	}
 \end{tikzpicture}
 \end{document}
@@ -3479,7 +3539,7 @@ This topic was discussed on: http://texwelt.de/wissen/fragen/3363/
 
 Data file
 -------
-if you want the data to be saved as you modify this file, add this:
+if you want the data to be saved as you modify this file, add this above the comments:
 
 	\usepackage{filecontents}
 	
@@ -3503,16 +3563,17 @@ if you want the data to be saved as you modify this file, add this:
 
 \begin{document}
 \begin{tikzpicture}
-  \begin{axis}[
-    scatter,
-    scatter src = explicite,
-    grid        = major, % draws coordinate grid
-    xlabel      = Force $\lbrack{}$ F $\rbrack$, 
-    ylabel      = Amperage $\lbrack{}$ kA $\rbrack$,
-    width       = \linewidth,
-    height      = 10cm,
-    xmin = 0, xmax = 15,
-    ymin = 0, ymax = 12,
+  \begin{axis}
+    [
+      scatter,
+      scatter src = explicite,
+      grid        = major, % draws coordinate grid
+      xlabel      = Force $\lbrack{}$ F $\rbrack$, 
+      ylabel      = Amperage $\lbrack{}$ kA $\rbrack$,
+      width       = \linewidth,
+      height      = 10cm,
+      xmin = 0, xmax = 15,
+      ymin = 0, ymax = 12,
     ]
     \addplot+ [
       visualization depends on =
@@ -3520,6 +3581,8 @@ if you want the data to be saved as you modify this file, add this:
       scatter/@pre marker code/.append style =
         {/tikz/mark size = \perpointmarksize},
     ]
+    % read the table
+    % read the column result1
     table[x=measuring, y=power1, point meta=\thisrow{result1}] {./data/data.csv};
     \addplot+ [
       visualization depends on =
@@ -3527,6 +3590,7 @@ if you want the data to be saved as you modify this file, add this:
       scatter/@pre marker code/.append style =
         {/tikz/mark size = \perpointmarksize}
     ]
+    % read the column result2
     table [x=measuring, y=power2, point meta=\thisrow{result2}] {./data/data.csv};
     \fill [gray, fill opacity=0.25] (axis cs:5,0) rectangle (axis cs:7,12);
   \end{axis}
@@ -3546,16 +3610,15 @@ if you want the data to be saved as you modify this file, add this:
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
 
-
 \begin{document}
 
 % Preamble: \pgfplotsset{width=7cm,compat=newest}
 \begin{tikzpicture}
     \begin{axis}
 	    [
-	    height=9cm,
-	    width=9cm,
-	    grid=major,
+			height=9cm,
+			width=9cm,
+			grid=major,
 	    ]
 	    % \addplot gnuplot[id=filesuffix]{(-x**5 - 242)};
 	    \addlegendentry{model}
@@ -3575,7 +3638,6 @@ if you want the data to be saved as you modify this file, add this:
 	    \end{axis}
     \end{tikzpicture}
 
-
 \end{document}
 ```
 ****
@@ -3591,11 +3653,11 @@ if you want the data to be saved as you modify this file, add this:
 \pgfplotsset{compat=1.11}
 
 \begin{document}
-    \begin{tikzpicture}
-        \begin{axis}
-            \addplot table {./data/coordinates.dat};
-        \end{axis}
-    \end{tikzpicture}
+\begin{tikzpicture}
+    \begin{axis}
+        \addplot table {./data/coordinates.dat};
+    \end{axis}
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -3607,6 +3669,7 @@ if you want the data to be saved as you modify this file, add this:
 
 ```tex
 % http://pgfplots.net/media/tikz/examples/TEX/graph-in-table.tex
+% arr: reindent
 \documentclass[border=10pt]{standalone}
 %%%<
 \usepackage{verbatim}
@@ -3615,7 +3678,7 @@ if you want the data to be saved as you modify this file, add this:
 
 Data file
 -------
-if you want the data to be saved as you modify this file, add this:
+if you want the data to be saved as you modify this file, add this above comments:
 
 	\usepackage{filecontents}
 	
@@ -3648,6 +3711,7 @@ if you want the data to be saved as you modify this file, add this:
 \usepackage{pgfplotstable}
 \usepackage{booktabs}
 \usepackage{multirow}
+
 \begin{comment}
 :Title: Graph within a table
 :Tags: 2D;PGFPlotstable;Styles
@@ -3699,40 +3763,43 @@ This code was written by Jake on TeX.SE.
 \let\numberofrows=\pgfplotsretval
 
 % Print the table
-\pgfplotstabletypeset[columns={name,error,z,p,mean,ci},
-  % Booktabs rules
-  every head row/.style = {before row=\toprule, after row=\midrule},
-  every last row/.style = {after row=[3ex]\bottomrule},
-  % Set header name
-  columns/name/.style = {string type, column name=Name},
-  % Use the ``error'' column to call the \errplot command in a multirow cell
-  % in the first row, keep empty for all other rows
-  columns/error/.style = {
-    column name = {},
-    assign cell content/.code = {% use \multirow for Z column:
-    \ifnum\pgfplotstablerow=0
-    \pgfkeyssetvalue{/pgfplots/table/@cell content}
-    {\multirow{\numberofrows}{6.5cm}{\errplot}}%
-    \else
-    \pgfkeyssetvalue{/pgfplots/table/@cell content}{}%
-    \fi
-    }
-  },
-  % Format numbers and titles
-  columns/mean/.style = {column name = Mean, fixed ,fixed zerofill, dec sep align},
-  columns/z/.style    = {column name = $z$, fixed, fixed zerofill, dec sep align},
-  columns/p/.style    = {column name = $p$, fixed, fixed zerofill, dec sep align},
-  columns/ci/.style   = {string type, column name = 95\% CI},
-  % Create the ``(x to y)'' format, use \pgfmathprintnumber with `showpos`
-  % to make things align nicely
-  create on use/ci/.style={
+\pgfplotstabletypeset
+  [
+    columns={name,error,z,p,mean,ci},
+    % Booktabs rules
+    every head row/.style = {before row=\toprule, after row=\midrule},
+    every last row/.style = {after row=[3ex]\bottomrule},
+    % Set header name
+    columns/name/.style = {string type, column name=Name},
+    % Use the ``error'' column to call the \errplot command in a multirow cell
+    % in the first row, keep empty for all other rows
+    columns/error/.style = {
+      column name = {},
+      assign cell content/.code = {% use \multirow for Z column:
+      \ifnum\pgfplotstablerow=0
+        \pgfkeyssetvalue{/pgfplots/table/@cell content}
+        {\multirow{\numberofrows}{6.5cm}{\errplot}}%
+      \else
+        \pgfkeyssetvalue{/pgfplots/table/@cell content}{}%
+      \fi
+      }
+    },
+    % Format numbers and titles
+    columns/mean/.style = {column name = Mean, fixed ,fixed zerofill, dec sep align},
+    columns/z/.style    = {column name = $z$, fixed, fixed zerofill, dec sep align},
+    columns/p/.style    = {column name = $p$, fixed, fixed zerofill, dec sep align},
+    columns/ci/.style   = {string type, column name = 95\% CI},
+    % Create the ``(x to y)'' format, use \pgfmathprintnumber with `showpos`
+    % to make things align nicely
+    create on use/ci/.style={
     create col/assign/.code={\edef\value{(
       \noexpand\pgfmathprintnumber[showpos,fixed,fixed zerofill]{\thisrow{lci}}
       to \noexpand\pgfmathprintnumber[showpos,fixed,fixed zerofill]{\thisrow{uci}})}
       \pgfkeyslet{/pgfplots/table/create col/next content}\value
+      }
     }
-  }
-]{\data}
+  ]
+{\data}
 \end{document}
 ```
 ****
@@ -3789,54 +3856,54 @@ X,Y,Event,Date
 
 \begin{document}
 
-    \begin{tikzpicture}[node distance =2mm]
+\begin{tikzpicture}[node distance =2mm]
 
-       % draw horizontal line
-       \draw (0,0) coordinate (baseLine) -- (11,0);
+   % draw horizontal line
+   \draw (0,0) coordinate (baseLine) -- (11,0);
 
-       % draw vertical lines and label below with months
-       \foreach \varXcoord/\varMonth [count=\xx] in {
-          0/Jan,
-          1/Feb,
-          2/Mar,
-          3/Apr,
-          4/May,
-          5/Jun,
-          6/Jul,
-          7/Aug,
-          8/Sep,
-          9/Oct,
-          10/Nov,
-          11/Dec
-       }
-          \draw (\varXcoord,3pt) -- +(0,-6pt) node (qBaseTick\xx) [below] {\varMonth};
+   % draw vertical lines and label below with months
+   \foreach \varXcoord/\varMonth [count=\xx] in {
+      0/Jan,
+      1/Feb,
+      2/Mar,
+      3/Apr,
+      4/May,
+      5/Jun,
+      6/Jul,
+      7/Aug,
+      8/Sep,
+      9/Oct,
+      10/Nov,
+      11/Dec
+   }
+      \draw (\varXcoord,3pt) -- +(0,-6pt) node (qBaseTick\xx) [below] {\varMonth};
 
-       \fill [pattern=north west lines, pattern color=yellow] (-1,0) rectangle (12.5,4); 
+   \fill [pattern=north west lines, pattern color=yellow] (-1,0) rectangle (12.5,4); 
 
-       \node [above left = 2.5 and 1 of baseLine,rotate=90] 
-       {
-         Location
-       };
+   \node [above left = 2.5 and 1 of baseLine,rotate=90] 
+   {
+   Location
+   };
 
-       \fill [pattern=north west lines, pattern color=orange] (-1,4) rectangle (12.5,8); 
+   \fill [pattern=north west lines, pattern color=orange] (-1,4) rectangle (12.5,8); 
 
-       \node [above left = 7 and 1 of baseLine,rotate=90] 
-       {
-         Career
-       };
+   \node [above left = 7 and 1 of baseLine,rotate=90] 
+   {
+   Career
+   };
 
-      \pgfplotstablegetrowsof{\data}
-      \pgfmathtruncatemacro{\rownumber}{\pgfplotsretval-1}
-      \foreach \X in {0,...,\rownumber}
-      {
-          \ReadOutElement{\data}{\X}{X}{\varXcoord}
-          \ReadOutElement{\data}{\X}{Y}{\varYcoord}
-          \ReadOutElement{\data}{\X}{Event}{\varEvent}
-          \ReadOutElement{\data}{\X}{Date}{\varDate}
-          \draw[<-] (\varXcoord,0) -- (\varXcoord,\varYcoord+0.5);
-          \node [above right = \varYcoord and \varXcoord + 0.5 of baseLine, rotate=45, anchor=south west] {\makecell[l]{\small${\varEvent}$\\\tiny \varDate}};
-      }
-   \end{tikzpicture}
+   \pgfplotstablegetrowsof{\data}
+   \pgfmathtruncatemacro{\rownumber}{\pgfplotsretval-1}
+   \foreach \X in {0,...,\rownumber}
+   {
+         \ReadOutElement{\data}{\X}{X}{\varXcoord}
+         \ReadOutElement{\data}{\X}{Y}{\varYcoord}
+         \ReadOutElement{\data}{\X}{Event}{\varEvent}
+         \ReadOutElement{\data}{\X}{Date}{\varDate}
+         \draw[<-] (\varXcoord,0) -- (\varXcoord,\varYcoord+0.5);
+         \node [above right = \varYcoord and \varXcoord + 0.5 of baseLine, rotate=45, anchor=south west] {\makecell[l]{\small${\varEvent}$\\\tiny \varDate}};
+   }
+\end{tikzpicture}
 
 \end{document}
 ```
@@ -3882,54 +3949,54 @@ It uses basic nodes and arrows and defines node styles.
 % Drawing part, node distance is 1.5 cm and every node
 % is prefilled with white background
 \begin{tikzpicture}[node distance=1.5cm,
-    every node/.style={fill=white, font=\sffamily}, align=center]
-  % Specification of nodes (position, etc.)
-  \node (start)             [activityStarts]              {Activity starts};
-  \node (onCreateBlock)     [process, below of=start]          {onCreate()};
-  \node (onStartBlock)      [process, below of=onCreateBlock]   {onStart()};
-  \node (onResumeBlock)     [process, below of=onStartBlock]   {onResume()};
-  \node (activityRuns)      [activityRuns, below of=onResumeBlock]
-                                                      {Activity is running};
-  \node (onPauseBlock)      [process, below of=activityRuns, yshift=-1cm]
-                                                                {onPause()};
-  \node (onStopBlock)       [process, below of=onPauseBlock, yshift=-1cm]
-                                                                 {onStop()};
-  \node (onDestroyBlock)    [process, below of=onStopBlock, yshift=-1cm] 
-                                                              {onDestroy()};
-  \node (onRestartBlock)    [process, right of=onStartBlock, xshift=4cm]
-                                                              {onRestart()};
-  \node (ActivityEnds)      [startstop, left of=activityRuns, xshift=-4cm]
-                                                        {Process is killed};
-  \node (ActivityDestroyed) [startstop, below of=onDestroyBlock]
-                                                    {Activity is shut down};     
-  % Specification of lines between nodes specified above
-  % with aditional nodes for description 
-  \draw[->]             (start) -- (onCreateBlock);
-  \draw[->]     (onCreateBlock) -- (onStartBlock);
-  \draw[->]      (onStartBlock) -- (onResumeBlock);
-  \draw[->]     (onResumeBlock) -- (activityRuns);
-  \draw[->]      (activityRuns) -- node[text width=4cm]
-                                   {Another activity comes in
-                                    front of the activity} (onPauseBlock);
-  \draw[->]      (onPauseBlock) -- node {The activity is no longer visible}
-                                   (onStopBlock);
-  \draw[->]       (onStopBlock) -- node {The activity is shut down by
-                                   user or system} (onDestroyBlock);
-  \draw[->]    (onRestartBlock) -- (onStartBlock);
-  \draw[->]       (onStopBlock) -| node[yshift=1.25cm, text width=3cm]
-                                   {The activity comes to the foreground}
-                                   (onRestartBlock);
-  \draw[->]    (onDestroyBlock) -- (ActivityDestroyed);
-  \draw[->]      (onPauseBlock) -| node(priorityXMemory)
-                                   {higher priority $\rightarrow$ more memory}
-                                   (ActivityEnds);
-  \draw           (onStopBlock) -| (priorityXMemory);
-  \draw[->]     (ActivityEnds)  |- node [yshift=-2cm, text width=3.1cm]
-                                    {User navigates back to the activity}
-                                    (onCreateBlock);
-  \draw[->] (onPauseBlock.east) -- ++(2.6,0) -- ++(0,2) -- ++(0,2) --                
-     node[xshift=1.2cm,yshift=-1.5cm, text width=2.5cm]
-     {The activity comes to the foreground}(onResumeBlock.east);
+      every node/.style={fill=white, font=\sffamily}, align=center]
+    % Specification of nodes (position, etc.)
+    \node (start)             [activityStarts]              {Activity starts};
+    \node (onCreateBlock)     [process, below of=start]          {onCreate()};
+    \node (onStartBlock)      [process, below of=onCreateBlock]   {onStart()};
+    \node (onResumeBlock)     [process, below of=onStartBlock]   {onResume()};
+    \node (activityRuns)      [activityRuns, below of=onResumeBlock]
+                                                        {Activity is running};
+    \node (onPauseBlock)      [process, below of=activityRuns, yshift=-1cm]
+                                                                  {onPause()};
+    \node (onStopBlock)       [process, below of=onPauseBlock, yshift=-1cm]
+                                                                  {onStop()};
+    \node (onDestroyBlock)    [process, below of=onStopBlock, yshift=-1cm] 
+                                                                {onDestroy()};
+    \node (onRestartBlock)    [process, right of=onStartBlock, xshift=4cm]
+                                                                {onRestart()};
+    \node (ActivityEnds)      [startstop, left of=activityRuns, xshift=-4cm]
+                                                          {Process is killed};
+    \node (ActivityDestroyed) [startstop, below of=onDestroyBlock]
+                                                      {Activity is shut down};     
+    % Specification of lines between nodes specified above
+    % with aditional nodes for description 
+    \draw[->]             (start) -- (onCreateBlock);
+    \draw[->]     (onCreateBlock) -- (onStartBlock);
+    \draw[->]      (onStartBlock) -- (onResumeBlock);
+    \draw[->]     (onResumeBlock) -- (activityRuns);
+    \draw[->]      (activityRuns) -- node[text width=4cm]
+                                    {Another activity comes in
+                                      front of the activity} (onPauseBlock);
+    \draw[->]      (onPauseBlock) -- node {The activity is no longer visible}
+                                    (onStopBlock);
+    \draw[->]       (onStopBlock) -- node {The activity is shut down by
+                                    user or system} (onDestroyBlock);
+    \draw[->]    (onRestartBlock) -- (onStartBlock);
+    \draw[->]       (onStopBlock) -| node[yshift=1.25cm, text width=3cm]
+                                    {The activity comes to the foreground}
+                                    (onRestartBlock);
+    \draw[->]    (onDestroyBlock) -- (ActivityDestroyed);
+    \draw[->]      (onPauseBlock) -| node(priorityXMemory)
+                                    {higher priority $\rightarrow$ more memory}
+                                    (ActivityEnds);
+    \draw           (onStopBlock) -| (priorityXMemory);
+    \draw[->]     (ActivityEnds)  |- node [yshift=-2cm, text width=3.1cm]
+                                      {User navigates back to the activity}
+                                      (onCreateBlock);
+    \draw[->] (onPauseBlock.east) -- ++(2.6,0) -- ++(0,2) -- ++(0,2) --                
+      node[xshift=1.2cm,yshift=-1.5cm, text width=2.5cm]
+      {The activity comes to the foreground}(onResumeBlock.east);
   \end{tikzpicture}
 \end{document}
 ```
@@ -4096,121 +4163,121 @@ This diagram explains a spatial filter with direction of arrival estimation.
     node distance=6mm and 60mm, % Global setup of box spacing
     every join/.style={norm},   % Default linetype for connecting boxes
     ]
-% ------------------------------------------------- 
-% A few box styles 
-% <on chain> *and* <on grid> reduce the need for manual relative
-% positioning of nodes
-\tikzset{
-  base/.style={draw, on chain, on grid, align=center, minimum height=4ex},
-  proc/.style={base, rectangle, text width=8em},
-  test/.style={base, diamond, aspect=2, text width=5em},
-  term/.style={proc, rounded corners},
-  % coord node style is used for placing corners of connecting lines
-  coord/.style={coordinate, on chain, on grid, node distance=6mm and 25mm},
-  % nmark node style is used for coordinate debugging marks
-  nmark/.style={draw, cyan, circle, font={\sffamily\bfseries}},
+  % ------------------------------------------------- 
+  % A few box styles 
+  % <on chain> *and* <on grid> reduce the need for manual relative
+  % positioning of nodes
+  \tikzset{
+    base/.style={draw, on chain, on grid, align=center, minimum height=4ex},
+    proc/.style={base, rectangle, text width=8em},
+    test/.style={base, diamond, aspect=2, text width=5em},
+    term/.style={proc, rounded corners},
+    % coord node style is used for placing corners of connecting lines
+    coord/.style={coordinate, on chain, on grid, node distance=6mm and 25mm},
+    % nmark node style is used for coordinate debugging marks
+    nmark/.style={draw, cyan, circle, font={\sffamily\bfseries}},
+    % -------------------------------------------------
+    % Connector line styles for different parts of the diagram
+    norm/.style={->, draw, lcnorm},
+    free/.style={->, draw, lcfree},
+    cong/.style={->, draw, lccong},
+    it/.style={font={\small\itshape}}
+  }
   % -------------------------------------------------
-  % Connector line styles for different parts of the diagram
-  norm/.style={->, draw, lcnorm},
-  free/.style={->, draw, lcfree},
-  cong/.style={->, draw, lccong},
-  it/.style={font={\small\itshape}}
-}
-% -------------------------------------------------
-% Start by placing the nodes
-\node [proc, densely dotted, it] (p0) {New trigger message thread};
-% Use join to connect a node to the previous one 
-\node [term, join]      {Trigger scheduler};
-\node [proc, join] (p1) {Get quota $k > 1$};
-\node [proc, join]      {Open queue};
-\node [proc, join]      {Dispatch message};
-\node [test, join] (t1) {Got msg?};
-% No join for exits from test nodes - connections have more complex
-% requirements
-% We continue until all the blocks are positioned
-\node [proc] (p2) {$k \mathbin{{-}{=}} 1$};
-\node [proc, join] (p3) {Dispatch message};
-\node [test, join] (t2) {Got msg?};
-\node [test] (t3) {Capacity?};
-\node [test] (t4) {$k \mathbin{{-}{=}} 1$};
-% We position the next block explicitly as the first block in the
-% second column.  The chain 'comes along with us'. The distance
-% between columns has already been defined, so we don't need to
-% specify it.
-\node [proc, fill=lcfree!25, right=of p1] (p4) {Reset congestion};
-\node [proc, join=by free] {Set \textsc{mq} wait flag};
-\node [proc, join=by free] (p5) {Dispatch message};
-\node [test, join=by free] (t5) {Got msg?};
-\node [test] (t6) {Capacity?};
-% Some more nodes specifically positioned (we could have avoided this,
-% but try it and you'll see the result is ugly).
-\node [test] (t7) [right=of t2] {$k \mathbin{{-}{=}} 1$};
-\node [proc, fill=lccong!25, right=of t3] (p8) {Set congestion};
-\node [proc, join=by cong, right=of t4] (p9) {Close queue};
-\node [term, join] (p10) {Exit trigger message thread};
-% -------------------------------------------------
-% Now we place the coordinate nodes for the connectors with angles, or
-% with annotations. We also mark them for debugging.
-\node [coord, right=of t1] (c1)  {}; \cmark{1}   
-\node [coord, right=of t3] (c3)  {}; \cmark{3}   
-\node [coord, right=of t6] (c6)  {}; \cmark{6}   
-\node [coord, right=of t7] (c7)  {}; \cmark{7}   
-\node [coord, left=of t4]  (c4)  {}; \cmark{4}   
-\node [coord, right=of t4] (c4r) {}; \cmark[r]{4}
-\node [coord, left=of t7]  (c5)  {}; \cmark{5}   
-% -------------------------------------------------
-% A couple of boxes have annotations
-\node [above=0mm of p4, it] {(Queue was empty)};
-\node [above=0mm of p8, it] {(Queue was not empty)};
-% -------------------------------------------------
-% All the other connections come out of tests and need annotating
-% First, the straight north-south connections. In each case, we first
-% draw a path with a (consistently positioned) annotation node, then
-% we draw the arrow itself.
-\path (t1.south) to node [near start, xshift=1em] {$y$} (p2);
-  \draw [*->,lcnorm] (t1.south) -- (p2);
-\path (t2.south) to node [near start, xshift=1em] {$y$} (t3); 
-  \draw [*->,lcnorm] (t2.south) -- (t3);
-\path (t3.south) to node [near start, xshift=1em] {$y$} (t4); 
-  \draw [*->,lcnorm] (t3.south) -- (t4);
-\path (t5.south) to node [near start, xshift=1em] {$y$} (t6); 
-  \draw [*->,lcfree] (t5.south) -- (t6);
-\path (t6.south) to node [near start, xshift=1em] {$y$} (t7); 
-  \draw [*->,lcfree] (t6.south) -- (t7); 
-% ------------------------------------------------- 
-% Now the straight east-west connections. To provide consistent
-% positioning of the test exit annotations, we have positioned
-% coordinates for the vertical part of the connectors. The annotation
-% text is positioned on a path to the coordinate, and then the whole
-% connector is drawn to its destination box.
-\path (t3.east) to node [near start, yshift=1em] {$n$} (c3); 
-  \draw [o->,lccong] (t3.east) -- (p8);
-\path (t4.east) to node [yshift=-1em] {$k \leq 0$} (c4r); 
-  \draw [o->,lcnorm] (t4.east) -- (p9);
-% -------------------------------------------------
-% Finally, the twisty connectors. Again, we place the annotation
-% first, then draw the connector
-\path (t1.east) to node [near start, yshift=1em] {$n$} (c1); 
-  \draw [o->,lcfree] (t1.east) -- (c1) |- (p4);
-\path (t2.east) -| node [very near start, yshift=1em] {$n$} (c1); 
-  \draw [o->,lcfree] (t2.east) -| (c1);
-\path (t4.west) to node [yshift=-1em] {$k>0$} (c4); 
-  \draw [*->,lcnorm] (t4.west) -- (c4) |- (p3);
-\path (t5.east) -| node [very near start, yshift=1em] {$n$} (c6); 
-  \draw [o->,lcfree] (t5.east) -| (c6); 
-\path (t6.east) to node [near start, yshift=1em] {$n$} (c6); 
-  \draw [o->,lcfree] (t6.east) -| (c7); 
-\path (t7.east) to node [yshift=-1em] {$k \leq 0$} (c7); 
-  \draw [o->,lcfree] (t7.east) -- (c7)  |- (p9);
-\path (t7.west) to node [yshift=-1em] {$k>0$} (c5); 
-  \draw [*->,lcfree] (t7.west) -- (c5) |- (p5);
-% -------------------------------------------------
-% A last flourish which breaks all the rules
-\draw [->,MediumPurple4, dotted, thick, shorten >=1mm]
-  (p9.south) -- ++(5mm,-3mm)  -- ++(27mm,0) 
-  |- node [black, near end, yshift=0.75em, it]
-    {(When message + resources available)} (p0);
-% -------------------------------------------------
+  % Start by placing the nodes
+  \node [proc, densely dotted, it] (p0) {New trigger message thread};
+  % Use join to connect a node to the previous one 
+  \node [term, join]      {Trigger scheduler};
+  \node [proc, join] (p1) {Get quota $k > 1$};
+  \node [proc, join]      {Open queue};
+  \node [proc, join]      {Dispatch message};
+  \node [test, join] (t1) {Got msg?};
+  % No join for exits from test nodes - connections have more complex
+  % requirements
+  % We continue until all the blocks are positioned
+  \node [proc] (p2) {$k \mathbin{{-}{=}} 1$};
+  \node [proc, join] (p3) {Dispatch message};
+  \node [test, join] (t2) {Got msg?};
+  \node [test] (t3) {Capacity?};
+  \node [test] (t4) {$k \mathbin{{-}{=}} 1$};
+  % We position the next block explicitly as the first block in the
+  % second column.  The chain 'comes along with us'. The distance
+  % between columns has already been defined, so we don't need to
+  % specify it.
+  \node [proc, fill=lcfree!25, right=of p1] (p4) {Reset congestion};
+  \node [proc, join=by free] {Set \textsc{mq} wait flag};
+  \node [proc, join=by free] (p5) {Dispatch message};
+  \node [test, join=by free] (t5) {Got msg?};
+  \node [test] (t6) {Capacity?};
+  % Some more nodes specifically positioned (we could have avoided this,
+  % but try it and you'll see the result is ugly).
+  \node [test] (t7) [right=of t2] {$k \mathbin{{-}{=}} 1$};
+  \node [proc, fill=lccong!25, right=of t3] (p8) {Set congestion};
+  \node [proc, join=by cong, right=of t4] (p9) {Close queue};
+  \node [term, join] (p10) {Exit trigger message thread};
+  % -------------------------------------------------
+  % Now we place the coordinate nodes for the connectors with angles, or
+  % with annotations. We also mark them for debugging.
+  \node [coord, right=of t1] (c1)  {}; \cmark{1}   
+  \node [coord, right=of t3] (c3)  {}; \cmark{3}   
+  \node [coord, right=of t6] (c6)  {}; \cmark{6}   
+  \node [coord, right=of t7] (c7)  {}; \cmark{7}   
+  \node [coord, left=of t4]  (c4)  {}; \cmark{4}   
+  \node [coord, right=of t4] (c4r) {}; \cmark[r]{4}
+  \node [coord, left=of t7]  (c5)  {}; \cmark{5}   
+  % -------------------------------------------------
+  % A couple of boxes have annotations
+  \node [above=0mm of p4, it] {(Queue was empty)};
+  \node [above=0mm of p8, it] {(Queue was not empty)};
+  % -------------------------------------------------
+  % All the other connections come out of tests and need annotating
+  % First, the straight north-south connections. In each case, we first
+  % draw a path with a (consistently positioned) annotation node, then
+  % we draw the arrow itself.
+  \path (t1.south) to node [near start, xshift=1em] {$y$} (p2);
+    \draw [*->,lcnorm] (t1.south) -- (p2);
+  \path (t2.south) to node [near start, xshift=1em] {$y$} (t3); 
+    \draw [*->,lcnorm] (t2.south) -- (t3);
+  \path (t3.south) to node [near start, xshift=1em] {$y$} (t4); 
+    \draw [*->,lcnorm] (t3.south) -- (t4);
+  \path (t5.south) to node [near start, xshift=1em] {$y$} (t6); 
+    \draw [*->,lcfree] (t5.south) -- (t6);
+  \path (t6.south) to node [near start, xshift=1em] {$y$} (t7); 
+    \draw [*->,lcfree] (t6.south) -- (t7); 
+  % ------------------------------------------------- 
+  % Now the straight east-west connections. To provide consistent
+  % positioning of the test exit annotations, we have positioned
+  % coordinates for the vertical part of the connectors. The annotation
+  % text is positioned on a path to the coordinate, and then the whole
+  % connector is drawn to its destination box.
+  \path (t3.east) to node [near start, yshift=1em] {$n$} (c3); 
+    \draw [o->,lccong] (t3.east) -- (p8);
+  \path (t4.east) to node [yshift=-1em] {$k \leq 0$} (c4r); 
+    \draw [o->,lcnorm] (t4.east) -- (p9);
+  % -------------------------------------------------
+  % Finally, the twisty connectors. Again, we place the annotation
+  % first, then draw the connector
+  \path (t1.east) to node [near start, yshift=1em] {$n$} (c1); 
+    \draw [o->,lcfree] (t1.east) -- (c1) |- (p4);
+  \path (t2.east) -| node [very near start, yshift=1em] {$n$} (c1); 
+    \draw [o->,lcfree] (t2.east) -| (c1);
+  \path (t4.west) to node [yshift=-1em] {$k>0$} (c4); 
+    \draw [*->,lcnorm] (t4.west) -- (c4) |- (p3);
+  \path (t5.east) -| node [very near start, yshift=1em] {$n$} (c6); 
+    \draw [o->,lcfree] (t5.east) -| (c6); 
+  \path (t6.east) to node [near start, yshift=1em] {$n$} (c6); 
+    \draw [o->,lcfree] (t6.east) -| (c7); 
+  \path (t7.east) to node [yshift=-1em] {$k \leq 0$} (c7); 
+    \draw [o->,lcfree] (t7.east) -- (c7)  |- (p9);
+  \path (t7.west) to node [yshift=-1em] {$k>0$} (c5); 
+    \draw [*->,lcfree] (t7.west) -- (c5) |- (p5);
+  % -------------------------------------------------
+  % A last flourish which breaks all the rules
+  \draw [->,MediumPurple4, dotted, thick, shorten >=1mm]
+    (p9.south) -- ++(5mm,-3mm)  -- ++(27mm,0) 
+    |- node [black, near end, yshift=0.75em, it]
+      {(When message + resources available)} (p0);
+  % -------------------------------------------------
 \end{tikzpicture}
 % =================================================
 \end{document}
@@ -4248,26 +4315,26 @@ This diagram explains a spatial filter with direction of arrival estimation.
   decision/.style = {base, diamond, fill=green!30},
   every edge quotes/.style = {auto=right}]
                     ]
-\node [startstop]       {Read Video};            % <-- A-1
-\node [process]         {Extract Frames};
-\node [io]              {Read Frame};
-\node [decision]        {Completed?};
-\node [process]         {Save Watermarked Video};
-\node [process]         {Stop};             % <-- A-6
-%
-\node [process,                             % <-- A-7
-       right=of A-4]    {Get Next Frame};
-%%
-\draw [arrows=-Stealth] 
-    (A-1) edge["read data"]          (A-2)
-    (A-2) edge["get watermark"]    (A-3)
-    (A-3) edge[text width=3cm,"apply watermark to all frames "]       (A-4)
-    (A-4) edge["yes"]            (A-5)
-    (A-5) edge["exit"]          (A-6)
-    (A-4) edge["no"']          (A-7)       % <-- by ' is swapped label position
-    (A-7) |- ($(A-2.south east)!0.5!(A-3.north east)$)
-          -| ([xshift=7mm] A-3.north)
-    ;
+  \node [startstop]       {Read Video};            % <-- A-1
+  \node [process]         {Extract Frames};
+  \node [io]              {Read Frame};
+  \node [decision]        {Completed?};
+  \node [process]         {Save Watermarked Video};
+  \node [process]         {Stop};             % <-- A-6
+  %
+  \node [process,                             % <-- A-7
+        right=of A-4]    {Get Next Frame};
+  %%
+  \draw [arrows=-Stealth] 
+      (A-1) edge["read data"]          (A-2)
+      (A-2) edge["get watermark"]    (A-3)
+      (A-3) edge[text width=3cm,"apply watermark to all frames "]       (A-4)
+      (A-4) edge["yes"]            (A-5)
+      (A-5) edge["exit"]          (A-6)
+      (A-4) edge["no"']          (A-7)       % <-- by ' is swapped label position
+      (A-7) |- ($(A-2.south east)!0.5!(A-3.north east)$)
+            -| ([xshift=7mm] A-3.north)
+      ;
   \end{tikzpicture}
 \end{document}
 ```
@@ -4460,26 +4527,26 @@ Listado de pr\'acticas
   decision/.style = {base, diamond, fill=green!30},
   every edge quotes/.style = {auto=right}]
                     ]
-\node [startstop]       {Read Video};            % <-- A-1
-\node [process]         {Extract Frames};
-\node [io]              {Read Frame};
-\node [decision]        {Completed?};
-\node [process]         {Save Watermarked Video};
-\node [process]         {Stop};             % <-- A-6
-%
-\node [process,                             % <-- A-7
-       right=of A-4]    {Get Next Frame};
-%%
-\draw [arrows=-Stealth] 
-    (A-1) edge["read data"]          (A-2)
-    (A-2) edge["get watermark"]    (A-3)
-    (A-3) edge[text width=3cm,"apply watermark to all frames "]       (A-4)
-    (A-4) edge["yes"]            (A-5)
-    (A-5) edge["exit"]          (A-6)
-    (A-4) edge["no"']          (A-7)       % <-- by ' is swapped label position
-    (A-7) |- ($(A-2.south east)!0.5!(A-3.north east)$)
-          -| ([xshift=7mm] A-3.north)
-    ;
+  \node [startstop]       {Read Video};            % <-- A-1
+  \node [process]         {Extract Frames};
+  \node [io]              {Read Frame};
+  \node [decision]        {Completed?};
+  \node [process]         {Save Watermarked Video};
+  \node [process]         {Stop};             % <-- A-6
+  %
+  \node [process,                             % <-- A-7
+        right=of A-4]    {Get Next Frame};
+  %%
+  \draw [arrows=-Stealth] 
+      (A-1) edge["read data"]          (A-2)
+      (A-2) edge["get watermark"]    (A-3)
+      (A-3) edge[text width=3cm,"apply watermark to all frames "]       (A-4)
+      (A-4) edge["yes"]            (A-5)
+      (A-5) edge["exit"]          (A-6)
+      (A-4) edge["no"']          (A-7)       % <-- by ' is swapped label position
+      (A-7) |- ($(A-2.south east)!0.5!(A-3.north east)$)
+            -| ([xshift=7mm] A-3.north)
+      ;
   \end{tikzpicture}
 \end{document}
 ```
@@ -4497,11 +4564,10 @@ Listado de pr\'acticas
 
 \begin{document}
 \begin{tikzpicture}
-
 	\draw[thick]
 	\foreach \i in {1,2,...,10} {%
-	  [rotate=(\i-1)*36] 
-	 (0:2)  arc (0:18:2) {[rounded corners=2pt] -- ++(18: 0.3)  arc (18:36:2.3) } -- ++(36: -0.3) 
+		[rotate=(\i-1)*36] 
+		(0:2)  arc (0:18:2) {[rounded corners=2pt] -- ++(18: 0.3)  arc (18:36:2.3) } -- ++(36: -0.3) 
 	};
 \end{tikzpicture}
 \end{document} 
@@ -4557,21 +4623,21 @@ Listado de pr\'acticas
 }}
 
 \begin{document}
-    \begin{tikzpicture}
-        % observations:
-        %
-        %  - param #1 and #3 must be equal for gears to mesh
-        %  - the required distance is (#2_1 + #2_2) * #1 / 2
-        %  - for odd numbers of teeth, gears on a horizontal axis fit without rotation
+\begin{tikzpicture}
+    % observations:
+    %
+    %  - param #1 and #3 must be equal for gears to mesh
+    %  - the required distance is (#2_1 + #2_2) * #1 / 2
+    %  - for odd numbers of teeth, gears on a horizontal axis fit without rotation
 
-        \pic[draw,fill=red!20!white]                     at (0,0)   {gear={0.50}{17}{15}};
-        \pic[draw,fill=red!20!white]                     at (6,0)   {gear={0.50}{ 7}{15}};
+    \pic[draw,fill=red!20!white]                     at (0,0)   {gear={0.50}{17}{15}};
+    \pic[draw,fill=red!20!white]                     at (6,0)   {gear={0.50}{ 7}{15}};
 
-        \pic[draw,fill=blue!20!white,rotate=-60 + 90/11] at (0,0)   {gear={0.25}{11}{20}};
-        \pic[draw,fill=blue!20!white,rotate=-60 - 90/29] at (-60:5) {gear={0.25}{29}{20}};
+    \pic[draw,fill=blue!20!white,rotate=-60 + 90/11] at (0,0)   {gear={0.25}{11}{20}};
+    \pic[draw,fill=blue!20!white,rotate=-60 - 90/29] at (-60:5) {gear={0.25}{29}{20}};
 
-        \foreach \p in {(0,0),(6,0),(-60:5)} \fill \p circle (3pt);
-    \end{tikzpicture}
+    \foreach \p in {(0,0),(6,0),(-60:5)} \fill \p circle (3pt);
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -4601,8 +4667,10 @@ circumcircle of the triangle.
 
 This example was written by Sam Britt answering a question on TeX.SE.
 \end{comment}
+
 \usetikzlibrary{calc}
 \begin{document}
+
 \begin{tikzpicture}
   [
     scale=3,
@@ -4716,9 +4784,11 @@ This example was written by Sam Britt answering a question on TeX.SE.
 \pagestyle{empty}
 
 \begin{document}
+
 %\SweaveOpts{concordance=TRUE}
 \definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
 \definecolor{cqcqcq}{rgb}{0.7529411764705882,0.7529411764705882,0.7529411764705882}
+
 \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
 	\draw [color=cqcqcq,, xstep=1cm,ystep=1cm] (-11.22,-7.62) grid (8.54,8.3);
 	\draw[->,color=black] (-11.22,0) -- (8.54,0);
@@ -4765,35 +4835,35 @@ This example was written by Sam Britt answering a question on TeX.SE.
 
 \begin{tikzpicture}[thick,help lines/.style={thin, draw=black!50}]
 
-\def\A{\textcolor{input}{$A$}} 
-\def\B{\textcolor{input}{$B$}}
-\def\C{\textcolor{output}{$C$}} 
-\def\D{$D$}
-\def\E{$E$}
+    \def\A{\textcolor{input}{$A$}} 
+    \def\B{\textcolor{input}{$B$}}
+    \def\C{\textcolor{output}{$C$}} 
+    \def\D{$D$}
+    \def\E{$E$}
 
-% define colors
-\colorlet{input}{blue!80!black} 
-\colorlet{output}{red!70!black}
-\colorlet{triangle}{orange}
+    % define colors
+    \colorlet{input}{blue!80!black} 
+    \colorlet{output}{red!70!black}
+    \colorlet{triangle}{orange}
 
-\coordinate [label=left:\A] (A) at ($ (0,0) + .1*(rand,rand) $);
-\coordinate [label=right:\B] (B) at ($ (1.25,0.25) + .1*(rand,rand) $);
+    \coordinate [label=left:\A] (A) at ($ (0,0) + .1*(rand,rand) $);
+    \coordinate [label=right:\B] (B) at ($ (1.25,0.25) + .1*(rand,rand) $);
 
-\draw [input] (A) -- (B);
+    \draw [input] (A) -- (B);
 
-\node [name path=D,help lines,draw,label=left:\D] (D) at (A) [circle through=(B)] {};
-\node [name path=E,help lines,draw,label=right:\E] (E) at (B) [circle through=(A)] {};
+    \node [name path=D,help lines,draw,label=left:\D] (D) at (A) [circle through=(B)] {};
+    \node [name path=E,help lines,draw,label=right:\E] (E) at (B) [circle through=(A)] {};
 
-\path [name intersections={of=D and E, by={[label=above:\C]C}}];
+    \path [name intersections={of=D and E, by={[label=above:\C]C}}];
 
-\draw [output] (A) -- (C) -- (B);
+    \draw [output] (A) -- (C) -- (B);
 
-\foreach \point in {A,B,C}
-\fill [black, opacity=.25] (\point) circle (3pt);
+    \foreach \point in {A,B,C}
+    \fill [black, opacity=.25] (\point) circle (3pt);
 
-\begin{pgfonlayer}{background}
-\fill[triangle!80] (A) -- (C) -- (B) -- cycle;
-\end{pgfonlayer}
+    \begin{pgfonlayer}{background}
+    \fill[triangle!80] (A) -- (C) -- (B) -- cycle;
+    \end{pgfonlayer}
 
 \end{tikzpicture}
 
@@ -4845,9 +4915,9 @@ This example was written by Sam Britt answering a question on TeX.SE.
 \begin{document}
 	
 	
-	% RUTHERFORD SCATTERING - hyperbola orbit
-	\begin{tikzpicture}[scale=1]
-	
+% RUTHERFORD SCATTERING - hyperbola orbit
+\begin{tikzpicture}[scale=1]
+
 	% limits & parameters
 	\def\xa{-2.4}
 	\def\xb{ 4}
@@ -4858,7 +4928,7 @@ This example was written by Sam Britt answering a question on TeX.SE.
 	\def\b{1}
 	\def\c{{sqrt(\a^2+\b^2)}}
 	\def\N{100} % number of points
-	
+
 	% coordinates
 	\coordinate (O)  at (   0,  0 );
 	\coordinate (A)  at (  \a,  0 );
@@ -4868,14 +4938,14 @@ This example was written by Sam Britt answering a question on TeX.SE.
 	\coordinate (P1) at (\xb*\a, \yb*\b);
 	\coordinate (P2) at (\xb*\a,-\yb*\b);
 	\coordinate (yshift) at (0,0.4);
-	
+
 	% axes & asymptotes
 	\draw[mygrey] % x axis
 	(\xa*\a,0) -- (\xb*\a,0);
 	\draw[dashed,mydarkgrey]
 	(-\xb*\a*0.45, \ya*\b*0.45) -- (\xb*\a, \yb*\b)
 	(-\xb*\a*0.45,-\ya*\b*0.45) -- (\xb*\a,-\yb*\b);
-	
+
 	% arrows
 	\def\vtheta{30}
 	\def\vradius{0.8}
@@ -4886,19 +4956,19 @@ This example was written by Sam Britt answering a question on TeX.SE.
 	\draw[->,myverydarkgreen]
 	(\a+0.35,{\vradius*sin(\vtheta)}) arc (180-\vtheta:180+\vtheta+10:\vradius)
 	node[above right=0pt] {$v^*$};
-	
+
 	% angles
 	\MarkRightAngle{F2}{P}{O}
 	\pic [draw,myverydarkgreen,"$\theta$",angle radius=12,angle eccentricity=1.4] {angle = F2--O--P};
 	\pic [draw,below,angle radius=16,angle eccentricity=1.4] {angle = P2--O--P1};
 	\node[right=1pt,below=-2pt,myverydarkgreen] at ($(O)!0.5!(A)$)  {\small$\phi$};
-	
+
 	% hyperbola
 	\draw[color=mylightgrey,line width=0.5,samples=\N,variable=\t,domain=-\tmax*0.58:\tmax*0.58] % left
 	plot({-\a*cosh(\t)},{\b*sinh(\t)});
 	\draw[color=mydarkgreen,line width=1,samples=\N,variable=\t,domain=-\tmax:\tmax] % right
 	plot({ \a*cosh(\t)},{\b*sinh(\t)}); % {exp(\y)+exp(-\y)
-	
+
 	% nodes
 	\draw[myverydarkgreen]
 	(F2) -- (P) node[midway,below left=1pt,] {$b$};
@@ -4911,20 +4981,17 @@ This example was written by Sam Britt answering a question on TeX.SE.
 	%(O) -- (F2)
 	node[left=1pt,above=0pt] at ($(F2)!0.5!(O)$) {$c$}
 	node[below right] at ($(P)!0.5!(O)$)  {$a$};
-	
+
 	% alpha particle
 	\draw[radius=1pt,mydarkgreen,fill]
 	({ \a*cosh(\tmax*1.02)},{\b*sinh(\tmax*1.02)}) circle node[above right=0pt] {$\alpha$};
-	
-	\end{tikzpicture}
-	
-	
+
+\end{tikzpicture}
 	
 	
-	
-	% RUTHERFORD SCATTERING - hyperbolic orbits with different impact parameters
-	\begin{tikzpicture}[scale=1]
-	
+% RUTHERFORD SCATTERING - hyperbolic orbits with different impact parameters
+\begin{tikzpicture}[scale=1]
+
 	% limits & parameters
 	\def\xa{-35}
 	\def\xb{ 55}
@@ -4932,32 +4999,32 @@ This example was written by Sam Britt answering a question on TeX.SE.
 	\def\yb{ 55}
 	\def\tmax{4.5}
 	\def\N{50} % number of points
-	
+
 	% use axes to get square box which cuts of the long curves
 	\begin{axis}[ xmin=\xa,xmax=\xb,
-	ymin=\ya,ymax=\yb,
-	hide x axis, hide y axis,
-	xticklabels={,,},yticklabels={,,}
-	axis line style={draw=none}, tick style={draw=none}
-	]
-	
-	% loop over multiples \u of impact parameters \b=\u*0.25
-	\def\a{1}
-	\foreach \u in {1,3,6,10,15,21,28,38}{
-		\def\b{\u*0.25}
-		\def\c{sqrt(\a^2+\b^2)}
-		% hyperbola
-		\addplot[color=mydarkgreen,line width=0.5,samples=\N,smooth,variable=\t,domain=-\tmax:\tmax]
-		({   \a/\c*(-\a*cosh(\t)-\c) + \b/\c*\b*sinh(\t)  },
-		{  -\b/\c*(-\a*cosh(\t)-\c) + \a/\c*\b*sinh(\t)  });
-	}
-	
-	% nucleus
-	\addplot[mydarkred,mark=*,mark size=2pt,mark options=solid] coordinates {(0,0)};
-	
+		ymin=\ya,ymax=\yb,
+		hide x axis, hide y axis,
+		xticklabels={,,},yticklabels={,,}
+		axis line style={draw=none}, tick style={draw=none}
+		]
+
+		% loop over multiples \u of impact parameters \b=\u*0.25
+		\def\a{1}
+		\foreach \u in {1,3,6,10,15,21,28,38}{
+			\def\b{\u*0.25}
+			\def\c{sqrt(\a^2+\b^2)}
+			% hyperbola
+			\addplot[color=mydarkgreen,line width=0.5,samples=\N,smooth,variable=\t,domain=-\tmax:\tmax]
+			({   \a/\c*(-\a*cosh(\t)-\c) + \b/\c*\b*sinh(\t)  },
+			{  -\b/\c*(-\a*cosh(\t)-\c) + \a/\c*\b*sinh(\t)  });
+		}
+
+		% nucleus
+		\addplot[mydarkred,mark=*,mark size=2pt,mark options=solid] coordinates {(0,0)};
+
 	\end{axis}
-	
-	\end{tikzpicture}
+
+\end{tikzpicture}
 	
 	
 	
@@ -4994,45 +5061,45 @@ The infinite series 1/4 + 1/16 + 1/64 + 1/256 + ... is one of the first computed
 \end{comment}
 \begin{document}
 \begin{tikzpicture}[scale=.35]\footnotesize
- \pgfmathsetmacro{\xone}{-.4}
- \pgfmathsetmacro{\xtwo}{ 16.4}
- \pgfmathsetmacro{\yone}{-.4}
- \pgfmathsetmacro{\ytwo}{16.4}
+  \pgfmathsetmacro{\xone}{-.4}
+  \pgfmathsetmacro{\xtwo}{ 16.4}
+  \pgfmathsetmacro{\yone}{-.4}
+  \pgfmathsetmacro{\ytwo}{16.4}
 
-\begin{scope}<+->;
-% grid
-  \draw[step=1cm,gray,very thin] (\xone,\yone) grid (\xtwo,\ytwo);
+  \begin{scope}<+->;
+    % grid
+      \draw[step=1cm,gray,very thin] (\xone,\yone) grid (\xtwo,\ytwo);
 
-% ticks
-  \foreach \x/\xtext in { 8/\frac{1}{2}, 16/1}
-  \draw[gray,xshift=\x cm] (0,.3) -- (0,0) node[below] {$\xtext$};
-  \foreach \y/\ytext in {8/\frac{1}{2},16/1}
-    \draw[gray, yshift=\y cm] (.3,0) -- (0,0)
-    node[left] {$\ytext$};
+    % ticks
+      \foreach \x/\xtext in { 8/\frac{1}{2}, 16/1}
+      \draw[gray,xshift=\x cm] (0,.3) -- (0,0) node[below] {$\xtext$};
+      \foreach \y/\ytext in {8/\frac{1}{2},16/1}
+        \draw[gray, yshift=\y cm] (.3,0) -- (0,0)
+        node[left] {$\ytext$};
 
-% origin
- \draw[gray] (0,0) node[anchor=north east] {$O$};
+    % origin
+    \draw[gray] (0,0) node[anchor=north east] {$O$};
 
-% axes
-  \draw[gray,thick,<->] (\xone, 0) -- (\xtwo, 0) node[right] {$x$};
-  \draw[gray,thick,<->] (0, \yone) -- (0, \ytwo) node[above] {$y$};
-\end{scope}
+    % axes
+      \draw[gray,thick,<->] (\xone, 0) -- (\xtwo, 0) node[right] {$x$};
+      \draw[gray,thick,<->] (0, \yone) -- (0, \ytwo) node[above] {$y$};
+  \end{scope}
 
-% function
-\begin{scope}[thick,red]
-  \foreach \x in {16, 8, 4, 2, 1,.5,.25}
-    \draw (16-\x, 16-\x) rectangle (16,16);
+  % function
+  \begin{scope}[thick,red]
+    \foreach \x in {16, 8, 4, 2, 1,.5,.25}
+      \draw (16-\x, 16-\x) rectangle (16,16);
 
-  \foreach \x in {16, 8, 4, 2, 1,.5,.25}
-  \filldraw[thin,red,opacity=.3] (16-\x, 16-\x)
-    rectangle (16-.5*\x,16-.5*\x);
+    \foreach \x in {16, 8, 4, 2, 1,.5,.25}
+    \filldraw[thin,red,opacity=.3] (16-\x, 16-\x)
+      rectangle (16-.5*\x,16-.5*\x);
 
-\foreach \x in {16, 8, 4, 2, 1,.5,.25}{
-  \filldraw[thin,blue,opacity=.2] (16-\x, 16-.5*\x)
-    rectangle (16-.5*\x,16);
-  \filldraw[thin,blue,opacity=.2] (16-.5*\x, 16-\x)
-    rectangle (16,16-.5*\x);}
-\end{scope}
+  \foreach \x in {16, 8, 4, 2, 1,.5,.25}{
+    \filldraw[thin,blue,opacity=.2] (16-\x, 16-.5*\x)
+      rectangle (16-.5*\x,16);
+    \filldraw[thin,blue,opacity=.2] (16-.5*\x, 16-\x)
+      rectangle (16,16-.5*\x);}
+  \end{scope}
 \end{tikzpicture}
 \end{document} 
 ```
@@ -5056,6 +5123,7 @@ The infinite series 1/4 + 1/16 + 1/64 + 1/256 + ... is one of the first computed
 \definecolor{redport}{HTML}{701315}
 
 \begin{document}
+
 \begin{tikzpicture}
 
 	\fill[pplport!15] (0, 0) ellipse (0.25 and 3);
@@ -5179,7 +5247,6 @@ The infinite series 1/4 + 1/16 + 1/64 + 1/256 + ... is one of the first computed
         };
     \draw[fill=blue]  (0,0,0) -- (0,1,0) -- (1,1,0) -- (1,0,0) -- cycle;
     \draw[fill=red ]  (1,1,0) -- (2,1,0) -- (2,2,0) -- (1,2,0) -- cycle;
-
 \end{tikzpicture}    
 \end{document}
 ```
@@ -5208,7 +5275,9 @@ This example was written by Tom Bombadil answering a question on TeX.SE,
 with a modification by Stefan Kottwitz adding a text font style
 showing an implicit way.
 \end{comment}
+
 \usetikzlibrary{decorations.text}
+
 \newcommand*{\mytextstyle}{\sffamily\Large\bfseries\color{black!85}}
 \newcommand{\arcarrow}[8]{%
 % inner radius, middle radius, outer radius, start angle,
@@ -5295,34 +5364,34 @@ showing an implicit way.
 }
 
 \begin{document}
-    \begin{tikzpicture}[
-        % Environment Cfg
-        font=\sf    \scriptsize,
-        % Styles
-        myarrow/.style={
-            thick,
-            -latex,
-        },
-        Center/.style ={
-            circle,
-            fill=ocre,
-            text=white,
-            align=center,
-            font =\footnotesize\bf,
-            inner sep=1pt,          
-        },
-        RedArc/.style ={
-            color=black,
-            thick,
-            fill=ocre,
-            blur shadow, %Tikzedt not suport online view
-        },
-        SkyArc/.style ={
-            color=skybox,
-            thick,
-            fill=sky,
-            blur shadow, %Tikzedt not suport online view
-        },
+\begin{tikzpicture}[
+    % Environment Cfg
+    font=\sf    \scriptsize,
+    % Styles
+    myarrow/.style={
+        thick,
+        -latex,
+    },
+    Center/.style ={
+        circle,
+        fill=ocre,
+        text=white,
+        align=center,
+        font =\footnotesize\bf,
+        inner sep=1pt,          
+    },
+    RedArc/.style ={
+        color=black,
+        thick,
+        fill=ocre,
+        blur shadow, %Tikzedt not suport online view
+    },
+    SkyArc/.style ={
+        color=skybox,
+        thick,
+        fill=sky,
+        blur shadow, %Tikzedt not suport online view
+    },
     ]
 
     % Drawing the center
@@ -5367,11 +5436,11 @@ showing an implicit way.
     \draw[myarrow] (left SSN) -- (left SRel);
     \draw[myarrow] (left SCap) -- (right SSN);
 
-     \draw[myarrow] (-5,-3.5) coordinate (legend) -- ++(.8,0) node[anchor=west] {owl: imports (extends)};
-     \draw[RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node[anchor=west] {normative};
-     \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {non-normative};
+        \draw[myarrow] (-5,-3.5) coordinate (legend) -- ++(.8,0) node[anchor=west] {owl: imports (extends)};
+        \draw[RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node[anchor=west] {normative};
+        \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {non-normative};
 
-    \end{tikzpicture}
+\end{tikzpicture}
 
 \end{document}
 ```
@@ -5391,39 +5460,39 @@ showing an implicit way.
 \usetikzlibrary{shapes, arrows.meta, positioning}
 
 \begin{document}
-    \pagestyle{empty}
+\pagestyle{empty}
 
-    \begin{tikzpicture}[
-        node distance=2em and 2em,
-        block/.style={rectangle, draw, 
+\begin{tikzpicture}[
+    node distance=2em and 2em,
+    block/.style={rectangle, draw, 
     text width=6.5em, text centered, rounded corners, minimum height=4em},
-        line/.style={draw, -latex},
-        ]
+    line/.style={draw, -latex},
+    ]
 
-        \node [block, fill=gray!15!red!15] (hc) {HealthCare};
-        \node [block, fill=gray!45, below right= of hc] (serv) {Services};
-        \node [block, fill=blue!45, below = of serv] (tech) {Technology};
-        \node [block,fill=blue!15, below left= of tech] (util) {Utilities};
-        \node [block,fill=brown!45, above left= of util] (trans) {Transportation};
-        \node [block, fill=red!45, above = of trans] (fin) {Financial};
-        % Connections
-        \path [line] (hc.east) to[out=0, in=90] (serv.north);
-        \path [line] (serv.south) -- (tech);
-        \path [line] (tech.south) to[out=-90, in=0] (util.east);
-        \path [line] (util.west) to[out=180, in=-90] (trans.south);
-         \path [line] (trans.north) -- (fin);
-        \path [line] (fin.north) to[out=90, in=180] (hc.west);
-        
-        % Market Sectors label
-        \node [draw=none, below = 5em of hc, text width = 2cm, align = center] (label) {\LARGE Market \\[1mm] Sector};
-        
-        \node [above left = -3em and 3em of util] () {Energy};
-        \node [above right = -3em and 3em of util] () {Cyclical Goods};
-        \node [above right = -1em and 0.25em of tech, text width = 3.5em] () {Non-Cyclical Goods};
-        \node [above right = -1.25em and 0.25em of hc, text width = 7em] () {Basic Materials};
-        \node [above left = -1.25em and 0.25em of hc, text width = 7em] () {Capital Goods};
-        \node [above left = 0.25em and -3em of trans] () {Conglomerates};
-    \end{tikzpicture}
+    \node [block, fill=gray!15!red!15] (hc) {HealthCare};
+    \node [block, fill=gray!45, below right= of hc] (serv) {Services};
+    \node [block, fill=blue!45, below = of serv] (tech) {Technology};
+    \node [block,fill=blue!15, below left= of tech] (util) {Utilities};
+    \node [block,fill=brown!45, above left= of util] (trans) {Transportation};
+    \node [block, fill=red!45, above = of trans] (fin) {Financial};
+    % Connections
+    \path [line] (hc.east) to[out=0, in=90] (serv.north);
+    \path [line] (serv.south) -- (tech);
+    \path [line] (tech.south) to[out=-90, in=0] (util.east);
+    \path [line] (util.west) to[out=180, in=-90] (trans.south);
+        \path [line] (trans.north) -- (fin);
+    \path [line] (fin.north) to[out=90, in=180] (hc.west);
+    
+    % Market Sectors label
+    \node [draw=none, below = 5em of hc, text width = 2cm, align = center] (label) {\LARGE Market \\[1mm] Sector};
+    
+    \node [above left = -3em and 3em of util] () {Energy};
+    \node [above right = -3em and 3em of util] () {Cyclical Goods};
+    \node [above right = -1em and 0.25em of tech, text width = 3.5em] () {Non-Cyclical Goods};
+    \node [above right = -1.25em and 0.25em of hc, text width = 7em] () {Basic Materials};
+    \node [above left = -1.25em and 0.25em of hc, text width = 7em] () {Capital Goods};
+    \node [above left = 0.25em and -3em of trans] () {Conglomerates};
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -5492,42 +5561,42 @@ showing an implicit way.
 
   % draw all particles  
   \node at(0, 0)   {\particle[gray!20!white]
-                   {$u$}        {up}       {$2.3$ MeV}{1/2}{$2/3$}{R/G/B}};
+                    {$u$}        {up}       {$2.3$ MeV}{1/2}{$2/3$}{R/G/B}};
   \node at(0,-1)   {\particle[gray!20!white]
-                   {$d$}        {down}    {$4.8$ MeV}{1/2}{$-1/3$}{R/G/B}};
+                    {$d$}        {down}    {$4.8$ MeV}{1/2}{$-1/3$}{R/G/B}};
   \node at(0,-2)   {\particle[gray!20!white]
-                   {$e$}        {electron}       {$511$ keV}{1/2}{$-1$}{}};
+                    {$e$}        {electron}       {$511$ keV}{1/2}{$-1$}{}};
   \node at(0,-3)   {\particle[gray!20!white]
-                   {$\nu_e$}    {$e$ neutrino}         {$<2$ eV}{1/2}{}{}};
+                    {$\nu_e$}    {$e$ neutrino}         {$<2$ eV}{1/2}{}{}};
   \node at(1, 0)   {\particle
-                   {$c$}        {charm}   {$1.28$ GeV}{1/2}{$2/3$}{R/G/B}};
+                    {$c$}        {charm}   {$1.28$ GeV}{1/2}{$2/3$}{R/G/B}};
   \node at(1,-1)   {\particle 
-                   {$s$}        {strange}  {$95$ MeV}{1/2}{$-1/3$}{R/G/B}};
+                    {$s$}        {strange}  {$95$ MeV}{1/2}{$-1/3$}{R/G/B}};
   \node at(1,-2)   {\particle
-                   {$\mu$}      {muon}         {$105.7$ MeV}{1/2}{$-1$}{}};
+                    {$\mu$}      {muon}         {$105.7$ MeV}{1/2}{$-1$}{}};
   \node at(1,-3)   {\particle
-                   {$\nu_\mu$}  {$\mu$ neutrino}    {$<190$ keV}{1/2}{}{}};
+                    {$\nu_\mu$}  {$\mu$ neutrino}    {$<190$ keV}{1/2}{}{}};
   \node at(2, 0)   {\particle
-                   {$t$}        {top}    {$173.2$ GeV}{1/2}{$2/3$}{R/G/B}};
+                    {$t$}        {top}    {$173.2$ GeV}{1/2}{$2/3$}{R/G/B}};
   \node at(2,-1)   {\particle
-                   {$b$}        {bottom}  {$4.7$ GeV}{1/2}{$-1/3$}{R/G/B}};
+                    {$b$}        {bottom}  {$4.7$ GeV}{1/2}{$-1/3$}{R/G/B}};
   \node at(2,-2)   {\particle
-                   {$\tau$}     {tau}          {$1.777$ GeV}{1/2}{$-1$}{}};
+                    {$\tau$}     {tau}          {$1.777$ GeV}{1/2}{$-1$}{}};
   \node at(2,-3)   {\particle
-                   {$\nu_\tau$} {$\tau$ neutrino}  {$<18.2$ MeV}{1/2}{}{}};
+                    {$\nu_\tau$} {$\tau$ neutrino}  {$<18.2$ MeV}{1/2}{}{}};
   \node at(3,-3)   {\particle[orange!20!white]
-                   {$W^{\hspace{-.3ex}\scalebox{.5}{$\pm$}}$}               
+                    {$W^{\hspace{-.3ex}\scalebox{.5}{$\pm$}}$}               
                                 {}              {$80.4$ GeV}{1}{$\pm1$}{}}; % W
   \node at(4,-3)   {\particle[orange!20!white]
-                   {$Z$}        {}                    {$91.2$ GeV}{1}{}{}}; % Z
+                    {$Z$}        {}                    {$91.2$ GeV}{1}{}{}}; % Z
   \node at(3.5,-2) {\particle[green!50!black!20]
-                   {$\gamma$}   {photon}                        {}{1}{}{}}; % gamma-photon
+                    {$\gamma$}   {photon}                        {}{1}{}{}}; % gamma-photon
   \node at(3.5,-1) {\particle[purple!20!white]
-                   {$g$}        {gluon}                    {}{1}{}{color}}; % g-gluon
+                    {$g$}        {gluon}                    {}{1}{}{color}}; % g-gluon
   \node at(5,0)    {\particle[gray!50!white]
-                   {$H$}        {Higgs}              {$125.1$ GeV}{0}{}{}}; % H-Higgs
+                    {$H$}        {Higgs}              {$125.1$ GeV}{0}{}{}}; % H-Higgs
   \node at(6.1,-3) {\particle[gray!5!white]
-                   {}           {graviton}                       {}{}{}{}}; % graviton
+                    {}           {graviton}                       {}{}{}{}}; % graviton
 
   % add text labels for forces
   \node at(4.25,-0.5) [force]      {strong nuclear force (color)};
@@ -5543,15 +5612,15 @@ showing an implicit way.
 
   % draw vertical braces and labels
   \draw [mbrace] (-0.8,0.5)  -- (-0.8,-1.5)
-                 node[leftlabel] {6 quarks\\(+6 anti-quarks)};
+                  node[leftlabel] {6 quarks\\(+6 anti-quarks)};
   \draw [mbrace] (-0.8,-1.5) -- (-0.8,-3.5)
-                 node[leftlabel] {6 leptons\\(+6 anti-leptons)};
+                  node[leftlabel] {6 leptons\\(+6 anti-leptons)};
   % draw bottom braces and labels                  
   \draw [mbrace] (-0.5,-3.6) -- (2.5,-3.6)
-                 node[bottomlabel]
-                 {12 fermions\\(+12 anti-fermions)\\increasing mass $\to$};
+                  node[bottomlabel]
+                  {12 fermions\\(+12 anti-fermions)\\increasing mass $\to$};
   \draw [mbrace] (2.5,-3.6) -- (5.5,-3.6)
-                 node[bottomlabel] {5 bosons\\(+1 opposite charge $W$)};
+                  node[bottomlabel] {5 bosons\\(+1 opposite charge $W$)};
 
   % draw top braces and add text labels
   \draw [brace] (-0.5,.8) -- (0.5,.8) node[toplabel]         {standard matter};
@@ -5695,58 +5764,58 @@ to the abstraction levels.
 
 \begin{document}
 
-    \begin{tikzpicture}[node distance = 6mm,
-   box/.style = {rectangle, rounded corners, thick,
-                 draw=#1!70!gray, fill=#1!30,
-                 text width=4cm, minimum height=1cm, align=flush center,
-                 font=\sffamily\linespread{.8}\selectfont}]
-% first row, on the bottom
-\node (94-district)     [box=blue]
-   {\textbf{94 District Courts}\\
-    \scriptsize
-    Hears cases and deals verdicts. \textit{Judge Judy} except federal.};
-\node (legis-courts)    [box=blue, right=of 94-district]
-   {\textbf{Legislative Courts}\\
-    \scriptsize
-    Weaker Courts created by Congress. (E.g. \textit{Court of Military Appeals})};
-\node (trial-court)     [box=blue, below right=0mm and 4mm of legis-courts.north east]
-   {\textbf{Trial Court}\\
-    \scriptsize
-    Your typical \textit{Judge Judy} case. Hears either criminal or civil cases, and deals verdicts.};
-% second row
-\node (12-appeals)      [box=red, above=of 94-district]
-   {\textbf{12 Federal Courts of Appeals}\\
-    \scriptsize
-    Hears Appeals from lower courts. Geographically distributed.};
-\node (court-appeals)   [box=red, above=of legis-courts]
-   {\textbf{Court of Appeals for the Federal Circuit}\\
-    \scriptsize
-    Hears special federal appeals. (e.g. patents)};
-\node (state-appeals)   [box=red, above=of trial-court]
-   {\textbf{State Court of\\ Appeals}\\
-    \scriptsize
-    Hears Appeals from Trials on a Case-By-Case basis.};
-% third row
-% firs calculate spreme court node width
-\path   let \p1 = ($(12-appeals.west)-(court-appeals.east)$),
-            \n1 = {veclen(\x1,\y1)} in
-        node (scotus)
-            [box=green, font=\sffamily\Huge\bfseries,
-             text width=\n1-2*\pgfkeysvalueof{/pgf/inner xsep},
-             above=of $(12-appeals.north)!0.5!(court-appeals.north)$]
-            {The Supreme Court};
-\node (state)       [box=green, right = of scotus]
-   {\large\textbf{State Supreme Court}\\
-    \scriptsize
-    Highest Law of the State};
-\draw [-Stealth, thick]
-    (trial-court)   edge (state-appeals)
-    (state-appeals) edge (state)
-    (state)         edge (scotus)
-    (legis-courts)  edge (court-appeals)
-    (court-appeals) edge (scotus.south -| court-appeals)
-    (94-district)   edge (12-appeals)
-    (12-appeals)     to  (12-appeals |- scotus.south) ;
+\begin{tikzpicture}[node distance = 6mm,
+    box/.style = {rectangle, rounded corners, thick,
+                    draw=#1!70!gray, fill=#1!30,
+                    text width=4cm, minimum height=1cm, align=flush center,
+                    font=\sffamily\linespread{.8}\selectfont}]
+    % first row, on the bottom
+    \node (94-district)     [box=blue]
+    {\textbf{94 District Courts}\\
+        \scriptsize
+        Hears cases and deals verdicts. \textit{Judge Judy} except federal.};
+    \node (legis-courts)    [box=blue, right=of 94-district]
+    {\textbf{Legislative Courts}\\
+        \scriptsize
+        Weaker Courts created by Congress. (E.g. \textit{Court of Military Appeals})};
+    \node (trial-court)     [box=blue, below right=0mm and 4mm of legis-courts.north east]
+    {\textbf{Trial Court}\\
+        \scriptsize
+        Your typical \textit{Judge Judy} case. Hears either criminal or civil cases, and deals verdicts.};
+    % second row
+    \node (12-appeals)      [box=red, above=of 94-district]
+    {\textbf{12 Federal Courts of Appeals}\\
+        \scriptsize
+        Hears Appeals from lower courts. Geographically distributed.};
+    \node (court-appeals)   [box=red, above=of legis-courts]
+    {\textbf{Court of Appeals for the Federal Circuit}\\
+        \scriptsize
+        Hears special federal appeals. (e.g. patents)};
+    \node (state-appeals)   [box=red, above=of trial-court]
+    {\textbf{State Court of\\ Appeals}\\
+        \scriptsize
+        Hears Appeals from Trials on a Case-By-Case basis.};
+    % third row
+    % firs calculate spreme court node width
+    \path   let \p1 = ($(12-appeals.west)-(court-appeals.east)$),
+                \n1 = {veclen(\x1,\y1)} in
+            node (scotus)
+                [box=green, font=\sffamily\Huge\bfseries,
+                text width=\n1-2*\pgfkeysvalueof{/pgf/inner xsep},
+                above=of $(12-appeals.north)!0.5!(court-appeals.north)$]
+                {The Supreme Court};
+    \node (state)       [box=green, right = of scotus]
+    {\large\textbf{State Supreme Court}\\
+        \scriptsize
+        Highest Law of the State};
+    \draw [-Stealth, thick]
+        (trial-court)   edge (state-appeals)
+        (state-appeals) edge (state)
+        (state)         edge (scotus)
+        (legis-courts)  edge (court-appeals)
+        (court-appeals) edge (scotus.south -| court-appeals)
+        (94-district)   edge (12-appeals)
+        (12-appeals)     to  (12-appeals |- scotus.south) ;
 
 \end{tikzpicture}
 \end{document}
@@ -5801,14 +5870,14 @@ to the abstraction levels.
     Your typical \textit{Judge Judy} case. Hears either criminal or civil cases, and deals verdicts.
   };
   \draw [->] 
-  	(trial-court) 	edge (state-appeals) 
-  	(state-appeals) edge (state) 
-  	(state) edge (scotus) 
-  	(legis-courts) edge (court-appeals) 
-  	(court-appeals) edge (scotus.south -| court-appeals) 
-  	(94-district) 	edge (12-appeals) 
-  	(12-appeals) -- 
-  	(12-appeals |- scotus.south) ;
+    (trial-court) 	edge (state-appeals) 
+    (state-appeals) edge (state) 
+    (state) edge (scotus) 
+    (legis-courts) edge (court-appeals) 
+    (court-appeals) edge (scotus.south -| court-appeals) 
+    (94-district) 	edge (12-appeals) 
+    (12-appeals) -- 
+    (12-appeals |- scotus.south) ;
 \end{tikzpicture}
 \end{document}  
 ```
@@ -5972,6 +6041,7 @@ small caps instead of all caps style, indentation and spacing.
 
 PDF blend mode requires TikZ version 3.0 or above.
 \end{comment}
+
 \usepackage{tikz}
 \begin{document}
 \begin{tikzpicture}
@@ -6078,7 +6148,6 @@ much as possible.
     \end{pgfonlayer}
 \end{tikzpicture}
 
-
 \end{document}
 ```
 ****
@@ -6100,23 +6169,23 @@ much as possible.
          cloud/.style    = {draw, ellipse,fill=red!20, node distance=3cm, minimum height=2em}
 }
 \begin{document}
-    \begin{tikzpicture}[scale=2,font=\small]
-        \node [draw=black,minimum width=3cm,minimum height=0.85cm] (io2) {SSD System};
-        \node [draw=black,minimum width=3cm,minimum height=0.85cm, below =0.32cm of io2] (io3) {Fuzzy Logic ACC};
-        \draw [latex-] ($(io2.south east)!0.33!(io2.south west)$) -- ($(io3.north east)!0.33!(io3.north west)$);
-        \draw [-latex] ($(io2.south east)!0.66!(io2.south west)$) -- ($(io3.north east)!0.66!(io3.north west)$);
-        \node[fit=(io2) (io3), draw=red, dotted,minimum height=3cm] (fit) {};
-        \node[anchor=south] at (fit.north) {ADAS};
-        \node [draw=black,rotate=90,anchor=north,minimum width=3cm,minimum height=0.75cm,left=1cm of fit,anchor=south] (io) {I/O interface};
-        \draw[-latex] ($(io.south east)!0.3!(io.south west)$) -- ($(fit.north west)!0.3!(fit.south west)$);
-        \draw[latex-] ($(io.south east)!0.7!(io.south west)$) -- ($(fit.north west)!0.7!(fit.south west)$);
-        \foreach \x/\a in {0.2/2,0.4/4,0.6/6,0.8/8}{
-        \coordinate (z\a) at ($(io.north east)!\x!(io.north west)$);
-        }
-        \draw[latex-](z2)--+(-.5,0) node[anchor=east]{Distance Sensor};
-        \draw[latex-](z4)--+(-.5,0) node[anchor=east]{Video Input};
-        \draw[latex-](z6)--+(-.5,0) node[anchor=east]{Set Speed Limit};
-        \draw[-latex](z8)--+(-.5,0) node[anchor=east,minimum width=3.1cm,align=left]{Factored \\ Acceleration}; 
+\begin{tikzpicture}[scale=2,font=\small]
+    \node [draw=black,minimum width=3cm,minimum height=0.85cm] (io2) {SSD System};
+    \node [draw=black,minimum width=3cm,minimum height=0.85cm, below =0.32cm of io2] (io3) {Fuzzy Logic ACC};
+    \draw [latex-] ($(io2.south east)!0.33!(io2.south west)$) -- ($(io3.north east)!0.33!(io3.north west)$);
+    \draw [-latex] ($(io2.south east)!0.66!(io2.south west)$) -- ($(io3.north east)!0.66!(io3.north west)$);
+    \node[fit=(io2) (io3), draw=red, dotted,minimum height=3cm] (fit) {};
+    \node[anchor=south] at (fit.north) {ADAS};
+    \node [draw=black,rotate=90,anchor=north,minimum width=3cm,minimum height=0.75cm,left=1cm of fit,anchor=south] (io) {I/O interface};
+    \draw[-latex] ($(io.south east)!0.3!(io.south west)$) -- ($(fit.north west)!0.3!(fit.south west)$);
+    \draw[latex-] ($(io.south east)!0.7!(io.south west)$) -- ($(fit.north west)!0.7!(fit.south west)$);
+    \foreach \x/\a in {0.2/2,0.4/4,0.6/6,0.8/8}{
+    \coordinate (z\a) at ($(io.north east)!\x!(io.north west)$);
+    }
+    \draw[latex-](z2)--+(-.5,0) node[anchor=east]{Distance Sensor};
+    \draw[latex-](z4)--+(-.5,0) node[anchor=east]{Video Input};
+    \draw[latex-](z6)--+(-.5,0) node[anchor=east]{Set Speed Limit};
+    \draw[-latex](z8)--+(-.5,0) node[anchor=east,minimum width=3.1cm,align=left]{Factored \\ Acceleration}; 
 \end{tikzpicture}
 \end{document}
 ```
@@ -6174,158 +6243,158 @@ This is the system model of the (linear) Kalman filter.
 \begin{document}
 
 \begin{figure}[htbp]
-\centering
-% The state vector is represented by a blue circle.
-% "minimum size" makes sure all circles have the same size
-% independently of their contents.
-\tikzstyle{state}=[circle,
-                                    thick,
-                                    minimum size=1.2cm,
-                                    draw=blue!80,
-                                    fill=blue!20]
+    \centering
+    % The state vector is represented by a blue circle.
+    % "minimum size" makes sure all circles have the same size
+    % independently of their contents.
+    \tikzstyle{state}=[circle,
+                                        thick,
+                                        minimum size=1.2cm,
+                                        draw=blue!80,
+                                        fill=blue!20]
 
-% The measurement vector is represented by an orange circle.
-\tikzstyle{measurement}=[circle,
-                                                thick,
-                                                minimum size=1.2cm,
-                                                draw=orange!80,
-                                                fill=orange!25]
+    % The measurement vector is represented by an orange circle.
+    \tikzstyle{measurement}=[circle,
+                                                    thick,
+                                                    minimum size=1.2cm,
+                                                    draw=orange!80,
+                                                    fill=orange!25]
 
-% The control input vector is represented by a purple circle.
-\tikzstyle{input}=[circle,
-                                    thick,
-                                    minimum size=1.2cm,
-                                    draw=purple!80,
-                                    fill=purple!20]
+    % The control input vector is represented by a purple circle.
+    \tikzstyle{input}=[circle,
+                                        thick,
+                                        minimum size=1.2cm,
+                                        draw=purple!80,
+                                        fill=purple!20]
 
-% The input, state transition, and measurement matrices
-% are represented by gray squares.
-% They have a smaller minimal size for aesthetic reasons.
-\tikzstyle{matrx}=[rectangle,
-                                    thick,
-                                    minimum size=1cm,
-                                    draw=gray!80,
-                                    fill=gray!20]
+    % The input, state transition, and measurement matrices
+    % are represented by gray squares.
+    % They have a smaller minimal size for aesthetic reasons.
+    \tikzstyle{matrx}=[rectangle,
+                                        thick,
+                                        minimum size=1cm,
+                                        draw=gray!80,
+                                        fill=gray!20]
 
-% The system and measurement noise are represented by yellow
-% circles with a "noisy" uneven circumference.
-% This requires the TikZ library "decorations.pathmorphing".
-\tikzstyle{noise}=[circle,
-                                    thick,
-                                    minimum size=1.2cm,
-                                    draw=yellow!85!black,
-                                    fill=yellow!40,
-                                    decorate,
-                                    decoration={random steps,
-                                                            segment length=2pt,
-                                                            amplitude=2pt}]
+    % The system and measurement noise are represented by yellow
+    % circles with a "noisy" uneven circumference.
+    % This requires the TikZ library "decorations.pathmorphing".
+    \tikzstyle{noise}=[circle,
+                                        thick,
+                                        minimum size=1.2cm,
+                                        draw=yellow!85!black,
+                                        fill=yellow!40,
+                                        decorate,
+                                        decoration={random steps,
+                                                                segment length=2pt,
+                                                                amplitude=2pt}]
 
-% Everything is drawn on underlying gray rectangles with
-% rounded corners.
-\tikzstyle{background}=[rectangle,
-                                                fill=gray!10,
-                                                inner sep=0.2cm,
-                                                rounded corners=5mm]
+    % Everything is drawn on underlying gray rectangles with
+    % rounded corners.
+    \tikzstyle{background}=[rectangle,
+                                                    fill=gray!10,
+                                                    inner sep=0.2cm,
+                                                    rounded corners=5mm]
 
-\begin{tikzpicture}[>=latex,text height=1.5ex,text depth=0.25ex]
-    % "text height" and "text depth" are required to vertically
-    % align the labels with and without indices.
-  
-  % The various elements are conveniently placed using a matrix:
-  \matrix[row sep=0.5cm,column sep=0.5cm] {
-    % First line: Control input
-    &
-        \node (u_k-1) [input]{$\mathbf{u}_{k-1}$}; &
-        &
-        \node (u_k)   [input]{$\mathbf{u}_k$};     &
-        &
-        \node (u_k+1) [input]{$\mathbf{u}_{k+1}$}; &
-        \\
-        % Second line: System noise & input matrix
-        \node (w_k-1) [noise] {$\mathbf{w}_{k-1}$}; &
-        \node (B_k-1) [matrx] {$\mathbf{B}$};       &
-        \node (w_k)   [noise] {$\mathbf{w}_k$};     &
-        \node (B_k)   [matrx] {$\mathbf{B}$};       &
-        \node (w_k+1) [noise] {$\mathbf{w}_{k+1}$}; &
-        \node (B_k+1) [matrx] {$\mathbf{B}$};       &
-        \\
-        % Third line: State & state transition matrix
-        \node (A_k-2)         {$\cdots$};           &
-        \node (x_k-1) [state] {$\mathbf{x}_{k-1}$}; &
-        \node (A_k-1) [matrx] {$\mathbf{A}$};       &
-        \node (x_k)   [state] {$\mathbf{x}_k$};     &
-        \node (A_k)   [matrx] {$\mathbf{A}$};       &
-        \node (x_k+1) [state] {$\mathbf{x}_{k+1}$}; &
-        \node (A_k+1)         {$\cdots$};           \\
-        % Fourth line: Measurement noise & measurement matrix
-        \node (v_k-1) [noise] {$\mathbf{v}_{k-1}$}; &
-        \node (H_k-1) [matrx] {$\mathbf{H}$};       &
-        \node (v_k)   [noise] {$\mathbf{v}_k$};     &
-        \node (H_k)   [matrx] {$\mathbf{H}$};       &
-        \node (v_k+1) [noise] {$\mathbf{v}_{k+1}$}; &
-        \node (H_k+1) [matrx] {$\mathbf{H}$};       &
-        \\
-        % Fifth line: Measurement
-        &
-        \node (z_k-1) [measurement] {$\mathbf{z}_{k-1}$}; &
-        &
-        \node (z_k)   [measurement] {$\mathbf{z}_k$};     &
-        &
-        \node (z_k+1) [measurement] {$\mathbf{z}_{k+1}$}; &
-        \\
-    };
+    \begin{tikzpicture}[>=latex,text height=1.5ex,text depth=0.25ex]
+        % "text height" and "text depth" are required to vertically
+        % align the labels with and without indices.
     
-    % The diagram elements are now connected through arrows:
-    \path[->]
-        (A_k-2) edge[thick] (x_k-1)	% The main path between the
-        (x_k-1) edge[thick] (A_k-1)	% states via the state
-        (A_k-1) edge[thick] (x_k)		% transition matrices is
-        (x_k)   edge[thick] (A_k)		% accentuated.
-        (A_k)   edge[thick] (x_k+1)	% x -> A -> x -> A -> ...
-        (x_k+1) edge[thick] (A_k+1)
+    % The various elements are conveniently placed using a matrix:
+    \matrix[row sep=0.5cm,column sep=0.5cm] {
+        % First line: Control input
+        &
+            \node (u_k-1) [input]{$\mathbf{u}_{k-1}$}; &
+            &
+            \node (u_k)   [input]{$\mathbf{u}_k$};     &
+            &
+            \node (u_k+1) [input]{$\mathbf{u}_{k+1}$}; &
+            \\
+            % Second line: System noise & input matrix
+            \node (w_k-1) [noise] {$\mathbf{w}_{k-1}$}; &
+            \node (B_k-1) [matrx] {$\mathbf{B}$};       &
+            \node (w_k)   [noise] {$\mathbf{w}_k$};     &
+            \node (B_k)   [matrx] {$\mathbf{B}$};       &
+            \node (w_k+1) [noise] {$\mathbf{w}_{k+1}$}; &
+            \node (B_k+1) [matrx] {$\mathbf{B}$};       &
+            \\
+            % Third line: State & state transition matrix
+            \node (A_k-2)         {$\cdots$};           &
+            \node (x_k-1) [state] {$\mathbf{x}_{k-1}$}; &
+            \node (A_k-1) [matrx] {$\mathbf{A}$};       &
+            \node (x_k)   [state] {$\mathbf{x}_k$};     &
+            \node (A_k)   [matrx] {$\mathbf{A}$};       &
+            \node (x_k+1) [state] {$\mathbf{x}_{k+1}$}; &
+            \node (A_k+1)         {$\cdots$};           \\
+            % Fourth line: Measurement noise & measurement matrix
+            \node (v_k-1) [noise] {$\mathbf{v}_{k-1}$}; &
+            \node (H_k-1) [matrx] {$\mathbf{H}$};       &
+            \node (v_k)   [noise] {$\mathbf{v}_k$};     &
+            \node (H_k)   [matrx] {$\mathbf{H}$};       &
+            \node (v_k+1) [noise] {$\mathbf{v}_{k+1}$}; &
+            \node (H_k+1) [matrx] {$\mathbf{H}$};       &
+            \\
+            % Fifth line: Measurement
+            &
+            \node (z_k-1) [measurement] {$\mathbf{z}_{k-1}$}; &
+            &
+            \node (z_k)   [measurement] {$\mathbf{z}_k$};     &
+            &
+            \node (z_k+1) [measurement] {$\mathbf{z}_{k+1}$}; &
+            \\
+        };
         
-        (x_k-1) edge (H_k-1)				% Output path x -> H -> z
-        (H_k-1) edge (z_k-1)
-        (x_k)   edge (H_k)
-        (H_k)   edge (z_k)
-        (x_k+1) edge (H_k+1)
-        (H_k+1) edge (z_k+1)
+        % The diagram elements are now connected through arrows:
+        \path[->]
+            (A_k-2) edge[thick] (x_k-1)	% The main path between the
+            (x_k-1) edge[thick] (A_k-1)	% states via the state
+            (A_k-1) edge[thick] (x_k)		% transition matrices is
+            (x_k)   edge[thick] (A_k)		% accentuated.
+            (A_k)   edge[thick] (x_k+1)	% x -> A -> x -> A -> ...
+            (x_k+1) edge[thick] (A_k+1)
+            
+            (x_k-1) edge (H_k-1)				% Output path x -> H -> z
+            (H_k-1) edge (z_k-1)
+            (x_k)   edge (H_k)
+            (H_k)   edge (z_k)
+            (x_k+1) edge (H_k+1)
+            (H_k+1) edge (z_k+1)
+            
+            (v_k-1) edge (z_k-1)				% Output noise v -> z
+            (v_k)   edge (z_k)
+            (v_k+1) edge (z_k+1)
+            
+            (w_k-1) edge (x_k-1)				% System noise w -> x
+            (w_k)   edge (x_k)
+            (w_k+1) edge (x_k+1)
+            
+            (u_k-1) edge (B_k-1)				% Input path u -> B -> x
+            (B_k-1) edge (x_k-1)
+            (u_k)   edge (B_k)
+            (B_k)   edge (x_k)
+            (u_k+1) edge (B_k+1)
+            (B_k+1) edge (x_k+1)
+            ;
         
-        (v_k-1) edge (z_k-1)				% Output noise v -> z
-        (v_k)   edge (z_k)
-        (v_k+1) edge (z_k+1)
-        
-        (w_k-1) edge (x_k-1)				% System noise w -> x
-        (w_k)   edge (x_k)
-        (w_k+1) edge (x_k+1)
-        
-        (u_k-1) edge (B_k-1)				% Input path u -> B -> x
-        (B_k-1) edge (x_k-1)
-        (u_k)   edge (B_k)
-        (B_k)   edge (x_k)
-        (u_k+1) edge (B_k+1)
-        (B_k+1) edge (x_k+1)
-        ;
-    
-    % Now that the diagram has been drawn, background rectangles
-    % can be fitted to its elements. This requires the TikZ
-    % libraries "fit" and "background".
-    % Control input and measurement are labeled. These labels have
-    % not been translated to English as "Measurement" instead of
-    % "Messung" would not look good due to it being too long a word.
-    \begin{pgfonlayer}{background}
-        \node [background,
-                    fit=(u_k-1) (u_k+1),
-                    label=left:Entrance:] {};
-        \node [background,
-                    fit=(w_k-1) (v_k-1) (A_k+1)] {};
-        \node [background,
-                    fit=(z_k-1) (z_k+1),
-                    label=left:Measure:] {};
-    \end{pgfonlayer}
-\end{tikzpicture}
+        % Now that the diagram has been drawn, background rectangles
+        % can be fitted to its elements. This requires the TikZ
+        % libraries "fit" and "background".
+        % Control input and measurement are labeled. These labels have
+        % not been translated to English as "Measurement" instead of
+        % "Messung" would not look good due to it being too long a word.
+        \begin{pgfonlayer}{background}
+            \node [background,
+                        fit=(u_k-1) (u_k+1),
+                        label=left:Entrance:] {};
+            \node [background,
+                        fit=(w_k-1) (v_k-1) (A_k+1)] {};
+            \node [background,
+                        fit=(z_k-1) (z_k+1),
+                        label=left:Measure:] {};
+        \end{pgfonlayer}
+    \end{tikzpicture}
 
-\caption{Kalman filter system model}
+    \caption{Kalman filter system model}
 \end{figure}
 
 This is the system model of the (linear) Kalman filter. At each time
@@ -6375,124 +6444,120 @@ matrix $\mathbf{H}$, and the additional measurement noise $\mathbf{v}_k$.
 
 \begin{figure}
 \begin{tikzpicture}[every node/.style={minimum size=1cm,font=\scriptsize},on grid]
-\begin{scope}[every node/.append style={yslant=-0.5},yslant=-0.5]
-  \shade[right color=colorside!30, left color=colorside!50] (-1,0) rectangle +(4,3);
-  \node  at (-0.5,2.25) {};
-  \node at (0.5,2.75) {$Sex$};
-  \node at (1.5,2.75) {$Age$};
-  \node at (2.5,2.75) {$Area$};
-  \node at (-0.5,1.25) {$User_3$};
-  \node at (-0.5,0.75) {$...$};
-  \node at (0.5,0.75) {$...$};
-  \node at (2.5,0.75) {$...$};
-  \node at (0.5,1.25) {$*$};
-  \node at (1.5,1.25) {$4$};
-   \node at (2.5,1.25) {$0$};
-   \node at (-0.5,0.25) {$User_n$};
-   \node at (1.5,0.75) {$...$};
-   \node at (-0.5,2.25) {$user_1$};
-   \node at (0.5,2.25) {$0$};
-   \node at (1.5,2.25) {$*$};
-   \node at (2.5,2.25) {$1$};
-    \node at (-0.5,1.75) {$User_2$};
-    \node at (0.5,1.75) {$1$};
-    \node at (1.5,1.75) {$3$};
-    \node at (2.5,1.75) {$0$};
-    \node at (0.5,0.25) {$2$};
-    \node at (1.5,0.25) {$*$};
-    \node at (2.5,0.25) {$9$};
-  \draw (-1,0) grid[ystep=0.5] (3,3);
-\end{scope}
-\begin{scope}[every node/.append style={yslant=0.5},yslant=0.5]
-  \shade[right color=colorside!70,left color=colorside!10] (3,-3) rectangle +(5,3);
-  \node at (3.5,-0.25) {};
-  \node at (3.5,-0.75) {$user_1$};
-  \node at (3.5,-1.25) {$user_2$};
-  \node at (3.5,-1.75){$user_3$};
-  \node at (3.5,-2.25) {$...$};
-  \node at (3.5,-2.75) {$user_n$};
-  \node at (4.5,-0.25) {$item_1$};
-  \node at (4.5,-1.25) {$3$};
-  \node at (4.5,-0.75) {$*$};
-  \node at (4.5,-1.75) {$*$};
-  \node at (4.5,-2.25) {$...$};
-  \node at (4.5,-2.75) {$*$};
-  \node at (5.5,-0.25) {$item_2$};
-  \node at (5.5,-0.75) {$2$};
-  \node at (5.5,-1.75) {$3$};
-  \node at (5.5,-1.25) {$4$};
-   \node at (5.5,-2.75) {$5$};
-  \node at (5.5,-2.25) {$...$};
-  \node at (6.5,-0.25) {$...$};
-  \node at (6.5,-1.25) {$...$};
-  \node at (6.5,-2.25) {$...$};
-  \node at (6.5,-0.75) {$...$};
-  \node at (6.5,-1.75) {$...$};
-  \node at (6.5,-2.75) {$...$};
-  \node at (7.5,-0.25) {$item_n$};
-  \node at (7.5,-0.75) {$3$};
-  \node at (7.5,-1.25) {$5$};
-  \node at (7.5,-1.75) {$4$};
-  \node at (7.5,-2.25) {$...$};
-  \node at (7.5,-2.75) {$*$};
+  \begin{scope}[every node/.append style={yslant=-0.5},yslant=-0.5]
+    \shade[right color=colorside!30, left color=colorside!50] (-1,0) rectangle +(4,3);
+    \node  at (-0.5,2.25) {};
+    \node at (0.5,2.75) {$Sex$};
+    \node at (1.5,2.75) {$Age$};
+    \node at (2.5,2.75) {$Area$};
+    \node at (-0.5,1.25) {$User_3$};
+    \node at (-0.5,0.75) {$...$};
+    \node at (0.5,0.75) {$...$};
+    \node at (2.5,0.75) {$...$};
+    \node at (0.5,1.25) {$*$};
+    \node at (1.5,1.25) {$4$};
+    \node at (2.5,1.25) {$0$};
+    \node at (-0.5,0.25) {$User_n$};
+    \node at (1.5,0.75) {$...$};
+    \node at (-0.5,2.25) {$user_1$};
+    \node at (0.5,2.25) {$0$};
+    \node at (1.5,2.25) {$*$};
+    \node at (2.5,2.25) {$1$};
+      \node at (-0.5,1.75) {$User_2$};
+      \node at (0.5,1.75) {$1$};
+      \node at (1.5,1.75) {$3$};
+      \node at (2.5,1.75) {$0$};
+      \node at (0.5,0.25) {$2$};
+      \node at (1.5,0.25) {$*$};
+      \node at (2.5,0.25) {$9$};
+    \draw (-1,0) grid[ystep=0.5] (3,3);
+  \end{scope}
+  
+  \begin{scope}[every node/.append style={yslant=0.5},yslant=0.5]
+    \shade[right color=colorside!70,left color=colorside!10] (3,-3) rectangle +(5,3);
+    \node at (3.5,-0.25) {};
+    \node at (3.5,-0.75) {$user_1$};
+    \node at (3.5,-1.25) {$user_2$};
+    \node at (3.5,-1.75){$user_3$};
+    \node at (3.5,-2.25) {$...$};
+    \node at (3.5,-2.75) {$user_n$};
+    \node at (4.5,-0.25) {$item_1$};
+    \node at (4.5,-1.25) {$3$};
+    \node at (4.5,-0.75) {$*$};
+    \node at (4.5,-1.75) {$*$};
+    \node at (4.5,-2.25) {$...$};
+    \node at (4.5,-2.75) {$*$};
+    \node at (5.5,-0.25) {$item_2$};
+    \node at (5.5,-0.75) {$2$};
+    \node at (5.5,-1.75) {$3$};
+    \node at (5.5,-1.25) {$4$};
+    \node at (5.5,-2.75) {$5$};
+    \node at (5.5,-2.25) {$...$};
+    \node at (6.5,-0.25) {$...$};
+    \node at (6.5,-1.25) {$...$};
+    \node at (6.5,-2.25) {$...$};
+    \node at (6.5,-0.75) {$...$};
+    \node at (6.5,-1.75) {$...$};
+    \node at (6.5,-2.75) {$...$};
+    \node at (7.5,-0.25) {$item_n$};
+    \node at (7.5,-0.75) {$3$};
+    \node at (7.5,-1.25) {$5$};
+    \node at (7.5,-1.75) {$4$};
+    \node at (7.5,-2.25) {$...$};
+    \node at (7.5,-2.75) {$*$};
 
+    \draw (3,-3) grid[ystep=0.5] (8,0);
+  \end{scope}
 
-
-
-
-  \draw (3,-3) grid[ystep=0.5] (8,0);
- \end{scope}
-\begin{scope}[every node/.append style={
+  \begin{scope}[every node/.append style={
     yslant=0.5,xslant=-1},yslant=0.5,xslant=-0.75
-  ]
-  \shade[bottom color=colortop!10, top color=colortop!80] (8,4) rectangle +(-5,-4);
-\draw (3.0,0.0) grid[ystep=0.5] (8,4);
- \node at (3.5,3.75) {};
- \node at (3.5,3.25) {$Legal$};
- \node at (3.5,2.75) {$Fin.$};
- \node at (3.5,2.25) {$Med.$};
- \node at (3.5,1.75) {$Home$};
- \node at (3.5,1.25) {$Road$};
- \node at (3.5,0.75) {$Travel$};
-  \node at (3.5,0.25) {$Din.$};
- \node at (4.5,3.75) {$item_1$};
-  \node at (4.5,3.25) {$1$};
- \node at (4.5,2.75) {$0$};
- \node at (4.5,2.25) {$0$};
- \node at (4.5,1.75) {$1$};
- \node at (4.5,1.25) {$1$};
- \node at (4.5,0.75) {$0$};
- \node at (4.5,0.25) {$1$};
-\node at (5.5,3.75) {$item_2$};
-  \node at (5.5,3.25) {$1$};
-  \node at (5.5,2.75) {$0$};
-  \node at (5.5,2.25) {$0$};
-  \node at (5.5,1.75) {$1$};
-  \node at (5.5,1.25) {$0$};
-  \node at (5.5,0.75) {$1$};
-  \node at (5.5,0.25) {$1$};
- \node at (6.5,3.75) {$...$};
-\node at (6.5,3.25) {$...$};
-\node at (6.5,2.75) {$...$};
-\node at (6.5,2.25) {$...$};
-\node at (6.5,1.75) {$...$};
-\node at (6.5,1.25) {$...$};
-\node at (6.5,0.75) {$...$};
-\node at (6.5,0.25) {$...$};
-\node at (7.5,3.75) {$item_n$};
-\node at (7.5,3.25) {$0$};
-\node at (7.5,2.75) {$1$};
-\node at (7.5,2.25) {$1$};
-\node at (7.5,1.75) {$0$};
-\node at (7.5,1.25) {$0$};
-\node at (7.5,0.75) {$1$};
-\node at (7.5,0.25) {$0$};
-
-
-\end{scope}
+    ]
+    \shade[bottom color=colortop!10, top color=colortop!80] (8,4) rectangle +(-5,-4);
+    \draw (3.0,0.0) grid[ystep=0.5] (8,4);
+    \node at (3.5,3.75) {};
+    \node at (3.5,3.25) {$Legal$};
+    \node at (3.5,2.75) {$Fin.$};
+    \node at (3.5,2.25) {$Med.$};
+    \node at (3.5,1.75) {$Home$};
+    \node at (3.5,1.25) {$Road$};
+    \node at (3.5,0.75) {$Travel$};
+    \node at (3.5,0.25) {$Din.$};
+    \node at (4.5,3.75) {$item_1$};
+    \node at (4.5,3.25) {$1$};
+    \node at (4.5,2.75) {$0$};
+    \node at (4.5,2.25) {$0$};
+    \node at (4.5,1.75) {$1$};
+    \node at (4.5,1.25) {$1$};
+    \node at (4.5,0.75) {$0$};
+    \node at (4.5,0.25) {$1$};
+    \node at (5.5,3.75) {$item_2$};
+    \node at (5.5,3.25) {$1$};
+    \node at (5.5,2.75) {$0$};
+    \node at (5.5,2.25) {$0$};
+    \node at (5.5,1.75) {$1$};
+    \node at (5.5,1.25) {$0$};
+    \node at (5.5,0.75) {$1$};
+    \node at (5.5,0.25) {$1$};
+    \node at (6.5,3.75) {$...$};
+    \node at (6.5,3.25) {$...$};
+    \node at (6.5,2.75) {$...$};
+    \node at (6.5,2.25) {$...$};
+    \node at (6.5,1.75) {$...$};
+    \node at (6.5,1.25) {$...$};
+    \node at (6.5,0.75) {$...$};
+    \node at (6.5,0.25) {$...$};
+    \node at (7.5,3.75) {$item_n$};
+    \node at (7.5,3.25) {$0$};
+    \node at (7.5,2.75) {$1$};
+    \node at (7.5,2.25) {$1$};
+    \node at (7.5,1.75) {$0$};
+    \node at (7.5,1.25) {$0$};
+    \node at (7.5,0.75) {$1$};
+    \node at (7.5,0.25) {$0$};
+  \end{scope}
 \end{tikzpicture}
- \caption{User-Item Combined Matrix}
-\label{fig:com}
+  \caption{User-Item Combined Matrix}
+  \label{fig:com}
 \end{figure}
 \end{document}
 ```
@@ -6538,93 +6603,95 @@ on LessWrong.com, a site devoted to rationality, created by Yudkowsky.
 \DeclareMathOperator{\p}{p}
 \newcommand*{\cancer}{\text{cancer}}
 \newcommand*{\testp}{\text{test}+}
+
 \begin{document}
+
 \begin{tikzpicture}[%
-  % common options for blocks:
-  block/.style = {draw, fill=blue!30, align=center, anchor=west,
-              minimum height=0.65cm, inner sep=0},
-  % common options for the circles:
-  ball/.style = {circle, draw, align=center, anchor=north, inner sep=0}]
+   % common options for blocks:
+   block/.style = {draw, fill=blue!30, align=center, anchor=west,
+               minimum height=0.65cm, inner sep=0},
+   % common options for the circles:
+   ball/.style = {circle, draw, align=center, anchor=north, inner sep=0}]
 
-% circle illustrating all women
-\node[ball,text width=3cm,fill=purple!20] (all) at (6,0) {All women};
+   % circle illustrating all women
+   \node[ball,text width=3cm,fill=purple!20] (all) at (6,0) {All women};
 
-% two circles showing split of p{cancer} and p{~cancer}
-\node[ball,fill=red!70,text width=0.1cm,anchor=base] (pcan) at (3.5,-5.5) {};
-\node[ball,fill=blue!40,text width=2.9cm,anchor=base] (pncan) at (8.5,-6)
-   {Women without cancer\\
-    $\p({\sim}\cancer) = 99\%$};
+   % two circles showing split of p{cancer} and p{~cancer}
+   \node[ball,fill=red!70,text width=0.1cm,anchor=base] (pcan) at (3.5,-5.5) {};
+   \node[ball,fill=blue!40,text width=2.9cm,anchor=base] (pncan) at (8.5,-6)
+      {Women without cancer\\
+      $\p({\sim}\cancer) = 99\%$};
 
-% arrows showing split from all women to cancer and ~cancer
-\draw[->,thick,draw=red!50] (all.south) to [out=270,in=90] (pcan.north);
-\draw[->,thick,draw=blue!80] (all.south) to [out=270,in=110] (pncan.100);
+   % arrows showing split from all women to cancer and ~cancer
+   \draw[->,thick,draw=red!50] (all.south) to [out=270,in=90] (pcan.north);
+   \draw[->,thick,draw=blue!80] (all.south) to [out=270,in=110] (pncan.100);
 
-% transition from all women to actual cancer rates
-\node[anchor=north,text width=10cm,inner sep=.05cm,align=center,fill=white]
-  (why1) at (6,-3.7) {In measuring, we find:};
+   % transition from all women to actual cancer rates
+   \node[anchor=north,text width=10cm,inner sep=.05cm,align=center,fill=white]
+   (why1) at (6,-3.7) {In measuring, we find:};
 
-% note illustration the p{cancer} circle (text won't fit inside)
-\node[inner sep=0,anchor=east,text width=3.3cm] (note1) at (3.2,-5.5) {
-   Women with cancer $\p(\cancer) = 1\%$};
+   % note illustration the p{cancer} circle (text won't fit inside)
+   \node[inner sep=0,anchor=east,text width=3.3cm] (note1) at (3.2,-5.5) {
+      Women with cancer $\p(\cancer) = 1\%$};
 
-% draw the sieves
-\node[block,anchor=north,text width=4.4cm,fill=green!50] (tray1) at
-   (3.5,-8.8) {\small{$\p(\testp\mid\cancer)=0.8$}};
+   % draw the sieves
+   \node[block,anchor=north,text width=4.4cm,fill=green!50] (tray1) at
+      (3.5,-8.8) {\small{$\p(\testp\mid\cancer)=0.8$}};
 
-\node[block,anchor=north,text width=4.4cm,fill=green!50] (tray2) at
-   (8.5,-8.8) {$\p(\testp\mid{\sim}\cancer)=0.096$};
+   \node[block,anchor=north,text width=4.4cm,fill=green!50] (tray2) at
+      (8.5,-8.8) {$\p(\testp\mid{\sim}\cancer)=0.096$};
 
-% text explaining how p{cancer} and p{~cancer} behave as they
-% pass through the sieves
-\node[anchor=west,text width=6cm] (note1) at (-6,-9.1) {
-   Now we pass both groups through the sieve; note that both
-     sieves are \emph{the same}; they just behave differently
-     depending on which group is passing through. \\ 
-     Let $\testp=$ a positve mammography.};
+   % text explaining how p{cancer} and p{~cancer} behave as they
+   % pass through the sieves
+   \node[anchor=west,text width=6cm] (note1) at (-6,-9.1) {
+      Now we pass both groups through the sieve; note that both
+      sieves are \emph{the same}; they just behave differently
+      depending on which group is passing through. \\ 
+      Let $\testp=$ a positve mammography.};
 
-% arrows showing the circles passing through the seives
-\draw[->,thick,draw=red!80] (3.5,-5.9) -- (3.5,-8.6);
-\draw[->,thick,draw=blue!50] (8.5,-8.1) -- (8.5,-8.6);
+   % arrows showing the circles passing through the seives
+   \draw[->,thick,draw=red!80] (3.5,-5.9) -- (3.5,-8.6);
+   \draw[->,thick,draw=blue!50] (8.5,-8.1) -- (8.5,-8.6);
 
-% numerator
-\node[ball,text width=0.05cm,fill=red!70] (can) at (6,-10.5) {};
+   % numerator
+   \node[ball,text width=0.05cm,fill=red!70] (can) at (6,-10.5) {};
 
-% dividing line
-\draw[thick] (5,-11) -- (7,-11);
+   % dividing line
+   \draw[thick] (5,-11) -- (7,-11);
 
-% demoniator
-\node[ball,text width=0.39cm,fill=blue!40,anchor=base] (ncan) at (6.5,-11.5) {};
-\node[ball,text width=0.05cm,fill=red!70,anchor=base] (can2) at (5.5,-11.5) {};
+   % demoniator
+   \node[ball,text width=0.39cm,fill=blue!40,anchor=base] (ncan) at (6.5,-11.5) {};
+   \node[ball,text width=0.05cm,fill=red!70,anchor=base] (can2) at (5.5,-11.5) {};
 
-% plus sign in denominator
-\draw[thick] (5.9,-11.4) -- (5.9,-11.6);
-\draw[thick] (5.8,-11.5) -- (6,-11.5);
+   % plus sign in denominator
+   \draw[thick] (5.9,-11.4) -- (5.9,-11.6);
+   \draw[thick] (5.8,-11.5) -- (6,-11.5);
 
-% arrows showing the output of the sieves formed the fraction
-\draw[->,thick,draw=red!80] (tray1.south) to [out=280,in=180] (can);
-\draw[->,thick,draw=red!80] (tray1.south) to [out=280,in=180] (can2);
-\node[anchor=north,inner sep=.1cm,align=center,fill=white] (why2) at
-   (3.8,-9.8) {$1\% * 80\%$};
+   % arrows showing the output of the sieves formed the fraction
+   \draw[->,thick,draw=red!80] (tray1.south) to [out=280,in=180] (can);
+   \draw[->,thick,draw=red!80] (tray1.south) to [out=280,in=180] (can2);
+   \node[anchor=north,inner sep=.1cm,align=center,fill=white] (why2) at
+      (3.8,-9.8) {$1\% * 80\%$};
 
-\draw[->,thick,draw=blue!50] (tray2.south) to [out=265,in=0] (ncan);
-\node[anchor=north,inner sep=.1cm,align=center,fill=white] (why2) at
-   (8.4,-9.8) {$99\% * 9.6\%$};
+   \draw[->,thick,draw=blue!50] (tray2.south) to [out=265,in=0] (ncan);
+   \node[anchor=north,inner sep=.1cm,align=center,fill=white] (why2) at
+      (8.4,-9.8) {$99\% * 9.6\%$};
 
-% explanation of final formula
-\node[anchor=north west,text width=6.5cm] (note2) at (-6,-12.5)
-   {Finally, to find the probability that a positive test
-       \emph{actually means cancer}, we look at those who passed
-       through the sieve \emph{with cancer}, and divide by all who
-       received a positive test, cancer or not.}; 
+   % explanation of final formula
+   \node[anchor=north west,text width=6.5cm] (note2) at (-6,-12.5)
+      {Finally, to find the probability that a positive test
+         \emph{actually means cancer}, we look at those who passed
+         through the sieve \emph{with cancer}, and divide by all who
+         received a positive test, cancer or not.}; 
 
-% illustrated fraction turned into math
-\node[anchor=north,text width=10cm] (solution) at (6,-12.5) {
-  \begin{align*}
-      \frac{\p(\testp\mid\cancer)}{\p(\testp\mid\cancer)
-        + \p(\testp\mid{\sim}\cancer)} &= \\
-      \frac{1\% * 80\%}{(1\% * 80\%) + (99\% * 9.6\%)} &= 7.8\%
-        = \p(\cancer\mid\testp)
-   \end{align*}};
+   % illustrated fraction turned into math
+   \node[anchor=north,text width=10cm] (solution) at (6,-12.5) {
+   \begin{align*}
+         \frac{\p(\testp\mid\cancer)}{\p(\testp\mid\cancer)
+         + \p(\testp\mid{\sim}\cancer)} &= \\
+         \frac{1\% * 80\%}{(1\% * 80\%) + (99\% * 9.6\%)} &= 7.8\%
+         = \p(\cancer\mid\testp)
+      \end{align*}};
 \end{tikzpicture}
 \end{document}
 ```
@@ -6664,75 +6731,76 @@ on LessWrong.com, a site devoted to rationality, created by Yudkowsky.
 
 \begin{document}
 \parindent=0pt
+
 \begin{tikzpicture}[%
-   %every node/.style={transform shape},% now it's not necessary but good for a poster
-  x=1.25cm,y=2cm,  
-  font=\footnotesize,
-  % every group of nodes have a style except for main, the style is named by a letter
-  main/.style={draw,fill=yellow,inner sep=.5em},
-  R/.style={draw,fill=purple!40!blue!30,inner sep=.5em},
-  M/.style={draw,fill=green!80!yellow,inner sep=.5em},
-  S/.style={anchor=east},
-  V/.style={anchor=west},
-  P/.style={anchor=center},
-  F/.style={anchor=west}
-  ]
+    %every node/.style={transform shape},% now it's not necessary but good for a poster
+    x=1.25cm,y=2cm,  
+    font=\footnotesize,
+    % every group of nodes have a style except for main, the style is named by a letter
+    main/.style={draw,fill=yellow,inner sep=.5em},
+    R/.style={draw,fill=purple!40!blue!30,inner sep=.5em},
+    M/.style={draw,fill=green!80!yellow,inner sep=.5em},
+    S/.style={anchor=east},
+    V/.style={anchor=west},
+    P/.style={anchor=center},
+    F/.style={anchor=west}
+    ]
 
-% main node the reference Shuffle 
-\node[main] (shuffle) {Group};
-%group R reducer
-\node[R] at ($(shuffle)+(8,1)$)    (R1+) {Reduce};
-\node[R] at ($(shuffle)+(8, 0)$)   (R0)  {Reduce};
-\node[R] at ($(shuffle)+(8,-1)$)   (R1-) {Reduce};
-% group M Mapper
-\node[M] at ($(shuffle)+(-6,+2.5)$)   (M3+)  {Map};
-\node[M] at ($(shuffle)+(-6,+ 1.5)$)  (M2+)  {Map};
-\node[M] at ($(shuffle)+(-6,+ .5)$)   (M1+)  {Map};
-\node[M] at ($(shuffle)+(-6,- .5)$)   (M1-)  {Map};
-\node[M] at ($(shuffle)+(-6,- 1.5)$)  (M2-)  {Map};
-\node[M] at ($(shuffle)+(-6,-2.5)$)   (M3-)  {Map};
-% group S Start the first nodes
-\node[S] at ($(M3+)+(-1.5,0)$)  (S3+) {\Big($k_1$,\tabins{4711}{59.90}{NY}\Big)};
-\node[S] at ($(M2+)+(-1.5,0)$)  (S2+) {\Big($k_2$,\tabins{4713}{142.99}{CA}\Big)};
-\node[S] at ($(M1+)+(-1.5,0)$)  (S1+) {\Big($k_3$,\tabins{4714}{72.00}{NY}\Big)}; 
-\node[S] at ($(M1-)+(-1.5,0)$)  (S1-) {\Big($k_4$,\tabins{4715}{108.75}{NY}\Big)}; 
-\node[S] at ($(M2-)+(-1.5,0)$)  (S2-) {\Big($k_5$,\tabins{4718}{19.89}{WA}\Big)};  
-\node[S] at ($(M3-)+(-1.5,0)$)  (S3-) {\Big($k_6$,\tabins{4719}{36.60}{CA}\Big)};  
-% group V  why not
-\node[V] at ($(M3+)+(1.5,0)$)  (V3+) {\Big(NY,59.90\$\Big)};
-\node[V] at ($(M2+)+(1.5,0)$)  (V2+) {\Big(CA,142.99\$\Big)};
-\node[V] at ($(M1+)+(1.5,0)$)  (V1+) {\Big(NY,72.00\$\Big)}; 
-\node[V] at ($(M1-)+(1.5,0)$)  (V1-) {\Big(NY,108.75\$\Big)}; 
-\node[V] at ($(M2-)+(1.5,0)$)  (V2-) {\Big(WA,19.89\$\Big)};  
-\node[V] at ($(M3-)+(1.5,0)$)  (V3-) {\Big(CA,36.60\$\Big)};   
+  % main node the reference Shuffle 
+  \node[main] (shuffle) {Group};
+  %group R reducer
+  \node[R] at ($(shuffle)+(8,1)$)    (R1+) {Reduce};
+  \node[R] at ($(shuffle)+(8, 0)$)   (R0)  {Reduce};
+  \node[R] at ($(shuffle)+(8,-1)$)   (R1-) {Reduce};
+  % group M Mapper
+  \node[M] at ($(shuffle)+(-6,+2.5)$)   (M3+)  {Map};
+  \node[M] at ($(shuffle)+(-6,+ 1.5)$)  (M2+)  {Map};
+  \node[M] at ($(shuffle)+(-6,+ .5)$)   (M1+)  {Map};
+  \node[M] at ($(shuffle)+(-6,- .5)$)   (M1-)  {Map};
+  \node[M] at ($(shuffle)+(-6,- 1.5)$)  (M2-)  {Map};
+  \node[M] at ($(shuffle)+(-6,-2.5)$)   (M3-)  {Map};
+  % group S Start the first nodes
+  \node[S] at ($(M3+)+(-1.5,0)$)  (S3+) {\Big($k_1$,\tabins{4711}{59.90}{NY}\Big)};
+  \node[S] at ($(M2+)+(-1.5,0)$)  (S2+) {\Big($k_2$,\tabins{4713}{142.99}{CA}\Big)};
+  \node[S] at ($(M1+)+(-1.5,0)$)  (S1+) {\Big($k_3$,\tabins{4714}{72.00}{NY}\Big)}; 
+  \node[S] at ($(M1-)+(-1.5,0)$)  (S1-) {\Big($k_4$,\tabins{4715}{108.75}{NY}\Big)}; 
+  \node[S] at ($(M2-)+(-1.5,0)$)  (S2-) {\Big($k_5$,\tabins{4718}{19.89}{WA}\Big)};  
+  \node[S] at ($(M3-)+(-1.5,0)$)  (S3-) {\Big($k_6$,\tabins{4719}{36.60}{CA}\Big)};  
+  % group V  why not
+  \node[V] at ($(M3+)+(1.5,0)$)  (V3+) {\Big(NY,59.90\$\Big)};
+  \node[V] at ($(M2+)+(1.5,0)$)  (V2+) {\Big(CA,142.99\$\Big)};
+  \node[V] at ($(M1+)+(1.5,0)$)  (V1+) {\Big(NY,72.00\$\Big)}; 
+  \node[V] at ($(M1-)+(1.5,0)$)  (V1-) {\Big(NY,108.75\$\Big)}; 
+  \node[V] at ($(M2-)+(1.5,0)$)  (V2-) {\Big(WA,19.89\$\Big)};  
+  \node[V] at ($(M3-)+(1.5,0)$)  (V3-) {\Big(CA,36.60\$\Big)};   
 
-\node[P] at ($(R1+)+(-4,0)$) (P1+) {\Big(CA,\big[142.99\$,36.60\$\big]\Big)};
-\node[P] at ($(R0) +(-4,0)$) (P0)  {\Big(NY,\big[59.90\$,72.00\$,108.75\big]\Big)};
-\node[P] at ($(R1-)+(-4,0)$) (P1-) {\Big(WA,\big[19.89\$\big]\Big)}; 
+  \node[P] at ($(R1+)+(-4,0)$) (P1+) {\Big(CA,\big[142.99\$,36.60\$\big]\Big)};
+  \node[P] at ($(R0) +(-4,0)$) (P0)  {\Big(NY,\big[59.90\$,72.00\$,108.75\big]\Big)};
+  \node[P] at ($(R1-)+(-4,0)$) (P1-) {\Big(WA,\big[19.89\$\big]\Big)}; 
 
-\node[F] (F1+) at ($(R1+)+(1.5,0)$) {(CA,89.80\$)};
-\node[F] (F0)  at ($(R0) +(1.5,0)$) {(NY,80.22\$)}; 
-\node[F] (F1-) at ($(R1-)+(1.5,0)$) {(WA,72.00\$)}; 
+  \node[F] (F1+) at ($(R1+)+(1.5,0)$) {(CA,89.80\$)};
+  \node[F] (F0)  at ($(R0) +(1.5,0)$) {(NY,80.22\$)}; 
+  \node[F] (F1-) at ($(R1-)+(1.5,0)$) {(WA,72.00\$)}; 
 
-% wrappers
-\begin{scope}[on background layer]
-    \node[fill=lightgray!50,inner sep = 4mm,fit=(shuffle),label=above:Shuffle] {}; 
-\end{scope} 
-\begin{scope}[on background layer]
-    \node[fill=lightgray!50,inner sep = 4mm,fit=(R1+)(R1-),label=above:Reducer] {}; 
-\end{scope}  
-\begin{scope}[on background layer]
-    \node[fill=lightgray!50,inner sep = 4mm,fit=(M3+)(M3-),label=above:Mapper] {}; 
-\end{scope}
+  % wrappers
+  \begin{scope}[on background layer]
+      \node[fill=lightgray!50,inner sep = 4mm,fit=(shuffle),label=above:Shuffle] {}; 
+  \end{scope} 
+  \begin{scope}[on background layer]
+      \node[fill=lightgray!50,inner sep = 4mm,fit=(R1+)(R1-),label=above:Reducer] {}; 
+  \end{scope}  
+  \begin{scope}[on background layer]
+      \node[fill=lightgray!50,inner sep = 4mm,fit=(M3+)(M3-),label=above:Mapper] {}; 
+  \end{scope}
 
-%edges
+  %edges
 
-\foreach \indice in {3+,2+,1+,1-,2-,3-} \draw[->] (S\indice.east) -- (M\indice.west); 
-\foreach \indice in {3+,2+,1+,1-,2-,3-} \draw[->] (M\indice.east) -- (V\indice.west);
-\foreach \indice in {3+,2+,1+,1-,2-,3-} \draw[->] (V\indice.east) to [out=0,in=180] (shuffle.west); 
-\foreach \indice in {1+,0,1-} \draw[->] (shuffle.east) to [out=0,in=180] (P\indice.west);  
-\foreach \indice in {1+,0,1-} \draw[->] (P\indice.east) -- (R\indice.west);
-\foreach \indice in {1+,0,1-} \draw[->] (R\indice.east) -- (F\indice.west);   
+  \foreach \indice in {3+,2+,1+,1-,2-,3-} \draw[->] (S\indice.east) -- (M\indice.west); 
+  \foreach \indice in {3+,2+,1+,1-,2-,3-} \draw[->] (M\indice.east) -- (V\indice.west);
+  \foreach \indice in {3+,2+,1+,1-,2-,3-} \draw[->] (V\indice.east) to [out=0,in=180] (shuffle.west); 
+  \foreach \indice in {1+,0,1-} \draw[->] (shuffle.east) to [out=0,in=180] (P\indice.west);  
+  \foreach \indice in {1+,0,1-} \draw[->] (P\indice.east) -- (R\indice.west);
+  \foreach \indice in {1+,0,1-} \draw[->] (R\indice.east) -- (F\indice.west);   
 \end{tikzpicture} 
 
 \end{document}     
@@ -6751,6 +6819,7 @@ on LessWrong.com, a site devoted to rationality, created by Yudkowsky.
 \documentclass[preview]{standalone}
 \usepackage{tikz}
 \usetikzlibrary{fit}
+
 \tikzset{%
   highlight/.style={rectangle,rounded corners,fill=red!15,draw,fill opacity=0.5,thick,inner sep=0pt}
 }
@@ -6810,118 +6879,118 @@ on LessWrong.com, a site devoted to rationality, created by Yudkowsky.
 \begin{document}
 
 \begin{tikzpicture}[
-mymatrix/.style={
-  matrix of math nodes,
-  outer sep=0pt,
-  nodes={
-    draw,
-    text width=2.5em,
-    align=center,
-    minimum height=2.5em,
-    text=gray
-  },
-  nodes in empty cells,
-  column sep=-\pgflinewidth,
-  row sep=-\pgflinewidth,
-  left delimiter=[,
-  right delimiter=],
-  },
-  mycircle/.style 2 args={
-    draw=#1,
-    circle,
-    fill=#2,
-    line width=2pt,
-    inner sep=5pt
-  },
-  arr/.style={
-  line width=4pt,
-  -{Triangle[angle=60:1.5pt 3]},
-  #1,
-  shorten >= 3pt,
-  shorten <= 3pt
-  }
-]
-%the matrices
-\matrix[mymatrix] (A)
-{
-|[text=black]|a_{11} & |[text=black]|a_{12} \\
-a_{21} & a_{22} \\
-|[text=black]|a_{31} & |[text=black]|a_{32} \\
-a_{41} & a_{42} \\
-};
-\matrix[mymatrix,right=of A.north east,anchor=north west] (prod)
-{
-& & \\
-& & \\
-& & \\
-& & \\
-};
-\matrix[mymatrix,above=of prod.north west,anchor=south west] (B)
-{
-b_{11} & |[text=black]|b_{12} & |[text=black]|b_{13} \\
-b_{21} & |[text=black]|b_{22} & |[text=black]|b_{23} \\
-};
+  mymatrix/.style={
+    matrix of math nodes,
+    outer sep=0pt,
+    nodes={
+      draw,
+      text width=2.5em,
+      align=center,
+      minimum height=2.5em,
+      text=gray
+    },
+    nodes in empty cells,
+    column sep=-\pgflinewidth,
+    row sep=-\pgflinewidth,
+    left delimiter=[,
+    right delimiter=],
+    },
+    mycircle/.style 2 args={
+      draw=#1,
+      circle,
+      fill=#2,
+      line width=2pt,
+      inner sep=5pt
+    },
+    arr/.style={
+    line width=4pt,
+    -{Triangle[angle=60:1.5pt 3]},
+    #1,
+    shorten >= 3pt,
+    shorten <= 3pt
+    }
+  ]
+  %the matrices
+  \matrix[mymatrix] (A)
+  {
+  |[text=black]|a_{11} & |[text=black]|a_{12} \\
+  a_{21} & a_{22} \\
+  |[text=black]|a_{31} & |[text=black]|a_{32} \\
+  a_{41} & a_{42} \\
+  };
+  \matrix[mymatrix,right=of A.north east,anchor=north west] (prod)
+  {
+  & & \\
+  & & \\
+  & & \\
+  & & \\
+  };
+  \matrix[mymatrix,above=of prod.north west,anchor=south west] (B)
+  {
+  b_{11} & |[text=black]|b_{12} & |[text=black]|b_{13} \\
+  b_{21} & |[text=black]|b_{22} & |[text=black]|b_{23} \\
+  };
 
-%the labels for the matrices
-\node[font=\huge,left=10pt of A] {$A$};
-\node[font=\huge,above=2pt of B] {$B$};
+  %the labels for the matrices
+  \node[font=\huge,left=10pt of A] {$A$};
+  \node[font=\huge,above=2pt of B] {$B$};
 
-%the frames in both matrices
-\draw[myyellow,line width=2pt]
-  ([shift={(1.2pt,-1.2pt)}]A-1-1.north west) 
-  rectangle 
-  ([shift={(-1.2pt,1.2pt)}]A-1-2.south east);
-\draw[myyellow,line width=2pt]
-  ([shift={(1.2pt,-1.2pt)}]B-1-2.north west) 
-  rectangle 
-  ([shift={(-1.2pt,1.2pt)}]B-2-2.south east);
-\draw[mygreen,line width=2pt]
-  ([shift={(1.2pt,-1.2pt)}]A-3-1.north west) 
-  rectangle 
-  ([shift={(-1.2pt,1.2pt)}]A-3-2.south east);
-\draw[mygreen,line width=2pt]
-  ([shift={(1.2pt,-1.2pt)}]B-1-3.north west) 
-  rectangle 
-  ([shift={(-1.2pt,1.2pt)}]B-2-3.south east);
+  %the frames in both matrices
+  \draw[myyellow,line width=2pt]
+    ([shift={(1.2pt,-1.2pt)}]A-1-1.north west) 
+    rectangle 
+    ([shift={(-1.2pt,1.2pt)}]A-1-2.south east);
+  \draw[myyellow,line width=2pt]
+    ([shift={(1.2pt,-1.2pt)}]B-1-2.north west) 
+    rectangle 
+    ([shift={(-1.2pt,1.2pt)}]B-2-2.south east);
+  \draw[mygreen,line width=2pt]
+    ([shift={(1.2pt,-1.2pt)}]A-3-1.north west) 
+    rectangle 
+    ([shift={(-1.2pt,1.2pt)}]A-3-2.south east);
+  \draw[mygreen,line width=2pt]
+    ([shift={(1.2pt,-1.2pt)}]B-1-3.north west) 
+    rectangle 
+    ([shift={(-1.2pt,1.2pt)}]B-2-3.south east);
 
-%the filled circles in the product
-\node[mycircle={myblue}{mygreen}]
-  at (prod-3-3) (prod33) {};
-\node[mycircle={myred}{myyellow}]
-  at (prod-1-2) (prod12) {};
+  %the filled circles in the product
+  \node[mycircle={myblue}{mygreen}]
+    at (prod-3-3) (prod33) {};
+  \node[mycircle={myred}{myyellow}]
+    at (prod-1-2) (prod12) {};
 
-%the arrows
-\draw[arr=myred]
-  (A-1-2.east) -- (prod12); 
-\draw[arr=myred]
-  (B-2-2.south) -- (prod12); 
-\draw[arr=myblue]
-  (A-3-2.east) -- (prod33); 
-\draw[arr=myblue]
-  (B-2-3.south) -- (prod33); 
+  %the arrows
+  \draw[arr=myred]
+    (A-1-2.east) -- (prod12); 
+  \draw[arr=myred]
+    (B-2-2.south) -- (prod12); 
+  \draw[arr=myblue]
+    (A-3-2.east) -- (prod33); 
+  \draw[arr=myblue]
+    (B-2-3.south) -- (prod33); 
 
-%the legend
-\matrix[
-  matrix of math nodes,
-  nodes in empty cells,
-  column sep=10pt,
-  anchor=north,
-  nodes={
-    minimum height=2.2em,
-    minimum width=2em,
-    anchor=north west
-  },
-  below=5pt of current bounding box.south
-  ] 
-  (legend)
-{
-  & a_{11}b_{12} + a_{12}b_{22} \\
-  & a_{31}b_{13} + a_{32}b_{23} \\
-};
-\node[mycircle={myblue}{mygreen}]
-  at (legend-2-1) {};
-\node[mycircle={myred}{myyellow}]
-  at (legend-1-1) {};
+  %the legend
+  \matrix[
+    matrix of math nodes,
+    nodes in empty cells,
+    column sep=10pt,
+    anchor=north,
+    nodes={
+      minimum height=2.2em,
+      minimum width=2em,
+      anchor=north west
+    },
+    below=5pt of current bounding box.south
+    ] 
+    (legend)
+  {
+    & a_{11}b_{12} + a_{12}b_{22} \\
+    & a_{31}b_{13} + a_{32}b_{23} \\
+  };
+  \node[mycircle={myblue}{mygreen}]
+    at (legend-2-1) {};
+  \node[mycircle={myred}{myyellow}]
+    at (legend-1-1) {};
 \end{tikzpicture}
 
 \end{document}
@@ -7021,61 +7090,63 @@ b_{21} & |[text=black]|b_{22} & |[text=black]|b_{23} \\
 }
 
 \begin{document}
-\begin{tikzpicture}[mindmap,
-                    growth function=\tikzmycustomgrowth,
-                    nodes={concept},
-                    concept color=orange!60,
-                    root concept/.append style={font=\huge, minimum size=5.5cm},
-                    level 1/.append style={level distance=6.5cm, sibling angle=360/8},
-                    level 1 concept/.append style={font=\Large,minimum size=4cm},
-                    level 2/.append style={level distance=12.5cm, sibling angle=360/35},
-                    % distance par rapport au CENTRE ! (avec le code tel qu'en ce moment)
-                   ]
-\tikznumberofcurrentgrandchild=0
-\node [root concept]{The \etoc package} 
-child [branch color=teal!60]{node {I Overview} 
-child {node {3 Do I need to be a geek to use {\color {joli}\ttfamily \bfseries etoc}\xspace ?}} 
-child {node {4 Line styles and toc display style}} 
-child {node {5 A first example}} 
-child {node {6 A second example}} 
-child {node {7 Linked list of the main package commands}}} 
-child [branch color=yellow!80]{node {II Arbitrarily many TOCs, and local ones too} 
-child {node {8 Labeling and reusing elsewhere}} 
-child {node {9 A powerful functionality of {\color {joli}\ttfamily \bfseries etoc}\xspace : the re-assignment of levels with \csa {etocsetlevel}}} 
-child {node {10 The \csa {etoc\discretionary {-}{}{}set\discretionary {-}{}{}toc\discretionary {-}{}{}depth} and \csa {etoc\discretionary {-}{}{}set\discretionary {-}{}{}next\discretionary {-}{}{}toc\discretionary {-}{}{}depth} commands}} 
-child {node {11 The command \csa {etoc\discretionary {-}{}{}set\discretionary {-}{}{}toc\discretionary {-}{}{}dep\discretionary {-}{}{}th.toc}}} 
-child {node {12 The commands \csa {etoc\discretionary {-}{}{}depth\discretionary {-}{}{}tag.toc} and \csa {etocsettagdepth}}} 
-child {node {13 Adding commands to the \texttt {.toc} file}} 
-child {node {14 Two Examples}}} 
-child [branch color=green!50]{node {III Surprising uses of {\color {joli}\ttfamily \bfseries etoc}\xspace } 
-child {node {15 The TOC of TOCs}} 
-child {node {16 Arbitrary ``Lists Of...'', \csa {etoctoccontentsline}}} 
-child {node {17 A TOC with a fancy layout}} 
-child {node {18 Another compatibility mode}} 
-child {node {19 The TOC as a tree}} 
-child {node {20 The TOC as a molecule}} 
-child {node {21 The TOC as a TikZ Mindmap}} 
-child {node {22 The TOC as a table}}} 
-child [branch color=teal!60]{node {IV Commands for the toc line styles} 
-child {node {23 The \csa {etocsetstyle} command}} 
-child {node {24 The \csa {etocsetlevel} command}} 
-child {node {25 Scope of commands added to the \texttt {.toc} file}} 
-child {node {26 Am I also red?}}} 
-child [branch color=yellow!80]{node {V Commands for the toc display style} 
-child {node {27 Specifying the toc display style}} 
-child {node {28 Starred variants of the \csa {tableofcontents} etc... commands}} 
-child {node {29 Table of contents for this part}}} 
-child [branch color=green!50]{node {VI Using and customizing {\color {joli}\ttfamily \bfseries etoc}\xspace } 
-child {node {30 Summary of the main style commands}} 
-child {node {31 The package default line styles: \csa {etocdefaultlines}}} 
-child {node {32 Customizing {\color {joli}\ttfamily \bfseries etoc}\xspace }} 
-child {node {33 One more example of colored TOC layout}}} 
-child [branch color=teal!60]{node {VII Tips} 
-child {node {34 ... and tricks}}} 
-child [branch color=yellow!80]{node {VIII The code} 
-child {node {35 Timestamp}} 
-child {node {36 Change history}} 
-child {node {37 Implementation}}} ;
+\begin{tikzpicture}
+  [
+    mindmap,
+    growth function=\tikzmycustomgrowth,
+    nodes={concept},
+    concept color=orange!60,
+    root concept/.append style={font=\huge, minimum size=5.5cm},
+    level 1/.append style={level distance=6.5cm, sibling angle=360/8},
+    level 1 concept/.append style={font=\Large,minimum size=4cm},
+    level 2/.append style={level distance=12.5cm, sibling angle=360/35},
+    % distance par rapport au CENTRE ! (avec le code tel qu'en ce moment)
+  ]
+  \tikznumberofcurrentgrandchild=0
+  \node [root concept]{The \etoc package} 
+  child [branch color=teal!60]{node {I Overview} 
+  child {node {3 Do I need to be a geek to use {\color {joli}\ttfamily \bfseries etoc}\xspace ?}} 
+  child {node {4 Line styles and toc display style}} 
+  child {node {5 A first example}} 
+  child {node {6 A second example}} 
+  child {node {7 Linked list of the main package commands}}} 
+  child [branch color=yellow!80]{node {II Arbitrarily many TOCs, and local ones too} 
+  child {node {8 Labeling and reusing elsewhere}} 
+  child {node {9 A powerful functionality of {\color {joli}\ttfamily \bfseries etoc}\xspace : the re-assignment of levels with \csa {etocsetlevel}}} 
+  child {node {10 The \csa {etoc\discretionary {-}{}{}set\discretionary {-}{}{}toc\discretionary {-}{}{}depth} and \csa {etoc\discretionary {-}{}{}set\discretionary {-}{}{}next\discretionary {-}{}{}toc\discretionary {-}{}{}depth} commands}} 
+  child {node {11 The command \csa {etoc\discretionary {-}{}{}set\discretionary {-}{}{}toc\discretionary {-}{}{}dep\discretionary {-}{}{}th.toc}}} 
+  child {node {12 The commands \csa {etoc\discretionary {-}{}{}depth\discretionary {-}{}{}tag.toc} and \csa {etocsettagdepth}}} 
+  child {node {13 Adding commands to the \texttt {.toc} file}} 
+  child {node {14 Two Examples}}} 
+  child [branch color=green!50]{node {III Surprising uses of {\color {joli}\ttfamily \bfseries etoc}\xspace } 
+  child {node {15 The TOC of TOCs}} 
+  child {node {16 Arbitrary ``Lists Of...'', \csa {etoctoccontentsline}}} 
+  child {node {17 A TOC with a fancy layout}} 
+  child {node {18 Another compatibility mode}} 
+  child {node {19 The TOC as a tree}} 
+  child {node {20 The TOC as a molecule}} 
+  child {node {21 The TOC as a TikZ Mindmap}} 
+  child {node {22 The TOC as a table}}} 
+  child [branch color=teal!60]{node {IV Commands for the toc line styles} 
+  child {node {23 The \csa {etocsetstyle} command}} 
+  child {node {24 The \csa {etocsetlevel} command}} 
+  child {node {25 Scope of commands added to the \texttt {.toc} file}} 
+  child {node {26 Am I also red?}}} 
+  child [branch color=yellow!80]{node {V Commands for the toc display style} 
+  child {node {27 Specifying the toc display style}} 
+  child {node {28 Starred variants of the \csa {tableofcontents} etc... commands}} 
+  child {node {29 Table of contents for this part}}} 
+  child [branch color=green!50]{node {VI Using and customizing {\color {joli}\ttfamily \bfseries etoc}\xspace } 
+  child {node {30 Summary of the main style commands}} 
+  child {node {31 The package default line styles: \csa {etocdefaultlines}}} 
+  child {node {32 Customizing {\color {joli}\ttfamily \bfseries etoc}\xspace }} 
+  child {node {33 One more example of colored TOC layout}}} 
+  child [branch color=teal!60]{node {VII Tips} 
+  child {node {34 ... and tricks}}} 
+  child [branch color=yellow!80]{node {VIII The code} 
+  child {node {35 Timestamp}} 
+  child {node {36 Change history}} 
+  child {node {37 Implementation}}} ;
 \end{tikzpicture}
 \end{document}
 ```
@@ -7136,71 +7207,73 @@ child {node {37 Implementation}}} ;
     level width/.store in=\tikzlevelwidth,
     level height/.store in=\tikzlevelheight
 }
+
 \begin{document}
 \tikznumberofcurrentgrandchild=0
+
 \begin{tikzpicture}[
-        mindmap,
-        growth function=\tikzretangulargroth,
-        nodes={concept},
-        concept color=orange!60,
-        root concept/.append style={font=\huge, minimum size=5.5cm},
-        level 1/.append style={level distance=6.5cm, sibling angle=360/8},
-        level 1 concept/.append style={font=\Large,minimum size=4cm},
-        level 2/.append style={level width=20cm,level height=28.7cm, sibling distance=2.77cm},
-                                          % A4 paper with margin=.5cm
+    mindmap,
+    growth function=\tikzretangulargroth,
+    nodes={concept},
+    concept color=orange!60,
+    root concept/.append style={font=\huge, minimum size=5.5cm},
+    level 1/.append style={level distance=6.5cm, sibling angle=360/8},
+    level 1 concept/.append style={font=\Large,minimum size=4cm},
+    level 2/.append style={level width=20cm,level height=28.7cm, sibling distance=2.77cm},
+                                        % A4 paper with margin=.5cm
     ]
     \node [root concept]{The \etoc package} 
-        child [branch color=teal!60]{node {I Overview} 
-            child {node {3 Do I need to be a geek to use {\color {joli}\ttfamily \bfseries etoc}\xspace ?}} 
-            child {node {4 Line styles and toc display style}} 
-            child {node {5 A first example}} 
-            child {node {6 A second example}} 
-            child {node {7 Linked list of the main package commands}}
-        } 
-        child [branch color=yellow!80]{node {II Arbitrarily many TOCs, and local ones too} 
-            child {node {8 Labeling and reusing elsewhere}} 
-            child {node {9 A powerful functionality of {\color {joli}\ttfamily \bfseries etoc}\xspace : the re-assignment of levels with \csa {etocsetlevel}}} 
-            child {node {10 The \csa {etoc\discretionary {-}{}{}set\discretionary {-}{}{}toc\discretionary {-}{}{}depth} and \csa {etoc\discretionary {-}{}{}set\discretionary {-}{}{}next\discretionary {-}{}{}toc\discretionary {-}{}{}depth} commands}} 
-            child {node {11 The command \csa {etoc\discretionary {-}{}{}set\discretionary {-}{}{}toc\discretionary {-}{}{}dep\discretionary {-}{}{}th.toc}}} 
-            child {node {12 The commands \csa {etoc\discretionary {-}{}{}depth\discretionary {-}{}{}tag.toc} and \csa {etocsettagdepth}}} 
-            child {node {13 Adding commands to the \texttt {.toc} file}} 
-            child {node {14 Two Examples}}
-        } 
-        child [branch color=green!50]{node {III Surprising uses of {\color {joli}\ttfamily \bfseries etoc}\xspace } 
-            child {node {15 The TOC of TOCs}} 
-            child {node {16 Arbitrary ``Lists Of...'', \csa {etoctoccontentsline}}} 
-            child {node {17 A TOC with a fancy layout}} 
-            child {node {18 Another compatibility mode}} 
-            child {node {19 The TOC as a tree}} 
-            child {node {20 The TOC as a molecule}} 
-            child {node {21 The TOC as a TikZ Mindmap}} 
-            child {node {22 The TOC as a table}}
-        } 
-        child [branch color=teal!60]{node {IV Commands for the toc line styles} 
-            child {node {23 The \csa {etocsetstyle} command}} 
-            child {node {24 The \csa {etocsetlevel} command}} 
-            child {node {25 Scope of commands added to the \texttt {.toc} file}} 
-            child {node {26 Am I also red?}}
-        } 
-        child [branch color=yellow!80]{node {V Commands for the toc display style} 
-            child {node {27 Specifying the toc display style}} 
-            child {node {28 Starred variants of the \csa {tableofcontents} etc... commands}} 
-            child {node {29 Table of contents for this part}}
-        } 
-        child [branch color=green!50]{node {VI Using and customizing {\color {joli}\ttfamily \bfseries etoc}\xspace } 
-            child {node {30 Summary of the main style commands}} 
-            child {node {31 The package default line styles: \csa {etocdefaultlines}}} 
-            child {node {32 Customizing {\color {joli}\ttfamily \bfseries etoc}\xspace }} 
-            child {node {33 One more example of colored TOC layout}}
-        } 
-        child [branch color=teal!60]{node {VII Tips} 
-            child {node {34 ... and tricks}}
-        } 
-        child [branch color=yellow!80]{node {VIII The code} 
-            child {node {35 Timestamp}} 
-            child {node {36 Change history}} 
-            child {node {37 Implementation}}
-        }
+    child [branch color=teal!60]{node {I Overview} 
+        child {node {3 Do I need to be a geek to use {\color {joli}\ttfamily \bfseries etoc}\xspace ?}} 
+        child {node {4 Line styles and toc display style}} 
+        child {node {5 A first example}} 
+        child {node {6 A second example}} 
+        child {node {7 Linked list of the main package commands}}
+    } 
+    child [branch color=yellow!80]{node {II Arbitrarily many TOCs, and local ones too} 
+        child {node {8 Labeling and reusing elsewhere}} 
+        child {node {9 A powerful functionality of {\color {joli}\ttfamily \bfseries etoc}\xspace : the re-assignment of levels with \csa {etocsetlevel}}} 
+        child {node {10 The \csa {etoc\discretionary {-}{}{}set\discretionary {-}{}{}toc\discretionary {-}{}{}depth} and \csa {etoc\discretionary {-}{}{}set\discretionary {-}{}{}next\discretionary {-}{}{}toc\discretionary {-}{}{}depth} commands}} 
+        child {node {11 The command \csa {etoc\discretionary {-}{}{}set\discretionary {-}{}{}toc\discretionary {-}{}{}dep\discretionary {-}{}{}th.toc}}} 
+        child {node {12 The commands \csa {etoc\discretionary {-}{}{}depth\discretionary {-}{}{}tag.toc} and \csa {etocsettagdepth}}} 
+        child {node {13 Adding commands to the \texttt {.toc} file}} 
+        child {node {14 Two Examples}}
+    } 
+    child [branch color=green!50]{node {III Surprising uses of {\color {joli}\ttfamily \bfseries etoc}\xspace } 
+        child {node {15 The TOC of TOCs}} 
+        child {node {16 Arbitrary ``Lists Of...'', \csa {etoctoccontentsline}}} 
+        child {node {17 A TOC with a fancy layout}} 
+        child {node {18 Another compatibility mode}} 
+        child {node {19 The TOC as a tree}} 
+        child {node {20 The TOC as a molecule}} 
+        child {node {21 The TOC as a TikZ Mindmap}} 
+        child {node {22 The TOC as a table}}
+    } 
+    child [branch color=teal!60]{node {IV Commands for the toc line styles} 
+        child {node {23 The \csa {etocsetstyle} command}} 
+        child {node {24 The \csa {etocsetlevel} command}} 
+        child {node {25 Scope of commands added to the \texttt {.toc} file}} 
+        child {node {26 Am I also red?}}
+    } 
+    child [branch color=yellow!80]{node {V Commands for the toc display style} 
+        child {node {27 Specifying the toc display style}} 
+        child {node {28 Starred variants of the \csa {tableofcontents} etc... commands}} 
+        child {node {29 Table of contents for this part}}
+    } 
+    child [branch color=green!50]{node {VI Using and customizing {\color {joli}\ttfamily \bfseries etoc}\xspace } 
+        child {node {30 Summary of the main style commands}} 
+        child {node {31 The package default line styles: \csa {etocdefaultlines}}} 
+        child {node {32 Customizing {\color {joli}\ttfamily \bfseries etoc}\xspace }} 
+        child {node {33 One more example of colored TOC layout}}
+    } 
+    child [branch color=teal!60]{node {VII Tips} 
+        child {node {34 ... and tricks}}
+    } 
+    child [branch color=yellow!80]{node {VIII The code} 
+        child {node {35 Timestamp}} 
+        child {node {36 Change history}} 
+        child {node {37 Implementation}}
+    }
     ;
 \end{tikzpicture}
 \end{document}
@@ -7271,6 +7344,7 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 \documentclass[tikz,border=10pt]{standalone}
 \usetikzlibrary{mindmap}
 \begin{document}
+
 \begin{tikzpicture}
   \path
   [
@@ -7402,10 +7476,10 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 	
 \usetikzlibrary{mindmap}
 \begin{tikzpicture}[outer sep=0pt]
-\node (n1) at (0,0) [circle,minimum size=2cm,fill,draw,thick,red] {};
-\node (n2) at (30:2.5) [circle,minimum size=1cm,fill,draw,thick,blue] {};
+    \node (n1) at (0,0) [circle,minimum size=2cm,fill,draw,thick,red] {};
+    \node (n2) at (30:2.5) [circle,minimum size=1cm,fill,draw,thick,blue] {};
 
-\path (n1) to[circle connection bar switch color=from (red) to (blue)] (n2);
+    \path (n1) to[circle connection bar switch color=from (red) to (blue)] (n2);
 \end{tikzpicture}
 	
 \end{document}
@@ -7425,29 +7499,29 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 \begin{document}
 
 \begin{tikzpicture}[
-  mindmap,
-  every node/.style={concept, execute at begin node=\hskip0pt},
-  root concept/.append style={
-    concept color=black, fill=white, line width=1ex, text=black
-  },
-  text=white, grow cyclic,
-  level 1/.append style={level distance=4.5cm,sibling angle=90},
-  level 2/.append style={level distance=3cm,sibling angle=45}
-]
-\clip (0,-1) rectangle ++(4,5);
-\node [root concept] {Computational Complexity}
-  child [concept color=red] { node {Computational Problems}
-    child { node {Problem Measures} } 
-  }
-  child [concept color=blue] { node {Computational Models}
-    child { node {Turing Machines} }
-  }
-  child [concept color=orange] { node {Measuring Complexity}
-    child { node {Complexity Measures} }
-  }
-  child [concept color=green!50!black] { node {Solving Problems}
-    child { node {Exact Algorithms} }
-  };
+    mindmap,
+    every node/.style={concept, execute at begin node=\hskip0pt},
+    root concept/.append style={
+      concept color=black, fill=white, line width=1ex, text=black
+    },
+    text=white, grow cyclic,
+    level 1/.append style={level distance=4.5cm,sibling angle=90},
+    level 2/.append style={level distance=3cm,sibling angle=45}
+  ]
+  \clip (0,-1) rectangle ++(4,5);
+  \node [root concept] {Computational Complexity}
+    child [concept color=red] { node {Computational Problems}
+      child { node {Problem Measures} } 
+    }
+    child [concept color=blue] { node {Computational Models}
+      child { node {Turing Machines} }
+    }
+    child [concept color=orange] { node {Measuring Complexity}
+      child { node {Complexity Measures} }
+    }
+    child [concept color=green!50!black] { node {Solving Problems}
+      child { node {Exact Algorithms} }
+    };
 \end{tikzpicture}
 
 \end{document}
@@ -7517,7 +7591,6 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 
 \begin{document}
 	
-
 \begin{tikzpicture}
 	[root concept/.append style={concept color=blue!20,minimum size=2cm},
 	level 1 concept/.append style={sibling angle=45},
@@ -7534,7 +7607,6 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 	\end{pgfonlayer}
 \end{tikzpicture}
 
-	
 \end{document}
 ```
 ****
@@ -7561,7 +7633,7 @@ level 2/.style={level distance=4cm,sibling angle=45}]
     level 1/.style={level distance=10cm,sibling angle=90},
     level 2/.style={level distance=6cm,sibling angle=45}]
 
-\node [root concept] {ShareLaTeX Tutorial Videos}
+    \node [root concept] {ShareLaTeX Tutorial Videos}
    child [concept color=blue!30] { node {Beginners Series}
         child { node {First Document}}
         child { node {Sections and Paragraphs}}
@@ -7611,7 +7683,6 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 					right=0.5in]{geometry}
 					
 \usepackage[hidelinks]{hyperref}
-
 \usepackage{tikz}
 \usetikzlibrary{mindmap}
 
@@ -7640,10 +7711,11 @@ level 2/.style={level distance=4cm,sibling angle=45}]
     child[concept color=orange] { node[concept] {theoretical} 
     };
 \end{tikzpicture}
+
 %\newpage
 \begin{itemize}
-\item \hypertarget{pract}{Practical}: here is some description.
-\item \hypertarget{datab}{Databases}: here is some description.
+  \item \hypertarget{pract}{Practical}: here is some description.
+  \item \hypertarget{datab}{Databases}: here is some description.
 \end{itemize}
 \end{document}
 ```
@@ -7891,18 +7963,25 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 \tikzset{every node/.append style={scale=0.6}}
 
 \begin{document}
-\begin{tikzpicture}[mindmap, concept color=blue, font=\sf\bf, text=white]
-\node[concept,ball color=blue]{Root Concept}[clockwise from=315]
- child [concept color=violet] {node[circle,ball color=violet] (c1){Child 1}                                
-      child  {node [circle,ball color=violet](c11){Child 1-1}}
-      child  {node [circle,ball color=violet](c12){Child 1-2}}
-      child  {node [circle,ball color=violet](c13){Child 1-3}}                                                   
- }
- child [concept color=orange]{node [circle,ball color=orange](c2){Child 2}
-     child {node [circle,ball color=orange](c21){Child 2-1}}
-     child {node [circle,ball color=orange](c22){Child 2-2}}
-     child {node [circle,ball color=orange](c22){Child 1-3}}
- };
+
+\begin{tikzpicture}
+    [
+        mindmap, 
+        concept color=blue, 
+        font=\sf\bf, 
+        text=white
+    ]
+    \node[concept,ball color=blue]{Root Concept}[clockwise from=315]
+    child [concept color=violet] {node[circle,ball color=violet] (c1){Child 1}                                
+        child  {node [circle,ball color=violet](c11){Child 1-1}}
+        child  {node [circle,ball color=violet](c12){Child 1-2}}
+        child  {node [circle,ball color=violet](c13){Child 1-3}}                                                   
+    }
+    child [concept color=orange]{node [circle,ball color=orange](c2){Child 2}
+        child {node [circle,ball color=orange](c21){Child 2-1}}
+        child {node [circle,ball color=orange](c22){Child 2-2}}
+        child {node [circle,ball color=orange](c22){Child 1-3}}
+    };
 \end{tikzpicture}
 \end{document}
 ```
@@ -7928,8 +8007,8 @@ level 2/.style={level distance=4cm,sibling angle=45}]
          text=white,
          grow cyclic,
          segment length=20cm,
-level 1/.append style={level distance=8cm,sibling angle=60},
-level 2/.append style={level distance=2.5cm},
+   level 1/.append style={level distance=8cm,sibling angle=60},
+   level 2/.append style={level distance=2.5cm},
       ]
       node[concept] {Main}
       [clockwise from=0]
@@ -8015,80 +8094,80 @@ level 2/.append style={level distance=2.5cm},
 \begin{document}
 
 \begin{tikzpicture}
-[decoration={start radius=1cm, end radius=.5cm,amplitude=3mm,angle=30}]
+    [decoration={start radius=1cm, end radius=.5cm,amplitude=3mm,angle=30}]
 
-% Define experience colors
-\colorlet{afcolor}{blue!50}
-\colorlet{mdcolor}{red!75}
-\colorlet{nmndcolor}{orange!80}
-\colorlet{nmescolor}{teal!70!green}
-\colorlet{citscolor}{violet!75}
+    % Define experience colors
+    \colorlet{afcolor}{blue!50}
+    \colorlet{mdcolor}{red!75}
+    \colorlet{nmndcolor}{orange!80}
+    \colorlet{nmescolor}{teal!70!green}
+    \colorlet{citscolor}{violet!75}
 
-\begin{scope}[mindmap,
-every node/.style={concept, circular drop shadow, minimum size=0pt,execute at begin node=\hskip0pt, font=\bfseries},
-root concept/.append style={
-    concept color=black, fill=white, line width=1.5ex, text=black, font=\huge\scshape\bfseries,},
-level 1 concept/.append style={font=\bfseries},
-text=white,
-partner/.style={concept color=blue!80!black},
-air force/.style={concept color=afcolor},
-metadata/.style={concept color=mdcolor},
-nmnd/.style={concept color=nmndcolor},
-nmes/.style={concept color=nmescolor},
-cits/.style={concept color=citscolor},
-grow cyclic,
-level 1/.append style={level distance=6.2cm,sibling angle=45},
-level 2/.append style={level distance=3cm,sibling angle=45}]
-\node [root concept] (team) {Team\\Foo}[rotate=202.5] % root
-    child [partner] { node {Comp 8}
-        child [nmes] { node {\small NM/ES} }
-    }
-    child [partner] { node {Comp 1}
-        child [metadata] { node {\small Metadata} }
-        child [air force] { node {\small Air Force} }
-        child [nmnd] { node {\small NM/ND} }
-        child [cits] { node {\small CITS} }
-        child [nmes] { node {\small NM/ES} }
-    }
-    child [partner] { node {Comp 2}
-        child [metadata] { node {\small Metadata} }
-    }
-    child [partner] { node (comp3) {Comp 3}
-        child [air force] { node {\small Air Force} }
-        child [nmnd] { node {\small NM/ND} }
-        child [cits] { node (leftmost) {\small CITS} }
-        child [nmes] { node {\small NM/ES} }
-    }
-    child [partner] { node {Comp 4}
-        child [air force] { node {\small Air Force} }
-        child [nmes] { node {\small NM/ES} }
-    }
-    child [partner] { node {Comp 5}
-        child [metadata] { node {\small Metadata} }
-        child [nmnd] { node {\small NM/ND} }
-        child [nmes] { node {\small NM/ES} }
-    }
-    child [partner] { node {Comp 6}
-        child [air force] { node {\small Air Force} }
-        child [nmnd] { node {\small NM/ND} }
-        child [nmes] { node {\small NM/ES} }
-    }
-    child [partner] { node {Comp 7}
-        child [air force] { node {\small Air Force} }
-        child [nmnd] { node {\small NM/ND} }
-        child [nmes] { node {\small NM/ES} }
-    };
-\end{scope}
+    \begin{scope}[mindmap,
+        every node/.style={concept, circular drop shadow, minimum size=0pt,execute at begin node=\hskip0pt, font=\bfseries},
+        root concept/.append style={
+        concept color=black, fill=white, line width=1.5ex, text=black, font=\huge\scshape\bfseries,},
+        level 1 concept/.append style={font=\bfseries},
+        text=white,
+        partner/.style={concept color=blue!80!black},
+        air force/.style={concept color=afcolor},
+        metadata/.style={concept color=mdcolor},
+        nmnd/.style={concept color=nmndcolor},
+        nmes/.style={concept color=nmescolor},
+        cits/.style={concept color=citscolor},
+        grow cyclic,
+        level 1/.append style={level distance=6.2cm,sibling angle=45},
+        level 2/.append style={level distance=3cm,sibling angle=45}]
+        \node [root concept] (team) {Team\\Foo}[rotate=202.5] % root
+        child [partner] { node {Comp 8}
+            child [nmes] { node {\small NM/ES} }
+        }
+        child [partner] { node {Comp 1}
+            child [metadata] { node {\small Metadata} }
+            child [air force] { node {\small Air Force} }
+            child [nmnd] { node {\small NM/ND} }
+            child [cits] { node {\small CITS} }
+            child [nmes] { node {\small NM/ES} }
+        }
+        child [partner] { node {Comp 2}
+            child [metadata] { node {\small Metadata} }
+        }
+        child [partner] { node (comp3) {Comp 3}
+            child [air force] { node {\small Air Force} }
+            child [nmnd] { node {\small NM/ND} }
+            child [cits] { node (leftmost) {\small CITS} }
+            child [nmes] { node {\small NM/ES} }
+        }
+        child [partner] { node {Comp 4}
+            child [air force] { node {\small Air Force} }
+            child [nmes] { node {\small NM/ES} }
+        }
+        child [partner] { node {Comp 5}
+            child [metadata] { node {\small Metadata} }
+            child [nmnd] { node {\small NM/ND} }
+            child [nmes] { node {\small NM/ES} }
+        }
+        child [partner] { node {Comp 6}
+            child [air force] { node {\small Air Force} }
+            child [nmnd] { node {\small NM/ND} }
+            child [nmes] { node {\small NM/ES} }
+        }
+        child [partner] { node {Comp 7}
+            child [air force] { node {\small Air Force} }
+            child [nmnd] { node {\small NM/ND} }
+            child [nmes] { node {\small NM/ES} }
+        };
+    \end{scope}
 
-\begin{scope}[xshift=-4.5cm, yshift=-10.5cm,every node/.style={align=left,text=black}]
-\matrix[row sep=0pt,column sep=1mm, align=left, nodes={align=left, anchor=west}] {
-    \fill [afcolor] (0,.25ex) circle (1ex); & \node{Air Force Experience};\\
-    \fill [mdcolor] (0,.25ex) circle (1ex); & \node{Metadata Environments Development Experience};\\
-    \fill [nmndcolor] (0,.25ex) circle (1ex); & \node{Network Management and Network Defense Experience};\\
-    \fill [nmescolor] (0,.25ex) circle (1ex); & \node{Network Management and Enterprise Services Experience};\\
-    \fill [citscolor] (0,.25ex) circle (1ex); & \node{CITS Information Transport Systems Experience};\\
-    };
-\end{scope}
+    \begin{scope}[xshift=-4.5cm, yshift=-10.5cm,every node/.style={align=left,text=black}]
+        \matrix[row sep=0pt,column sep=1mm, align=left, nodes={align=left, anchor=west}] {
+        \fill [afcolor] (0,.25ex) circle (1ex); & \node{Air Force Experience};\\
+        \fill [mdcolor] (0,.25ex) circle (1ex); & \node{Metadata Environments Development Experience};\\
+        \fill [nmndcolor] (0,.25ex) circle (1ex); & \node{Network Management and Network Defense Experience};\\
+        \fill [nmescolor] (0,.25ex) circle (1ex); & \node{Network Management and Enterprise Services Experience};\\
+        \fill [citscolor] (0,.25ex) circle (1ex); & \node{CITS Information Transport Systems Experience};\\
+        };
+    \end{scope}
 \end{tikzpicture}
 
 \end{document}
@@ -8111,40 +8190,47 @@ level 2/.append style={level distance=3cm,sibling angle=45}]
 	
 %https://www.overleaf.com/learn/latex/LaTeX_Graphics_using_TikZ:_A_Tutorial_for_Beginners_(Part_5)%E2%80%94Creating_Mind_Maps
 \usetikzlibrary{mindmap}
-\begin{tikzpicture}[mindmap, grow cyclic, every node/.style=concept, concept color=orange!40, 
-level 1/.append style={level distance=5cm,sibling angle=90},
-level 2/.append style={level distance=3cm,sibling angle=45},]
-\node{ShareLaTeX Tutorial Videos}
-child [concept color=blue!30] { node {Beginners Series}
-	child { node {First Document}}
-	child { node {Sections and Paragraphs}}
-	child { node {Mathematics}}
-	child { node {Images}}
-	child { node {bibliography}}
-	child { node {Tables and Matrices}}
-	child { node {Longer Documents}}
-}
-child [concept color=yellow!30] { node {Thesis Series}
-	child { node {Basic Structure}}
-	child { node {Page Layout}}
-	child { node {Figures, Subfigures and Tables}}
-	child { node {Biblatex}}
-	child { node {Title Page}}
-}
-child [concept color=teal!40] { node {Beamer Series}
-	child { node {Getting Started}}
-	child { node {Text, Pictures and Tables}}
-	child { node {Blocks, Code and Hyperlinks}}
-	child { node {Overlay Specifications}}
-	child { node {Themes and Handouts}}
-}
-child [concept color=purple!50]{ node {TikZ Series}
-	child { node {Basic Drawing}}
-	child { node {Geogebra}}
-	child { node {Flow Charts}}
-	child { node {Circuit Diagrams}}
-	child [concept color=green!40] { node {Mind Maps}}
-};
+\begin{tikzpicture}
+	[
+		mindmap, 
+		grow cyclic, 
+		every node/.style=concept, 
+		concept color=orange!40, 
+		level 1/.append style={level distance=5cm,sibling angle=90},
+		level 2/.append style={level distance=3cm,sibling angle=45},
+	]
+	
+	\node{ShareLaTeX Tutorial Videos}
+	child [concept color=blue!30] { node {Beginners Series}
+		child { node {First Document}}
+		child { node {Sections and Paragraphs}}
+		child { node {Mathematics}}
+		child { node {Images}}
+		child { node {bibliography}}
+		child { node {Tables and Matrices}}
+		child { node {Longer Documents}}
+	}
+	child [concept color=yellow!30] { node {Thesis Series}
+		child { node {Basic Structure}}
+		child { node {Page Layout}}
+		child { node {Figures, Subfigures and Tables}}
+		child { node {Biblatex}}
+		child { node {Title Page}}
+	}
+	child [concept color=teal!40] { node {Beamer Series}
+		child { node {Getting Started}}
+		child { node {Text, Pictures and Tables}}
+		child { node {Blocks, Code and Hyperlinks}}
+		child { node {Overlay Specifications}}
+		child { node {Themes and Handouts}}
+	}
+	child [concept color=purple!50]{ node {TikZ Series}
+		child { node {Basic Drawing}}
+		child { node {Geogebra}}
+		child { node {Flow Charts}}
+		child { node {Circuit Diagrams}}
+		child [concept color=green!40] { node {Mind Maps}}
+	};
 \end{tikzpicture}
 	
 \end{document}
@@ -8161,27 +8247,28 @@ child [concept color=purple!50]{ node {TikZ Series}
 \documentclass[landscape]{standalone}
 \usepackage{tikz}
 \usetikzlibrary{mindmap}
+
 \pagestyle{empty}
 \begin{document}
+
 \begin{tikzpicture}[small mindmap, outer sep=0pt, text=black]
 
-\begin{scope}[concept color=brown!30]
-\node (right) at (2,0) [concept] {Right}
-  [clockwise from=70]
-  child { node[concept] {R.1} }
-  child { node[concept] {R.2} }
-;
-\end{scope}
+  \begin{scope}[concept color=brown!30]
+    \node (right) at (2,0) [concept] {Right}
+      [clockwise from=70]
+      child { node[concept] {R.1} }
+      child { node[concept] {R.2} }
+    ;
+  \end{scope}
 
-\begin{scope}[concept color=green!40!black!30]
-\node (left) at (-2,0) [concept] {Left}
-  [counterclockwise from=210]
-  child { node[concept] {L.1}  }
-  child { node[concept] {L.2} }
-;
-\end{scope}
-
-\path (left) to[circle connection bar switch color=from (green!40!black!30) to (brown!30)] (right) ;
+  \begin{scope}[concept color=green!40!black!30]
+    \node (left) at (-2,0) [concept] {Left}
+      [counterclockwise from=210]
+      child { node[concept] {L.1}  }
+      child { node[concept] {L.2} }
+    ;
+  \end{scope}
+  \path (left) to[circle connection bar switch color=from (green!40!black!30) to (brown!30)] (right) ;
 
 \end{tikzpicture}
 \end{document}
@@ -8200,40 +8287,40 @@ child [concept color=purple!50]{ node {TikZ Series}
 \usetikzlibrary{arrows,positioning,shapes.geometric}
 
 \begin{document}
-    \begin{tikzpicture}[>=latex']
-        \tikzset{block/.style= {draw, rectangle, align=center,minimum width=2cm,minimum height=1cm},
-        rblock/.style={draw, shape=rectangle,rounded corners=1.5em,align=center,minimum width=2cm,minimum height=1cm},
-        input/.style={ % requires library shapes.geometric
-        draw,
-        trapezium,
-        trapezium left angle=60,
-        trapezium right angle=120,
-        minimum width=2cm,
-        align=center,
-        minimum height=1cm
+\begin{tikzpicture}[>=latex']
+    \tikzset{block/.style= {draw, rectangle, align=center,minimum width=2cm,minimum height=1cm},
+    rblock/.style={draw, shape=rectangle,rounded corners=1.5em,align=center,minimum width=2cm,minimum height=1cm},
+    input/.style={ % requires library shapes.geometric
+    draw,
+    trapezium,
+    trapezium left angle=60,
+    trapezium right angle=120,
+    minimum width=2cm,
+    align=center,
+    minimum height=1cm
     },
-        }
-        \node [rblock]  (start) {Start};
-        \node [block, right =2cm of start] (acquire) {Acquire Image};
-        \node [block, right =2cm of acquire] (rgb2gray) {RGB to Gray};
-        \node [block, right =2cm of rgb2gray] (otsu) {Localized OTSU \\ Thresholding};
-        \node [block, below right =2cm and -0.5cm of start] (gchannel) {Subtract the \\ Green Channel};
-        \node [block, right =2cm of gchannel] (closing) {Morphological \\ Closing};
-        \node [block, right =2cm of closing] (NN) {Sign Detection \\ Using NN};
-        \node [input, right =2cm of NN] (limit) {Speed \\ Limit};
-        \node [coordinate, below right =1cm and 1cm of otsu] (right) {};  %% Coordinate on right and middle
-        \node [coordinate,above left =1cm and 1cm of gchannel] (left) {};  %% Coordinate on left and middle
+    }
+    \node [rblock]  (start) {Start};
+    \node [block, right =2cm of start] (acquire) {Acquire Image};
+    \node [block, right =2cm of acquire] (rgb2gray) {RGB to Gray};
+    \node [block, right =2cm of rgb2gray] (otsu) {Localized OTSU \\ Thresholding};
+    \node [block, below right =2cm and -0.5cm of start] (gchannel) {Subtract the \\ Green Channel};
+    \node [block, right =2cm of gchannel] (closing) {Morphological \\ Closing};
+    \node [block, right =2cm of closing] (NN) {Sign Detection \\ Using NN};
+    \node [input, right =2cm of NN] (limit) {Speed \\ Limit};
+    \node [coordinate, below right =1cm and 1cm of otsu] (right) {};  %% Coordinate on right and middle
+    \node [coordinate,above left =1cm and 1cm of gchannel] (left) {};  %% Coordinate on left and middle
 
-%% paths
-        \path[draw,->] (start) edge (acquire)
-                    (acquire) edge (rgb2gray)
-                    (rgb2gray) edge (otsu)
-                    (otsu.east) -| (right) -- (left) |- (gchannel)
-                    (gchannel) edge (closing)
-                    (closing) edge (NN)
-                    (NN) edge (limit)
-                    ;
-    \end{tikzpicture}
+    %% paths
+    \path[draw,->] (start) edge (acquire)
+                (acquire) edge (rgb2gray)
+                (rgb2gray) edge (otsu)
+                (otsu.east) -| (right) -- (left) |- (gchannel)
+                (gchannel) edge (closing)
+                (closing) edge (NN)
+                (NN) edge (limit)
+                ;
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -8258,66 +8345,67 @@ child [concept color=purple!50]{ node {TikZ Series}
 %%%>
 
 \begin{document}
+
 \begin{figure}
-\begin{center}
-\begin{tikzpicture}[>=stealth]
-  %coordinates
-  \coordinate (orig)   at (0,0);
-  \coordinate (LLD)    at (4,0);
-  \coordinate (AroneA) at (-1/2,11/2);
-  \coordinate (ArtwoA) at (-1/2,5);
-  \coordinate (ArthrA) at (-1/2,9/2);
-  \coordinate (LLA)    at (1,4);
-  \coordinate (LLB)    at (4,4);
-  \coordinate (LLC)    at (7,4);
-  \coordinate (AroneC) at (25/2,11/2);
-  \coordinate (ArtwoC) at (25/2,5);
-  \coordinate (ArthrC) at (25/2,9/2);
-  \coordinate (conCBD) at (21/2,9/2);
-  \coordinate (conCB)  at (21/2,7/2);
-  \coordinate (coCBD)  at (11,5);
-  \coordinate (coCB)   at (11,3);
-  \coordinate (conCBA) at (23/2,11/2);
-  \coordinate (conCA)  at (23/2,5/2);
+  \begin{center}
+  \begin{tikzpicture}[>=stealth]
+    %coordinates
+    \coordinate (orig)   at (0,0);
+    \coordinate (LLD)    at (4,0);
+    \coordinate (AroneA) at (-1/2,11/2);
+    \coordinate (ArtwoA) at (-1/2,5);
+    \coordinate (ArthrA) at (-1/2,9/2);
+    \coordinate (LLA)    at (1,4);
+    \coordinate (LLB)    at (4,4);
+    \coordinate (LLC)    at (7,4);
+    \coordinate (AroneC) at (25/2,11/2);
+    \coordinate (ArtwoC) at (25/2,5);
+    \coordinate (ArthrC) at (25/2,9/2);
+    \coordinate (conCBD) at (21/2,9/2);
+    \coordinate (conCB)  at (21/2,7/2);
+    \coordinate (coCBD)  at (11,5);
+    \coordinate (coCB)   at (11,3);
+    \coordinate (conCBA) at (23/2,11/2);
+    \coordinate (conCA)  at (23/2,5/2);
 
-  %nodes
-  \node[draw, minimum width=2cm, minimum height=2cm, anchor=south west, text width=2cm, align=center] (A) at (LLA) {Impedance\\control};
-  \node[draw, minimum width=2cm, minimum height=2cm, anchor=south west, text width=2cm, align=center] (B) at (LLB) {Inverse\\Dynamics};
-  \node[draw, minimum width=3cm, minimum height=2cm, anchor=south west, text width=2cm, align=center] (C) at (LLC) {Manipulator\\and\\environment};
-  \node[draw, minimum width=2cm, minimum height=2cm, anchor=south west, text width=2cm, align=center] (D) at (LLD) {Direct\\kinematics};
+    %nodes
+    \node[draw, minimum width=2cm, minimum height=2cm, anchor=south west, text width=2cm, align=center] (A) at (LLA) {Impedance\\control};
+    \node[draw, minimum width=2cm, minimum height=2cm, anchor=south west, text width=2cm, align=center] (B) at (LLB) {Inverse\\Dynamics};
+    \node[draw, minimum width=3cm, minimum height=2cm, anchor=south west, text width=2cm, align=center] (C) at (LLC) {Manipulator\\and\\environment};
+    \node[draw, minimum width=2cm, minimum height=2cm, anchor=south west, text width=2cm, align=center] (D) at (LLD) {Direct\\kinematics};
 
-  %edges
-  \draw[->] (AroneA) -- node[above]{$p_d, R_d$} ($(A.180) + (0,1/2)$);
-  \draw[->] (ArtwoA) -- node[above]{$v_d$} (A.180);
-  \draw[->] (ArthrA) -- node[above]{$v_d$} ($(A.180) + (0,-1/2)$);
+    %edges
+    \draw[->] (AroneA) -- node[above]{$p_d, R_d$} ($(A.180) + (0,1/2)$);
+    \draw[->] (ArtwoA) -- node[above]{$v_d$} (A.180);
+    \draw[->] (ArthrA) -- node[above]{$v_d$} ($(A.180) + (0,-1/2)$);
 
-  \draw[->] (A.0) -- node[above] {$\alpha$} (B.180);
-  \draw[->] (B.0) -- node[above] {$\tau$} (C.180);
+    \draw[->] (A.0) -- node[above] {$\alpha$} (B.180);
+    \draw[->] (B.0) -- node[above] {$\tau$} (C.180);
 
-  \draw[->] ($(C.0) + (0,1/2)$) -- node[above, pos=0.2]{$h_e$} (AroneC);
-  \draw[->] (C.0) -- node[above, pos=0.2]{$q$} (ArtwoC);
-  \draw[->] ($(C.0) + (0,-1/2)$) -- node[above, pos=0.2]{$q$} (ArthrC);
+    \draw[->] ($(C.0) + (0,1/2)$) -- node[above, pos=0.2]{$h_e$} (AroneC);
+    \draw[->] (C.0) -- node[above, pos=0.2]{$q$} (ArtwoC);
+    \draw[->] ($(C.0) + (0,-1/2)$) -- node[above, pos=0.2]{$q$} (ArthrC);
 
-  \path[fill] (conCBD) circle[radius=1pt] (conCB) circle[radius=1pt];
-  \path[draw,->] (conCBD) -- (conCB) -| ($(B.270) + (1/2,0)$);
+    \path[fill] (conCBD) circle[radius=1pt] (conCB) circle[radius=1pt];
+    \path[draw,->] (conCBD) -- (conCB) -| ($(B.270) + (1/2,0)$);
 
-  \path[fill] (coCBD) circle[radius=1pt] (coCB) circle[radius=1pt];
-  \path[draw,->] (coCBD)  -- (coCB) -| (B.270);
+    \path[fill] (coCBD) circle[radius=1pt] (coCB) circle[radius=1pt];
+    \path[draw,->] (coCBD)  -- (coCB) -| (B.270);
 
-  \path[fill] (conCBA) circle[radius=1pt] (conCA) circle[radius=1pt];
-  \path[draw,->] (conCBA) -- (conCA) -| ($(B.270) + (-1/2,0)$);
+    \path[fill] (conCBA) circle[radius=1pt] (conCA) circle[radius=1pt];
+    \path[draw,->] (conCBA) -- (conCA) -| ($(B.270) + (-1/2,0)$);
 
-  \path[draw,->] (conCB) |- ($(D.0) + (0,1/2)$);
-  \path[draw,->] (coCB)  |- ($(D.0) + (0,-1/2)$);
+    \path[draw,->] (conCB) |- ($(D.0) + (0,1/2)$);
+    \path[draw,->] (coCB)  |- ($(D.0) + (0,-1/2)$);
 
-  \path[draw,->] (conCA) |- ($(A.270) + (-1/2,0) + (0,-9/2)$) -- ($(A.270) + (-1/2,0)$);
+    \path[draw,->] (conCA) |- ($(A.270) + (-1/2,0) + (0,-9/2)$) -- ($(A.270) + (-1/2,0)$);
 
-  \path[draw,->] ($(D.180) + (0,1/2)$)  -| node[above,pos=0.2] {$p_e,r_e$} ($(A.270) + (1/2,0)$);
-  \path[draw,->] ($(D.180) + (0,-1/2)$) -| node[above,pos=0.15] {$v_e$} (A.270);
+    \path[draw,->] ($(D.180) + (0,1/2)$)  -| node[above,pos=0.2] {$p_e,r_e$} ($(A.270) + (1/2,0)$);
+    \path[draw,->] ($(D.180) + (0,-1/2)$) -| node[above,pos=0.15] {$v_e$} (A.270);
 
-\end{tikzpicture}
+  \end{tikzpicture}
 
-\end{center}
+  \end{center}
 
 \end{figure}
 \end{document}
@@ -8341,105 +8429,106 @@ child [concept color=purple!50]{ node {TikZ Series}
 
 \begin{document}
 
-\begin{tikzpicture}[
-std/.style={
-  draw,
-  text width=2.5cm,
-  align=center,
-  font=\strut\sffamily
-  },
-rnd/.style={
-  draw=#1,
-  rounded corners=8pt,
-  line width=1pt,
-  align=center,
-  text width=3cm,
-  minimum height=2cm,
-  font=\strut\sffamily
-  },
-vac/.style={
-  text width=2.5cm,
-  align=center,
-  font=\strut\sffamily
-  },
-ar/.style={
-  ->,
-  >=latex
-  },
-node distance=0.5cm and 3cm    
-]
-%The nodes for the left
-\node[std] (va)
-  {Vehicle Age};
-\node[std,below=of va] (fs)
-  {Fan Strength};
-\node[std,below=of fs] (vs)
-  {Vehicle Speed};
-\node[std,below=of vs] (cv)
-  {Cabin Volume};
-\node[std,below= 1cm of cv] (fr)
-  {Fraction of Recirculation};
-\node[std,below=of fr] (ac)
-  {Ambient $CO_{2}$ Concentration};
-\node[std,below=of ac] (op)
-  {Occupant Parameters};
+\begin{tikzpicture}
+  [
+    std/.style={
+    draw,
+    text width=2.5cm,
+    align=center,
+    font=\strut\sffamily
+    },
+  rnd/.style={
+    draw=#1,
+    rounded corners=8pt,
+    line width=1pt,
+    align=center,
+    text width=3cm,
+    minimum height=2cm,
+    font=\strut\sffamily
+    },
+  vac/.style={
+    text width=2.5cm,
+    align=center,
+    font=\strut\sffamily
+    },
+  ar/.style={
+    ->,
+    >=latex
+    },
+  node distance=0.5cm and 3cm    
+  ]
+  %The nodes for the left
+  \node[std] (va)
+    {Vehicle Age};
+  \node[std,below=of va] (fs)
+    {Fan Strength};
+  \node[std,below=of fs] (vs)
+    {Vehicle Speed};
+  \node[std,below=of vs] (cv)
+    {Cabin Volume};
+  \node[std,below= 1cm of cv] (fr)
+    {Fraction of Recirculation};
+  \node[std,below=of fr] (ac)
+    {Ambient $CO_{2}$ Concentration};
+  \node[std,below=of ac] (op)
+    {Occupant Parameters};
 
-%The nodes for the center
-\node[rnd,right=of va,yshift=-12.5pt] (aer)
-  {Air Exchange Rate Determination};
-\node[rnd=myblue,below=of aer] (cdm)
-  {Carbon Dioxide Built-in Module};
-\node[rnd=myred,below=of cdm] (vcm)
-  {Vehicle Cabin Module};
-\node[rnd=mygreen,below=of vcm] (hvac)
-  {\textsc{hvac} Module};
+  %The nodes for the center
+  \node[rnd,right=of va,yshift=-12.5pt] (aer)
+    {Air Exchange Rate Determination};
+  \node[rnd=myblue,below=of aer] (cdm)
+    {Carbon Dioxide Built-in Module};
+  \node[rnd=myred,below=of cdm] (vcm)
+    {Vehicle Cabin Module};
+  \node[rnd=mygreen,below=of vcm] (hvac)
+    {\textsc{hvac} Module};
 
-%The nodes for the right
-\node[vac,right=1cm of cdm] (occ)
-  {Output $CO_{2}$ Concentration};
-\node[vac,right=1cm of vcm] (the)
-  {Thermal Environment};
-\node[vac,right=1cm of hvac] (col)
-  {Compressor Load};
+  %The nodes for the right
+  \node[vac,right=1cm of cdm] (occ)
+    {Output $CO_{2}$ Concentration};
+  \node[vac,right=1cm of vcm] (the)
+    {Thermal Environment};
+  \node[vac,right=1cm of hvac] (col)
+    {Compressor Load};
 
-%The dashed fitting node
-\node[draw,dashed,inner sep=8pt,fit={(va) (cv)}]
-  (fit) {};
+  %The dashed fitting node
+  \node[draw,dashed,inner sep=8pt,fit={(va) (cv)}]
+    (fit) {};
 
-% Some auxiliary coordinates for the arrows
-\coordinate (aux1) at ( $ (va.east|-aer.west)!0.25!(aer.west) $ );
-\coordinate (aux2) at ( $ (va.east|-aer.west)!0.50!(aer.west) $ );
-\coordinate (aux3) at ( $ (va.east|-aer.west)!0.75!(aer.west) $ );
+  % Some auxiliary coordinates for the arrows
+  \coordinate (aux1) at ( $ (va.east|-aer.west)!0.25!(aer.west) $ );
+  \coordinate (aux2) at ( $ (va.east|-aer.west)!0.50!(aer.west) $ );
+  \coordinate (aux3) at ( $ (va.east|-aer.west)!0.75!(aer.west) $ );
 
-%The arrows from left to center
-\draw[dashed,ar]
-  (fit.east|-aer) -- (aer);  
-\foreach \Nodo in {fs,vs,cv}
-{
-  \draw[ar,myred]
-    ([yshift=5pt]\Nodo.east) -- ([yshift=5pt]aux3|-\Nodo.east) |- (vcm);  
-}
-\foreach \Nodo in {fs,vs,fr}
-{
-  \draw[ar,mygreen]
-    ([yshift=-5pt]\Nodo.east) -- ([yshift=-5pt]aux2|-\Nodo.east) |- (hvac);  
-}
-\foreach \Nodo in {op,ac}
-{
+  %The arrows from left to center
+  \draw[dashed,ar]
+    (fit.east|-aer) -- (aer);  
+  \foreach \Nodo in {fs,vs,cv}
+  {
+    \draw[ar,myred]
+      ([yshift=5pt]\Nodo.east) -- ([yshift=5pt]aux3|-\Nodo.east) |- (vcm);  
+  }
+  \foreach \Nodo in {fs,vs,fr}
+  {
+    \draw[ar,mygreen]
+      ([yshift=-5pt]\Nodo.east) -- ([yshift=-5pt]aux2|-\Nodo.east) |- (hvac);  
+  }
+  \foreach \Nodo in {op,ac}
+  {
+    \draw[ar,myblue]
+      (\Nodo.east) -- (aux1|-\Nodo.east) |- (cdm);  
+  }
   \draw[ar,myblue]
-    (\Nodo.east) -- (aux1|-\Nodo.east) |- (cdm);  
-}
-\draw[ar,myblue]
-  ([yshift=5pt]fr.east) -- ([yshift=5pt]aux1|-fr.east) |- (cdm);  
-\draw[myblue]
-  ([yshift=-5pt]cv.east) -- ([yshift=-5pt]aux1|-cv.east);  
+    ([yshift=5pt]fr.east) -- ([yshift=5pt]aux1|-fr.east) |- (cdm);  
+  \draw[myblue]
+    ([yshift=-5pt]cv.east) -- ([yshift=-5pt]aux1|-cv.east);  
 
-%The arrows from center to right
-\foreach \Ori/\Dest in {cdm/occ,vcm/the,hvac/col}
-{
-  \draw[ar]
-    (\Ori.east|-\Dest) -- (\Dest);  
-}
+  %The arrows from center to right
+  \foreach \Ori/\Dest in {cdm/occ,vcm/the,hvac/col}
+  {
+    \draw[ar]
+      (\Ori.east|-\Dest) -- (\Dest);  
+  }
 \end{tikzpicture}
 
 \end{document}
@@ -8461,12 +8550,16 @@ node distance=0.5cm and 3cm
 \usetikzlibrary{positioning,fit,backgrounds}
 
 \begin{document}
-\begin{tikzpicture}[mynode/.style = {rectangle, draw, align=center,
-            text width=4cm,fill=white,
-            inner xsep=6mm, inner ysep=3mm, rounded corners},
-            my arrow/.style={single arrow, draw,minimum height=1.1cm},
-rotate border/.style={shape border uses incircle, shape border rotate=#1},
-            font=\sffamily]
+\begin{tikzpicture}
+    [
+        mynode/.style = {rectangle, draw, align=center,
+        text width=4cm,fill=white,
+        inner xsep=6mm, inner ysep=3mm, rounded corners},
+        my arrow/.style={single arrow, draw,minimum height=1.1cm},
+        rotate border/.style={shape border uses incircle, shape border rotate=#1},
+        font=\sffamily
+    ]
+    
     \node[mynode, label={[name=lab]Camera \& Infrared Sensor}] (inner1) {Time Synchronization};
     \node[mynode, below=2mm of inner1] (justbelow1) {Resampling};
     %
@@ -8495,7 +8588,7 @@ rotate border/.style={shape border uses incircle, shape border rotate=#1},
     \path (outer1) -- (outer2) node[pos=0.45,my arrow]{}
     (outer2) -- (outer3) node[pos=0.45,my arrow]{}
     (outer4) -- (outer3) node[pos=0.45,my arrow,shape border rotate=180]{};
-    \end{tikzpicture}
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -8587,7 +8680,6 @@ rotate border/.style={shape border uses incircle, shape border rotate=#1},
     \Edge[bend=60](A)(B)
     \Edge[style=dashed](B)(C)
     \Edge(C)(C)
-
 \end{tikzpicture}
 \end{document} 
 ```
@@ -8608,7 +8700,6 @@ rotate border/.style={shape border uses incircle, shape border rotate=#1},
 \begin{tikzpicture}
 	\Vertices{data/vertices.csv}
 	\Edges{data/edges.csv}
-
 \end{tikzpicture}
 \end{document} 
 ```
@@ -8666,14 +8757,10 @@ rotate border/.style={shape border uses incircle, shape border rotate=#1},
 
 The ``\foreach`` command is very useful for quickly creating structured graphics
 like this neural network diagram.
-
 \end{comment}
 
-
 \begin{document}
-
 \pagestyle{empty}
-
 \def\layersep{2.5cm}
 
 \begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
@@ -8745,58 +8832,58 @@ like this neural network diagram.
 
 \begin{document}
 
-
 \begin{figure}[htp]
 \centering
+
 \begin{tikzpicture}[
-plain/.style={
-  draw=none,
-  fill=none,
-  },
-dot/.style={draw,shape=circle,minimum size=3pt,inner sep=0,fill=black
-  },
-net/.style={
-  matrix of nodes,
-  nodes={
-    draw,
-    circle,
-    inner sep=8.5pt
+  plain/.style={
+    draw=none,
+    fill=none,
     },
-  nodes in empty cells,
-  column sep=0.6cm,
-  row sep=-11pt
-  },
->=latex
-]
-\matrix[net] (mat)
-{
-|[plain]| \parbox{1cm}{\centering Input\\layer} 
-          & |[plain]| \parbox{1cm}{\centering Hidden\\layer} 
-                       & |[plain]| \parbox{1cm}{\centering Output\\layer} \\
-          & |[plain]|                 \\
-|[plain]| &            & |[plain]|    \\
-          & |[plain]|  &              \\
-|[plain]| & |[dot]|                   \\
-          & |[plain]|  & |[dot]|      \\
-|[plain]| & |[dot]|    & |[plain]|    \\
-|[dot]|   & |[plain]|  & |[dot]|      \\
-|[dot]|   & |[dot]|    & |[plain]|    \\
-|[dot]|   & |[plain]|  &              \\
-|[plain]| &            & |[plain]|    \\
-          & |[plain]|                 \\
-};
-\foreach \ai/\mi in {2/I1,4/I2,6/I3,12/In}
-  \draw[<-] (mat-\ai-1) -- node[above] {\mi} +(-1cm,0);
-\foreach \ai in {2,4,6,12}
-{\foreach \aii/\mii in {3/H1,11/Hn}
-  \draw[->] (mat-\ai-1) -- (mat-\aii-2) node[yshift=0.6cm] {\mii};
-}
-\foreach \ai in {3,11}
-{  \draw[->] (mat-\ai-2) -- (mat-4-3);
-  \draw[->] (mat-4-3) -- node[above] {O1} +(1cm,0);}
-\foreach \ai in {3,11}
-{  \draw[->] (mat-\ai-2) -- (mat-10-3);
-  \draw[->] (mat-10-3) -- node[above] {On} +(1cm,0);}
+  dot/.style={draw,shape=circle,minimum size=3pt,inner sep=0,fill=black
+    },
+  net/.style={
+    matrix of nodes,
+    nodes={
+      draw,
+      circle,
+      inner sep=8.5pt
+      },
+    nodes in empty cells,
+    column sep=0.6cm,
+    row sep=-11pt
+    },
+  >=latex
+  ]
+  \matrix[net] (mat)
+  {
+  |[plain]| \parbox{1cm}{\centering Input\\layer} 
+            & |[plain]| \parbox{1cm}{\centering Hidden\\layer} 
+                        & |[plain]| \parbox{1cm}{\centering Output\\layer} \\
+            & |[plain]|                 \\
+  |[plain]| &            & |[plain]|    \\
+            & |[plain]|  &              \\
+  |[plain]| & |[dot]|                   \\
+            & |[plain]|  & |[dot]|      \\
+  |[plain]| & |[dot]|    & |[plain]|    \\
+  |[dot]|   & |[plain]|  & |[dot]|      \\
+  |[dot]|   & |[dot]|    & |[plain]|    \\
+  |[dot]|   & |[plain]|  &              \\
+  |[plain]| &            & |[plain]|    \\
+            & |[plain]|                 \\
+  };
+  \foreach \ai/\mi in {2/I1,4/I2,6/I3,12/In}
+    \draw[<-] (mat-\ai-1) -- node[above] {\mi} +(-1cm,0);
+  \foreach \ai in {2,4,6,12}
+  {\foreach \aii/\mii in {3/H1,11/Hn}
+    \draw[->] (mat-\ai-1) -- (mat-\aii-2) node[yshift=0.6cm] {\mii};
+  }
+  \foreach \ai in {3,11}
+  {  \draw[->] (mat-\ai-2) -- (mat-4-3);
+    \draw[->] (mat-4-3) -- node[above] {O1} +(1cm,0);}
+  \foreach \ai in {3,11}
+  {  \draw[->] (mat-\ai-2) -- (mat-10-3);
+    \draw[->] (mat-10-3) -- node[above] {On} +(1cm,0);}
 \end{tikzpicture}
 
 \caption{ANN diagram for Speed Sign recognition.}
@@ -8896,44 +8983,44 @@ net/.style={
 
 \begin{document}
 
-  \begin{tikzpicture}
-    %%Create a style for the arrows we are using
-    \tikzset{normal arrow/.style={draw, thin}}
-    %%Create the different coordinates to place the nodes
-    \path (0,0) coordinate (1) ++(0,-2) coordinate (2) ++(0,-2) coordinate (3);
-    \path (1) ++(-3,-.2) coordinate (x1);
-    \path (3) ++(-3, .2) coordinate (x2);
-    %%Use the calc library and partway modifiers to generate the second and third level points
-    \path ($(1)!.5!(2)!3 cm!90:(2)$) coordinate (4);
-    \path ($(2)!.5!(3)!3 cm!90:(3)$) coordinate (5);
-    \path ($(4)!.5!(5)!3 cm!90:(5)$) coordinate (6);
-    \path (6) ++(3,0) coordinate (7);
-    %%Place nodes at each point using the foreach construct
-    \foreach \i/\color in {1/Magenta!60,2/MidnightBlue!60,3/CadetBlue!80,4/CadetBlue!80,5/CadetBlue!80,6/CadetBlue!80}{
-      \node[draw,circle,shading=axis,top color=\color, bottom color=\color!black,shading angle=45] (n\i) at (\i) {$f_{\i}(e)$};
-    }
-    %%Place the remaining nodes separately
-    \node (nx1) at (x1) {$\mathbf{x_1}$};
-    \node (nx2) at (x2) {$\mathbf{x_2}$};
-    \node (ny)  at (7)  {$\mathbf{y}$};
-    %%Drawing the arrows
-    \path[normal arrow] (nx1) -- (n1);
-    \path[normal arrow] (nx1) -- (n3);
-    \path[normal arrow] (nx2) -- (n1);
-    \path[normal arrow] (nx2) -- (n3);
-    \path[normal arrow] (n1)  -- (n4);
-    \path[normal arrow] (n1)  -- (n5);
-    \path[normal arrow] (n2)  -- (n4);
-    \path[normal arrow] (n2)  -- (n5);
-    \path[normal arrow] (n3)  -- (n4);
-    \path[normal arrow] (n3)  -- (n5);
-    \path[normal arrow] (n4)  -- (n6);
-    \path[normal arrow] (n5)  -- (n6);
-    \path[normal arrow] (n6)  -- (ny);
-    %%Drawing the cyan arrows including the labels
-    \path[normal arrow,Cyan] (nx1) -- node[above=.5em,Cyan] {$\mathbf{w_{(x1)2}}$} (n2);
-    \path[normal arrow,Cyan] (nx2) -- node[below=.5em,Cyan] {$\mathbf{w_{(x2)2}}$} (n2);
-  \end{tikzpicture}
+\begin{tikzpicture}
+  %%Create a style for the arrows we are using
+  \tikzset{normal arrow/.style={draw, thin}}
+  %%Create the different coordinates to place the nodes
+  \path (0,0) coordinate (1) ++(0,-2) coordinate (2) ++(0,-2) coordinate (3);
+  \path (1) ++(-3,-.2) coordinate (x1);
+  \path (3) ++(-3, .2) coordinate (x2);
+  %%Use the calc library and partway modifiers to generate the second and third level points
+  \path ($(1)!.5!(2)!3 cm!90:(2)$) coordinate (4);
+  \path ($(2)!.5!(3)!3 cm!90:(3)$) coordinate (5);
+  \path ($(4)!.5!(5)!3 cm!90:(5)$) coordinate (6);
+  \path (6) ++(3,0) coordinate (7);
+  %%Place nodes at each point using the foreach construct
+  \foreach \i/\color in {1/Magenta!60,2/MidnightBlue!60,3/CadetBlue!80,4/CadetBlue!80,5/CadetBlue!80,6/CadetBlue!80}{
+    \node[draw,circle,shading=axis,top color=\color, bottom color=\color!black,shading angle=45] (n\i) at (\i) {$f_{\i}(e)$};
+  }
+  %%Place the remaining nodes separately
+  \node (nx1) at (x1) {$\mathbf{x_1}$};
+  \node (nx2) at (x2) {$\mathbf{x_2}$};
+  \node (ny)  at (7)  {$\mathbf{y}$};
+  %%Drawing the arrows
+  \path[normal arrow] (nx1) -- (n1);
+  \path[normal arrow] (nx1) -- (n3);
+  \path[normal arrow] (nx2) -- (n1);
+  \path[normal arrow] (nx2) -- (n3);
+  \path[normal arrow] (n1)  -- (n4);
+  \path[normal arrow] (n1)  -- (n5);
+  \path[normal arrow] (n2)  -- (n4);
+  \path[normal arrow] (n2)  -- (n5);
+  \path[normal arrow] (n3)  -- (n4);
+  \path[normal arrow] (n3)  -- (n5);
+  \path[normal arrow] (n4)  -- (n6);
+  \path[normal arrow] (n5)  -- (n6);
+  \path[normal arrow] (n6)  -- (ny);
+  %%Drawing the cyan arrows including the labels
+  \path[normal arrow,Cyan] (nx1) -- node[above=.5em,Cyan] {$\mathbf{w_{(x1)2}}$} (n2);
+  \path[normal arrow,Cyan] (nx2) -- node[below=.5em,Cyan] {$\mathbf{w_{(x2)2}}$} (n2);
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -9008,25 +9095,32 @@ net/.style={
 
 \begin{document}
 
- \begin{tikzpicture}[every node/.style={circle, fill=green,minimum width=15mm,draw,shading=axis,top color=green, bottom color=green!50!black}]
+ \begin{tikzpicture}
+  [
+    every node/.style={circle, 
+      fill=green,
+      minimum width=15mm,
+      draw,shading=axis,
+      top color=green, 
+      bottom color=green!50!black}
+  ]
 
- \node (a) at (0,0){ one};
- \node (b) at (0,2) {two};
- \node (c) at (4,2) {three}; 
- \node (d) at (4,0) {four}; 
- \node (e) at (8,-2) {five}; 
- \node (f) at (8,3){six}; 
+  \node (a) at (0,0){ one};
+  \node (b) at (0,2) {two};
+  \node (c) at (4,2) {three}; 
+  \node (d) at (4,0) {four}; 
+  \node (e) at (8,-2) {five}; 
+  \node (f) at (8,3){six}; 
 
-
-\begin{scope}[on background layer]
-  \foreach \alpha in {a,b,c,d,e,f}%
-  {%
-  \foreach \alphb in {a,b,c,d,e}%
-  {%
-   \draw (\alpha) -- (\alphb);%
-  }}
-\end{scope}
- \end{tikzpicture}
+  \begin{scope}[on background layer]
+    \foreach \alpha in {a,b,c,d,e,f}%
+    {%
+    \foreach \alphb in {a,b,c,d,e}%
+    {%
+    \draw (\alpha) -- (\alphb);%
+    }}
+  \end{scope}
+\end{tikzpicture}
 
 
 \end{document}
@@ -9055,56 +9149,56 @@ net/.style={
 
 \begin{document}
 
-    \begin{figure}[htp]
-    \centering
-    \begin{tikzpicture}[
-plain/.style={
-    draw=none,
-    fill=none,
-},
-net/.style={
-    matrix of nodes,
-    nodes={
-        draw,
-        circle,
-        inner sep=8.5pt
+\begin{figure}[htp]
+\centering
+\begin{tikzpicture}[
+    plain/.style={
+        draw=none,
+        fill=none,
     },
-    nodes in empty cells,
-    column sep=0.6cm,
-    row sep=-11pt
-},
->=latex
-]
+    net/.style={
+        matrix of nodes,
+        nodes={
+            draw,
+            circle,
+            inner sep=8.5pt
+        },
+        nodes in empty cells,
+        column sep=0.6cm,
+        row sep=-11pt
+    },
+    >=latex
+    ]
 
-\matrix[net] (mat)
-{
-    |[plain]| \parbox{1cm}{\centering Input\\layer} & |[plain]| \parbox{1cm}{\centering Hidden\\layer} & |[plain]| \parbox{1cm}{\centering Output\\layer} \\
-    |[plain]| & \\
-    & |[plain]| \\
-    |[plain]| & &  \\
-    & |[plain]| \\
-    |[plain]| & &  \\
-    & |[plain]| \\
-    |[plain]| & \\
-};
-\foreach \ai [count=\mi ]in {3,5,7}
-\draw[<-] (mat-\ai-1) -- node[above] {Input \mi} +(-2cm,0);
-\foreach \ai in {3,5,7}
-{\foreach \aii in {2,4,...,8}
-    \draw[->] (mat-\ai-1) -- (mat-\aii-2);
-}
-\foreach \ai in {2,4,...,8}
-\draw[->] (mat-\ai-2) -- (mat-6-3);
+    \matrix[net] (mat)
+    {
+        |[plain]| \parbox{1cm}{\centering Input\\layer} & |[plain]| \parbox{1cm}{\centering Hidden\\layer} & |[plain]| \parbox{1cm}{\centering Output\\layer} \\
+        |[plain]| & \\
+        & |[plain]| \\
+        |[plain]| & &  \\
+        & |[plain]| \\
+        |[plain]| & &  \\
+        & |[plain]| \\
+        |[plain]| & \\
+    };
+    \foreach \ai [count=\mi ]in {3,5,7}
+    \draw[<-] (mat-\ai-1) -- node[above] {Input \mi} +(-2cm,0);
+    \foreach \ai in {3,5,7}
+    {\foreach \aii in {2,4,...,8}
+        \draw[->] (mat-\ai-1) -- (mat-\aii-2);
+    }
+    \foreach \ai in {2,4,...,8}
+    \draw[->] (mat-\ai-2) -- (mat-6-3);
 
-\foreach \ai in {2,4,...,8}
-\draw[->] (mat-\ai-2) -- (mat-4-3);
+    \foreach \ai in {2,4,...,8}
+    \draw[->] (mat-\ai-2) -- (mat-4-3);
 
-\foreach \ai [count=\mi ]in {4,6}
-\draw[->] (mat-\ai-3) -- node[above] {Output \mi} +(2cm,0);
-\foreach \ai in {3,5,7}
-{\foreach \aii in {2,4,...,8}
-    \draw[->] (mat-\ai-1) -- (mat-\aii-2);
-}
+    \foreach \ai [count=\mi ]in {4,6}
+    \draw[->] (mat-\ai-3) -- node[above] {Output \mi} +(2cm,0);
+    \foreach \ai in {3,5,7}
+    {\foreach \aii in {2,4,...,8}
+        \draw[->] (mat-\ai-1) -- (mat-\aii-2);
+    }
 \end{tikzpicture}
 
 \end{figure}
@@ -9189,44 +9283,44 @@ net/.style={
 \usetikzlibrary{calc}
 \usetikzlibrary{arrows}
 \begin{document}
-  \begin{tikzpicture}
-    %%Create a style for the arrows we are using
-    \tikzset{normal arrow/.style={draw,-triangle 45,very thick}}
-    %%Create the different coordinates to place the nodes
-    \path (0,0) coordinate (1) ++(0,-2) coordinate (2) ++(0,-2) coordinate (3);
-    \path (1) ++(-3,-.2) coordinate (x1);
-    \path (3) ++(-3, .2) coordinate (x2);
-    %%Use the calc library and partway modifiers to generate the second and third level points
-    \path ($(1)!.5!(2)!3 cm!90:(2)$) coordinate (4);
-    \path ($(2)!.5!(3)!3 cm!90:(3)$) coordinate (5);
-    \path ($(4)!.5!(5)!3 cm!90:(5)$) coordinate (6);
-    \path (6) ++(3,0) coordinate (7);
-    %%Place nodes at each point using the foreach construct
-    \foreach \i/\color in {1/Magenta!60,2/MidnightBlue!60,3/CadetBlue!80,4/CadetBlue!80,5/CadetBlue!80,6/CadetBlue!80}{
-      \node[draw,circle,shading=axis,top color=\color, bottom color=\color!black,shading angle=45] (n\i) at (\i) {$f_{\i}(e)$};
-    }
-    %%Place the remaining nodes separately
-    \node (nx1) at (x1) {$\mathbf{x_1}$};
-    \node (nx2) at (x2) {$\mathbf{x_2}$};
-    \node (ny)  at (7)  {$\mathbf{y}$};
-    %%Drawing the arrows
-    \path[normal arrow] (nx1) -- (n1);
-    \path[normal arrow] (nx1) -- (n3);
-    \path[normal arrow] (nx2) -- (n1);
-    \path[normal arrow] (nx2) -- (n3);
-    \path[normal arrow] (n1)  -- (n4);
-    \path[normal arrow] (n1)  -- (n5);
-    \path[normal arrow] (n2)  -- (n4);
-    \path[normal arrow] (n2)  -- (n5);
-    \path[normal arrow] (n3)  -- (n4);
-    \path[normal arrow] (n3)  -- (n5);
-    \path[normal arrow] (n4)  -- (n6);
-    \path[normal arrow] (n5)  -- (n6);
-    \path[normal arrow] (n6)  -- (ny);
-    %%Drawing the cyan arrows including the labels
-    \path[normal arrow,Cyan] (nx1) -- node[above=.5em,Cyan] {$\mathbf{w_{(x1)2}}$} (n2);
-    \path[normal arrow,Cyan] (nx2) -- node[below=.5em,Cyan] {$\mathbf{w_{(x2)2}}$} (n2);
-  \end{tikzpicture}
+\begin{tikzpicture}
+  %%Create a style for the arrows we are using
+  \tikzset{normal arrow/.style={draw,-triangle 45,very thick}}
+  %%Create the different coordinates to place the nodes
+  \path (0,0) coordinate (1) ++(0,-2) coordinate (2) ++(0,-2) coordinate (3);
+  \path (1) ++(-3,-.2) coordinate (x1);
+  \path (3) ++(-3, .2) coordinate (x2);
+  %%Use the calc library and partway modifiers to generate the second and third level points
+  \path ($(1)!.5!(2)!3 cm!90:(2)$) coordinate (4);
+  \path ($(2)!.5!(3)!3 cm!90:(3)$) coordinate (5);
+  \path ($(4)!.5!(5)!3 cm!90:(5)$) coordinate (6);
+  \path (6) ++(3,0) coordinate (7);
+  %%Place nodes at each point using the foreach construct
+  \foreach \i/\color in {1/Magenta!60,2/MidnightBlue!60,3/CadetBlue!80,4/CadetBlue!80,5/CadetBlue!80,6/CadetBlue!80}{
+    \node[draw,circle,shading=axis,top color=\color, bottom color=\color!black,shading angle=45] (n\i) at (\i) {$f_{\i}(e)$};
+  }
+  %%Place the remaining nodes separately
+  \node (nx1) at (x1) {$\mathbf{x_1}$};
+  \node (nx2) at (x2) {$\mathbf{x_2}$};
+  \node (ny)  at (7)  {$\mathbf{y}$};
+  %%Drawing the arrows
+  \path[normal arrow] (nx1) -- (n1);
+  \path[normal arrow] (nx1) -- (n3);
+  \path[normal arrow] (nx2) -- (n1);
+  \path[normal arrow] (nx2) -- (n3);
+  \path[normal arrow] (n1)  -- (n4);
+  \path[normal arrow] (n1)  -- (n5);
+  \path[normal arrow] (n2)  -- (n4);
+  \path[normal arrow] (n2)  -- (n5);
+  \path[normal arrow] (n3)  -- (n4);
+  \path[normal arrow] (n3)  -- (n5);
+  \path[normal arrow] (n4)  -- (n6);
+  \path[normal arrow] (n5)  -- (n6);
+  \path[normal arrow] (n6)  -- (ny);
+  %%Drawing the cyan arrows including the labels
+  \path[normal arrow,Cyan] (nx1) -- node[above=.5em,Cyan] {$\mathbf{w_{(x1)2}}$} (n2);
+  \path[normal arrow,Cyan] (nx2) -- node[below=.5em,Cyan] {$\mathbf{w_{(x2)2}}$} (n2);
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -9483,9 +9577,10 @@ net/.style={
 \def\layersep{3cm}
 \def\nodeinlayersep{1.5cm}
 
-\begin{tikzpicture}[
-   shorten >=1pt,->,
-   draw=black!50,
+\begin{tikzpicture}
+  [
+    shorten >=1pt,->,
+    draw=black!50,
     node distance=\layersep,
     every pin edge/.style={<-,shorten <=1pt},
     neuron/.style={circle,fill=black!25,minimum size=17pt,inner sep=0pt},
@@ -9494,72 +9589,73 @@ net/.style={
     hidden neuron/.style={neuron, fill=blue!50},
     annot/.style={text width=4em, text centered},
     bias/.style={neuron, fill=yellow!50,minimum size=4em},%<-- added %%%
-]
+  ]
 
-    % Draw the input layer nodes
-    \foreach \name / \y in {1,...,3}
-    	\node[input neuron, pin=left:Input \#\y] (I-\name) at (0,-\y-2.5) {};  
+  % Draw the input layer nodes
+  \foreach \name / \y in {1,...,3}
+    \node[input neuron, pin=left:Input \#\y] (I-\name) at (0,-\y-2.5) {};  
 
-    % set number of hidden layers
-    \newcommand\Nhidden{2}
+  % set number of hidden layers
+  \newcommand\Nhidden{2}
 
-    % Draw the hidden layer nodes
-    \foreach \N in {0,...,\Nhidden} {
-       \foreach \y in {0,...,5} { % <-- added 0 instead of 1 %%%%%
-	     \ifnum \y=4
-	     \ifnum \N>0 %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	       \node at (\N*\layersep,-\y*\nodeinlayersep) {$\vdots$};  % add dots
-	       \else\fi %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	     \else
-	         \ifnum \y=0 %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	         \ifnum \N<3 %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	           \node[bias] (H\N-\y) at (\N*\layersep,-\y*\nodeinlayersep ) {Bias}; %<-- added
-	           \else\fi %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	         \else %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	            \ifnum \N>0 %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%
-	            % print function
-	           \node[hidden neuron] (H\N-\y) at (\N*\layersep,-\y*\nodeinlayersep ) {$\frac{1}{1+e^{-x}}$}; %<-- added %%%%%%%%%%%
-	               \else\fi %<-- added %%%%%%%%%%%%
-	         \fi %<-- added %%%%%%%
-	     \fi
-     	}
-       \ifnum \N>0 %<-- added %%%%%%
-       	% print hidden layer labels at the top
-    	\node[annot,above of=H\N-1, node distance=1cm,yshift=2cm] (hl\N) {Hidden layer \N}; % <- added yshift=2cm %%%%%%%%%%%%
-	    \else\fi %<-- added %%%%%
+  % Draw the hidden layer nodes
+  \foreach \N in {0,...,\Nhidden} {
+      \foreach \y in {0,...,5} { % <-- added 0 instead of 1 %%%%%
+      \ifnum \y=4
+      \ifnum \N>0 %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \node at (\N*\layersep,-\y*\nodeinlayersep) {$\vdots$};  % add dots
+        \else\fi %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      \else
+          \ifnum \y=0 %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+          \ifnum \N<3 %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            \node[bias] (H\N-\y) at (\N*\layersep,-\y*\nodeinlayersep ) {Bias}; %<-- added
+            \else\fi %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+          \else %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            \ifnum \N>0 %<-- added %%%%%%%%%%%%%%%%%%%%%%%%%
+            % print function
+            \node[hidden neuron] (H\N-\y) at (\N*\layersep,-\y*\nodeinlayersep ) {$\frac{1}{1+e^{-x}}$}; %<-- added %%%%%%%%%%%
+                \else\fi %<-- added %%%%%%%%%%%%
+          \fi %<-- added %%%%%%%
+      \fi
     }
+      \ifnum \N>0 %<-- added %%%%%%
+      % print hidden layer labels at the top
+    \node[annot,above of=H\N-1, node distance=1cm,yshift=2cm] (hl\N) {Hidden layer \N}; % <- added yshift=2cm %%%%%%%%%%%%
+    \else\fi %<-- added %%%%%
+  }
 
-    % Draw the output layer node and label
-    \node[output neuron,pin={[pin edge={->}]right:Output}, right of=H\Nhidden-3] (O) {}; 
-    
-    % Connect bias every node in the input layer with every node in the
-    % hidden layer.
-    \foreach \source in {1,...,3}
-        \foreach \dest in {1,...,3,5} {
-          % \path[yellow] (H-0) edge (H1-\dest);
-          \path[dashed,orange] (H0-0) edge (H1-\dest); %<-- added %%%%%
-            \path[green!50] (I-\source) edge (H1-\dest);  % change to green, yellow gets blended
-     };
+  % Draw the output layer node and label
+  \node[output neuron,pin={[pin edge={->}]right:Output}, right of=H\Nhidden-3] (O) {}; 
+  
+  % Connect bias every node in the input layer with every node in the
+  % hidden layer.
+  \foreach \source in {1,...,3}
+      \foreach \dest in {1,...,3,5} {
+        % \path[yellow] (H-0) edge (H1-\dest);
+        \path[dashed,orange] (H0-0) edge (H1-\dest); %<-- added %%%%%
+          \path[green!50] (I-\source) edge (H1-\dest);  % change to green, yellow gets blended
+    };
 
-    % connect all hidden stuff
-    \foreach [remember=\N as \lastN (initially 1)] \N in {2,...,\Nhidden}
-       \foreach \source in {0,...,3,5} 
-           \foreach \dest in {1,...,3,5}{
-               \ifnum \source=0 %<-- added %%%%%%%%%%%%%%%%%%%%%%%
-           \path[dashed,red](H\lastN-\source) edge (H\N-\dest);%<-- added 
-              \else %<-- added %%%
-              \path[blue!50] (H\lastN-\source) edge (H\N-\dest);%<-- added 
-              \fi %<-- added %%%
-              }; %<-- added %%%%
+  % connect all hidden stuff
+  \foreach [remember=\N as \lastN (initially 1)] \N in {2,...,\Nhidden}
+      \foreach \source in {0,...,3,5} 
+          \foreach \dest in {1,...,3,5}{
+              \ifnum \source=0 %<-- added %%%%%%%%%%%%%%%%%%%%%%%
+          \path[dashed,red](H\lastN-\source) edge (H\N-\dest);%<-- added 
+            \else %<-- added %%%
+            \path[blue!50] (H\lastN-\source) edge (H\N-\dest);%<-- added 
+            \fi %<-- added %%%
+            }; %<-- added %%%%
 
-    % Connect every node in the hidden layer with the output layer
-    \foreach \source in {1,...,3,5}
-    	\path[green!50] (H\Nhidden-\source) edge (O);
-    	\path[dashed,red] (H2-0) edge (O); %<-- added %%%%
 
-	% Annotate the input and output layers
-    \node[annot,left of=hl1] {Input layer};
-    \node[annot,right of=hl\Nhidden] {Output layer};  
+  % Connect every node in the hidden layer with the output layer
+  \foreach \source in {1,...,3,5}
+    \path[green!50] (H\Nhidden-\source) edge (O);
+    \path[dashed,red] (H2-0) edge (O); %<-- added %%%%
+
+% Annotate the input and output layers
+  \node[annot,left of=hl1] {Input layer};
+  \node[annot,right of=hl\Nhidden] {Output layer};  
 \end{tikzpicture}
 % End of code
 \end{document}
@@ -9578,17 +9674,16 @@ net/.style={
 \usepackage{xcolor}
 
 \begin{document}
- \begin{tikzpicture}
-  \foreach \x /\alph/\name in {0/a/one, 60/b/two, 120/c/three, 180/d/four, 240/e/five, 300/f/six}{
-  \node[circle, fill=green,minimum width=15mm,draw,shading=axis,top color=green, bottom color=green!50!black] (\alph) at (\x:3cm) {\name}; }
+\begin{tikzpicture}
+    \foreach \x /\alph/\name in {0/a/one, 60/b/two, 120/c/three, 180/d/four, 240/e/five, 300/f/six}{
+    \node[circle, fill=green,minimum width=15mm,draw,shading=axis,top color=green, bottom color=green!50!black] (\alph) at (\x:3cm) {\name}; }
 
-  \foreach \alpha in {a,b,c,d,e,f}%
-  {%
-  \foreach \alphb in {a,b,c,d,e}%
-  {%
-   \draw (\alpha) -- (\alphb);%
-  }}
-
+    \foreach \alpha in {a,b,c,d,e,f}%
+    {%
+    \foreach \alphb in {a,b,c,d,e}%
+    {%
+    \draw (\alpha) -- (\alphb);%
+    }}
  \end{tikzpicture}
 
 
@@ -9777,32 +9872,32 @@ net/.style={
 \tikzset{functions/.style={basic,circle,fill=blue!10}}
 
 \begin{document}
-    \begin{tikzpicture}
-        \node[functions] (center) {};
-        \node[below of=center,font=\scriptsize,text width=4em] {Activation function};
-        \draw[thick] (0.5em,0.5em) -- (0,0.5em) -- (0,-0.5em) -- (-0.5em,-0.5em);
-        \draw (0em,0.75em) -- (0em,-0.75em);
-        \draw (0.75em,0em) -- (-0.75em,0em);
-        \node[right of=center] (right) {};
-            \path[draw,->] (center) -- (right);
-        \node[functions,left=3em of center] (left) {$\sum$};
-            \path[draw,->] (left) -- (center);
-        \node[weights,left=3em of left] (2) {$w_2$} -- (2) node[input,left of=2] (l2) {$x_2$};
-            \path[draw,->] (l2) -- (2);
-            \path[draw,->] (2) -- (left);
-        \node[below of=2] (dots) {$\vdots$} -- (dots) node[left of=dots] (ldots) {$\vdots$};
-        \node[weights,below of=dots] (n) {$w_n$} -- (n) node[input,left of=n] (ln) {$x_n$};
-            \path[draw,->] (ln) -- (n);
-            \path[draw,->] (n) -- (left);
-        \node[weights,above of=2] (1) {$w_1$} -- (1) node[input,left of=1] (l1) {$x_1$};
-            \path[draw,->] (l1) -- (1);
-            \path[draw,->] (1) -- (left);
-        \node[weights,above of=1] (0) {$w_0$} -- (0) node[input,left of=0] (l0) {$1$};
-            \path[draw,->] (l0) -- (0);
-            \path[draw,->] (0) -- (left);
-        \node[below of=ln,font=\scriptsize] {inputs};
-        \node[below of=n,font=\scriptsize] {weights};
-    \end{tikzpicture}
+\begin{tikzpicture}
+    \node[functions] (center) {};
+    \node[below of=center,font=\scriptsize,text width=4em] {Activation function};
+    \draw[thick] (0.5em,0.5em) -- (0,0.5em) -- (0,-0.5em) -- (-0.5em,-0.5em);
+    \draw (0em,0.75em) -- (0em,-0.75em);
+    \draw (0.75em,0em) -- (-0.75em,0em);
+    \node[right of=center] (right) {};
+        \path[draw,->] (center) -- (right);
+    \node[functions,left=3em of center] (left) {$\sum$};
+        \path[draw,->] (left) -- (center);
+    \node[weights,left=3em of left] (2) {$w_2$} -- (2) node[input,left of=2] (l2) {$x_2$};
+        \path[draw,->] (l2) -- (2);
+        \path[draw,->] (2) -- (left);
+    \node[below of=2] (dots) {$\vdots$} -- (dots) node[left of=dots] (ldots) {$\vdots$};
+    \node[weights,below of=dots] (n) {$w_n$} -- (n) node[input,left of=n] (ln) {$x_n$};
+        \path[draw,->] (ln) -- (n);
+        \path[draw,->] (n) -- (left);
+    \node[weights,above of=2] (1) {$w_1$} -- (1) node[input,left of=1] (l1) {$x_1$};
+        \path[draw,->] (l1) -- (1);
+        \path[draw,->] (1) -- (left);
+    \node[weights,above of=1] (0) {$w_0$} -- (0) node[input,left of=0] (l0) {$1$};
+        \path[draw,->] (l0) -- (0);
+        \path[draw,->] (0) -- (left);
+    \node[below of=ln,font=\scriptsize] {inputs};
+    \node[below of=n,font=\scriptsize] {weights};
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -9900,13 +9995,6 @@ net/.style={
 \usepackage{tikz}
 
 \begin{document}
-
-
-
-
-
-
-
 % Gradient Info
   
 \tikzset {_zurc7u6zg/.code = {\pgfsetadditionalshadetransform{ \pgftransformshift{\pgfpoint{0 bp } { 0 bp }  }  \pgftransformrotate{0 }  \pgftransformscale{2 }  }}}
@@ -9931,138 +10019,132 @@ rgb(100bp)=(0.14,0.33,0.54)}
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
 
 \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-%uncomment if require: \path (0,386.25); %set diagram left start at 0, and has height of 386.25
+    %uncomment if require: \path (0,386.25); %set diagram left start at 0, and has height of 386.25
 
-%Rounded Rect [id:dp5600381410432633] 
-\draw   (369,181) .. controls (369,171.06) and (377.06,163) .. (387,163) -- (441,163) .. controls (450.94,163) and (459,171.06) .. (459,181) -- (459,235) .. controls (459,244.94) and (450.94,253) .. (441,253) -- (387,253) .. controls (377.06,253) and (369,244.94) .. (369,235) -- cycle ;
-%Shape: Circle [id:dp5032925255170694] 
-\draw  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][line width=1.5]  (398.28,193.22) .. controls (398.28,183.4) and (406.24,175.44) .. (416.06,175.44) .. controls (425.87,175.44) and (433.83,183.4) .. (433.83,193.22) .. controls (433.83,203.04) and (425.87,211) .. (416.06,211) .. controls (406.24,211) and (398.28,203.04) .. (398.28,193.22) -- cycle ;
+    %Rounded Rect [id:dp5600381410432633] 
+    \draw   (369,181) .. controls (369,171.06) and (377.06,163) .. (387,163) -- (441,163) .. controls (450.94,163) and (459,171.06) .. (459,181) -- (459,235) .. controls (459,244.94) and (450.94,253) .. (441,253) -- (387,253) .. controls (377.06,253) and (369,244.94) .. (369,235) -- cycle ;
+    %Shape: Circle [id:dp5032925255170694] 
+    \draw  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][line width=1.5]  (398.28,193.22) .. controls (398.28,183.4) and (406.24,175.44) .. (416.06,175.44) .. controls (425.87,175.44) and (433.83,183.4) .. (433.83,193.22) .. controls (433.83,203.04) and (425.87,211) .. (416.06,211) .. controls (406.24,211) and (398.28,203.04) .. (398.28,193.22) -- cycle ;
 
+    %Straight Lines [id:da8271448645768573] 
+    \draw    (347.44,207) -- (367,207) ;
+    \draw [shift={(369,207)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 
-%Straight Lines [id:da8271448645768573] 
-\draw    (347.44,207) -- (367,207) ;
-\draw [shift={(369,207)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+    %Shape: Rectangle [id:dp9964191526976391] 
+    \draw  [fill={rgb, 255:red, 74; green, 144; blue, 226 }  ,fill opacity=0.34 ] (14.82,192.37) -- (33.46,192.37) -- (33.46,210.6) -- (14.82,210.6) -- cycle ;
+    %Shape: Rectangle [id:dp3482140555452191] 
+    \draw  [fill={rgb, 255:red, 155; green, 155; blue, 155 }  ,fill opacity=0.56 ] (14.82,210.6) -- (33.46,210.6) -- (33.46,228.83) -- (14.82,228.83) -- cycle ;
+    %Shape: Rectangle [id:dp654940367376203] 
+    \draw  [fill={rgb, 255:red, 184; green, 233; blue, 134 }  ,fill opacity=1 ] (14.82,228.83) -- (33.46,228.83) -- (33.46,247.05) -- (14.82,247.05) -- cycle ;
+    %Shape: Rectangle [id:dp5306238704836159] 
+    \draw  [fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=0.63 ] (14.82,247.05) -- (33.46,247.05) -- (33.46,265.28) -- (14.82,265.28) -- cycle ;
+    %Shape: Rectangle [id:dp8835706058360098] 
+    \path  [shading=_9951a9ewz,_zurc7u6zg,path fading= _pe8x93w4q ,fading transform={xshift=2}] (14.82,283.51) -- (33.46,283.51) -- (33.46,301.74) -- (14.82,301.74) -- cycle ; % for fading 
+    \draw   (14.82,283.51) -- (33.46,283.51) -- (33.46,301.74) -- (14.82,301.74) -- cycle ; % for border 
 
-%Shape: Rectangle [id:dp9964191526976391] 
-\draw  [fill={rgb, 255:red, 74; green, 144; blue, 226 }  ,fill opacity=0.34 ] (14.82,192.37) -- (33.46,192.37) -- (33.46,210.6) -- (14.82,210.6) -- cycle ;
-%Shape: Rectangle [id:dp3482140555452191] 
-\draw  [fill={rgb, 255:red, 155; green, 155; blue, 155 }  ,fill opacity=0.56 ] (14.82,210.6) -- (33.46,210.6) -- (33.46,228.83) -- (14.82,228.83) -- cycle ;
-%Shape: Rectangle [id:dp654940367376203] 
-\draw  [fill={rgb, 255:red, 184; green, 233; blue, 134 }  ,fill opacity=1 ] (14.82,228.83) -- (33.46,228.83) -- (33.46,247.05) -- (14.82,247.05) -- cycle ;
-%Shape: Rectangle [id:dp5306238704836159] 
-\draw  [fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=0.63 ] (14.82,247.05) -- (33.46,247.05) -- (33.46,265.28) -- (14.82,265.28) -- cycle ;
-%Shape: Rectangle [id:dp8835706058360098] 
-\path  [shading=_9951a9ewz,_zurc7u6zg,path fading= _pe8x93w4q ,fading transform={xshift=2}] (14.82,283.51) -- (33.46,283.51) -- (33.46,301.74) -- (14.82,301.74) -- cycle ; % for fading 
- \draw   (14.82,283.51) -- (33.46,283.51) -- (33.46,301.74) -- (14.82,301.74) -- cycle ; % for border 
+    %Shape: Rectangle [id:dp954891220078887] 
+    \path  [shading=_w05td983g,_dat12uray] (14.82,301.74) -- (33.46,301.74) -- (33.46,319.96) -- (14.82,319.96) -- cycle ; % for fading 
+    \draw   (14.82,301.74) -- (33.46,301.74) -- (33.46,319.96) -- (14.82,319.96) -- cycle ; % for border 
 
-%Shape: Rectangle [id:dp954891220078887] 
-\path  [shading=_w05td983g,_dat12uray] (14.82,301.74) -- (33.46,301.74) -- (33.46,319.96) -- (14.82,319.96) -- cycle ; % for fading 
- \draw   (14.82,301.74) -- (33.46,301.74) -- (33.46,319.96) -- (14.82,319.96) -- cycle ; % for border 
+    %Shape: Rectangle [id:dp7774202257654144] 
+    \draw  [fill={rgb, 255:red, 245; green, 166; blue, 35 }  ,fill opacity=1 ] (14.82,319.96) -- (33.46,319.96) -- (33.46,338.19) -- (14.82,338.19) -- cycle ;
+    %Shape: Rectangle [id:dp20545652341663612] 
+    \draw  [fill={rgb, 255:red, 224; green, 16; blue, 203 }  ,fill opacity=0.6 ] (14.82,265.28) -- (33.46,265.28) -- (33.46,283.51) -- (14.82,283.51) -- cycle ;
 
-%Shape: Rectangle [id:dp7774202257654144] 
-\draw  [fill={rgb, 255:red, 245; green, 166; blue, 35 }  ,fill opacity=1 ] (14.82,319.96) -- (33.46,319.96) -- (33.46,338.19) -- (14.82,338.19) -- cycle ;
-%Shape: Rectangle [id:dp20545652341663612] 
-\draw  [fill={rgb, 255:red, 224; green, 16; blue, 203 }  ,fill opacity=0.6 ] (14.82,265.28) -- (33.46,265.28) -- (33.46,283.51) -- (14.82,283.51) -- cycle ;
+    %Shape: Circle [id:dp6187772005236754] 
+    \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (344.43,207) .. controls (344.43,205.4) and (345.73,204.11) .. (347.32,204.11) .. controls (348.92,204.11) and (350.21,205.4) .. (350.21,207) .. controls (350.21,208.6) and (348.92,209.89) .. (347.32,209.89) .. controls (345.73,209.89) and (344.43,208.6) .. (344.43,207) -- cycle ;
+    %Image [id:dp846479400101296] 
 
-%Shape: Circle [id:dp6187772005236754] 
-\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (344.43,207) .. controls (344.43,205.4) and (345.73,204.11) .. (347.32,204.11) .. controls (348.92,204.11) and (350.21,205.4) .. (350.21,207) .. controls (350.21,208.6) and (348.92,209.89) .. (347.32,209.89) .. controls (345.73,209.89) and (344.43,208.6) .. (344.43,207) -- cycle ;
-%Image [id:dp846479400101296] 
+    \draw    (110,270) -- (141.25,270) ;
+    \draw [shift={(143.25,270)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 
-\draw    (110,270) -- (141.25,270) ;
-\draw [shift={(143.25,270)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+    %Straight Lines [id:da3216915680070973] 
+    \draw    (301.23,188.38) -- (342.28,206.2) ;
+    \draw [shift={(344.11,207)}, rotate = 203.47] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (10.72,-5.15) -- (0,0) -- (10.72,5.15) -- (7.12,0) -- cycle    ;
 
-%Straight Lines [id:da3216915680070973] 
-\draw    (301.23,188.38) -- (342.28,206.2) ;
-\draw [shift={(344.11,207)}, rotate = 203.47] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (10.72,-5.15) -- (0,0) -- (10.72,5.15) -- (7.12,0) -- cycle    ;
+    %Straight Lines [id:da9690716199190742] 
+    \draw    (269.99,227) -- (296.35,227) ;
+    \draw [shift={(298.35,227)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 
-%Straight Lines [id:da9690716199190742] 
-\draw    (269.99,227) -- (296.35,227) ;
-\draw [shift={(298.35,227)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+    %Straight Lines [id:da9710447872307109] 
+    \draw    (270.33,188.55) -- (296.35,188.55) ;
+    \draw [shift={(298.35,188.55)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 
-%Straight Lines [id:da9710447872307109] 
-\draw    (270.33,188.55) -- (296.35,188.55) ;
-\draw [shift={(298.35,188.55)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+    %Shape: Brace [id:dp9505586683559769] 
+    \draw   (40.5,339) .. controls (45.17,339) and (47.5,336.67) .. (47.5,332) -- (47.5,278) .. controls (47.5,271.33) and (49.83,268) .. (54.5,268) .. controls (49.83,268) and (47.5,264.67) .. (47.5,258)(47.5,261) -- (47.5,197) .. controls (47.5,192.33) and (45.17,190) .. (40.5,190) ;
+    %Shape: Square [id:dp9131980861441146] 
+    \draw  [color={rgb, 255:red, 139; green, 87; blue, 42 }  ,draw opacity=1 ][fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=1 ] (163,90) -- (213,90) -- (213,140) -- (163,140) -- cycle ;
+    %Shape: Square [id:dp3631151283608858] 
+    \draw  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][fill={rgb, 255:red, 129; green, 183; blue, 250 }  ,fill opacity=1 ] (168,95) -- (218,95) -- (218,145) -- (168,145) -- cycle ;
+    %Shape: Square [id:dp34176399727208884] 
+    \draw  [color={rgb, 255:red, 126; green, 211; blue, 33 }  ,draw opacity=1 ][fill={rgb, 255:red, 173; green, 250; blue, 87 }  ,fill opacity=1 ] (173,100) -- (223,100) -- (223,150) -- (173,150) -- cycle ;
+    %Shape: Square [id:dp4490513469836446] 
+    \draw  [color={rgb, 255:red, 245; green, 166; blue, 35 }  ,draw opacity=1 ][fill={rgb, 255:red, 246; green, 190; blue, 97 }  ,fill opacity=1 ] (178,105) -- (228,105) -- (228,155) -- (178,155) -- cycle ;
+    %Shape: Square [id:dp9277635715246153] 
+    \draw  [color={rgb, 255:red, 155; green, 155; blue, 155 }  ,draw opacity=1 ][fill={rgb, 255:red, 255; green, 255; blue, 255 }  ,fill opacity=1 ] (183,110) -- (233,110) -- (233,160) -- (183,160) -- cycle ;
+    %Shape: Square [id:dp8826163826532741] 
+    \draw  [color={rgb, 255:red, 189; green, 16; blue, 224 }  ,draw opacity=1 ][fill={rgb, 255:red, 214; green, 146; blue, 231 }  ,fill opacity=1 ] (188,115) -- (238,115) -- (238,165) -- (188,165) -- cycle ;
 
-%Shape: Brace [id:dp9505586683559769] 
-\draw   (40.5,339) .. controls (45.17,339) and (47.5,336.67) .. (47.5,332) -- (47.5,278) .. controls (47.5,271.33) and (49.83,268) .. (54.5,268) .. controls (49.83,268) and (47.5,264.67) .. (47.5,258)(47.5,261) -- (47.5,197) .. controls (47.5,192.33) and (45.17,190) .. (40.5,190) ;
-%Shape: Square [id:dp9131980861441146] 
-\draw  [color={rgb, 255:red, 139; green, 87; blue, 42 }  ,draw opacity=1 ][fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=1 ] (163,90) -- (213,90) -- (213,140) -- (163,140) -- cycle ;
-%Shape: Square [id:dp3631151283608858] 
-\draw  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][fill={rgb, 255:red, 129; green, 183; blue, 250 }  ,fill opacity=1 ] (168,95) -- (218,95) -- (218,145) -- (168,145) -- cycle ;
-%Shape: Square [id:dp34176399727208884] 
-\draw  [color={rgb, 255:red, 126; green, 211; blue, 33 }  ,draw opacity=1 ][fill={rgb, 255:red, 173; green, 250; blue, 87 }  ,fill opacity=1 ] (173,100) -- (223,100) -- (223,150) -- (173,150) -- cycle ;
-%Shape: Square [id:dp4490513469836446] 
-\draw  [color={rgb, 255:red, 245; green, 166; blue, 35 }  ,draw opacity=1 ][fill={rgb, 255:red, 246; green, 190; blue, 97 }  ,fill opacity=1 ] (178,105) -- (228,105) -- (228,155) -- (178,155) -- cycle ;
-%Shape: Square [id:dp9277635715246153] 
-\draw  [color={rgb, 255:red, 155; green, 155; blue, 155 }  ,draw opacity=1 ][fill={rgb, 255:red, 255; green, 255; blue, 255 }  ,fill opacity=1 ] (183,110) -- (233,110) -- (233,160) -- (183,160) -- cycle ;
-%Shape: Square [id:dp8826163826532741] 
-\draw  [color={rgb, 255:red, 189; green, 16; blue, 224 }  ,draw opacity=1 ][fill={rgb, 255:red, 214; green, 146; blue, 231 }  ,fill opacity=1 ] (188,115) -- (238,115) -- (238,165) -- (188,165) -- cycle ;
+    %Shape: Diamond [id:dp4450122661170127] 
+    \draw   (552.92,165.5) -- (599.92,208.5) -- (552.92,251.5) -- (505.92,208.5) -- cycle ;
+    %Shape: Circle [id:dp3964751670253476] 
+    \draw  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][line width=1.5]  (542.28,199.11) .. controls (542.28,189.29) and (550.24,181.33) .. (560.06,181.33) .. controls (569.87,181.33) and (577.83,189.29) .. (577.83,199.11) .. controls (577.83,208.93) and (569.87,216.89) .. (560.06,216.89) .. controls (550.24,216.89) and (542.28,208.93) .. (542.28,199.11) -- cycle ;
 
-%Shape: Diamond [id:dp4450122661170127] 
-\draw   (552.92,165.5) -- (599.92,208.5) -- (552.92,251.5) -- (505.92,208.5) -- cycle ;
-%Shape: Circle [id:dp3964751670253476] 
-\draw  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][line width=1.5]  (542.28,199.11) .. controls (542.28,189.29) and (550.24,181.33) .. (560.06,181.33) .. controls (569.87,181.33) and (577.83,189.29) .. (577.83,199.11) .. controls (577.83,208.93) and (569.87,216.89) .. (560.06,216.89) .. controls (550.24,216.89) and (542.28,208.93) .. (542.28,199.11) -- cycle ;
+    %Rounded Rect [id:dp7516306548994922] 
+    \draw   (145.67,240.89) .. controls (145.67,230.38) and (154.19,221.86) .. (164.69,221.86) -- (221.97,221.86) .. controls (232.48,221.86) and (241,230.38) .. (241,240.89) -- (241,297.97) .. controls (241,308.48) and (232.48,317) .. (221.97,317) -- (164.69,317) .. controls (154.19,317) and (145.67,308.48) .. (145.67,297.97) -- cycle ;
+    %Shape: Circle [id:dp7110991589465997] 
+    \draw  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][line width=1.5]  (175,256.75) .. controls (175,246.93) and (182.96,238.97) .. (192.78,238.97) .. controls (202.6,238.97) and (210.56,246.93) .. (210.56,256.75) .. controls (210.56,266.57) and (202.6,274.53) .. (192.78,274.53) .. controls (182.96,274.53) and (175,266.57) .. (175,256.75) -- cycle ;
 
-%Rounded Rect [id:dp7516306548994922] 
-\draw   (145.67,240.89) .. controls (145.67,230.38) and (154.19,221.86) .. (164.69,221.86) -- (221.97,221.86) .. controls (232.48,221.86) and (241,230.38) .. (241,240.89) -- (241,297.97) .. controls (241,308.48) and (232.48,317) .. (221.97,317) -- (164.69,317) .. controls (154.19,317) and (145.67,308.48) .. (145.67,297.97) -- cycle ;
-%Shape: Circle [id:dp7110991589465997] 
-\draw  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][line width=1.5]  (175,256.75) .. controls (175,246.93) and (182.96,238.97) .. (192.78,238.97) .. controls (202.6,238.97) and (210.56,246.93) .. (210.56,256.75) .. controls (210.56,266.57) and (202.6,274.53) .. (192.78,274.53) .. controls (182.96,274.53) and (175,266.57) .. (175,256.75) -- cycle ;
+    %Shape: Circle [id:dp4302217162511397] 
+    \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (298.35,188.55) .. controls (298.35,186.96) and (299.64,185.67) .. (301.23,185.67) .. controls (302.83,185.67) and (304.12,186.96) .. (304.12,188.55) .. controls (304.12,190.15) and (302.83,191.44) .. (301.23,191.44) .. controls (299.64,191.44) and (298.35,190.15) .. (298.35,188.55) -- cycle ;
+    %Shape: Circle [id:dp12439848135037046] 
+    \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (298.35,227) .. controls (298.35,225.4) and (299.64,224.11) .. (301.23,224.11) .. controls (302.83,224.11) and (304.12,225.4) .. (304.12,227) .. controls (304.12,228.6) and (302.83,229.89) .. (301.23,229.89) .. controls (299.64,229.89) and (298.35,228.6) .. (298.35,227) -- cycle ;
+    %Straight Lines [id:da0019400862630865046] 
+    \draw    (459,208) -- (507,208) ;
+    \draw [shift={(509,208)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 
+    %Straight Lines [id:da8511899935039635] 
+    \draw  [dash pattern={on 4.5pt off 4.5pt}]  (320.25,174.59) -- (320.25,242.09) ;
+    \draw [shift={(320.25,244.09)}, rotate = 270] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (10.72,-5.15) -- (0,0) -- (10.72,5.15) -- (7.12,0) -- cycle    ;
+    \draw [shift={(320.25,172.59)}, rotate = 90] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (10.72,-5.15) -- (0,0) -- (10.72,5.15) -- (7.12,0) -- cycle    ;
+    %Straight Lines [id:da015872042166693356] 
+    \draw    (239.48,270) -- (270.33,270) -- (269.99,227) ;
 
-%Shape: Circle [id:dp4302217162511397] 
-\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (298.35,188.55) .. controls (298.35,186.96) and (299.64,185.67) .. (301.23,185.67) .. controls (302.83,185.67) and (304.12,186.96) .. (304.12,188.55) .. controls (304.12,190.15) and (302.83,191.44) .. (301.23,191.44) .. controls (299.64,191.44) and (298.35,190.15) .. (298.35,188.55) -- cycle ;
-%Shape: Circle [id:dp12439848135037046] 
-\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (298.35,227) .. controls (298.35,225.4) and (299.64,224.11) .. (301.23,224.11) .. controls (302.83,224.11) and (304.12,225.4) .. (304.12,227) .. controls (304.12,228.6) and (302.83,229.89) .. (301.23,229.89) .. controls (299.64,229.89) and (298.35,228.6) .. (298.35,227) -- cycle ;
-%Straight Lines [id:da0019400862630865046] 
-\draw    (459,208) -- (507,208) ;
-\draw [shift={(509,208)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+    %Straight Lines [id:da30928227034367795] 
+    \draw    (239.48,140) -- (270.33,140) -- (270.33,188.55) ;
 
-%Straight Lines [id:da8511899935039635] 
-\draw  [dash pattern={on 4.5pt off 4.5pt}]  (320.25,174.59) -- (320.25,242.09) ;
-\draw [shift={(320.25,244.09)}, rotate = 270] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (10.72,-5.15) -- (0,0) -- (10.72,5.15) -- (7.12,0) -- cycle    ;
-\draw [shift={(320.25,172.59)}, rotate = 90] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (10.72,-5.15) -- (0,0) -- (10.72,5.15) -- (7.12,0) -- cycle    ;
-%Straight Lines [id:da015872042166693356] 
-\draw    (239.48,270) -- (270.33,270) -- (269.99,227) ;
+    %Straight Lines [id:da8043758036501951] 
+    \draw  [dash pattern={on 0.84pt off 2.51pt}]  (410,350) -- (410.98,253.87) ;
+    \draw [shift={(411,251.87)}, rotate = 450.58] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 
+    %Straight Lines [id:da5070180950314974] 
+    \draw  [dash pattern={on 0.84pt off 2.51pt}]  (552.92,249.67) -- (552.92,350) -- (187,350) -- (187,320.38) ;
+    \draw [shift={(187,318.38)}, rotate = 450] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-4.9) .. controls (6.95,-2.3) and (3.31,-0.67) .. (0,0) .. controls (3.31,0.67) and (6.95,2.3) .. (10.93,4.9)   ;
 
-%Straight Lines [id:da30928227034367795] 
-\draw    (239.48,140) -- (270.33,140) -- (270.33,188.55) ;
+    %Straight Lines [id:da928376408340969] 
+    \draw [color={rgb, 255:red, 155; green, 155; blue, 155 }  ,draw opacity=1 ]   (83.5,332.38) .. controls (81.83,330.71) and (81.83,329.05) .. (83.5,327.38) .. controls (85.17,325.71) and (85.17,324.05) .. (83.5,322.38) .. controls (81.83,320.71) and (81.83,319.05) .. (83.5,317.38) .. controls (85.17,315.71) and (85.17,314.05) .. (83.5,312.38) .. controls (81.83,310.71) and (81.83,309.05) .. (83.5,307.38) .. controls (85.17,305.71) and (85.17,304.05) .. (83.5,302.38) .. controls (81.83,300.71) and (81.83,299.05) .. (83.5,297.38) -- (83.5,293.38) -- (83.5,285.38) ;
+    \draw [shift={(83.5,283.38)}, rotate = 450] [color={rgb, 255:red, 155; green, 155; blue, 155 }  ,draw opacity=1 ][line width=0.75]    (10.93,-4.9) .. controls (6.95,-2.3) and (3.31,-0.67) .. (0,0) .. controls (3.31,0.67) and (6.95,2.3) .. (10.93,4.9)   ;
 
-
-%Straight Lines [id:da8043758036501951] 
-\draw  [dash pattern={on 0.84pt off 2.51pt}]  (410,350) -- (410.98,253.87) ;
-\draw [shift={(411,251.87)}, rotate = 450.58] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-
-%Straight Lines [id:da5070180950314974] 
-\draw  [dash pattern={on 0.84pt off 2.51pt}]  (552.92,249.67) -- (552.92,350) -- (187,350) -- (187,320.38) ;
-\draw [shift={(187,318.38)}, rotate = 450] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-4.9) .. controls (6.95,-2.3) and (3.31,-0.67) .. (0,0) .. controls (3.31,0.67) and (6.95,2.3) .. (10.93,4.9)   ;
-
-%Straight Lines [id:da928376408340969] 
-\draw [color={rgb, 255:red, 155; green, 155; blue, 155 }  ,draw opacity=1 ]   (83.5,332.38) .. controls (81.83,330.71) and (81.83,329.05) .. (83.5,327.38) .. controls (85.17,325.71) and (85.17,324.05) .. (83.5,322.38) .. controls (81.83,320.71) and (81.83,319.05) .. (83.5,317.38) .. controls (85.17,315.71) and (85.17,314.05) .. (83.5,312.38) .. controls (81.83,310.71) and (81.83,309.05) .. (83.5,307.38) .. controls (85.17,305.71) and (85.17,304.05) .. (83.5,302.38) .. controls (81.83,300.71) and (81.83,299.05) .. (83.5,297.38) -- (83.5,293.38) -- (83.5,285.38) ;
-\draw [shift={(83.5,283.38)}, rotate = 450] [color={rgb, 255:red, 155; green, 155; blue, 155 }  ,draw opacity=1 ][line width=0.75]    (10.93,-4.9) .. controls (6.95,-2.3) and (3.31,-0.67) .. (0,0) .. controls (3.31,0.67) and (6.95,2.3) .. (10.93,4.9)   ;
-
-
-% Text Node
-\draw (326,28) node [scale=1.7280000000000002] [align=left] {{\large Generative Adversarial Network (GAN)}};
-% Text Node
-\draw (82.67,341) node  [align=left] {noise};
-% Text Node
-\draw (138,90) node  [align=left] {Real \\Data};
-% Text Node
-\draw (552.96,213.67) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{is }\\\textcolor[rgb]{0.82,0.01,0.11}{correct?}};
-% Text Node
-\draw (480,338) node [scale=0.8] [align=left] {Fine Tuning Training};
-% Text Node
-\draw (560.83,198.56) node [scale=1.44,color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ] [align=left] {D};
-% Text Node
-\draw (416.83,192.67) node [scale=1.44,color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ] [align=left] {D};
-% Text Node
-\draw (413.08,235.17) node  [align=left] {Discriminator};
-% Text Node
-\draw (191.56,256.2) node [scale=1.44,color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ] [align=left] {G};
-% Text Node
-\draw (193.72,300.86) node  [align=left] {Generator};
-
+    % Text Node
+    \draw (326,28) node [scale=1.7280000000000002] [align=left] {{\large Generative Adversarial Network (GAN)}};
+    % Text Node
+    \draw (82.67,341) node  [align=left] {noise};
+    % Text Node
+    \draw (138,90) node  [align=left] {Real \\Data};
+    % Text Node
+    \draw (552.96,213.67) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{is }\\\textcolor[rgb]{0.82,0.01,0.11}{correct?}};
+    % Text Node
+    \draw (480,338) node [scale=0.8] [align=left] {Fine Tuning Training};
+    % Text Node
+    \draw (560.83,198.56) node [scale=1.44,color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ] [align=left] {D};
+    % Text Node
+    \draw (416.83,192.67) node [scale=1.44,color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ] [align=left] {D};
+    % Text Node
+    \draw (413.08,235.17) node  [align=left] {Discriminator};
+    % Text Node
+    \draw (191.56,256.2) node [scale=1.44,color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ] [align=left] {G};
+    % Text Node
+    \draw (193.72,300.86) node  [align=left] {Generator};
 
 \end{tikzpicture}
 
@@ -10085,9 +10167,6 @@ rgb(100bp)=(0.14,0.33,0.54)}
 \usepackage{tikz}
 
 \begin{document}
-
-
-
 
 % Gradient Info
   
@@ -10113,52 +10192,52 @@ rgb(100bp)=(0.14,0.33,0.54)}
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
 
 \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-%uncomment if require: \path (0,386.25); %set diagram left start at 0, and has height of 386.25
+    %uncomment if require: \path (0,386.25); %set diagram left start at 0, and has height of 386.25
 
-%Rounded Rect [id:dp8427758470201833] 
-\draw   (388.63,108.07) .. controls (388.63,95.88) and (398.51,86) .. (410.7,86) -- (485.57,86) .. controls (497.75,86) and (507.63,95.88) .. (507.63,108.07) -- (507.63,174.27) .. controls (507.63,186.45) and (497.75,196.33) .. (485.57,196.33) -- (410.7,196.33) .. controls (398.51,196.33) and (388.63,186.45) .. (388.63,174.27) -- cycle ;
-%Rounded Rect [id:dp3169403847789256] 
-\draw   (129.63,181.07) .. controls (129.63,168.88) and (139.51,159) .. (151.7,159) -- (226.57,159) .. controls (238.75,159) and (248.63,168.88) .. (248.63,181.07) -- (248.63,247.27) .. controls (248.63,259.45) and (238.75,269.33) .. (226.57,269.33) -- (151.7,269.33) .. controls (139.51,269.33) and (129.63,259.45) .. (129.63,247.27) -- cycle ;
+    %Rounded Rect [id:dp8427758470201833] 
+    \draw   (388.63,108.07) .. controls (388.63,95.88) and (398.51,86) .. (410.7,86) -- (485.57,86) .. controls (497.75,86) and (507.63,95.88) .. (507.63,108.07) -- (507.63,174.27) .. controls (507.63,186.45) and (497.75,196.33) .. (485.57,196.33) -- (410.7,196.33) .. controls (398.51,196.33) and (388.63,186.45) .. (388.63,174.27) -- cycle ;
+    %Rounded Rect [id:dp3169403847789256] 
+    \draw   (129.63,181.07) .. controls (129.63,168.88) and (139.51,159) .. (151.7,159) -- (226.57,159) .. controls (238.75,159) and (248.63,168.88) .. (248.63,181.07) -- (248.63,247.27) .. controls (248.63,259.45) and (238.75,269.33) .. (226.57,269.33) -- (151.7,269.33) .. controls (139.51,269.33) and (129.63,259.45) .. (129.63,247.27) -- cycle ;
 
-%Shape: Circle [id:dp7450020212232851] 
-\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (217,126.32) .. controls (217,121.72) and (220.72,118) .. (225.32,118) .. controls (229.91,118) and (233.63,121.72) .. (233.63,126.32) .. controls (233.63,130.91) and (229.91,134.63) .. (225.32,134.63) .. controls (220.72,134.63) and (217,130.91) .. (217,126.32) -- cycle ;
-%Shape: Circle [id:dp005827607772636467] 
-\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (216,175.32) .. controls (216,170.72) and (219.72,167) .. (224.32,167) .. controls (228.91,167) and (232.63,170.72) .. (232.63,175.32) .. controls (232.63,179.91) and (228.91,183.63) .. (224.32,183.63) .. controls (219.72,183.63) and (216,179.91) .. (216,175.32) -- cycle ;
-%Shape: Circle [id:dp34524209173568676] 
-\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (289.32,143.33) .. controls (289.32,138.74) and (293.04,135.02) .. (297.63,135.02) .. controls (302.23,135.02) and (305.95,138.74) .. (305.95,143.33) .. controls (305.95,147.93) and (302.23,151.65) .. (297.63,151.65) .. controls (293.04,151.65) and (289.32,147.93) .. (289.32,143.33) -- cycle ;
-%Straight Lines [id:da8271448645768573] 
-\draw    (297.63,143.33) -- (385.32,143.33) ;
-\draw [shift={(387.32,143.33)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+    %Shape: Circle [id:dp7450020212232851] 
+    \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (217,126.32) .. controls (217,121.72) and (220.72,118) .. (225.32,118) .. controls (229.91,118) and (233.63,121.72) .. (233.63,126.32) .. controls (233.63,130.91) and (229.91,134.63) .. (225.32,134.63) .. controls (220.72,134.63) and (217,130.91) .. (217,126.32) -- cycle ;
+    %Shape: Circle [id:dp005827607772636467] 
+    \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (216,175.32) .. controls (216,170.72) and (219.72,167) .. (224.32,167) .. controls (228.91,167) and (232.63,170.72) .. (232.63,175.32) .. controls (232.63,179.91) and (228.91,183.63) .. (224.32,183.63) .. controls (219.72,183.63) and (216,179.91) .. (216,175.32) -- cycle ;
+    %Shape: Circle [id:dp34524209173568676] 
+    \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (289.32,143.33) .. controls (289.32,138.74) and (293.04,135.02) .. (297.63,135.02) .. controls (302.23,135.02) and (305.95,138.74) .. (305.95,143.33) .. controls (305.95,147.93) and (302.23,151.65) .. (297.63,151.65) .. controls (293.04,151.65) and (289.32,147.93) .. (289.32,143.33) -- cycle ;
+    %Straight Lines [id:da8271448645768573] 
+    \draw    (297.63,143.33) -- (385.32,143.33) ;
+    \draw [shift={(387.32,143.33)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 
-%Shape: Square [id:dp7469087349202225] 
-\draw  [fill={rgb, 255:red, 74; green, 144; blue, 226 }  ,fill opacity=0.34 ] (11.32,110.82) -- (31.5,110.82) -- (31.5,131) -- (11.32,131) -- cycle ;
-%Shape: Square [id:dp2906273668048538] 
-\draw  [fill={rgb, 255:red, 155; green, 155; blue, 155 }  ,fill opacity=0.56 ] (11.32,131) -- (31.5,131) -- (31.5,151.18) -- (11.32,151.18) -- cycle ;
-%Shape: Square [id:dp0257238778260086] 
-\draw  [fill={rgb, 255:red, 184; green, 233; blue, 134 }  ,fill opacity=1 ] (11.32,151.18) -- (31.5,151.18) -- (31.5,171.37) -- (11.32,171.37) -- cycle ;
-%Shape: Square [id:dp34631290295164263] 
-\draw  [fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=0.63 ] (11.32,171.37) -- (31.5,171.37) -- (31.5,191.55) -- (11.32,191.55) -- cycle ;
-%Shape: Square [id:dp7099563053307321] 
-\path  [shading=_w5gdki77u,_4c6h9fmv2,path fading= _atyxpg39b ,fading transform={xshift=2}] (11.32,211.73) -- (31.5,211.73) -- (31.5,231.92) -- (11.32,231.92) -- cycle ; % for fading 
- \draw   (11.32,211.73) -- (31.5,211.73) -- (31.5,231.92) -- (11.32,231.92) -- cycle ; % for border 
+    %Shape: Square [id:dp7469087349202225] 
+    \draw  [fill={rgb, 255:red, 74; green, 144; blue, 226 }  ,fill opacity=0.34 ] (11.32,110.82) -- (31.5,110.82) -- (31.5,131) -- (11.32,131) -- cycle ;
+    %Shape: Square [id:dp2906273668048538] 
+    \draw  [fill={rgb, 255:red, 155; green, 155; blue, 155 }  ,fill opacity=0.56 ] (11.32,131) -- (31.5,131) -- (31.5,151.18) -- (11.32,151.18) -- cycle ;
+    %Shape: Square [id:dp0257238778260086] 
+    \draw  [fill={rgb, 255:red, 184; green, 233; blue, 134 }  ,fill opacity=1 ] (11.32,151.18) -- (31.5,151.18) -- (31.5,171.37) -- (11.32,171.37) -- cycle ;
+    %Shape: Square [id:dp34631290295164263] 
+    \draw  [fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=0.63 ] (11.32,171.37) -- (31.5,171.37) -- (31.5,191.55) -- (11.32,191.55) -- cycle ;
+    %Shape: Square [id:dp7099563053307321] 
+    \path  [shading=_w5gdki77u,_4c6h9fmv2,path fading= _atyxpg39b ,fading transform={xshift=2}] (11.32,211.73) -- (31.5,211.73) -- (31.5,231.92) -- (11.32,231.92) -- cycle ; % for fading 
+    \draw   (11.32,211.73) -- (31.5,211.73) -- (31.5,231.92) -- (11.32,231.92) -- cycle ; % for border 
 
-%Shape: Square [id:dp277447687834944] 
-\path  [shading=_sprp2j4ay,_1vv4aec2h] (11.32,231.92) -- (31.5,231.92) -- (31.5,252.1) -- (11.32,252.1) -- cycle ; % for fading 
- \draw   (11.32,231.92) -- (31.5,231.92) -- (31.5,252.1) -- (11.32,252.1) -- cycle ; % for border 
+    %Shape: Square [id:dp277447687834944] 
+    \path  [shading=_sprp2j4ay,_1vv4aec2h] (11.32,231.92) -- (31.5,231.92) -- (31.5,252.1) -- (11.32,252.1) -- cycle ; % for fading 
+    \draw   (11.32,231.92) -- (31.5,231.92) -- (31.5,252.1) -- (11.32,252.1) -- cycle ; % for border 
 
-%Shape: Square [id:dp2517468749584255] 
-\draw  [fill={rgb, 255:red, 245; green, 166; blue, 35 }  ,fill opacity=1 ] (11.32,252.1) -- (31.5,252.1) -- (31.5,272.28) -- (11.32,272.28) -- cycle ;
-%Shape: Square [id:dp7774821387369513] 
-\draw  [fill={rgb, 255:red, 224; green, 16; blue, 203 }  ,fill opacity=0.6 ] (11.32,191.55) -- (31.5,191.55) -- (31.5,211.73) -- (11.32,211.73) -- cycle ;
+    %Shape: Square [id:dp2517468749584255] 
+    \draw  [fill={rgb, 255:red, 245; green, 166; blue, 35 }  ,fill opacity=1 ] (11.32,252.1) -- (31.5,252.1) -- (31.5,272.28) -- (11.32,272.28) -- cycle ;
+    %Shape: Square [id:dp7774821387369513] 
+    \draw  [fill={rgb, 255:red, 224; green, 16; blue, 203 }  ,fill opacity=0.6 ] (11.32,191.55) -- (31.5,191.55) -- (31.5,211.73) -- (11.32,211.73) -- cycle ;
 
-% Text Node
-\draw (448,112) node [scale=1.7280000000000002] [align=left] {{\Large D}};
-% Text Node
-\draw (443.75,170) node  [align=left] {Discriminator};
-% Text Node
-\draw (184,203) node [scale=1.7280000000000002] [align=left] {G};
-% Text Node
-\draw (185.75,236) node  [align=left] {Generator};
+    % Text Node
+    \draw (448,112) node [scale=1.7280000000000002] [align=left] {{\Large D}};
+    % Text Node
+    \draw (443.75,170) node  [align=left] {Discriminator};
+    % Text Node
+    \draw (184,203) node [scale=1.7280000000000002] [align=left] {G};
+    % Text Node
+    \draw (185.75,236) node  [align=left] {Generator};
 
 
 \end{tikzpicture}
@@ -10180,152 +10259,136 @@ rgb(100bp)=(0.14,0.33,0.54)}
 
 \begin{document}
 
-
-
-
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
 
 \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+    %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
 
-%Rounded Same Side Corner Rect [id:dp09824487187603104] 
-\draw  [fill={rgb, 255:red, 167; green, 189; blue, 216 }  ,fill opacity=1 ] (59,53.17) .. controls (59,48.75) and (62.58,45.17) .. (67,45.17) -- (121,45.17) .. controls (125.42,45.17) and (129,48.75) .. (129,53.17) -- (129,85.17) .. controls (129,85.17) and (129,85.17) .. (129,85.17) -- (59,85.17) .. controls (59,85.17) and (59,85.17) .. (59,85.17) -- cycle ;
+    %Rounded Same Side Corner Rect [id:dp09824487187603104] 
+    \draw  [fill={rgb, 255:red, 167; green, 189; blue, 216 }  ,fill opacity=1 ] (59,53.17) .. controls (59,48.75) and (62.58,45.17) .. (67,45.17) -- (121,45.17) .. controls (125.42,45.17) and (129,48.75) .. (129,53.17) -- (129,85.17) .. controls (129,85.17) and (129,85.17) .. (129,85.17) -- (59,85.17) .. controls (59,85.17) and (59,85.17) .. (59,85.17) -- cycle ;
 
-%Straight Lines [id:da3936283121049964] 
-\draw [line width=1.5]    (94,46.37) -- (94,27.17) ;
-\draw [shift={(94,24.17)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
+    %Straight Lines [id:da3936283121049964] 
+    \draw [line width=1.5]    (94,46.37) -- (94,27.17) ;
+    \draw [shift={(94,24.17)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
 
-%Straight Lines [id:da20962861468486604] 
-\draw [line width=1.5]    (94,108.37) -- (94,89.17) ;
-\draw [shift={(94,86.17)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
+    %Straight Lines [id:da20962861468486604] 
+    \draw [line width=1.5]    (94,108.37) -- (94,89.17) ;
+    \draw [shift={(94,86.17)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
 
+    %Rounded Same Side Corner Rect [id:dp23742764202945832] 
+    \draw  [fill={rgb, 255:red, 236; green, 127; blue, 141 }  ,fill opacity=1 ] (111,184.5) .. controls (111,180.08) and (114.58,176.5) .. (119,176.5) -- (173,176.5) .. controls (177.42,176.5) and (181,180.08) .. (181,184.5) -- (181,216.5) .. controls (181,216.5) and (181,216.5) .. (181,216.5) -- (111,216.5) .. controls (111,216.5) and (111,216.5) .. (111,216.5) -- cycle ;
 
-%Rounded Same Side Corner Rect [id:dp23742764202945832] 
-\draw  [fill={rgb, 255:red, 236; green, 127; blue, 141 }  ,fill opacity=1 ] (111,184.5) .. controls (111,180.08) and (114.58,176.5) .. (119,176.5) -- (173,176.5) .. controls (177.42,176.5) and (181,180.08) .. (181,184.5) -- (181,216.5) .. controls (181,216.5) and (181,216.5) .. (181,216.5) -- (111,216.5) .. controls (111,216.5) and (111,216.5) .. (111,216.5) -- cycle ;
+    %Shape: Circle [id:dp9124405398322727] 
+    \draw   (133.5,260.5) .. controls (133.5,253.6) and (139.1,248) .. (146,248) .. controls (152.9,248) and (158.5,253.6) .. (158.5,260.5) .. controls (158.5,267.4) and (152.9,273) .. (146,273) .. controls (139.1,273) and (133.5,267.4) .. (133.5,260.5) -- cycle ;
 
-%Shape: Circle [id:dp9124405398322727] 
-\draw   (133.5,260.5) .. controls (133.5,253.6) and (139.1,248) .. (146,248) .. controls (152.9,248) and (158.5,253.6) .. (158.5,260.5) .. controls (158.5,267.4) and (152.9,273) .. (146,273) .. controls (139.1,273) and (133.5,267.4) .. (133.5,260.5) -- cycle ;
+    %Straight Lines [id:da13727591026438046] 
+    \draw    (47,128.5) -- (47,118.37) -- (147,118.5) -- (147,128.5) ;
 
-%Straight Lines [id:da13727591026438046] 
-\draw    (47,128.5) -- (47,118.37) -- (147,118.5) -- (147,128.5) ;
+    %Shape: Circle [id:dp18766521903761446] 
+    \draw   (34.5,141.5) .. controls (34.5,134.6) and (40.1,129) .. (47,129) .. controls (53.9,129) and (59.5,134.6) .. (59.5,141.5) .. controls (59.5,148.4) and (53.9,154) .. (47,154) .. controls (40.1,154) and (34.5,148.4) .. (34.5,141.5) -- cycle ;
 
+    %Straight Lines [id:da802599291550045] 
+    \draw [line width=1.5]    (147,176.7) -- (147,157.5) ;
+    \draw [shift={(147,154.5)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
 
-%Shape: Circle [id:dp18766521903761446] 
-\draw   (34.5,141.5) .. controls (34.5,134.6) and (40.1,129) .. (47,129) .. controls (53.9,129) and (59.5,134.6) .. (59.5,141.5) .. controls (59.5,148.4) and (53.9,154) .. (47,154) .. controls (40.1,154) and (34.5,148.4) .. (34.5,141.5) -- cycle ;
+    %Straight Lines [id:da6629044704219691] 
+    \draw [line width=1.5]    (94,108.37) -- (94,118.37) ;
 
-%Straight Lines [id:da802599291550045] 
-\draw [line width=1.5]    (147,176.7) -- (147,157.5) ;
-\draw [shift={(147,154.5)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
+    %Rounded Same Side Corner Rect [id:dp8414166975508496] 
+    \draw  [fill={rgb, 255:red, 167; green, 189; blue, 216 }  ,fill opacity=1 ] (280,52.8) .. controls (280,48.38) and (283.58,44.8) .. (288,44.8) -- (342,44.8) .. controls (346.42,44.8) and (350,48.38) .. (350,52.8) -- (350,84.8) .. controls (350,84.8) and (350,84.8) .. (350,84.8) -- (280,84.8) .. controls (280,84.8) and (280,84.8) .. (280,84.8) -- cycle ;
 
-%Straight Lines [id:da6629044704219691] 
-\draw [line width=1.5]    (94,108.37) -- (94,118.37) ;
+    %Straight Lines [id:da2585894594076309] 
+    \draw [line width=1.5]    (315,46) -- (315,26.8) ;
+    \draw [shift={(315,23.8)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
 
+    %Straight Lines [id:da46888126052976953] 
+    \draw [line width=1.5]    (315,108) -- (315,88.8) ;
+    \draw [shift={(315,85.8)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
 
-%Rounded Same Side Corner Rect [id:dp8414166975508496] 
-\draw  [fill={rgb, 255:red, 167; green, 189; blue, 216 }  ,fill opacity=1 ] (280,52.8) .. controls (280,48.38) and (283.58,44.8) .. (288,44.8) -- (342,44.8) .. controls (346.42,44.8) and (350,48.38) .. (350,52.8) -- (350,84.8) .. controls (350,84.8) and (350,84.8) .. (350,84.8) -- (280,84.8) .. controls (280,84.8) and (280,84.8) .. (280,84.8) -- cycle ;
+    %Straight Lines [id:da8917552789067931] 
+    \draw [line width=1.5]    (315,108) -- (315,118) ;
 
-%Straight Lines [id:da2585894594076309] 
-\draw [line width=1.5]    (315,46) -- (315,26.8) ;
-\draw [shift={(315,23.8)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
+    %Rounded Same Side Corner Rect [id:dp5374022902949864] 
+    \draw  [fill={rgb, 255:red, 236; green, 127; blue, 141 }  ,fill opacity=1 ] (331,185.5) .. controls (331,181.08) and (334.58,177.5) .. (339,177.5) -- (393,177.5) .. controls (397.42,177.5) and (401,181.08) .. (401,185.5) -- (401,217.5) .. controls (401,217.5) and (401,217.5) .. (401,217.5) -- (331,217.5) .. controls (331,217.5) and (331,217.5) .. (331,217.5) -- cycle ;
 
-%Straight Lines [id:da46888126052976953] 
-\draw [line width=1.5]    (315,108) -- (315,88.8) ;
-\draw [shift={(315,85.8)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
+    %Shape: Circle [id:dp15401041449631925] 
+    \draw   (355,260.5) .. controls (355,253.6) and (360.6,248) .. (367.5,248) .. controls (374.4,248) and (380,253.6) .. (380,260.5) .. controls (380,267.4) and (374.4,273) .. (367.5,273) .. controls (360.6,273) and (355,267.4) .. (355,260.5) -- cycle ;
 
-%Straight Lines [id:da8917552789067931] 
-\draw [line width=1.5]    (315,108) -- (315,118) ;
+    %Straight Lines [id:da7442630597870975] 
+    \draw    (267,129.5) -- (267,119.37) -- (367,119.5) -- (367,129.5) ;
 
+    %Shape: Circle [id:dp5737171836404196] 
+    \draw   (254.5,142.5) .. controls (254.5,135.6) and (260.1,130) .. (267,130) .. controls (273.9,130) and (279.5,135.6) .. (279.5,142.5) .. controls (279.5,149.4) and (273.9,155) .. (267,155) .. controls (260.1,155) and (254.5,149.4) .. (254.5,142.5) -- cycle ;
 
+    %Straight Lines [id:da4180267705785833] 
+    \draw [line width=1.5]    (367,177.7) -- (367,158.5) ;
+    \draw [shift={(367,155.5)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
 
-%Rounded Same Side Corner Rect [id:dp5374022902949864] 
-\draw  [fill={rgb, 255:red, 236; green, 127; blue, 141 }  ,fill opacity=1 ] (331,185.5) .. controls (331,181.08) and (334.58,177.5) .. (339,177.5) -- (393,177.5) .. controls (397.42,177.5) and (401,181.08) .. (401,185.5) -- (401,217.5) .. controls (401,217.5) and (401,217.5) .. (401,217.5) -- (331,217.5) .. controls (331,217.5) and (331,217.5) .. (331,217.5) -- cycle ;
+    %Shape: Circle [id:dp1910511651314143] 
+    \draw   (417.67,261) .. controls (417.67,254.1) and (423.26,248.5) .. (430.17,248.5) .. controls (437.07,248.5) and (442.67,254.1) .. (442.67,261) .. controls (442.67,267.9) and (437.07,273.5) .. (430.17,273.5) .. controls (423.26,273.5) and (417.67,267.9) .. (417.67,261) -- cycle ;
+    %Straight Lines [id:da4651457466304051] 
+    \draw    (430,107) -- (430,247.5) ;
 
-%Shape: Circle [id:dp15401041449631925] 
-\draw   (355,260.5) .. controls (355,253.6) and (360.6,248) .. (367.5,248) .. controls (374.4,248) and (380,253.6) .. (380,260.5) .. controls (380,267.4) and (374.4,273) .. (367.5,273) .. controls (360.6,273) and (355,267.4) .. (355,260.5) -- cycle ;
+    %Straight Lines [id:da5203121766050092] 
+    \draw [line width=1.5]    (366.33,238.5) -- (366.33,219.3) ;
+    \draw [shift={(366.33,216.3)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
 
-%Straight Lines [id:da7442630597870975] 
-\draw    (267,129.5) -- (267,119.37) -- (367,119.5) -- (367,129.5) ;
+    %Straight Lines [id:da937462245399049] 
+    \draw [line width=1.5]    (366.33,238.5) -- (366.33,248.5) ;
 
+    %Straight Lines [id:da9479077607901114] 
+    \draw    (368.33,238.5) -- (430,238.5) ;
 
-%Shape: Circle [id:dp5737171836404196] 
-\draw   (254.5,142.5) .. controls (254.5,135.6) and (260.1,130) .. (267,130) .. controls (273.9,130) and (279.5,135.6) .. (279.5,142.5) .. controls (279.5,149.4) and (273.9,155) .. (267,155) .. controls (260.1,155) and (254.5,149.4) .. (254.5,142.5) -- cycle ;
+    \draw [shift={(366.33,238.5)}, rotate = 0] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (10.72,-5.15) -- (0,0) -- (10.72,5.15) -- (7.12,0) -- cycle    ;
+    %Straight Lines [id:da5439740708699127] 
+    \draw    (318.33,107.98) -- (430,107) ;
 
-%Straight Lines [id:da4180267705785833] 
-\draw [line width=1.5]    (367,177.7) -- (367,158.5) ;
-\draw [shift={(367,155.5)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
+    \draw [shift={(316.33,108)}, rotate = 359.5] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (10.72,-5.15) -- (0,0) -- (10.72,5.15) -- (7.12,0) -- cycle    ;
+    %Straight Lines [id:da9106477946558591] 
+    \draw [line width=1.5]    (146,238.5) -- (146,219.3) ;
+    \draw [shift={(146,216.3)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
 
-%Shape: Circle [id:dp1910511651314143] 
-\draw   (417.67,261) .. controls (417.67,254.1) and (423.26,248.5) .. (430.17,248.5) .. controls (437.07,248.5) and (442.67,254.1) .. (442.67,261) .. controls (442.67,267.9) and (437.07,273.5) .. (430.17,273.5) .. controls (423.26,273.5) and (417.67,267.9) .. (417.67,261) -- cycle ;
-%Straight Lines [id:da4651457466304051] 
-\draw    (430,107) -- (430,247.5) ;
+    %Straight Lines [id:da3221761369788204] 
+    \draw [line width=1.5]    (146,238.5) -- (146,248.5) ;
 
-
-%Straight Lines [id:da5203121766050092] 
-\draw [line width=1.5]    (366.33,238.5) -- (366.33,219.3) ;
-\draw [shift={(366.33,216.3)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
-
-%Straight Lines [id:da937462245399049] 
-\draw [line width=1.5]    (366.33,238.5) -- (366.33,248.5) ;
-
-
-
-%Straight Lines [id:da9479077607901114] 
-\draw    (368.33,238.5) -- (430,238.5) ;
-
-\draw [shift={(366.33,238.5)}, rotate = 0] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (10.72,-5.15) -- (0,0) -- (10.72,5.15) -- (7.12,0) -- cycle    ;
-%Straight Lines [id:da5439740708699127] 
-\draw    (318.33,107.98) -- (430,107) ;
-
-\draw [shift={(316.33,108)}, rotate = 359.5] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (10.72,-5.15) -- (0,0) -- (10.72,5.15) -- (7.12,0) -- cycle    ;
-%Straight Lines [id:da9106477946558591] 
-\draw [line width=1.5]    (146,238.5) -- (146,219.3) ;
-\draw [shift={(146,216.3)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
-
-%Straight Lines [id:da3221761369788204] 
-\draw [line width=1.5]    (146,238.5) -- (146,248.5) ;
-
-
-
-
-% Text Node
-\draw (146,196.5) node [scale=1.7280000000000002] [align=left] {G};
-% Text Node
-\draw (147,140.5) node   {$G( z)$};
-% Text Node
-\draw (148,258.5) node   {$z$};
-% Text Node
-\draw (94,65.17) node [scale=1.7280000000000002] [align=left] {D};
-% Text Node
-\draw (161.5,118.5) node [scale=0.8,color={rgb, 255:red, 155; green, 155; blue, 155 }  ,opacity=1 ] [align=left] {fake};
-% Text Node
-\draw (32.5,117.5) node [scale=0.8,color={rgb, 255:red, 155; green, 155; blue, 155 }  ,opacity=1 ] [align=left] {real};
-% Text Node
-\draw (47.5,138) node   {$x$};
-% Text Node
-\draw (96,11.83) node  [align=left] {real/fake};
-% Text Node
-\draw (114.17,289) node [scale=0.8] [align=left] {a) Generative Adversarial Networks};
-% Text Node
-\draw (367,141.5) node   {$G( z)$};
-% Text Node
-\draw (381.5,119.5) node [scale=0.8,color={rgb, 255:red, 155; green, 155; blue, 155 }  ,opacity=1 ] [align=left] {fake};
-% Text Node
-\draw (252.5,118.5) node [scale=0.8,color={rgb, 255:red, 155; green, 155; blue, 155 }  ,opacity=1 ] [align=left] {real};
-% Text Node
-\draw (316,12.83) node  [align=left] {real/fake};
-% Text Node
-\draw (354.67,289) node [scale=0.8] [align=left] {b) Conditional GAN};
-% Text Node
-\draw (267.5,139) node   {$x$};
-% Text Node
-\draw (369.5,258.5) node   {$z$};
-% Text Node
-\draw (366,197.5) node [scale=1.7280000000000002] [align=left] {G};
-% Text Node
-\draw (315,64.8) node [scale=1.7280000000000002] [align=left] {D};
-% Text Node
-\draw (432.17,259) node   {$c$};
-
+    % Text Node
+    \draw (146,196.5) node [scale=1.7280000000000002] [align=left] {G};
+    % Text Node
+    \draw (147,140.5) node   {$G( z)$};
+    % Text Node
+    \draw (148,258.5) node   {$z$};
+    % Text Node
+    \draw (94,65.17) node [scale=1.7280000000000002] [align=left] {D};
+    % Text Node
+    \draw (161.5,118.5) node [scale=0.8,color={rgb, 255:red, 155; green, 155; blue, 155 }  ,opacity=1 ] [align=left] {fake};
+    % Text Node
+    \draw (32.5,117.5) node [scale=0.8,color={rgb, 255:red, 155; green, 155; blue, 155 }  ,opacity=1 ] [align=left] {real};
+    % Text Node
+    \draw (47.5,138) node   {$x$};
+    % Text Node
+    \draw (96,11.83) node  [align=left] {real/fake};
+    % Text Node
+    \draw (114.17,289) node [scale=0.8] [align=left] {a) Generative Adversarial Networks};
+    % Text Node
+    \draw (367,141.5) node   {$G( z)$};
+    % Text Node
+    \draw (381.5,119.5) node [scale=0.8,color={rgb, 255:red, 155; green, 155; blue, 155 }  ,opacity=1 ] [align=left] {fake};
+    % Text Node
+    \draw (252.5,118.5) node [scale=0.8,color={rgb, 255:red, 155; green, 155; blue, 155 }  ,opacity=1 ] [align=left] {real};
+    % Text Node
+    \draw (316,12.83) node  [align=left] {real/fake};
+    % Text Node
+    \draw (354.67,289) node [scale=0.8] [align=left] {b) Conditional GAN};
+    % Text Node
+    \draw (267.5,139) node   {$x$};
+    % Text Node
+    \draw (369.5,258.5) node   {$z$};
+    % Text Node
+    \draw (366,197.5) node [scale=1.7280000000000002] [align=left] {G};
+    % Text Node
+    \draw (315,64.8) node [scale=1.7280000000000002] [align=left] {D};
+    % Text Node
+    \draw (432.17,259) node   {$c$};
 
 \end{tikzpicture}
 
@@ -10352,69 +10415,63 @@ rgb(100bp)=(0.14,0.33,0.54)}
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
 
 \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+    %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
 
-%Rounded Same Side Corner Rect [id:dp2451362198380881] 
-\draw  [fill={rgb, 255:red, 167; green, 189; blue, 216 }  ,fill opacity=1 ] (79,54.17) .. controls (79,49.75) and (82.58,46.17) .. (87,46.17) -- (141,46.17) .. controls (145.42,46.17) and (149,49.75) .. (149,54.17) -- (149,86.17) .. controls (149,86.17) and (149,86.17) .. (149,86.17) -- (79,86.17) .. controls (79,86.17) and (79,86.17) .. (79,86.17) -- cycle ;
+    %Rounded Same Side Corner Rect [id:dp2451362198380881] 
+    \draw  [fill={rgb, 255:red, 167; green, 189; blue, 216 }  ,fill opacity=1 ] (79,54.17) .. controls (79,49.75) and (82.58,46.17) .. (87,46.17) -- (141,46.17) .. controls (145.42,46.17) and (149,49.75) .. (149,54.17) -- (149,86.17) .. controls (149,86.17) and (149,86.17) .. (149,86.17) -- (79,86.17) .. controls (79,86.17) and (79,86.17) .. (79,86.17) -- cycle ;
 
-%Straight Lines [id:da14573772274169616] 
-\draw [line width=1.5]    (114,47.37) -- (114,28.17) ;
-\draw [shift={(114,25.17)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
+    %Straight Lines [id:da14573772274169616] 
+    \draw [line width=1.5]    (114,47.37) -- (114,28.17) ;
+    \draw [shift={(114,25.17)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
 
-%Straight Lines [id:da7579961352080994] 
-\draw [line width=1.5]    (114,109.37) -- (114,90.17) ;
-\draw [shift={(114,87.17)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
+    %Straight Lines [id:da7579961352080994] 
+    \draw [line width=1.5]    (114,109.37) -- (114,90.17) ;
+    \draw [shift={(114,87.17)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
 
+    %Rounded Same Side Corner Rect [id:dp27437364893503646] 
+    \draw  [fill={rgb, 255:red, 236; green, 127; blue, 141 }  ,fill opacity=1 ] (131,185.5) .. controls (131,181.08) and (134.58,177.5) .. (139,177.5) -- (193,177.5) .. controls (197.42,177.5) and (201,181.08) .. (201,185.5) -- (201,217.5) .. controls (201,217.5) and (201,217.5) .. (201,217.5) -- (131,217.5) .. controls (131,217.5) and (131,217.5) .. (131,217.5) -- cycle ;
 
-%Rounded Same Side Corner Rect [id:dp27437364893503646] 
-\draw  [fill={rgb, 255:red, 236; green, 127; blue, 141 }  ,fill opacity=1 ] (131,185.5) .. controls (131,181.08) and (134.58,177.5) .. (139,177.5) -- (193,177.5) .. controls (197.42,177.5) and (201,181.08) .. (201,185.5) -- (201,217.5) .. controls (201,217.5) and (201,217.5) .. (201,217.5) -- (131,217.5) .. controls (131,217.5) and (131,217.5) .. (131,217.5) -- cycle ;
+    %Shape: Circle [id:dp6172800122901183] 
+    \draw   (153.5,261.5) .. controls (153.5,254.6) and (159.1,249) .. (166,249) .. controls (172.9,249) and (178.5,254.6) .. (178.5,261.5) .. controls (178.5,268.4) and (172.9,274) .. (166,274) .. controls (159.1,274) and (153.5,268.4) .. (153.5,261.5) -- cycle ;
 
-%Shape: Circle [id:dp6172800122901183] 
-\draw   (153.5,261.5) .. controls (153.5,254.6) and (159.1,249) .. (166,249) .. controls (172.9,249) and (178.5,254.6) .. (178.5,261.5) .. controls (178.5,268.4) and (172.9,274) .. (166,274) .. controls (159.1,274) and (153.5,268.4) .. (153.5,261.5) -- cycle ;
+    %Straight Lines [id:da8111485597522028] 
+    \draw    (67,129.5) -- (67,119.37) -- (167,119.5) -- (167,129.5) ;
 
-%Straight Lines [id:da8111485597522028] 
-\draw    (67,129.5) -- (67,119.37) -- (167,119.5) -- (167,129.5) ;
+    %Shape: Circle [id:dp5550396643085889] 
+    \draw   (54.5,142.5) .. controls (54.5,135.6) and (60.1,130) .. (67,130) .. controls (73.9,130) and (79.5,135.6) .. (79.5,142.5) .. controls (79.5,149.4) and (73.9,155) .. (67,155) .. controls (60.1,155) and (54.5,149.4) .. (54.5,142.5) -- cycle ;
 
+    %Straight Lines [id:da4358037156768244] 
+    \draw [line width=1.5]    (167,177.7) -- (167,158.5) ;
+    \draw [shift={(167,155.5)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
 
-%Shape: Circle [id:dp5550396643085889] 
-\draw   (54.5,142.5) .. controls (54.5,135.6) and (60.1,130) .. (67,130) .. controls (73.9,130) and (79.5,135.6) .. (79.5,142.5) .. controls (79.5,149.4) and (73.9,155) .. (67,155) .. controls (60.1,155) and (54.5,149.4) .. (54.5,142.5) -- cycle ;
+    %Straight Lines [id:da35373187835236874] 
+    \draw [line width=1.5]    (114,109.37) -- (114,119.37) ;
 
-%Straight Lines [id:da4358037156768244] 
-\draw [line width=1.5]    (167,177.7) -- (167,158.5) ;
-\draw [shift={(167,155.5)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
+    %Straight Lines [id:da1620841210006193] 
+    \draw [line width=1.5]    (166,239.5) -- (166,220.3) ;
+    \draw [shift={(166,217.3)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
 
-%Straight Lines [id:da35373187835236874] 
-\draw [line width=1.5]    (114,109.37) -- (114,119.37) ;
+    %Straight Lines [id:da9258346349543058] 
+    \draw [line width=1.5]    (166,239.5) -- (166,249.5) ;
 
-
-%Straight Lines [id:da1620841210006193] 
-\draw [line width=1.5]    (166,239.5) -- (166,220.3) ;
-\draw [shift={(166,217.3)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=1.5]  [draw opacity=0] (11.61,-5.58) -- (0,0) -- (11.61,5.58) -- cycle    ;
-
-%Straight Lines [id:da9258346349543058] 
-\draw [line width=1.5]    (166,239.5) -- (166,249.5) ;
-
-
-
-
-% Text Node
-\draw (167,141.5) node   {$G( z)$};
-% Text Node
-\draw (181.5,119.5) node [scale=0.8,color={rgb, 255:red, 155; green, 155; blue, 155 }  ,opacity=1 ] [align=left] {fake};
-% Text Node
-\draw (52.5,118.5) node [scale=0.8,color={rgb, 255:red, 155; green, 155; blue, 155 }  ,opacity=1 ] [align=left] {real};
-% Text Node
-\draw (116,12.83) node  [align=left] {real/fake};
-% Text Node
-\draw (134.17,290) node [scale=0.8] [align=left] {a) Generative Adversarial Networks};
-% Text Node
-\draw (67.5,139) node   {$x$};
-% Text Node
-\draw (168,259.5) node   {$z$};
-% Text Node
-\draw (166,197.5) node [scale=1.7280000000000002] [align=left] {G};
-% Text Node
-\draw (114,66.17) node [scale=1.7280000000000002] [align=left] {D};
+    % Text Node
+    \draw (167,141.5) node   {$G( z)$};
+    % Text Node
+    \draw (181.5,119.5) node [scale=0.8,color={rgb, 255:red, 155; green, 155; blue, 155 }  ,opacity=1 ] [align=left] {fake};
+    % Text Node
+    \draw (52.5,118.5) node [scale=0.8,color={rgb, 255:red, 155; green, 155; blue, 155 }  ,opacity=1 ] [align=left] {real};
+    % Text Node
+    \draw (116,12.83) node  [align=left] {real/fake};
+    % Text Node
+    \draw (134.17,290) node [scale=0.8] [align=left] {a) Generative Adversarial Networks};
+    % Text Node
+    \draw (67.5,139) node   {$x$};
+    % Text Node
+    \draw (168,259.5) node   {$z$};
+    % Text Node
+    \draw (166,197.5) node [scale=1.7280000000000002] [align=left] {G};
+    % Text Node
+    \draw (114,66.17) node [scale=1.7280000000000002] [align=left] {D};
 
 
 \end{tikzpicture}
@@ -10493,54 +10550,54 @@ rgb(100bp)=(0.14,0.33,0.54)}
 \begin{figure}[htp]
 \centering
 \begin{tikzpicture}[
-plain/.style={
-  draw=none,
-  fill=none,
-  },
-dot/.style={draw,shape=circle,minimum size=3pt,inner sep=0,fill=black
-  },
-net/.style={
-  matrix of nodes,
-  nodes={
-    draw,
-    circle,
-    inner sep=8.5pt
+  plain/.style={
+    draw=none,
+    fill=none,
     },
-  nodes in empty cells,
-  column sep=0.6cm,
-  row sep=-11pt
-  },
->=latex
-]
-\matrix[net] (mat)
-{
-|[plain]| \parbox{1cm}{\centering Input\\layer} 
-          & |[plain]| \parbox{1cm}{\centering Hidden\\layer} 
-                       & |[plain]| \parbox{1cm}{\centering Output\\layer} \\
-          & |[plain]|                 \\
-|[plain]| &            & |[plain]|    \\
-          & |[plain]|  &              \\
-|[plain]| & |[dot]|                   \\
-          & |[plain]|  & |[dot]|      \\
-|[plain]| & |[dot]|    & |[plain]|    \\
-|[dot]|   & |[plain]|  & |[dot]|      \\
-|[dot]|   & |[dot]|    & |[plain]|    \\
-|[dot]|   & |[plain]|  &              \\
-|[plain]| &            & |[plain]|    \\
-          & |[plain]|                 \\
-};
-\foreach \ai/\mi in {2/B01,4/B02,6/B03,12/Bn}
-  \draw[<-] (mat-\ai-1) -- node[above] {\mi} +(-1cm,0);
-\foreach \ai in {2,4,6,12}
-{\foreach \aii/\mii in {3/H1,11/Hn}
-  \draw[->] (mat-\ai-1) -- (mat-\aii-2) node[yshift=0.6cm] {\mii};
-}
-\foreach \ai in {3,11}
-{  \draw[->] (mat-\ai-2) -- (mat-4-3);
-  \draw[->] (mat-4-3) -- node[above] {Var1} +(1cm,0);}
-\foreach \ai in {3,11}
-{  \draw[->] (mat-\ai-2) -- (mat-10-3);
-  \draw[->] (mat-10-3) -- node[above] {Varn} +(1cm,0);}
+  dot/.style={draw,shape=circle,minimum size=3pt,inner sep=0,fill=black
+    },
+  net/.style={
+    matrix of nodes,
+    nodes={
+      draw,
+      circle,
+      inner sep=8.5pt
+      },
+    nodes in empty cells,
+    column sep=0.6cm,
+    row sep=-11pt
+    },
+  >=latex
+  ]
+  \matrix[net] (mat)
+  {
+  |[plain]| \parbox{1cm}{\centering Input\\layer} 
+            & |[plain]| \parbox{1cm}{\centering Hidden\\layer} 
+                        & |[plain]| \parbox{1cm}{\centering Output\\layer} \\
+            & |[plain]|                 \\
+  |[plain]| &            & |[plain]|    \\
+            & |[plain]|  &              \\
+  |[plain]| & |[dot]|                   \\
+            & |[plain]|  & |[dot]|      \\
+  |[plain]| & |[dot]|    & |[plain]|    \\
+  |[dot]|   & |[plain]|  & |[dot]|      \\
+  |[dot]|   & |[dot]|    & |[plain]|    \\
+  |[dot]|   & |[plain]|  &              \\
+  |[plain]| &            & |[plain]|    \\
+            & |[plain]|                 \\
+  };
+  \foreach \ai/\mi in {2/B01,4/B02,6/B03,12/Bn}
+    \draw[<-] (mat-\ai-1) -- node[above] {\mi} +(-1cm,0);
+  \foreach \ai in {2,4,6,12}
+  {\foreach \aii/\mii in {3/H1,11/Hn}
+    \draw[->] (mat-\ai-1) -- (mat-\aii-2) node[yshift=0.6cm] {\mii};
+  }
+  \foreach \ai in {3,11}
+  {  \draw[->] (mat-\ai-2) -- (mat-4-3);
+    \draw[->] (mat-4-3) -- node[above] {Var1} +(1cm,0);}
+  \foreach \ai in {3,11}
+  {  \draw[->] (mat-\ai-2) -- (mat-10-3);
+    \draw[->] (mat-10-3) -- node[above] {Varn} +(1cm,0);}
 \end{tikzpicture}
 
 \caption{ANN diagram for the Generator.}
@@ -10566,9 +10623,9 @@ net/.style={
 \tikzstyle{learned}=[text=red]
 
 \begin{document}
-    \newcommand\n{5}
-    \begin{tikzpicture}[scale=1.3]
-        \begin{scope}[rotate=17]
+\newcommand\n{5}
+\begin{tikzpicture}[scale=1.3]
+    \begin{scope}[rotate=17]
         %the multiplication with floats is not possible. Thus I split the loop in two.
         \foreach \number in {1,...,\n}{
             \node[neuron] (N-\number) at ({\number*(360/\n)}:1.5cm) {$x_\number$};
@@ -10583,8 +10640,8 @@ net/.style={
         \begin{scope}[rotate=-1]
         \draw[learned,stateTransition] (N-1) -- (N-2) node [midway,above=-0.15cm,sloped] {$w_{1,2}$};
         \draw[learned,stateTransition] (N-1) -- (N-5) node [midway,above=-0.15cm,sloped] {$w_{1,5}$};
-        \end{scope}
-    \end{tikzpicture}
+    \end{scope}
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -10907,69 +10964,69 @@ by Grant M. Erickson
 \newcommand{\derv}{\huge$\frac{d}{dt}$}
 
 \begin{tikzpicture}[auto, thick, node distance=2cm, >=triangle 45]
-\draw
-	% Drawing the blocks of first filter :
-	node at (0,0)[right=-3mm]{\Large \textopenbullet}
-	node [input, name=input1] {} 
-	node [sum, right of=input1] (suma1) {\suma}
-	node [block, right of=suma1] (inte1) {\inte}
-         node at (6.8,0)[block] (Q1) {\Large $Q_1$}
-         node [block, below of=inte1] (ret1) {\Large$T_1$};
-    % Joining blocks. 
-    % Commands \draw with options like [->] must be written individually
-	\draw[->](input1) -- node {$X(Z)$}(suma1);
- 	\draw[->](suma1) -- node {} (inte1);
-	\draw[->](inte1) -- node {} (Q1);
-	\draw[->](ret1) -| node[near end]{} (suma1);
-	% Adder
-\draw
-	node at (5.4,-4) [sum, name=suma2] {\suma}
-    	% Second stage of filter 
-	node at  (1,-6) [sum, name=suma3] {\suma}
-	node [block, right of=suma3] (inte2) {\inte}
-	node [sum, right of=inte2] (suma4) {\suma}
-	node [block, right of=suma4] (inte3) {\inte}
-	node [block, right of=inte3] (Q2) {\Large$Q_2$}
-	node at (9,-8) [block, name=ret2] {\Large$T_2$}
-;
-	% Joining the blocks of second filter
-	\draw[->] (suma3) -- node {} (inte2);
-	\draw[->] (inte2) -- node {} (suma4);
-	\draw[->] (suma4) -- node {} (inte3);
-	\draw[->] (inte3) -- node {} (Q2);
-	\draw[->] (ret2) -| (suma3);
-	\draw[->] (ret2) -| (suma4);
-         % Third stage of filter:
-	% Defining nodes:
-\draw
-	node at (11.5, 0) [sum, name=suma5]{\suma}
-	node [output, right of=suma5]{}
-	node [block, below of=suma5] (deriv1){\derv}
-	node [output, right of=suma5] (sal2){}
-;
-	% Joining the blocks:
-	\draw[->] (suma2) -| node {}(suma3);
-	\draw[->] (Q1) -- (8,0) |- node {}(ret1);
-	\draw[->] (8,0) |- (suma2);
-	\draw[->] (5.4,0) -- (suma2);
-	\draw[->] (Q1) -- node {}(suma5);
-	\draw[->] (deriv1) -- node {}(suma5);
-	\draw[->] (Q2) -| node {}(deriv1);
-    	\draw[<->] (ret2) -| node {}(deriv1);
-    	\draw[->] (suma5) -- node {$Y(Z)$}(sal2);
-    	% Drawing nodes with \textbullet
-\draw
-	node at (8,0) {\textbullet} 
-	node at (8,-2){\textbullet}
-	node at (5.4,0){\textbullet}
-    	node at (5,-8){\textbullet}
-    	node at (11.5,-6){\textbullet}
-    	;
-	% Boxing and labelling noise shapers
-	\draw [color=gray,thick](-0.5,-3) rectangle (9,1);
-	\node at (-0.5,1) [above=5mm, right=0mm] {\textsc{first-order noise shaper}};
-	\draw [color=gray,thick](-0.5,-9) rectangle (12.5,-5);
-	\node at (-0.5,-9) [below=5mm, right=0mm] {\textsc{second-order noise shaper}};
+	\draw
+		% Drawing the blocks of first filter :
+		node at (0,0)[right=-3mm]{\Large \textopenbullet}
+		node [input, name=input1] {} 
+		node [sum, right of=input1] (suma1) {\suma}
+		node [block, right of=suma1] (inte1) {\inte}
+			node at (6.8,0)[block] (Q1) {\Large $Q_1$}
+			node [block, below of=inte1] (ret1) {\Large$T_1$};
+		% Joining blocks. 
+		% Commands \draw with options like [->] must be written individually
+		\draw[->](input1) -- node {$X(Z)$}(suma1);
+		\draw[->](suma1) -- node {} (inte1);
+		\draw[->](inte1) -- node {} (Q1);
+		\draw[->](ret1) -| node[near end]{} (suma1);
+		% Adder
+	\draw
+		node at (5.4,-4) [sum, name=suma2] {\suma}
+			% Second stage of filter 
+		node at  (1,-6) [sum, name=suma3] {\suma}
+		node [block, right of=suma3] (inte2) {\inte}
+		node [sum, right of=inte2] (suma4) {\suma}
+		node [block, right of=suma4] (inte3) {\inte}
+		node [block, right of=inte3] (Q2) {\Large$Q_2$}
+		node at (9,-8) [block, name=ret2] {\Large$T_2$}
+	;
+		% Joining the blocks of second filter
+		\draw[->] (suma3) -- node {} (inte2);
+		\draw[->] (inte2) -- node {} (suma4);
+		\draw[->] (suma4) -- node {} (inte3);
+		\draw[->] (inte3) -- node {} (Q2);
+		\draw[->] (ret2) -| (suma3);
+		\draw[->] (ret2) -| (suma4);
+			% Third stage of filter:
+		% Defining nodes:
+	\draw
+		node at (11.5, 0) [sum, name=suma5]{\suma}
+		node [output, right of=suma5]{}
+		node [block, below of=suma5] (deriv1){\derv}
+		node [output, right of=suma5] (sal2){}
+	;
+		% Joining the blocks:
+		\draw[->] (suma2) -| node {}(suma3);
+		\draw[->] (Q1) -- (8,0) |- node {}(ret1);
+		\draw[->] (8,0) |- (suma2);
+		\draw[->] (5.4,0) -- (suma2);
+		\draw[->] (Q1) -- node {}(suma5);
+		\draw[->] (deriv1) -- node {}(suma5);
+		\draw[->] (Q2) -| node {}(deriv1);
+			\draw[<->] (ret2) -| node {}(deriv1);
+			\draw[->] (suma5) -- node {$Y(Z)$}(sal2);
+			% Drawing nodes with \textbullet
+	\draw
+		node at (8,0) {\textbullet} 
+		node at (8,-2){\textbullet}
+		node at (5.4,0){\textbullet}
+			node at (5,-8){\textbullet}
+			node at (11.5,-6){\textbullet}
+			;
+		% Boxing and labelling noise shapers
+		\draw [color=gray,thick](-0.5,-3) rectangle (9,1);
+		\node at (-0.5,1) [above=5mm, right=0mm] {\textsc{first-order noise shaper}};
+		\draw [color=gray,thick](-0.5,-9) rectangle (12.5,-5);
+		\node at (-0.5,-9) [below=5mm, right=0mm] {\textsc{second-order noise shaper}};
 \end{tikzpicture}
 \end{document}
 ```
@@ -10993,20 +11050,20 @@ by Grant M. Erickson
 \usetikzlibrary{folding}
 
 \begin{tikzpicture}[transform shape]
-		\tikzfoldingdodecahedron
-		[folding line length=6mm,
-		face 1={ \node[red] {1};},
-		face 2={ \node {2};},
-		face 3={ \node {3};},
-		face 4={ \node {4};},
-		face 5={ \node {5};},
-		face 6={ \node {6};},
-		face 7={ \node {7};},
-		face 8={ \node {8};},
-		face 9={ \node {9};},
-		face 10={\node {10};},
-		face 11={\node {11};},
-		face 12={\node {12};}];
+	\tikzfoldingdodecahedron
+	[folding line length=6mm,
+	face 1={ \node[red] {1};},
+	face 2={ \node {2};},
+	face 3={ \node {3};},
+	face 4={ \node {4};},
+	face 5={ \node {5};},
+	face 6={ \node {6};},
+	face 7={ \node {7};},
+	face 8={ \node {8};},
+	face 9={ \node {9};},
+	face 10={\node {10};},
+	face 11={\node {11};},
+	face 12={\node {12};}];
   \end{tikzpicture}
 
 
@@ -11027,39 +11084,38 @@ by Grant M. Erickson
 \begin{document}
 
 \begin{tikzpicture}[font=\sffamily,>=stealth',thick,
-commentl/.style={text width=3cm, align=right},
-commentr/.style={commentl, align=left},]
-\node[] (init) {\LARGE Initiator};
-\node[right=1cm of init] (recv) {\LARGE Receiver};
+    commentl/.style={text width=3cm, align=right},
+    commentr/.style={commentl, align=left},]
+    \node[] (init) {\LARGE Initiator};
+    \node[right=1cm of init] (recv) {\LARGE Receiver};
 
+    \draw[->] ([yshift=-1.7cm]init.south) coordinate (fin1o) -- ([yshift=-.7cm]fin1o-|recv) coordinate (fin1e) node[pos=.3, above, sloped] {FIN};
 
-\draw[->] ([yshift=-1.7cm]init.south) coordinate (fin1o) -- ([yshift=-.7cm]fin1o-|recv) coordinate (fin1e) node[pos=.3, above, sloped] {FIN};
+    \draw[->] ([yshift=-.3cm]fin1e) coordinate (ack1o) -- ([yshift=-.7cm]ack1o-|init) coordinate (ack1e) node[pos=.3, above, sloped] {ACK};
 
-\draw[->] ([yshift=-.3cm]fin1e) coordinate (ack1o) -- ([yshift=-.7cm]ack1o-|init) coordinate (ack1e) node[pos=.3, above, sloped] {ACK};
+    \draw[->] (ack1e-|recv) coordinate (fin2o) -- ([yshift=-.7cm]fin2o-|init) coordinate (fin2e) node[pos=.3, above, sloped] {FIN};
 
-\draw[->] (ack1e-|recv) coordinate (fin2o) -- ([yshift=-.7cm]fin2o-|init) coordinate (fin2e) node[pos=.3, above, sloped] {FIN};
+    \draw[->] ([yshift=-.3cm]fin2e) coordinate (ack2o) -- ([yshift=-.7cm]ack2o-|recv) coordinate (ack2e) node[pos=.3, above, sloped] {ACK};
 
-\draw[->] ([yshift=-.3cm]fin2e) coordinate (ack2o) -- ([yshift=-.7cm]ack2o-|recv) coordinate (ack2e) node[pos=.3, above, sloped] {ACK};
+    \draw[thick, shorten >=-1cm] (init) -- (init|-ack2e);
+    \draw[thick, shorten >=-1cm] (recv) -- (recv|-ack2e);
 
-\draw[thick, shorten >=-1cm] (init) -- (init|-ack2e);
-\draw[thick, shorten >=-1cm] (recv) -- (recv|-ack2e);
+    \draw[dotted] (recv.285)--([yshift=2mm]recv.285|-fin1e) coordinate[pos=.5] (aux1);
 
-\draw[dotted] (recv.285)--([yshift=2mm]recv.285|-fin1e) coordinate[pos=.5] (aux1);
+    \draw[dotted] (init.255)--([yshift=2mm]init.255|-fin1o);
 
-\draw[dotted] (init.255)--([yshift=2mm]init.255|-fin1o);
+    \draw[dotted] ([yshift=1mm]init.255|-fin2e) --([yshift=-5mm]init.255|-ack2e) coordinate (aux2);
 
-\draw[dotted] ([yshift=1mm]init.255|-fin2e) --([yshift=-5mm]init.255|-ack2e) coordinate (aux2);
+    \node[commentr, right =2mm of ack2e] {\textbf{CLOSED}};
+    \node[commentr, right =2mm of fin2o] {\textbf{LAST ACK}};
+    \node[below left = 0mm and 2mm of init.south, commentl]{\textbf{ESTABLISHED}\\[-1.5mm]{\itshape connection}};
+    \node[left = 2mm of fin1o.west, commentl]{{\itshape active close}\\[-1mm]\textbf{FIN\_WAIT\_1}};
+    \node[left = 2mm of ack1e.west, commentl]{\textbf{FIN\_WAIT\_2}};
+    \node[below left = -1mm and 2mm of fin2e.west, commentl]{\textbf{TIME\_WAIT}};
+    \node[below left = -1mm and 2mm of aux2-|init, commentl]{\textbf{CLOSED}};
 
-\node[commentr, right =2mm of ack2e] {\textbf{CLOSED}};
-\node[commentr, right =2mm of fin2o] {\textbf{LAST ACK}};
-\node[below left = 0mm and 2mm of init.south, commentl]{\textbf{ESTABLISHED}\\[-1.5mm]{\itshape connection}};
-\node[left = 2mm of fin1o.west, commentl]{{\itshape active close}\\[-1mm]\textbf{FIN\_WAIT\_1}};
-\node[left = 2mm of ack1e.west, commentl]{\textbf{FIN\_WAIT\_2}};
-\node[below left = -1mm and 2mm of fin2e.west, commentl]{\textbf{TIME\_WAIT}};
-\node[below left = -1mm and 2mm of aux2-|init, commentl]{\textbf{CLOSED}};
-
-\node[right = 2mm of recv|-aux1, commentr]{\textbf{ESTABLISHED}\\[-1.5mm]{\itshape connection}};
-\node[right = 2mm of fin1e.west, commentr]{\textbf{CLOSE\_WAIT}\\[-1mm]{\itshape passive close}};
+    \node[right = 2mm of recv|-aux1, commentr]{\textbf{ESTABLISHED}\\[-1.5mm]{\itshape connection}};
+    \node[right = 2mm of fin1e.west, commentr]{\textbf{CLOSE\_WAIT}\\[-1mm]{\itshape passive close}};
 \end{tikzpicture}
 
 \end{document}
@@ -11146,8 +11202,6 @@ commentr/.style={commentl, align=left},]
 \makeatother
 
 \begin{document}
-
-
 
 % arrow style
 \usetikzlibrary{decorations.markings}
@@ -11449,36 +11503,36 @@ commentr/.style={commentl, align=left},]
 \begin{document}
 \begin{tikzpicture}
  
-\begin{axis}[
-    grid=both,
-    grid style={dashed,red!20},
-    xmin = -4, xmax = 4,
-    ymin = -4, ymax = 4,
-    width = \textwidth,
-    height = 0.7\textwidth,
-    xlabel = {$x$},
-    ylabel = {$y$},
-    title={Phase Portrait of Van Der Pol Oscillator},
-    view = {0}{90},
-]
- 
-% Vector Field
-\addplot3[
-    quiver = {
-        u = {y/sqrt(y^2+(0.8*(1-x^2)*y-x)^2)},
-        v = {(0.8*(1-x^2)*y-x)/sqrt(y^2+(0.8*(1-x^2)*y-x)^2)},
-        scale arrows = 0.25,
-        },
-    -stealth,
-    domain = -4:4,
-    domain y = -4:4,
-    lightgray] 
-{0};
- 
-% Plot the Limit Cycle       
-\addplot[ultra thick, red, decorated arrows] file {./data/vanderpol.txt};
- 
-\end{axis}
+    \begin{axis}[
+        grid=both,
+        grid style={dashed,red!20},
+        xmin = -4, xmax = 4,
+        ymin = -4, ymax = 4,
+        width = \textwidth,
+        height = 0.7\textwidth,
+        xlabel = {$x$},
+        ylabel = {$y$},
+        title={Phase Portrait of Van Der Pol Oscillator},
+        view = {0}{90},
+    ]
+    
+    % Vector Field
+    \addplot3[
+        quiver = {
+            u = {y/sqrt(y^2+(0.8*(1-x^2)*y-x)^2)},
+            v = {(0.8*(1-x^2)*y-x)/sqrt(y^2+(0.8*(1-x^2)*y-x)^2)},
+            scale arrows = 0.25,
+            },
+        -stealth,
+        domain = -4:4,
+        domain y = -4:4,
+        lightgray] 
+    {0};
+    
+    % Plot the Limit Cycle       
+    \addplot[ultra thick, red, decorated arrows] file {./data/vanderpol.txt};
+    
+    \end{axis}
 \end{tikzpicture}
  
 \end{document}
@@ -11500,82 +11554,82 @@ commentr/.style={commentl, align=left},]
 \newcommand\blank[1]{\rule[-.2ex]{#1}{.4pt}}
 
 \begin{document}
-  \begin{tikzpicture}
-%\umlclass[type=interface]{InterfaceA}{}{}
-%\umlclass[y=-4]{ClassA}{}{}  
-%\umlimpl[stereo=realizes, pos stereo=0.5]{ClassA}{InterfaceA}
-%
-%\umlclass[x=4, type=interface]{InterfaceB}{}{}
-%\umlclass[x=4, y=-4]{ClassB}{}{}  
-%\umlimpl[]{ClassB}{InterfaceB}
-%\node[] at (3,-2) {<<realizes>>}; 
-\umlclass[]{Pirates Game}
-	{
-		WORLD\blank{0.2cm}SIZE : constant\blank{0.2cm}type = {w:1500,h:1000}  \\
-		WINDOW\blank{0.2cm}WIDTH  : constant\blank{0.2cm}type = 750	\\
-		WINDOW\blank{0.2cm}HEIGHT : constant\blank{0.2cm}type = 500	
-	}
-	{
-		preload() : void \\
-		create() : void \\
-		GameLoop() : void \\
-		CreateShip(string,Number,Number,Number) : Sprite \\
-	}
+\begin{tikzpicture}
+	%\umlclass[type=interface]{InterfaceA}{}{}
+	%\umlclass[y=-4]{ClassA}{}{}  
+	%\umlimpl[stereo=realizes, pos stereo=0.5]{ClassA}{InterfaceA}
+	%
+	%\umlclass[x=4, type=interface]{InterfaceB}{}{}
+	%\umlclass[x=4, y=-4]{ClassB}{}{}  
+	%\umlimpl[]{ClassB}{InterfaceB}
+	%\node[] at (3,-2) {<<realizes>>}; 
+	\umlclass[]{Pirates Game}
+		{
+			WORLD\blank{0.2cm}SIZE : constant\blank{0.2cm}type = {w:1500,h:1000}  \\
+			WINDOW\blank{0.2cm}WIDTH  : constant\blank{0.2cm}type = 750	\\
+			WINDOW\blank{0.2cm}HEIGHT : constant\blank{0.2cm}type = 500	
+		}
+		{
+			preload() : void \\
+			create() : void \\
+			GameLoop() : void \\
+			CreateShip(string,Number,Number,Number) : Sprite \\
+		}
 
-\umlclass[x=-2,y=-8]{Player}
+	\umlclass[x=-2,y=-8]{Player}
+		{
+			+ x : Number \\
+			+ y : Number \\
+			+ rotation : Number \\
+			+ health : Number \\
+			+ alive : Boolean \\
+			+ shot  : Boolean \\
+			+ bullets : Number \\
+			+ speed\blank{0.2cm}x : Number \\
+			+ speed\blank{0.2cm}y : Number \\
+		}
+		{
+			update () : void \\
+		}	
+
+	\umlclass[x=4,y=-6]{Bullet}
 	{
 		+ x : Number \\
 		+ y : Number \\
-		+ rotation : Number \\
-		+ health : Number \\
-		+ alive : Boolean \\
-		+ shot  : Boolean \\
-		+ bullets : Number \\
 		+ speed\blank{0.2cm}x : Number \\
 		+ speed\blank{0.2cm}y : Number \\
 	}
 	{
-		update () : void \\
 	}	
 
-\umlclass[x=4,y=-6]{Bullet}
-{
-	+ x : Number \\
-	+ y : Number \\
-	+ speed\blank{0.2cm}x : Number \\
-	+ speed\blank{0.2cm}y : Number \\
-}
-{
-}	
+	\umlclass[x=12,y=-5]{Hearts}
+	{
+		+ x : Number \\
+		+ y : Number \\
+		+ speed\blank{0.2cm}x : Number \\
+		+ speed\blank{0.2cm}y : Number \\
+	}
+	{}
 
-\umlclass[x=12,y=-5]{Hearts}
-{
-	+ x : Number \\
-	+ y : Number \\
-	+ speed\blank{0.2cm}x : Number \\
-	+ speed\blank{0.2cm}y : Number \\
-}
-{}
-
-\umlclass[x=12,y=0]{Mini-ships}
-{
-	+ x : Number \\
-	+ y : Number \\
-	+ speed\blank{0.2cm}x : Number \\
-	+ speed\blank{0.2cm}y : Number \\
-	+ rotationDirection : Number \\
-	+ rotation : Number
-}
-{
-}
-\umlnote[x=7,y=-10,width=7.5cm]{Player}{Interactions between players and  game objects is controlled by the server and client. Each player \\ updates their own position.}
-\umlunicompo[mult1=spawns,arg1=server,mult2=bullets,pos1=0.35,pos2=0.65]{Pirates Game}{Bullet}
-\umlunicompo[mult1=spawns,arg1=server,mult2=Hearts,pos1=0.15,pos2=0.85]{Pirates Game}{Hearts}
-\umlunicompo[geometry=|-|,arg1=creates, mult1=server,arg2=player,mult2=client,pos1=1.5,pos2=2.6]{Pirates Game}{Player}
-\umlassoc[geometry=-|,arg1=player,mult1=shoots,mult2=bullets]{Player}{Bullet}
-\umlunicompo[mult1=spawns,arg1=server,mult2=Mini-ships]{Pirates Game}{Mini-ships}
-\umlassoc[geometry=|-|,arg1=destroys,pos1=1.75]{Bullet}{Mini-ships}
-\umlassoc[geometry=-|,arg1=destroys,pos1=0.35]{Bullet}{Hearts}
+	\umlclass[x=12,y=0]{Mini-ships}
+	{
+		+ x : Number \\
+		+ y : Number \\
+		+ speed\blank{0.2cm}x : Number \\
+		+ speed\blank{0.2cm}y : Number \\
+		+ rotationDirection : Number \\
+		+ rotation : Number
+	}
+	{
+	}
+	\umlnote[x=7,y=-10,width=7.5cm]{Player}{Interactions between players and  game objects is controlled by the server and client. Each player \\ updates their own position.}
+	\umlunicompo[mult1=spawns,arg1=server,mult2=bullets,pos1=0.35,pos2=0.65]{Pirates Game}{Bullet}
+	\umlunicompo[mult1=spawns,arg1=server,mult2=Hearts,pos1=0.15,pos2=0.85]{Pirates Game}{Hearts}
+	\umlunicompo[geometry=|-|,arg1=creates, mult1=server,arg2=player,mult2=client,pos1=1.5,pos2=2.6]{Pirates Game}{Player}
+	\umlassoc[geometry=-|,arg1=player,mult1=shoots,mult2=bullets]{Player}{Bullet}
+	\umlunicompo[mult1=spawns,arg1=server,mult2=Mini-ships]{Pirates Game}{Mini-ships}
+	\umlassoc[geometry=|-|,arg1=destroys,pos1=1.75]{Bullet}{Mini-ships}
+	\umlassoc[geometry=-|,arg1=destroys,pos1=0.35]{Bullet}{Hearts}
 \end{tikzpicture} 
 \end{document}
 ```
@@ -11598,126 +11652,126 @@ commentr/.style={commentl, align=left},]
 
 \begin{tikzpicture}[scale=.9,every node/.style={minimum size=1cm},on grid]
 
-\tikzstyle{select arrow}=[->, thick,cyan!70!black]
-\tikzstyle{action arrow}=[->, thick,cyan!90!black]
-\tikzstyle{action good}=[thick,cyan!50!black]
-\tikzstyle{action bad}=[thick,cyan!30]
-\tikzstyle{active neuron}=[cyan!90]
-\tikzstyle{selected neuron}=[cyan!30]
-\tikzstyle{bad action}=[pattern=north west lines, pattern color=cyan!30]
+    \tikzstyle{select arrow}=[->, thick,cyan!70!black]
+    \tikzstyle{action arrow}=[->, thick,cyan!90!black]
+    \tikzstyle{action good}=[thick,cyan!50!black]
+    \tikzstyle{action bad}=[thick,cyan!30]
+    \tikzstyle{active neuron}=[cyan!90]
+    \tikzstyle{selected neuron}=[cyan!30]
+    \tikzstyle{bad action}=[pattern=north west lines, pattern color=cyan!30]
 
-%FINAL STATE. plane at the bottom
-\begin{scope}[
-            yshift=-160,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-            ]
+    %FINAL STATE. plane at the bottom
+    \begin{scope}[
+                yshift=-160,every node/.append style={
+                yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+                ]
 
-        \fill[white,fill opacity=0.9] (0,0) rectangle (2.5,2.5);
-        \draw[step=5mm, black] (0,0) grid (2.5,2.5);
-        \draw[black,very thick] (0,0) rectangle (2.5,2.5);
-        \fill[active neuron] (0.55,0.55) rectangle (0.95,0.95);
+            \fill[white,fill opacity=0.9] (0,0) rectangle (2.5,2.5);
+            \draw[step=5mm, black] (0,0) grid (2.5,2.5);
+            \draw[black,very thick] (0,0) rectangle (2.5,2.5);
+            \fill[active neuron] (0.55,0.55) rectangle (0.95,0.95);
 
-\draw[->,thick, blue!50!cyan] (0.3,0.25) -- (0.7,0.25);
-\end{scope}
-
-\draw[action arrow, red, thin] (-0.5,-3.25) -- (0,-4.9);
-
-%SECOND ACTION
-   \begin{scope}[
-    	yshift=-120,every node/.append style={
-    	yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-    	             ]
-    	\fill[white,fill opacity=.95] (0,0) rectangle (1.5,1.5);
-    	\draw[step=5mm, black] (0,0) grid (1.5,1.5);
-    	\draw[black,very thick] (0,0) rectangle (1.5,1.5);
-
-\fill[bad action] (0.05,0.05) rectangle (0.45,0.45);
-\fill[bad action] (1.05,0.05) rectangle (1.45,0.45);
-\fill[bad action] (1.05,1.05) rectangle (1.45,1.45);
-\fill[bad action] (0.05,1.05) rectangle (0.45,1.45);
-
-\node[action good] at (0.25,0.75) {W};
-\node[action good] at (1.25,0.75) {E};
-\node[action good] at (0.75,1.25) {N};
-\node[action bad] at (0.75,0.25) {S};
+        \draw[->,thick, blue!50!cyan] (0.3,0.25) -- (0.7,0.25);
     \end{scope}
 
-\draw[action arrow] (0.5,-2.45) -- (0.5,-3.25);
-\draw[action arrow, red] (0.5,-2.45) -- (-0.5,-3.25);
-\draw[action arrow] (0.5,-2.45) -- (-0.5,-3.75);
+    \draw[action arrow, red, thin] (-0.5,-3.25) -- (0,-4.9);
 
-%SECOND STATE
-\begin{scope}[
-            yshift=-80,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-            ]
+    %SECOND ACTION
+    \begin{scope}[
+        yshift=-120,every node/.append style={
+        yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+                    ]
+        \fill[white,fill opacity=.95] (0,0) rectangle (1.5,1.5);
+        \draw[step=5mm, black] (0,0) grid (1.5,1.5);
+        \draw[black,very thick] (0,0) rectangle (1.5,1.5);
+
+        \fill[bad action] (0.05,0.05) rectangle (0.45,0.45);
+        \fill[bad action] (1.05,0.05) rectangle (1.45,0.45);
+        \fill[bad action] (1.05,1.05) rectangle (1.45,1.45);
+        \fill[bad action] (0.05,1.05) rectangle (0.45,1.45);
+
+        \node[action good] at (0.25,0.75) {W};
+        \node[action good] at (1.25,0.75) {E};
+        \node[action good] at (0.75,1.25) {N};
+        \node[action bad] at (0.75,0.25) {S};
+        \end{scope}
+
+    \draw[action arrow] (0.5,-2.45) -- (0.5,-3.25);
+    \draw[action arrow, red] (0.5,-2.45) -- (-0.5,-3.25);
+    \draw[action arrow] (0.5,-2.45) -- (-0.5,-3.75);
+
+    %SECOND STATE
+    \begin{scope}[
+        yshift=-80,every node/.append style={
+        yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
 
         \fill[white,fill opacity=0.9] (0,0) rectangle (2.5,2.5);
         \draw[step=5mm, black] (0,0) grid (2.5,2.5);
         \draw[black,very thick] (0,0) rectangle (2.5,2.5);
         \fill[active neuron] (0.55,0.05) rectangle (0.95,0.45);  
-		\fill[selected neuron] (0.05,0.05) rectangle (0.45,0.45);
-		\fill[selected neuron] (1.05,0.05) rectangle (1.45,0.45);
-		\fill[selected neuron] (0.55,0.55) rectangle (0.95,0.95);
+        \fill[selected neuron] (0.05,0.05) rectangle (0.45,0.45);
+        \fill[selected neuron] (1.05,0.05) rectangle (1.45,0.45);
+        \fill[selected neuron] (0.55,0.55) rectangle (0.95,0.95);
 
-\draw[select arrow] (0.85,0.25) -- (1.25,0.25);
-\draw[select arrow] (0.75,0.35) -- (0.75,.75);
-\draw[select arrow] (0.65,0.25) -- (0.25,0.25);
-\end{scope}
-
-\draw[action arrow, red] (0.5,-0.45) -- (0.5,-2.3);
-
-%FIRST ACTION
-   \begin{scope}[
-    	yshift=-40,every node/.append style={
-    	yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-    	             ]
-    	\fill[white,fill opacity=.95] (0,0) rectangle (1.5,1.5);
-    	\draw[step=5mm, black] (0,0) grid (1.5,1.5);
-    	\draw[black,very thick] (0,0) rectangle (1.5,1.5);
-
-\fill[bad action] (0.05,0.05) rectangle (0.45,0.45);
-\fill[bad action] (1.05,0.05) rectangle (1.45,0.45);
-\fill[bad action] (1.05,1.05) rectangle (1.45,1.45);
-\fill[bad action] (0.05,1.05) rectangle (0.45,1.45);
-
-\node[action bad] at (0.25,0.75) {W};
-\node[action good] at (1.25,0.75) {E};
-\node[action good] at (0.75,1.25) {N};
-\node[action bad] at (0.75,0.25) {S};
+        \draw[select arrow] (0.85,0.25) -- (1.25,0.25);
+        \draw[select arrow] (0.75,0.35) -- (0.75,.75);
+        \draw[select arrow] (0.65,0.25) -- (0.25,0.25);
     \end{scope}
 
-\draw[action arrow, red] (0.125,0.125) -- (0.5,-0.45);
-\draw[action arrow] (-0.125,0.125) -- (-0.5,-0.45);
+    \draw[action arrow, red] (0.5,-0.45) -- (0.5,-2.3);
 
-%INITIAL STATE. plane at the top
-\begin{scope}[
-            every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-            ]
+    %FIRST ACTION
+    \begin{scope}[
+        yshift=-40,every node/.append style={
+        yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+                    ]
+        \fill[white,fill opacity=.95] (0,0) rectangle (1.5,1.5);
+        \draw[step=5mm, black] (0,0) grid (1.5,1.5);
+        \draw[black,very thick] (0,0) rectangle (1.5,1.5);
+
+        \fill[bad action] (0.05,0.05) rectangle (0.45,0.45);
+        \fill[bad action] (1.05,0.05) rectangle (1.45,0.45);
+        \fill[bad action] (1.05,1.05) rectangle (1.45,1.45);
+        \fill[bad action] (0.05,1.05) rectangle (0.45,1.45);
+
+        \node[action bad] at (0.25,0.75) {W};
+        \node[action good] at (1.25,0.75) {E};
+        \node[action good] at (0.75,1.25) {N};
+        \node[action bad] at (0.75,0.25) {S};
+    \end{scope}
+
+    \draw[action arrow, red] (0.125,0.125) -- (0.5,-0.45);
+    \draw[action arrow] (-0.125,0.125) -- (-0.5,-0.45);
+
+    %INITIAL STATE. plane at the top
+    \begin{scope}[
+        every node/.append style={
+        yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
 
         \fill[white,fill opacity=0.9] (0,0) rectangle (2.5,2.5);
         \draw[step=5mm, black] (0,0) grid (2.5,2.5);
         \draw[black,very thick] (0,0) rectangle (2.5,2.5);
         \fill[active neuron] (0.05,0.05) rectangle (0.45,0.45);
-		\fill[selected neuron] (0.55,0.05) rectangle (0.95,0.45);
-		\fill[selected neuron] (0.05,0.55) rectangle (0.45,0.95);
+        \fill[selected neuron] (0.55,0.05) rectangle (0.95,0.45);
+        \fill[selected neuron] (0.05,0.55) rectangle (0.45,0.95);
 
-\draw [decorate,decoration={brace,amplitude=10pt}] (0,2.6) -- (2.6,2.6);
-\node at (1.6,3.3) {d};
+        \draw [decorate,decoration={brace,amplitude=10pt}] (0,2.6) -- (2.6,2.6);
+        \node at (1.6,3.3) {d};
 
-\draw[select arrow] (0.25,0.35) -- (0.25,0.75);
-\draw[select arrow] (0.35,0.25) -- (0.75,0.25);
+        \draw[select arrow] (0.25,0.35) -- (0.25,0.75);
+        \draw[select arrow] (0.35,0.25) -- (0.75,0.25);
 
-\node at (1.125,-0.3) {\textbf{x}};
-\node at (-0.3,1.125) {\textbf{y}};
+        \node at (1.125,-0.3) {\textbf{x}};
+        \node at (-0.3,1.125) {\textbf{y}};
 
-\end{scope}
+    \end{scope}
 
-\node at (4,1.25) {$S$};
-\node at (4,-0.5) {$a$};
-\node at (4,-1.5) {$S'$};
-\node at (4,-3.25) {$a'$};
+    \node at (4,1.25) {$S$};
+    \node at (4,-0.5) {$a$};
+    \node at (4,-1.5) {$S'$};
+    \node at (4,-3.25) {$a'$};
 
 \end{tikzpicture}
 \end{document}
@@ -12033,14 +12087,14 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
 \begin{document}
 
 \begin{tikzpicture}[
-        scale=2,
-        IS/.style={blue, thick},
-        LM/.style={red, thick},
-        axis/.style={very thick, ->, >=stealth', line join=miter},
-        important line/.style={thick}, dashed line/.style={dashed, thin},
-        every node/.style={color=black},
-        dot/.style={circle,fill=black,minimum size=4pt,inner sep=0pt,
-            outer sep=-1pt},
+    scale=2,
+    IS/.style={blue, thick},
+    LM/.style={red, thick},
+    axis/.style={very thick, ->, >=stealth', line join=miter},
+    important line/.style={thick}, dashed line/.style={dashed, thin},
+    every node/.style={color=black},
+    dot/.style={circle,fill=black,minimum size=4pt,inner sep=0pt,
+        outer sep=-1pt},
     ]
     % axis
     \draw[axis,<->] (2.5,0) node(xline)[right] {$Y$} -|
@@ -12128,44 +12182,41 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
         \draw[black,->] (-.6,-.7) -- (.5,-.7) node[right] {$x$};
         \draw[black,->] (-.5,-.8) -- (-.5,0.5) node[above] {$y$};
 
-%       \useasboundingbox;
+        %       \useasboundingbox;
 
-    \path[fill=black!30,draw=black!30] (-.33,-.33*1.65) --
-        (-.33,-.33*.35) --
-        (.33,.33*.35) -- (.33,.33*1.65) -- cycle;
-    \draw[thick,densely dotted] (.33,-.72) 
-        node[below] (delta3) {$x_0+\delta\strut$} -- (.33,.33*1.65);
-    \draw[thick,densely dotted] (-.33,-.72) 
-        node[below] (mdelta3) {$x_0-\delta\strut$} -- (-.33,-.33*.35);
+        \path[fill=black!30,draw=black!30] (-.33,-.33*1.65) --
+            (-.33,-.33*.35) --
+            (.33,.33*.35) -- (.33,.33*1.65) -- cycle;
+        \draw[thick,densely dotted] (.33,-.72) 
+            node[below] (delta3) {$x_0+\delta\strut$} -- (.33,.33*1.65);
+        \draw[thick,densely dotted] (-.33,-.72) 
+            node[below] (mdelta3) {$x_0-\delta\strut$} -- (-.33,-.33*.35);
 
-    \fill[black!50] (-.25,-.25*3/2) -- (-.25,-.25/2) -- (.25,.25/2) -- 
-        (.25,.25*3/2) -- cycle;
+        \fill[black!50] (-.25,-.25*3/2) -- (-.25,-.25/2) -- (.25,.25/2) -- 
+            (.25,.25*3/2) -- cycle;
 
-    \path[fill=black!70] (-.15,-.15*1.25) -- (-.15,-.15*.75) --
-        (.15,.15*.75) -- (.15,.15*1.25) -- cycle;
+        \path[fill=black!70] (-.15,-.15*1.25) -- (-.15,-.15*.75) --
+            (.15,.15*.75) -- (.15,.15*1.25) -- cycle;
 
-    \node[circle,draw=black,inner sep=0pt,minimum size=3pt,fill=black] (x0y0) at (0,0) {};
-    \draw[black,domain=\xmin:\xmax,samples=2] plot(\x,\x) 
-        node[right] {$\Delta y = f'(x_0) \Delta x$};
-    \draw[very thick,black,smooth,domain=\xmin:\xmax,samples=30] 
-        plot (\x,{1-1/(\x+1)}) node[right] {$y=f(x)$};
-    \draw[black,very thin] (x0y0) -- (0,{-.72}) node[below] (x0) {$x_0\strut$};
-    \draw[black,very thin] (x0y0) -- (-.52,0) node[left]{$y_0$};
+        \node[circle,draw=black,inner sep=0pt,minimum size=3pt,fill=black] (x0y0) at (0,0) {};
+        \draw[black,domain=\xmin:\xmax,samples=2] plot(\x,\x) 
+            node[right] {$\Delta y = f'(x_0) \Delta x$};
+        \draw[very thick,black,smooth,domain=\xmin:\xmax,samples=30] 
+            plot (\x,{1-1/(\x+1)}) node[right] {$y=f(x)$};
+        \draw[black,very thin] (x0y0) -- (0,{-.72}) node[below] (x0) {$x_0\strut$};
+        \draw[black,very thin] (x0y0) -- (-.52,0) node[left]{$y_0$};
 
-\end{scope}
+    \end{scope}
 
-\draw[decorate,decoration={brace,amplitude=5pt,mirror,raise=1pt}]
-    (.33,.33*.35) -- 
-    node[right]{\hspace{6pt}$\epsilon \Delta x$} (.33,.33);
-\draw[decorate,decoration={brace,amplitude=5pt}] 
-    (delta3.south) -- 
-    node[below] {$\rule{0pt}{14pt}\abs{\Delta x} < \delta$} 
-    (mdelta3.south);
+    \draw[decorate,decoration={brace,amplitude=5pt,mirror,raise=1pt}]
+        (.33,.33*.35) -- 
+        node[right]{\hspace{6pt}$\epsilon \Delta x$} (.33,.33);
+    \draw[decorate,decoration={brace,amplitude=5pt}] 
+        (delta3.south) -- 
+        node[below] {$\rule{0pt}{14pt}\abs{\Delta x} < \delta$} 
+        (mdelta3.south);
 
 \end{tikzpicture}
-\end{document}
-
-
 \end{document}
 ```
 ****
@@ -12194,8 +12245,8 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
 \begin{document}
 	
 	
-	% Electromagnetic wave - black
-	\begin{tikzpicture}[x=(-15:1.2), y=(90:1.0), z=(-150:1.0),
+% Electromagnetic wave - black
+\begin{tikzpicture}[x=(-15:1.2), y=(90:1.0), z=(-150:1.0),
 	line cap=round, line join=round,
 	axis/.style={black, thick,->},
 	vector/.style={>=stealth,->}]
@@ -12206,16 +12257,16 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
 	\def\N{\nNodes*40}
 	\def\xmax{\nNodes*pi/2*1.01}
 	\pgfmathsetmacro\nVectors{(\nVectorsPerNode+1)*\nNodes}
-	
+
 	\def\vE{\mathbf{E}}
 	\def\vB{\mathbf{B}}
 	\def\vk{\mathbf{\hat{k}}}
-	
+
 	% main axes
 	\draw[axis] (0,0,0) -- ++(\xmax*1.1,0,0) node[right] {$x$};
 	\draw[axis] (0,-\A*1.4,0) -- (0,\A*1.4,0) node[right] {$y$};
 	\draw[axis] (0,0,-\A*1.4) -- (0,0,\A*1.4) node[above left] {$z$};
-	
+
 	% small axes
 	\def\xOffset{{(\nNodes-2)*pi/2}}
 	\def\yOffset{\A*1.2}
@@ -12223,7 +12274,7 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
 	\draw[axis] (\xOffset,\yOffset,-\zOffset) -- ++(\A*0.6,0,0) node[right] {$\vk$};
 	\draw[axis] (\xOffset,\yOffset,-\zOffset) -- ++(0,\A*0.6,0) node[right] {$\vE$};
 	\draw[axis] (\xOffset,\yOffset,-\zOffset) -- ++(0,0,\A*0.6) node[above left] {$\vB$};
-	
+
 	% equation
 	\node[above right] at (\xOffset,-0.5*\yOffset,4*\zOffset)
 	{$\begin{aligned}
@@ -12232,13 +12283,13 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
 		\end{aligned}$};
 	\node[below right] at (\xOffset,-0.5*\yOffset,4*\zOffset)
 	{$\vE\cdot\vk = 0,\;\; \vB\cdot\vk = 0,\;\; \vB = \frac{1}{c_0}\vk\times\vE$};
-	
+
 	% waves
 	\draw[very thick,variable=\t,domain=0:\nNodes*pi/2*1.01,samples=\N]
 	plot (\t,{\A*sin(\t*360/pi)},0);
 	\draw[very thick,variable=\t,domain=0:\nNodes*pi/2*1.01,samples=\N]
 	plot (\t,0,{\A*sin(\t*360/pi)});
-	
+
 	% draw vectors
 	\foreach \k [evaluate={\t=\k*pi/2/(\nVectorsPerNode+1);
 		\angle=\k*90/(\nVectorsPerNode+1);
@@ -12249,13 +12300,13 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
 		\draw[vector] (\t,0,0) -- ++(0,0,{\A*sin(2*\angle)});
 		\fi
 	}
-	
-	\end{tikzpicture}
-	
-	
-	
-	% Electromagnetic wave - circular polarization
-	\begin{tikzpicture}[x=(-15:0.8), y=(90:1.0), z=(-150:1.0),
+
+\end{tikzpicture}
+
+
+
+% Electromagnetic wave - circular polarization
+\begin{tikzpicture}[x=(-15:0.8), y=(90:1.0), z=(-150:1.0),
 	line cap=round, line join=round,
 	axis/.style={black, thick,->},
 	vector/.style={>=stealth,->}]
@@ -12266,33 +12317,32 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
 	\def\N{\nNodes*40}
 	\def\xmax{\nNodes*pi/2*1.01}
 	\pgfmathsetmacro\nVectors{\nVectorsPerNode*\nNodes}
-	
+
 	\def\vE{\mathbf{E}}
 	\def\vB{\mathbf{B}}
 	\def\vk{\mathbf{\hat{k}}}
-	
+
 	% main axes
 	\draw[axis] (0,0,0) -- ++(\xmax*1.1,0,0) node[right] {$x$};
 	\draw[axis] (0,-\A*1.4,0) -- (0,\A*1.4,0) node[right] {$y$};
 	\draw[axis] (0,0,-\A*1.4) -- (0,0,\A*1.4) node[above left] {$z$};
-	
+
 	% waves
 	\draw[very thick,variable=\t,domain=0:\nNodes*pi/2*1.01,samples=\N]
 	plot (\t,{\A*cos(\t*360/pi)},{\A*sin(\t*360/pi)});
-	
+
 	% draw vectors
 	\foreach \k [evaluate={\t=\k*pi/2/\nVectorsPerNode;
 		\angle=\k*90/\nVectorsPerNode;}]
 	in {1,...,\nVectors}{
 		\draw[vector] (\t,0,0) -- ++(0,{\A*cos(2*\angle)},{\A*sin(2*\angle)});
 	}
-	
-	\end{tikzpicture}
-	
-	
-	
-	% Electromagnetic wave - colored
-	\begin{tikzpicture}[x=(-15:1.2), y=(90:1.0), z=(-150:1.0),
+
+\end{tikzpicture}
+
+
+% Electromagnetic wave - colored
+\begin{tikzpicture}[x=(-15:1.2), y=(90:1.0), z=(-150:1.0),
 	line cap=round, line join=round,
 	axis/.style={black, thick,->},
 	vector/.style={>=stealth,->}]
@@ -12303,11 +12353,11 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
 	\def\N{\nNodes*40}
 	\def\xmax{\nNodes*pi/2*1.01}
 	\pgfmathsetmacro\nVectors{(\nVectorsPerNode+1)*\nNodes}
-	
+
 	\def\vE{{\color{myblue}\mathbf{E}}}
 	\def\vB{{\color{myred}\mathbf{B}}}
 	\def\vk{\mathbf{\hat{k}}}
-	
+
 	\def\drawENode{ % draw E node and vectors with some offset
 		\draw[myblue,very thick,variable=\t,domain=\iOffset*pi/2:(\iOffset+1)*pi/2*1.01,samples=40]
 		plot (\t,{\A*sin(\t*360/pi)},0);
@@ -12326,12 +12376,12 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
 			\draw[vector,myred!50]  (\iOffset*pi/2+\t,0,0) -- ++(0,0,{\A*sin(2*\angle+\iOffset*180)});
 		}
 	}
-	
+
 	% main axes
 	\draw[axis] (0,0,0) -- ++(\xmax*1.1,0,0) node[right] {$x$};
 	\draw[axis] (0,-\A*1.4,0) -- (0,\A*1.4,0) node[right] {$y$};
 	\draw[axis] (0,0,-\A*1.4) -- (0,0,\A*1.4) node[above left] {$z$};
-	
+
 	% small axes
 	\def\xOffset{{(\nNodes-2)*pi/2}}
 	\def\yOffset{\A*1.2}
@@ -12339,7 +12389,7 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
 	\draw[axis,black] (\xOffset,\yOffset,-\zOffset) -- ++(\A*0.6,0,0) node[right,align=center] {$\mathbf{\hat{k}}$}; %\\propagation
 	\draw[axis,myblue]  (\xOffset,\yOffset,-\zOffset) -- ++(0,\A*0.6,0) node[right] {$\mathbf{E}$};
 	\draw[axis,myred]   (\xOffset,\yOffset,-\zOffset) -- ++(0,0,\A*0.6) node[above left] {$\mathbf{B}$};
-	
+
 	% equation
 	\node[above right] at (\xOffset,-0.5*\yOffset,4*\zOffset)
 	{$\begin{aligned}
@@ -12348,16 +12398,15 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
 		\end{aligned}$};
 	\node[below right] at (\xOffset,-0.5*\yOffset,4*\zOffset)
 	{$\vE\cdot\vk = 0,\;\; \vB\cdot\vk = 0,\;\; \vB = \frac{1}{c_0}\vk\times\vE$};
-	
+
 	% draw (anti-)nodes
 	\foreach \iNode [evaluate={\iOffset=\iNode-1;}] in {1,...,\nNodes}{
 		\ifodd\iNode \drawBNode \drawENode % E overlaps B
 		\else        \drawENode \drawBNode % B overlaps E
 		\fi
 	}
-	
-	\end{tikzpicture}
-	
+
+\end{tikzpicture}
 	
 	
 \end{document}
@@ -12408,41 +12457,41 @@ react according to the `IS-LM curve`_ (sometimes also known as `Mundell Flemming
 	
 \usetikzlibrary{arrows}
 \begin{tikzpicture}[
-scale=5,
-axis/.style={very thick, ->, >=stealth'},
-important line/.style={thick},
-dashed line/.style={dashed, thin},
-pile/.style={thick, ->, >=stealth', shorten <=2pt, shorten
-	>=2pt},
-every node/.style={color=black}
-]
-% axis
-\draw[axis] (-0.1,0)  -- (1.1,0) node(xline)[right]
-{$G\uparrow/T\downarrow$};
-\draw[axis] (0,-0.1) -- (0,1.1) node(yline)[above] {$E$};
-% Lines
-\draw[important line] (.15,.15) coordinate (A) -- (.85,.85)
-coordinate (B) node[right, text width=5em] {$Y^O$};
-\draw[important line] (.15,.85) coordinate (C) -- (.85,.15)
-coordinate (D) node[right, text width=5em] {$\mathit{NX}=x$};
-% Intersection of lines
-\fill[red] (intersection cs:
-first line={(A) -- (B)},
-second line={(C) -- (D)}) coordinate (E) circle (.4pt)
-node[above,] {$A$};
-% The E point is placed more or less randomly
-\fill[red]  (E) +(-.075cm,-.2cm) coordinate (out) circle (.4pt)
-node[below left] {$B$};
-% Line connecting out and ext balances
-\draw [pile] (out) -- (intersection of A--B and out--[shift={(0:1pt)}]out)
-coordinate (extbal);
-\fill[red] (extbal) circle (.4pt) node[above] {$C$};
-% line connecting  out and int balances
-\draw [pile] (out) -- (intersection of C--D and out--[shift={(0:1pt)}]out)
-coordinate (intbal);
-\fill[red] (intbal) circle (.4pt) node[above] {$D$};
-% line between out og all balanced out :)
-\draw[pile] (out) -- (E);
+	scale=5,
+	axis/.style={very thick, ->, >=stealth'},
+	important line/.style={thick},
+	dashed line/.style={dashed, thin},
+	pile/.style={thick, ->, >=stealth', shorten <=2pt, shorten
+		>=2pt},
+	every node/.style={color=black}
+	]
+	% axis
+	\draw[axis] (-0.1,0)  -- (1.1,0) node(xline)[right]
+	{$G\uparrow/T\downarrow$};
+	\draw[axis] (0,-0.1) -- (0,1.1) node(yline)[above] {$E$};
+	% Lines
+	\draw[important line] (.15,.15) coordinate (A) -- (.85,.85)
+	coordinate (B) node[right, text width=5em] {$Y^O$};
+	\draw[important line] (.15,.85) coordinate (C) -- (.85,.15)
+	coordinate (D) node[right, text width=5em] {$\mathit{NX}=x$};
+	% Intersection of lines
+	\fill[red] (intersection cs:
+	first line={(A) -- (B)},
+	second line={(C) -- (D)}) coordinate (E) circle (.4pt)
+	node[above,] {$A$};
+	% The E point is placed more or less randomly
+	\fill[red]  (E) +(-.075cm,-.2cm) coordinate (out) circle (.4pt)
+	node[below left] {$B$};
+	% Line connecting out and ext balances
+	\draw [pile] (out) -- (intersection of A--B and out--[shift={(0:1pt)}]out)
+	coordinate (extbal);
+	\fill[red] (extbal) circle (.4pt) node[above] {$C$};
+	% line connecting  out and int balances
+	\draw [pile] (out) -- (intersection of C--D and out--[shift={(0:1pt)}]out)
+	coordinate (intbal);
+	\fill[red] (intbal) circle (.4pt) node[above] {$D$};
+	% line between out og all balanced out :)
+	\draw[pile] (out) -- (E);
 \end{tikzpicture}
 	
 \end{document}
@@ -12566,16 +12615,16 @@ The code is from the PGFPlots 1.10 manual: "4.6.5 Mesh Plots".
 
 \begin{document}
 	
-	% DRAW PLOT: sin, cos, tan
-	\begin{tikzpicture}[domain=-pi:pi,xscale=2/pi]
-	
+% DRAW PLOT: sin, cos, tan
+\begin{tikzpicture}[domain=-pi:pi,xscale=2/pi]
+
 	% limits
 	\def\xa{ -pi-0.3}
 	\def\xb{3*pi+0.4}
 	\def\ya{-3.4}
 	\def\yb{ 3.6}
 	\def\N{100} % number of points
-	
+
 	% axes & grid
 	\draw[xstep=pi/2,very thin, color=gray]
 	(\xa,\ya) grid (\xb,\yb);
@@ -12585,7 +12634,7 @@ The code is from the PGFPlots 1.10 manual: "4.6.5 Mesh Plots".
 	\draw[->]
 	(0,\ya) -- (0,\yb)
 	node[left] {$y$};
-	
+
 	% ticks
 	\draw[] % x
 	node[below,scale=0.9] at ( -pi,   0) {$-\pi$}
@@ -12606,7 +12655,7 @@ The code is from the PGFPlots 1.10 manual: "4.6.5 Mesh Plots".
 	node[left,scale=0.9] at ( 0, -1) {$-1$}
 	node[left,scale=0.9] at ( 0, -2) {$-2$}
 	node[left,scale=0.9] at ( 0, -3) {$-3$};
-	
+
 	% functions
 	\def\ea{0.28}
 	\def\eb{0.26}
@@ -12623,13 +12672,13 @@ The code is from the PGFPlots 1.10 manual: "4.6.5 Mesh Plots".
 	plot[samples=\N,domain= 3*pi/2+\ea: 5*pi/2-\eb] (\x, {tan(\x r)})
 	plot[samples=\N,domain= 5*pi/2+\ea:  \xb      ] (\x, {tan(\x r)})
 	node[samples=\N,right=-2pt] at (pi/2,2.5) {$\tan(x)$};
-	
-	\end{tikzpicture}
+
+\end{tikzpicture}
 	
 \vspace{24pt}
 	
-	% AXIS ENVIRONMENT: sin, cos, tan
-	\begin{tikzpicture}
+% AXIS ENVIRONMENT: sin, cos, tan
+\begin{tikzpicture}
 	\begin{axis}[enlargelimits=false,
 	axis lines=middle,
 	scale=1.2,
@@ -12643,15 +12692,15 @@ The code is from the PGFPlots 1.10 manual: "4.6.5 Mesh Plots".
 	grid=major, % only a grid on the defined ticks
 	samples=100 % number of points
 	]
-	
+
 	% sin
 	\addplot[blue,no marks,domain=-1.2*pi:3*pi]{sin(deg(x))}; % deg to convert radians
 	\node[right=10pt,above] at (axis cs:5*pi/2,1){\color{blue}$\sin(x)$};
-	
+
 	% cos
 	\addplot[red,no marks,domain=-1.2*pi:3*pi] {cos(deg(x))};
 	\node[above left] at (axis cs:2*pi,1){\color{red}$\cos(x)$};
-	
+
 	% tan, multiple parts because of singularities
 	\addplot[orange,no marks,domain=-1.2*pi:-0.583*pi, ]{tan(deg(x))};
 	\addplot[orange,no marks,domain=-0.4*pi:5*pi/12,   ]{tan(deg(x))};
@@ -12659,14 +12708,14 @@ The code is from the PGFPlots 1.10 manual: "4.6.5 Mesh Plots".
 	\addplot[orange,no marks,domain=1.6*pi:29*pi/12,   ]{tan(deg(x))};
 	\addplot[orange,no marks,domain=2.6*pi:36*pi/12,   ]{tan(deg(x))};
 	\node[right] at (axis cs:pi/2,2.5){\color{orange}$\tan(x)$};
-	
+
 	\end{axis}
-	\end{tikzpicture}
+\end{tikzpicture}
 	
 \vspace{24pt}	
 	
-	% AXIS ENVIRONMENT: arcsin, arccos, arctan
-	\begin{tikzpicture}
+% AXIS ENVIRONMENT: arcsin, arccos, arctan
+\begin{tikzpicture}
 	\begin{axis}[enlargelimits=false,
 	axis lines=middle,
 	xtick={-2,-1,0,1,2},
@@ -12675,21 +12724,21 @@ The code is from the PGFPlots 1.10 manual: "4.6.5 Mesh Plots".
 	grid=major,
 	samples=100
 	]
-	
+
 	% arcsin
 	\addplot[domain=-1:1,no marks,blue] {rad(asin(x))};
 	\node at (axis cs:1.52,1.4){\color{blue}$\arcsin(x)$};
-	
+
 	% arccos
 	\addplot[domain=-1:1,no marks,red] {rad(acos(x))};
 	\node at (axis cs:-1.5,2.8){\color{red}$\arccos(x)$};
-	
+
 	% arctan
 	\addplot[domain=-2:2,no marks,orange] {rad(atan(x))};
 	\node at (axis cs:1.52,.67){\color{orange}$\arctan(x)$};
-	
+
 	\end{axis}
-	\end{tikzpicture}
+\end{tikzpicture}
 	
 \end{document}
 ```
@@ -12805,7 +12854,7 @@ postaction=decorate] #1 -- #2 ;
 \begin{document}
 
 \begin{tikzpicture}
- \begin{axis}[
+ 	\begin{axis}[
 	   xmin = 0, xmax = 1000,
 	   ymin = 12, ymax = 16,
 	   xlabel=$Q$,
@@ -12870,73 +12919,73 @@ postaction=decorate] #1 -- #2 ;
 
 \begin{document}
 	
-	% 3D axis with spherical coordinates
-	\tdplotsetmaincoords{60}{110}
-	\begin{tikzpicture}[scale=3,tdplot_main_coords]
-	
+% 3D axis with spherical coordinates
+\tdplotsetmaincoords{60}{110}
+\begin{tikzpicture}[scale=3,tdplot_main_coords]
+
 	% variables
 	\def\rvec{.8}
 	\def\thetavec{30}
 	\def\phivec{60}
-	
+
 	% axes
 	\coordinate (O) at (0,0,0);
 	\draw[thick,->] (0,0,0) -- (1,0,0) node[anchor=north east]{$x$};
 	\draw[thick,->] (0,0,0) -- (0,1,0) node[anchor=north west]{$y$};
 	\draw[thick,->] (0,0,0) -- (0,0,1) node[anchor=south]{$z$};
-	
+
 	% vectors
 	\tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
 	\draw[-stealth,red] (O)  -- (P) node[above right] {$P$};
 	\draw[dashed,red]   (O)  -- (Pxy);
 	\draw[dashed,red]   (P)  -- (Pxy);
 	\draw[dashed,red]   (Py) -- (Pxy);
-	
+
 	% arcs
 	\tdplotdrawarc[->]{(O)}{0.2}{0}{\phivec}
 	{anchor=north}{$\phi$}
 	\tdplotsetthetaplanecoords{\phivec}
 	\tdplotdrawarc[->,tdplot_rotated_coords]{(0,0,0)}{0.5}{0}{\thetavec}
 	{anchor=south west}{$\theta$}
-	
-	\end{tikzpicture}
-	
-	
-	
-	% CMS conventional coordinate system with LHC and other detectors
-	\tdplotsetmaincoords{75}{50} % to reset previous setting
-	\begin{tikzpicture}[scale=2.7,tdplot_main_coords,rotate around x=90]
-	
+
+\end{tikzpicture}
+
+
+
+% CMS conventional coordinate system with LHC and other detectors
+\tdplotsetmaincoords{75}{50} % to reset previous setting
+\begin{tikzpicture}[scale=2.7,tdplot_main_coords,rotate around x=90]
+
 	% variables
 	\def\rvec{1.2}
 	\def\thetavec{40}
 	\def\phivec{70}
 	\def\R{1.1}
 	\def\w{0.3}
-	
+
 	% axes
 	\coordinate (O) at (0,0,0);
 	\draw[thick,->] (0,0,0) -- (1,0,0) node[below left]{$x$};
 	\draw[thick,->] (0,0,0) -- (0,1,0) node[below right]{$y$};
 	\draw[thick,->] (0,0,0) -- (0,0,1) node[below right]{$z$};
 	\tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
-	
+
 	% vectors
 	\draw[->,red] (O) -- (P) node[above left] {$P$};
 	\draw[dashed,red] (O)  -- (Pxy);
 	\draw[dashed,red] (P)  -- (Pxy);
 	\draw[dashed,red] (Py) -- (Pxy);
-	
+
 	% circle - LHC
 	\tdplotdrawarc[thick,rotate around x=90,black!70!blue]{(\R,0,0)}{\R}{0}{360}{}{}
-	
+
 	% compass - the line between CMS and ATLAS has a ~12° declination (http://googlecompass.com)
 	\begin{scope}[shift={(1.1*\R,0,1.65*\R)},rotate around y=12]
-	\draw[<->,black!50] (-\w,0,0) -- (\w,0,0);
-	\draw[<->,black!50] (0,0,-\w) -- (0,0,\w);
-	\node[above left,black!50,scale=0.6] at (-\w,0,0) {N};
+		\draw[<->,black!50] (-\w,0,0) -- (\w,0,0);
+		\draw[<->,black!50] (0,0,-\w) -- (0,0,\w);
+		\node[above left,black!50,scale=0.6] at (-\w,0,0) {N};
 	\end{scope}
-	
+
 	% nodes
 	\node[left,align=center] at (0,0,1.1) {Jura};
 	\node[right] at (\R,0,0) {LHC};
@@ -12952,15 +13001,15 @@ postaction=decorate] #1 -- #2 ;
 	\fill[radius=0.8pt,black!60!green]
 	({\R*sqrt(2)/2+\R},0,{-\R*sqrt(2)/2}) circle
 	node[below=2pt,right=2pt,scale=0.8] {LHCb};
-	
+
 	% arcs
 	\tdplotdrawarc[->]{(O)}{0.2}{0}{\phivec}
 	{above=2pt,right=-1pt,anchor=mid west}{$\phi$}
 	\tdplotdrawarc[->,rotate around z=\phivec-90,rotate around y=-90]{(0,0,0)}{0.5}{0}{\thetavec}
 	{anchor=mid east}{$\theta$}
-	
-	\end{tikzpicture}
-	
+
+\end{tikzpicture}
+
 	
 	
 \end{document}
@@ -13208,58 +13257,58 @@ A Porter five (or six) forces model.
 
 \centering
 \begin{tikzpicture}
-[node distance = 1cm, auto,font=\footnotesize,
-% STYLES
-every node/.style={node distance=3cm},
-% The comment style is used to describe the characteristics of each force
-comment/.style={rectangle, inner sep= 5pt, text width=4cm, node distance=0.25cm, font=\scriptsize\sffamily},
-% The force style is used to draw the forces' name
-force/.style={rectangle, draw, fill=black!10, inner sep=5pt, text width=4cm, text badly centered, minimum height=1.2cm, font=\bfseries\footnotesize\sffamily}] 
+    [node distance = 1cm, auto,font=\footnotesize,
+    % STYLES
+    every node/.style={node distance=3cm},
+    % The comment style is used to describe the characteristics of each force
+    comment/.style={rectangle, inner sep= 5pt, text width=4cm, node distance=0.25cm, font=\scriptsize\sffamily},
+    % The force style is used to draw the forces' name
+    force/.style={rectangle, draw, fill=black!10, inner sep=5pt, text width=4cm, text badly centered, minimum height=1.2cm, font=\bfseries\footnotesize\sffamily}] 
 
-% Draw forces
-\node [force] (rivalry) {Rivalry among existing competitors};
-\node [force, above of=rivalry] (substitutes) {Threat of substitutes};
-\node [force, text width=3cm, dashed, left=1cm of substitutes] (state) {Public policies};
-\node [force, left=1cm of rivalry] (suppliers) {Bargaining power of suppliers};
-\node [force, right=1cm of rivalry] (users) {Bargaining power of users};
-\node [force, below of=rivalry] (entrants) {Threat of new entrants};
+    % Draw forces
+    \node [force] (rivalry) {Rivalry among existing competitors};
+    \node [force, above of=rivalry] (substitutes) {Threat of substitutes};
+    \node [force, text width=3cm, dashed, left=1cm of substitutes] (state) {Public policies};
+    \node [force, left=1cm of rivalry] (suppliers) {Bargaining power of suppliers};
+    \node [force, right=1cm of rivalry] (users) {Bargaining power of users};
+    \node [force, below of=rivalry] (entrants) {Threat of new entrants};
 
-%%%%%%%%%%%%%%%
-% Change data from here
+    %%%%%%%%%%%%%%%
+    % Change data from here
 
-% RIVALRY
-\node [comment, below=0.25 of rivalry] (comment-rivalry) {(+) A war against Microsoft\\
-(+) Limiting sunk costs\\
-(+) Coopetition};
+    % RIVALRY
+    \node [comment, below=0.25 of rivalry] (comment-rivalry) {(+) A war against Microsoft\\
+    (+) Limiting sunk costs\\
+    (+) Coopetition};
 
-% SUPPLIERS
-\node [comment, below=0.25cm of suppliers] {(+) Efficiency\\
-(+) Attracting other developers\\
-(+) Creating a Chrome community};
+    % SUPPLIERS
+    \node [comment, below=0.25cm of suppliers] {(+) Efficiency\\
+    (+) Attracting other developers\\
+    (+) Creating a Chrome community};
 
-% SUBSTITUTES
-\node [comment, right=0.25 of substitutes] {(+) Portability};
+    % SUBSTITUTES
+    \node [comment, right=0.25 of substitutes] {(+) Portability};
 
-% USERS
-\node [comment, below=0.25 of users] {(+) Increasing the user information\\
-(+) Reducing the switching costs};
+    % USERS
+    \node [comment, below=0.25 of users] {(+) Increasing the user information\\
+    (+) Reducing the switching costs};
 
-% NEW ENTRANTS
-\node [comment, right=0.25 of entrants] {(+) EC vs. Microsoft};
+    % NEW ENTRANTS
+    \node [comment, right=0.25 of entrants] {(+) EC vs. Microsoft};
 
-% PUBLIC POLICIES
-\node [comment, text width=3cm, below=0.25 of state] {(+) Positively framed\\
-(+) Transparency\\
-(--) A new monopoly?};
+    % PUBLIC POLICIES
+    \node [comment, text width=3cm, below=0.25 of state] {(+) Positively framed\\
+    (+) Transparency\\
+    (--) A new monopoly?};
 
-%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%
 
-% Draw the links between forces
-\path[->,thick] 
-(substitutes) edge (rivalry)
-(suppliers) edge (rivalry)
-(users) edge (rivalry)
-(entrants) edge (comment-rivalry);
+    % Draw the links between forces
+    \path[->,thick] 
+    (substitutes) edge (rivalry)
+    (suppliers) edge (rivalry)
+    (users) edge (rivalry)
+    (entrants) edge (comment-rivalry);
 
 \end{tikzpicture} 
 \caption{FOSS in Chrome influences industry structure by increasing competition}
@@ -13559,7 +13608,7 @@ from 1987 (PDF_).
     thick }
     ]
 
-\node[punkt, text width=5.5em] {Country~\B}
+    \node[punkt, text width=5.5em] {Country~\B}
     %Lower part lv1
     child {
         node[punkt] [rectangle split, rectangle split, rectangle split parts=3,
@@ -13692,88 +13741,88 @@ from 1987 (PDF_).
 
 \begin{tikzpicture}
 
-% The Server
-\pic (sm1) {media={fill=gray!30}};
-\pic[right=of sm1back] (sm2) {media};
-\mediaencryptedbox{right=of sm2back}{box1}
-\node[
-  aes,
-  anchor=north,
-  above=of sm2back.north
-  ]
-  (aes1)
-  {AES key};  
-\draw[ar]
-  (aes1) -- (sm2back.north) ;  
-\draw[ar]
-  (aes1.south east) to[out=-60,in=180] coordinate (aux1) (box1.north west) ;
-\node[
-  anchor=west,
-  rsa
-  ]
-  at (aux1|-aes1)
-  (rsa1)
-  {RSA public key};    
+  % The Server
+  \pic (sm1) {media={fill=gray!30}};
+  \pic[right=of sm1back] (sm2) {media};
+  \mediaencryptedbox{right=of sm2back}{box1}
+  \node[
+    aes,
+    anchor=north,
+    above=of sm2back.north
+    ]
+    (aes1)
+    {AES key};  
+  \draw[ar]
+    (aes1) -- (sm2back.north) ;  
+  \draw[ar]
+    (aes1.south east) to[out=-60,in=180] coordinate (aux1) (box1.north west) ;
+  \node[
+    anchor=west,
+    rsa
+    ]
+    at (aux1|-aes1)
+    (rsa1)
+    {RSA public key};    
 
-\draw[ar]
-  (rsa1) -- (aux1) ;  
+  \draw[ar]
+    (rsa1) -- (aux1) ;  
 
-\draw[ar2]
-  (sm1back.east) -- (sm2back.west);
-\draw[ar2]
-  (sm2back.east) -- (box1.west|-sm2back.east);
+  \draw[ar2]
+    (sm1back.east) -- (sm2back.west);
+  \draw[ar2]
+    (sm2back.east) -- (box1.west|-sm2back.east);
 
-\node[
-  inner sep=10pt,
-  draw,
-  dashed,fit={(sm1back.north west) (box1.south east) (aes1)}
-  ]
-  (server) 
-  {};
-\node[
-  anchor=south west,
-  font=\Large
-  ]
-  at ([shift={(15pt,5pt)}]server.north west)
-  {Server};      
+  \node[
+    inner sep=10pt,
+    draw,
+    dashed,fit={(sm1back.north west) (box1.south east) (aes1)}
+    ]
+    (server) 
+    {};
+  \node[
+    anchor=south west,
+    font=\Large
+    ]
+    at ([shift={(15pt,5pt)}]server.north west)
+    {Server};      
 
-% The Player
-\mediaencryptedbox[2.2cm]{right=6cm of box1}{box2}
-\node[
-  anchor=north west,
-  rsa,
-  above left=of box2
-  ]
-  (rsa2)
-  {RSA public key};    
-\draw[ar]
-  (rsa2.south) 
-    to[out=-80,in=160]
-    node[align=center,anchor=east,shift={(10pt,-20pt)}] {RSA decryption \\ (slow)} 
-  ([yshift=-20pt]box2.north west);
-\draw[ar]
-  ([yshift=-10pt]box2.north east) 
-    to[out=0,in=0]
-    node[align=center,anchor=west,shift={(5pt,0pt)}] (AESd) {AES decryption \\ (fast)} 
-  (sm3back.east);
-\node[
-  inner sep=10pt,
-  draw,
-  dashed,fit={(rsa2) (box2.south east) (AESd)}
-  ]
-  (player) 
-  {};
-\node[
-  anchor=south west,
-  font=\Large
-  ]
-  at ([shift={(15pt,5pt)}]player.north west)
-  {Player};
+  % The Player
+  \mediaencryptedbox[2.2cm]{right=6cm of box1}{box2}
+  \node[
+    anchor=north west,
+    rsa,
+    above left=of box2
+    ]
+    (rsa2)
+    {RSA public key};    
+  \draw[ar]
+    (rsa2.south) 
+      to[out=-80,in=160]
+      node[align=center,anchor=east,shift={(10pt,-20pt)}] {RSA decryption \\ (slow)} 
+    ([yshift=-20pt]box2.north west);
+  \draw[ar]
+    ([yshift=-10pt]box2.north east) 
+      to[out=0,in=0]
+      node[align=center,anchor=west,shift={(5pt,0pt)}] (AESd) {AES decryption \\ (fast)} 
+    (sm3back.east);
+  \node[
+    inner sep=10pt,
+    draw,
+    dashed,fit={(rsa2) (box2.south east) (AESd)}
+    ]
+    (player) 
+    {};
+  \node[
+    anchor=south west,
+    font=\Large
+    ]
+    at ([shift={(15pt,5pt)}]player.north west)
+    {Player};
 
-\draw[ar2]
-  (server.east) -- (player.west|-server.east);        
-\draw[ar2]
-  ([yshift=10pt]sm3back.south east) -- ++(3cm,0) node[near end,anchor=south west] {Streaming};
+  \draw[ar2]
+    (server.east) -- (player.west|-server.east);        
+  \draw[ar2]
+    ([yshift=10pt]sm3back.south east) -- ++(3cm,0) node[near end,anchor=south west] {Streaming};
 \end{tikzpicture}
 
 \end{document}
@@ -13792,22 +13841,20 @@ from 1987 (PDF_).
 
 \begin{document}
 	
-	\tikzset{
-		block/.style = {draw, fill=white, rectangle, minimum height=3em, minimum width=3em},
-		tmp/.style  = {coordinate}, 
-		sum/.style= {draw, fill=white, circle, node distance=1cm},
-		input/.style = {coordinate},
-		output/.style= {coordinate},
-		pinstyle/.style = {pin edge={to-,thin,black}
-		}
+\tikzset{
+	block/.style = {draw, fill=white, rectangle, minimum height=3em, minimum width=3em},
+	tmp/.style  = {coordinate}, 
+	sum/.style= {draw, fill=white, circle, node distance=1cm},
+	input/.style = {coordinate},
+	output/.style= {coordinate},
+	pinstyle/.style = {pin edge={to-,thin,black}
 	}
-	
-	
-	
-	%\begin{figure}[!htb]
-	%\centering
-	
-	\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+}
+
+%\begin{figure}[!htb]
+%\centering
+
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
 	\node [input, name=rinput] (rinput) {};
 	\node [sum, right of=rinput] (sum1) {};
 	\node [block, right of=sum1] (controller) {$k_{p\beta}$};
@@ -13831,9 +13878,9 @@ from 1987 (PDF_).
 	\draw [->] (y) |- (tmp1)-| node[pos=0.99] {$-$} (sum1);
 	\draw [->] (extra)--(sum2);
 	\draw [->] ($(0,1.5cm)+(extra)$)node[above]{$d_{\beta 2}$} -- (extra);
-	\end{tikzpicture}
-	%\caption{A PID Control System} \label{fig6_10}
-	%\end{figure}
+\end{tikzpicture}
+%\caption{A PID Control System} \label{fig6_10}
+%\end{figure}
 	
 \end{document}
 ```
@@ -13851,32 +13898,32 @@ from 1987 (PDF_).
 \usetikzlibrary{shapes,arrows}
 \begin{document}
 	
-	\tikzstyle{block} = [draw, fill=white, rectangle, 
-	minimum height=3em, minimum width=6em]
-	\tikzstyle{sum} = [draw, fill=white, circle, node distance=1cm]
-	\tikzstyle{input} = [coordinate]
-	\tikzstyle{output} = [coordinate]
-	\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
-	
-	\begin{tikzpicture}[auto, node distance=2cm,>=latex']
-	
+\tikzstyle{block} = [draw, fill=white, rectangle, 
+minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=white, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+
 	\node [input, name=input] {};
 	\node [sum, right of=input] (sum) {};
 	\node [block, right of=sum] (controller) {Controller};
 	\node [block, right of=controller, pin={[pinstyle]above:D},
 	node distance=3cm] (system) {System};
-	
+
 	\draw [->] (controller) -- node[name=u] {$u$} (system);
 	\node [output, right of=system] (output) {};
 	\node [block, below of=u] (measurements) {Measurements};
-	
+
 	\draw [draw,->] (input) -- node {$r$} (sum);
 	\draw [->] (sum) -- node {$e$} (controller);
 	\draw [->] (system) -- node [name=y] {$y$}(output);
 	\draw [->] (y) |- (measurements);
 	\draw [->] (measurements) -| node[pos=0.99] {$-$} 
 	node [near end] {$y_m$} (sum);
-	\end{tikzpicture}
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -13945,7 +13992,7 @@ pinstyle/.style = {pin edge={to-,thin,black}
     \node [sum, right of=controller,node distance=2cm] (sum2) {};
     \node [block, above = 2cm of sum2](extra){$\frac{1}{\alpha_{\beta2}}$};  %
     \node [block, right of=sum2,node distance=2cm] (system) 
-{$\frac{a_{\beta 2}}{s+a_{\beta 1}}$};
+    {$\frac{a_{\beta 2}}{s+a_{\beta 1}}$};
     \node [output, right of=system, node distance=2cm] (output) {};
     \node [tmp, below of=controller] (tmp1){$H(s)$};
     \draw [->] (rinput) -- node{$R(s)$} (sum1);
@@ -13960,7 +14007,7 @@ pinstyle/.style = {pin edge={to-,thin,black}
     \draw [->] (y) |- (tmp1)-| node[pos=0.99] {$-$} (sum1);
     \draw [->] (extra)--(sum2);
     \draw [->] ($(0,1.5cm)+(extra)$)node[above]{$d_{\beta 2}$} -- (extra);
-    \end{tikzpicture}
+\end{tikzpicture}
 %\caption{A PID Control System} \label{fig6_10}
 %\end{figure}
 
@@ -14008,7 +14055,7 @@ pinstyle/.style = {pin edge={to-,thin,black}
     \foreach \x in {2000,2004,2008}
         \node at (y\x) [above=3pt] {\x};
         
-%	\draw node at (y1993) -- [below=5pt] {93};
+    %	\draw node at (y1993) -- [below=5pt] {93};
 
 \end{tikzpicture}
 \end{document}
@@ -14132,8 +14179,8 @@ pinstyle/.style = {pin edge={to-,thin,black}
    \draw (3,0) node[below=3pt] {$T_2$} node[above=0pt] {P+Q};
    \draw (4.5,0) node[below=3pt] {$T_3$} node[above=0pt] {P+2Q};
    \draw (8.5,0) node[below=3pt] {$T_{n-1}$} node[above=0pt] {[P+(n-2)Q]};
-\draw (10,0) node[below=3pt] {$T_n$} node[above=15pt] {[P+(n-1)Q]};
-\draw[<-] (10,0.2) -- ++(0,1em);
+   \draw (10,0) node[below=3pt] {$T_n$} node[above=15pt] {[P+(n-1)Q]};
+   \draw[<-] (10,0.2) -- ++(0,1em);
    \end{tikzpicture}
 \end{document}
 ```
@@ -14151,40 +14198,40 @@ pinstyle/.style = {pin edge={to-,thin,black}
 \begin{document}
 	
 \begin{tikzpicture}
-% draw horizontal line   
-\draw (0,0) -- (10,0);
+    % draw horizontal line   
+    \draw (0,0) -- (10,0);
 
-% draw vertical lines
-\foreach \x in {0,1.5,3,4.5,8.5,10}
-\draw (\x cm,3pt) -- (\x cm,-3pt);
+    % draw vertical lines
+    \foreach \x in {0,1.5,3,4.5,8.5,10}
+    \draw (\x cm,3pt) -- (\x cm,-3pt);
 
-% draw nodes
-\draw (0,0) node[below=3pt] {$T_0$ } node[above=3pt] {};
-\draw (1.5,0) node[below=3pt] {$T_1$} node[above=3pt] {P};
-\draw (3,0) node[below=3pt] {$T_2$} node[above=3pt] {P+Q};
-\draw (4.5,0) node[below=3pt] {$T_3$} node[above=3pt] {P+2Q};
-\draw (8.5,0) node[below=3pt] {$T_{n-1}$} node[above=3pt, anchor= south east, rotate=-45] {[P+(n-2)Q]};
-\draw (10,0) node[below=3pt] {$T_n$} node[above=3pt, anchor= south east, rotate=-45] {[P+(n-1)Q]};
+    % draw nodes
+    \draw (0,0) node[below=3pt] {$T_0$ } node[above=3pt] {};
+    \draw (1.5,0) node[below=3pt] {$T_1$} node[above=3pt] {P};
+    \draw (3,0) node[below=3pt] {$T_2$} node[above=3pt] {P+Q};
+    \draw (4.5,0) node[below=3pt] {$T_3$} node[above=3pt] {P+2Q};
+    \draw (8.5,0) node[below=3pt] {$T_{n-1}$} node[above=3pt, anchor= south east, rotate=-45] {[P+(n-2)Q]};
+    \draw (10,0) node[below=3pt] {$T_n$} node[above=3pt, anchor= south east, rotate=-45] {[P+(n-1)Q]};
 
 \end{tikzpicture}
 
 \vspace{30pt}As AboAmmar said, you could also rotate all the labels:
 
 \begin{tikzpicture}[mylabel/.style={above=3pt, anchor= south east, rotate=-45}]
-% draw horizontal line   
-\draw (0,0) -- (10,0);
+    % draw horizontal line   
+    \draw (0,0) -- (10,0);
 
-% draw vertical lines
-\foreach \x in {0,1.5,3,4.5,8.5,10}
-\draw (\x cm,3pt) -- (\x cm,-3pt);
+    % draw vertical lines
+    \foreach \x in {0,1.5,3,4.5,8.5,10}
+    \draw (\x cm,3pt) -- (\x cm,-3pt);
 
-% draw nodes
-\draw (0,0) node[below=3pt] {$T_0$ } node[mylabel] {};
-\draw (1.5,0) node[below=3pt] {$T_1$} node[mylabel] {P};
-\draw (3,0) node[below=3pt] {$T_2$} node[mylabel] {P+Q};
-\draw (4.5,0) node[below=3pt] {$T_3$} node[mylabel] {P+2Q};
-\draw (8.5,0) node[below=3pt] {$T_{n-1}$} node[mylabel] {[P+(n-2)Q]};
-\draw (10,0) node[below=3pt] {$T_n$} node[mylabel] {[P+(n-1)Q]};
+    % draw nodes
+    \draw (0,0) node[below=3pt] {$T_0$ } node[mylabel] {};
+    \draw (1.5,0) node[below=3pt] {$T_1$} node[mylabel] {P};
+    \draw (3,0) node[below=3pt] {$T_2$} node[mylabel] {P+Q};
+    \draw (4.5,0) node[below=3pt] {$T_3$} node[mylabel] {P+2Q};
+    \draw (8.5,0) node[below=3pt] {$T_{n-1}$} node[mylabel] {[P+(n-2)Q]};
+    \draw (10,0) node[below=3pt] {$T_n$} node[mylabel] {[P+(n-1)Q]};
 
 \end{tikzpicture}
 \end{document}
@@ -14781,21 +14828,21 @@ on grid
 }
 
 \begin{document}
-    \begin{tikzpicture}[event/.style={very thick, solid, line cap=round}]
-        \drawtimeline[%
-            gray,
-            timeline style={thick},
-            labeled years step=6,
-            minor tick step=0.25]{2002}{2016}{10cm};
-        \drawtimeline[
-            yshift=-2cm,
-            labeled years step=2,
-            timeline style={-stealth, shorten <=-5pt, very thick},
-            year tick style={{Triangle[reversed, scale=0.75]}-, tick size=5pt, yshift=2.5pt},
-            minor tick style={tick size=2pt, yshift=1pt},
-            year label style={anchor=west, rotate=60, outer sep=2pt, yshift=4pt}]{2002}{2016}{10cm};
-         \draw[event, red] (Y-2002-2) -- (Y-2003);
-    \end{tikzpicture}
+\begin{tikzpicture}[event/.style={very thick, solid, line cap=round}]
+    \drawtimeline[%
+        gray,
+        timeline style={thick},
+        labeled years step=6,
+        minor tick step=0.25]{2002}{2016}{10cm};
+    \drawtimeline[
+        yshift=-2cm,
+        labeled years step=2,
+        timeline style={-stealth, shorten <=-5pt, very thick},
+        year tick style={{Triangle[reversed, scale=0.75]}-, tick size=5pt, yshift=2.5pt},
+        minor tick style={tick size=2pt, yshift=1pt},
+        year label style={anchor=west, rotate=60, outer sep=2pt, yshift=4pt}]{2002}{2016}{10cm};
+      \draw[event, red] (Y-2002-2) -- (Y-2003);
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -14813,66 +14860,66 @@ on grid
 \begin{document}
 
 \begin{tikzpicture}[y=1cm, x=1cm, thick, font=\footnotesize]    
-\usetikzlibrary{arrows,decorations.pathreplacing}
+  \usetikzlibrary{arrows,decorations.pathreplacing}
 
-\tikzset{
-   brace_top/.style={
-     decoration={brace},
-     decorate
-   },
-   brace_bottom/.style={
-     decoration={brace, mirror},
-     decorate
-   }
-}
+  \tikzset{
+    brace_top/.style={
+      decoration={brace},
+      decorate
+    },
+    brace_bottom/.style={
+      decoration={brace, mirror},
+      decorate
+    }
+  }
 
-% time line week
-\draw[line width=1.2pt, ->, >=latex'](0,0) -- coordinate (x axis) (8,0) node[right] {Days}; 
-\foreach \x in {0,...,7} \draw (\x,0.1) -- (\x,-0.1) node[below] {\x};
+  % time line week
+  \draw[line width=1.2pt, ->, >=latex'](0,0) -- coordinate (x axis) (8,0) node[right] {Days}; 
+  \foreach \x in {0,...,7} \draw (\x,0.1) -- (\x,-0.1) node[below] {\x};
 
-% top brace
-\node (start_week) at (0,0.1) {};
-\node (end_week) at (7,0.1) {};
-\draw [brace_top] (start_week.north) -- node [above, pos=0.5] {$|T| =a~Week = 672~Periods$} (end_week.north);
+  % top brace
+  \node (start_week) at (0,0.1) {};
+  \node (end_week) at (7,0.1) {};
+  \draw [brace_top] (start_week.north) -- node [above, pos=0.5] {$|T| =a~Week = 672~Periods$} (end_week.north);
 
-% low brace
-\node (start_day_u) at (3,-0.4) {};
-\node (end_day_u) at (4,-0.4) {};
-\draw [brace_bottom] (start_day_u.south) -- node [below, pos=0.5] {} (end_day_u.south);
+  % low brace
+  \node (start_day_u) at (3,-0.4) {};
+  \node (end_day_u) at (4,-0.4) {};
+  \draw [brace_bottom] (start_day_u.south) -- node [below, pos=0.5] {} (end_day_u.south);
 
-% time line day
-\draw[line width=1.2pt, ->, >=latex'](0,-1.5) -- coordinate (x axis) (8,-1.5) node[right] {Hours}; 
-\draw (0,-1.4) -- (0,-1.6) node[below] {1};
-\foreach \x in {4,8,12,16,20,24} \draw (\x/3.4,-1.4) -- (\x/3.4,-1.6) node[below] {\x};
-\draw (9/3.4,-1.4) -- (9/3.4,-1.6) node[below] {9};
+  % time line day
+  \draw[line width=1.2pt, ->, >=latex'](0,-1.5) -- coordinate (x axis) (8,-1.5) node[right] {Hours}; 
+  \draw (0,-1.4) -- (0,-1.6) node[below] {1};
+  \foreach \x in {4,8,12,16,20,24} \draw (\x/3.4,-1.4) -- (\x/3.4,-1.6) node[below] {\x};
+  \draw (9/3.4,-1.4) -- (9/3.4,-1.6) node[below] {9};
 
-% top brace
-\node (start_day) at (0,-1.4) {};
-\node (end_day) at (7,-1.4) {};
-\draw [brace_top] (start_day.north) -- node [above, pos=0.5] {$ a~Day = 96~Periods$} (end_day.north);
+  % top brace
+  \node (start_day) at (0,-1.4) {};
+  \node (end_day) at (7,-1.4) {};
+  \draw [brace_top] (start_day.north) -- node [above, pos=0.5] {$ a~Day = 96~Periods$} (end_day.north);
 
-% low brace
-\node (start_hour_u) at (8/3.4,-1.9) {};
-\node (end_hour_u) at (9/3.4,-1.9) {};
-\draw [brace_bottom] (start_hour_u.south) -- node [below, pos=0.5] {} (end_hour_u.south);
+  % low brace
+  \node (start_hour_u) at (8/3.4,-1.9) {};
+  \node (end_hour_u) at (9/3.4,-1.9) {};
+  \draw [brace_bottom] (start_hour_u.south) -- node [below, pos=0.5] {} (end_hour_u.south);
 
-% time line hour
-\draw[line width=1.2pt, ->, >=latex'](0,-3.0) -- coordinate (x axis) (8,-3.0) node[right] {Minutes}; 
-\draw (0,-2.9) -- (0,-3.1) node[below] {1};
-\foreach \x in {15,30,45,60} \draw (\x/8.5,-2.9) -- (\x/8.5,-3.1) node[below] {\x};
+  % time line hour
+  \draw[line width=1.2pt, ->, >=latex'](0,-3.0) -- coordinate (x axis) (8,-3.0) node[right] {Minutes}; 
+  \draw (0,-2.9) -- (0,-3.1) node[below] {1};
+  \foreach \x in {15,30,45,60} \draw (\x/8.5,-2.9) -- (\x/8.5,-3.1) node[below] {\x};
 
-% top brace
-\node (start_hour) at (0,-2.9) {};
-\node (end_hour) at (7.05,-2.9) {};
-\draw [brace_top] (start_hour.north) -- node [above, pos=0.5] {$ a~Hour = 4~Periods$} (end_hour.north);
+  % top brace
+  \node (start_hour) at (0,-2.9) {};
+  \node (end_hour) at (7.05,-2.9) {};
+  \draw [brace_top] (start_hour.north) -- node [above, pos=0.5] {$ a~Hour = 4~Periods$} (end_hour.north);
 
-% time line period
-\foreach \x in {1,...,4} \draw[dotted] (15*\x/8.5,-3.45) -- (15*\x/8.5,-3.6) node[below] {\textbf{\x}};
+  % time line period
+  \foreach \x in {1,...,4} \draw[dotted] (15*\x/8.5,-3.45) -- (15*\x/8.5,-3.6) node[below] {\textbf{\x}};
 
-% low brace period
-\node (start_period) at (30/8.5,-3.9) {};
-\node (end_period) at (45/8.5,-3.9) {};
-\draw [brace_bottom] (start_period.south) -- node [below, pos=0.5] {$t=a~Period$} (end_period.south);
+  % low brace period
+  \node (start_period) at (30/8.5,-3.9) {};
+  \node (end_period) at (45/8.5,-3.9) {};
+  \draw [brace_bottom] (start_period.south) -- node [below, pos=0.5] {$t=a~Period$} (end_period.south);
 
 \end{tikzpicture}
 \end{document}
@@ -15005,15 +15052,15 @@ on grid
 \newcommand{\vevent}[7]{\begin{pgfonlayer}{timeline} \draw[eventline,#1](Y-#2) -- ++(#3) -- ++(#4) node[#5] (#6) {#7}; \end{pgfonlayer}}
 
 \begin{document}
-    \begin{tikzpicture}
-        \drawtimeline[
-            labeled years step=1,
-            minor tick step=0.083333,
-            timeline style={draw=gray,line width=\timelinewidthpt},
-            minor tick style={-,lightgray,tick size=3pt,line width=3pt,yshift=-\timelineoffsetpt},           
-            ]%
-            {2017}{2019}{50cm}{2cm};
-%
+\begin{tikzpicture}
+    \drawtimeline[
+        labeled years step=1,
+        minor tick step=0.083333,
+        timeline style={draw=gray,line width=\timelinewidthpt},
+        minor tick style={-,lightgray,tick size=3pt,line width=3pt,yshift=-\timelineoffsetpt},           
+        ]%
+        {2017}{2019}{50cm}{2cm};
+    %
     \period{A}{2017-0}{2017-2}{2017\\J-F}{}
     \period{B}{2017-2}{2017-4}{M-A}{}
     \period{A}{2017-4}{2017-6}{M-J}{}
@@ -15024,7 +15071,7 @@ on grid
     \period{B}{2018-2}{2018-4}{M-A}{}
     \period{A}{2018-4}{2018-6}{M-J}{}
     \period{B}{2018-6}{2018-8}{J-A}{}
-%
+    %
     \vevent{A}{2017-0}{90:2.5cm}{45:0.5cm}{eventboxa=5cm,anchor=west}{H}{Start of ZoW consortium\\10 Jan}
     \vevent{A}{2017-6}{-90:2.5cm}{-45:0.5cm}{eventboxa=4cm,anchor=west}{H}{1st Symposium\\8 Jun}    
     \vevent{A}{2017-7}{90:2.5cm}{45:0.5cm}{eventboxa=4cm,anchor=west}{H}{1st Symposium\\8 Jun} 
@@ -15032,10 +15079,10 @@ on grid
     \vevent{A}{2018-0}{90:2.5cm}{45:0.5cm}{eventboxa=4cm,anchor=west}{H}{Storm\\Jan} 
     \vevent{A}{2018-0}{90:4.5cm}{45:0.5cm}{eventboxa=4cm,anchor=west}{H}{Storm\\18 Jan} 
     \vevent{A}{2018-6}{-90:2.5cm}{-45:0.5cm}{eventboxa=4cm,anchor=west}{H}{3rd Symposium\\14 Jun}
-%
+    %
     \node[draw=none,rectangle,fill=cyan,text width=10cm,minimum height=1cm,text=black,align=center,font=\Large] (AA) at  ([yshift=-5cm]Y-2018-5) {Internship};       
     \node[below=0.5cm of AA,font=\large] {12 Feb - 10 Aug};            
-    \end{tikzpicture}
+\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -15061,39 +15108,39 @@ on grid
 \usepackage{enumitem}
 
 \begin{document}
-    \begin{figure}
-    \setlist[itemize]{nosep, leftmargin=*}
+\begin{figure}
+\setlist[itemize]{nosep, leftmargin=*}
     
 \begin{tikzpicture}[
- node distance = 0mm and 0.02\linewidth,
-    box/.style = {inner xsep=0pt, outer sep=0pt,
-                  text width=0.32\linewidth,
-                  align=left, font=\small}
-                    ]
-\node (n1) [box]
-        {   \begin{itemize}
-        \item   The shareshoulders design compensation contract for the manager simultaneously.
+    node distance = 0mm and 0.02\linewidth,
+        box/.style = {inner xsep=0pt, outer sep=0pt,
+                    text width=0.32\linewidth,
+                    align=left, font=\small}
+                        ]
+    \node (n1) [box]
+            {   \begin{itemize}
+            \item   The shareshoulders design compensation contract for the manager simultaneously.
+                \end{itemize}
+            };
+    \node (n2) [box, below right=of n1.north east]
+            {   \begin{itemize}
+            \item   The manager of each firm privately observes its entry cost;
+            \item   The manager make entry decision simultaneously;
+            \item   Trading and financial market occurs.
+                \end{itemize}
+            };
+    \node (n3) [box, below right=of n2.north east]
+            {   \begin{itemize}
+            \item   Entry cost and profits are realised;
+            \item   Manager receive their compensation;
+            \item   Firms are liquidated.
             \end{itemize}
-        };
-\node (n2) [box, below right=of n1.north east]
-        {   \begin{itemize}
-        \item   The manager of each firm privately observes its entry cost;
-        \item   The manager make entry decision simultaneously;
-        \item   Trading and financial market occurs.
-            \end{itemize}
-        };
-\node (n3) [box, below right=of n2.north east]
-        {   \begin{itemize}
-        \item   Entry cost and profits are realised;
-        \item   Manager receive their compensation;
-        \item   Firms are liquidated.
-         \end{itemize}
-         };
-\draw[thick, -latex]    (n1.north west) -- (n3.north east);
-\foreach \x [count=\xx from 1] in {0,1,2}
-    \draw (n\xx.north) -- + (0,3mm) node[above] {$t=\x$};
+            };
+    \draw[thick, -latex]    (n1.north west) -- (n3.north east);
+    \foreach \x [count=\xx from 1] in {0,1,2}
+        \draw (n\xx.north) -- + (0,3mm) node[above] {$t=\x$};
 \end{tikzpicture}
-    \end{figure}
+\end{figure}
 \end{document}
 ```
 ****
@@ -15408,20 +15455,20 @@ on grid
 %\resizebox{\linewidth}{!}{% Resize table to fit within
 
 \begin{tikzpicture}[]
-%draw horizontal line
-\draw (0,0) -- (41/1.7,0);
-%draw vertical lines
-\foreach \x in {0, 8, 15, 22, 29, 36, 41}{
-   \draw (\x/1.7,3pt) -- (\x/1.7,-3pt);
-}
-%draw nodes
-\draw (0,0) node[text width = 85pt,align=center,below=3pt] {\textbf{Submit Project Proposal}} node[above=3pt] {Nov 17 2017};
-\draw (8/1.7,0) node[below=3pt] {Find Game Engine} node[above=3pt] {Nov 20 2017};
-\draw (15/1.7,0) node[text width = 100pt,align=center,below=3pt] {Create Server-Client Architecture} node[above=3pt] {Nov 25 2017};
-\draw (22/1.7,0) node[text width = 100pt,align=center,below=3pt] {Implement Game Logic} node[above=3pt] {Nov 29 2017};
-\draw (29/1.7,0) node[text width = 100pt,align=center,below=3pt] {Add Music and Effects} node[above=3pt] {Dec 1 2017};
-\draw (36/1.7,0) node[text width = 100pt,align=center,below=3pt] {\textbf{In Class Demo}} node[above=3pt] {Dec 2 2017};
-\draw (41/1.7,0) node[below=3pt] {\textbf{Finish Report}} node[above=3pt] {Dec 12 2017};
+   %draw horizontal line
+   \draw (0,0) -- (41/1.7,0);
+   %draw vertical lines
+   \foreach \x in {0, 8, 15, 22, 29, 36, 41}{
+      \draw (\x/1.7,3pt) -- (\x/1.7,-3pt);
+   }
+   %draw nodes
+   \draw (0,0) node[text width = 85pt,align=center,below=3pt] {\textbf{Submit Project Proposal}} node[above=3pt] {Nov 17 2017};
+   \draw (8/1.7,0) node[below=3pt] {Find Game Engine} node[above=3pt] {Nov 20 2017};
+   \draw (15/1.7,0) node[text width = 100pt,align=center,below=3pt] {Create Server-Client Architecture} node[above=3pt] {Nov 25 2017};
+   \draw (22/1.7,0) node[text width = 100pt,align=center,below=3pt] {Implement Game Logic} node[above=3pt] {Nov 29 2017};
+   \draw (29/1.7,0) node[text width = 100pt,align=center,below=3pt] {Add Music and Effects} node[above=3pt] {Dec 1 2017};
+   \draw (36/1.7,0) node[text width = 100pt,align=center,below=3pt] {\textbf{In Class Demo}} node[above=3pt] {Dec 2 2017};
+   \draw (41/1.7,0) node[below=3pt] {\textbf{Finish Report}} node[above=3pt] {Dec 12 2017};
 \end{tikzpicture}
 %}
 %\label{fig:time_line}
@@ -15477,46 +15524,51 @@ on grid
   * [time-snake_frames_and_arrows+timeline+figure+foreach.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/time-snake_frames_and_arrows+timeline+figure+foreach.tex)
 
 ```tex
-\PassOptionsToPackage{demo}{graphicx}
+% https://tex.stackexchange.com/questions/199556/multi-level-timeline?noredirect=1&lq=1
+% uncomment the following line to disable showing the images
+% \PassOptionsToPackage{demo}{graphicx}
+
 \documentclass[tikz, border=10mm]{standalone}
 \usepackage[francais]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usetikzlibrary{positioning,calc,arrows.meta}
+
 \begin{document}
-  \begin{tikzpicture}
-    [
-      my text/.style={rounded corners=2pt, text width=50mm, font=\sffamily, draw=blue!20!black!50, line width=.5pt, align=left},
-      my arrow/.style={rounded corners=2pt, draw=blue!20!cyan, line width=2.5mm, -{Triangle[]}},
-    ]
 
-    \node (b1) [my text] {1938: naissance de la société SNCASE (Société nationale de construction aéronautique du sud-est).};
-    \node (b2) [right=5mm of b1, my text] {1943: le premier appareil à voilure tournante voit le jour à Marignane.\\1956: la SNCASE se transforme en SUD-EST-AVIATION.};
-    \node (b3) [right=5mm of b2, my text] {1957: SUD-EST-AVIATION se transforme en SUD-AVIATION};
+\begin{tikzpicture}
+  [
+    my text/.style={rounded corners=2pt, text width=50mm, font=\sffamily, draw=blue!20!black!50, line width=.5pt, align=left},
+    my arrow/.style={rounded corners=2pt, draw=blue!20!cyan, line width=2.5mm, -{Triangle[]}},
+  ]
 
-    \node (a2) [above=5mm of b2] {\includegraphics[width=30mm]{stato}};
-    \node (a1) [left=25mm of a2] {\includegraphics[width=30mm]{hydravion}};
-    \node (a3) [right=25mm of a2] {\includegraphics[width=30mm]{sudaviation}};
+  \node (b1) [my text] {1938: naissance de la société SNCASE (Société nationale de construction aéronautique du sud-est).};
+  \node (b2) [right=5mm of b1, my text] {1943: le premier appareil à voilure tournante voit le jour à Marignane.\\1956: la SNCASE se transforme en SUD-EST-AVIATION.};
+  \node (b3) [right=5mm of b2, my text] {1957: SUD-EST-AVIATION se transforme en SUD-AVIATION};
 
-    \node (c1) [below=25mm of b1] {\includegraphics[width=30mm]{snias}};
-    \node (c2) [right=25mm of c1] {\includegraphics[width=30mm]{aerospatiale}};
-    \node (c3) [right=25mm of c2] {\includegraphics[width=30mm]{eurocopter}};
+  \node (a2) [above=5mm of b2] {\includegraphics[width=30mm]{img/stato.png}};
+  \node (a1) [left=25mm of a2] {\includegraphics[width=30mm]{./img/hydravion}};
+  \node (a3) [right=25mm of a2] {\includegraphics[width=30mm]{img/sudaviation}};
 
-    \node (d3) [below=5mm of c3, my text] {1992: La division ``hélicoptère'' de l'entreprise Aerospatiale s'unit avec l'hélicoptériste allemand, MBB, pour donner naissance à Eurocopter.\\1998: Eurocopter devient Eurocopter EADS company en fusionnant avec le groupe espagnol CASA.};
-    \node (d2) [left=5mm of d3, my text] {1984: la SNIAS devient AEROSPATIALE. Son activité est concentrée dans les domaines de l'aéronautique, de l'espace, ainsi que de l'étude et la production d'avions et d'hélicoptères};
-    \node (d1) [left=5mm of d2, my text] {1970: SUD-AVIATION, NORD-AVIATION, SEREB fusionnent et donnent naissance à la SNIAS (Société Nationale industrielle aérospatiale).};
+  \node (c1) [below=25mm of b1] {\includegraphics[width=30mm]{img/snias}};
+  \node (c2) [right=25mm of c1] {\includegraphics[width=30mm]{img/aerospatiale}};
+  \node (c3) [right=25mm of c2] {\includegraphics[width=30mm]{img/eurocopter}};
 
-    \node (e) [below=25mm of d2] {\includegraphics[width=120mm]{airbushelicopters}};
+  \node (d3) [below=5mm of c3, my text] {1992: La division ``hélicoptère'' de l'entreprise Aerospatiale s'unit avec l'hélicoptériste allemand, MBB, pour donner naissance à Eurocopter.\\1998: Eurocopter devient Eurocopter EADS company en fusionnant avec le groupe espagnol CASA.};
+  \node (d2) [left=5mm of d3, my text] {1984: la SNIAS devient AEROSPATIALE. Son activité est concentrée dans les domaines de l'aéronautique, de l'espace, ainsi que de l'étude et la production d'avions et d'hélicoptères};
+  \node (d1) [left=5mm of d2, my text] {1970: SUD-AVIATION, NORD-AVIATION, SEREB fusionnent et donnent naissance à la SNIAS (Société Nationale industrielle aérospatiale).};
 
-    \node (f) [below=5mm of e, my text] {2014: le groupe tourne une page de son histoire et se renomme Airbus Helicopters};
+  \node (e) [below=25mm of d2] {\includegraphics[width=120mm]{img/airbushelicopters.png}};
 
-    \foreach \i/\j in {a1/a2, a2/a3, c1/c2, c2/c3}
-    \path [my arrow] (\i) -- (\j);
+  \node (f) [below=5mm of e, my text] {2014: le groupe tourne une page de son histoire et se renomme Airbus Helicopters};
 
-    \path [my arrow] (a3) -| ($(b3.south east) + (5mm,0)$) |- ($(b2.south -| b3)!1/2!(c2.north -| b3) + (0,5mm)$) -| (c1);
-    \path [my arrow] (c3) -| ($(d3.south east) + (5mm,0)$) |- ($(d3.south -| d3)!1/2!(e.north -| d3) + (0,5mm)$) -| (e);
+  \foreach \i/\j in {a1/a2, a2/a3, c1/c2, c2/c3}
+  \path [my arrow] (\i) -- (\j);
 
-  \end{tikzpicture}
+  \path [my arrow] (a3) -| ($(b3.south east) + (5mm,0)$) |- ($(b2.south -| b3)!1/2!(c2.north -| b3) + (0,5mm)$) -| (c1);
+  \path [my arrow] (c3) -| ($(d3.south east) + (5mm,0)$) |- ($(d3.south -| d3)!1/2!(e.north -| d3) + (0,5mm)$) -| (e);
+
+\end{tikzpicture}
 
 \end{document}
 ```
@@ -15769,8 +15821,6 @@ on grid
     
   \end{scope}
     
-    
-    
 \end{tikzpicture}
   
   
@@ -15789,30 +15839,33 @@ on grid
 \documentclass[tikz]{standalone}
 \usetikzlibrary{arrows,decorations.pathreplacing}
 \usepackage{amsmath}
+
 \begin{document}
+
 \begin{tikzpicture}[y=1cm, x=1cm, thick, font=\footnotesize]    
-% axis
-\draw[line width=1.2pt, ->, >=latex'](0,0) -- coordinate (x axis) (10,0);       
+    % axis
+    \draw[line width=1.2pt, ->, >=latex'](0,0) -- coordinate (x axis) (10,0);       
 
-% time points
-\draw (3,-4pt) coordinate (t_k)          -- (3,4pt) node[anchor=south] {$t_{k}$};
-\draw (5,-4pt) coordinate (t_k_opt)      -- (5,4pt) node[anchor=south] {};
-\draw (7,-4pt) coordinate (t_k_opt_impl) -- (7,4pt) node[anchor=south]
-                                {$t_{k}+\triangle^{\text{opt}}+\triangle^{\text{impl}}$};
+    % time points
+    \draw (3,-4pt) coordinate (t_k)          -- (3,4pt) node[anchor=south] {$t_{k}$};
+    \draw (5,-4pt) coordinate (t_k_opt)      -- (5,4pt) node[anchor=south] {};
+    \draw (7,-4pt) coordinate (t_k_opt_impl) -- (7,4pt) node[anchor=south]
+                                    {$t_{k}+\triangle^{\text{opt}}+\triangle^{\text{impl}}$};
 
-% curly braces
-\draw[decorate,decoration={brace,amplitude=3pt,mirror}] 
-    (3,-2.5) coordinate (t_k_unten) -- (5,-2.5) coordinate (t_k_opt_unten); 
-\node at (4,-3){$\triangle^{\text{opt}}$};
-\draw[decorate,decoration={brace,amplitude=3pt,mirror}] 
-    (t_k_opt_unten) -- (7,-2.5) coordinate (t_k_opt_impl_unten); 
-\node at (6,-3){$\triangle^{\text{impl}}$};
+    % curly braces
+    \draw[decorate,decoration={brace,amplitude=3pt,mirror}] 
+        (3,-2.5) coordinate (t_k_unten) -- (5,-2.5) coordinate (t_k_opt_unten); 
+    \node at (4,-3){$\triangle^{\text{opt}}$};
+    \draw[decorate,decoration={brace,amplitude=3pt,mirror}] 
+        (t_k_opt_unten) -- (7,-2.5) coordinate (t_k_opt_impl_unten); 
+    \node at (6,-3){$\triangle^{\text{impl}}$};
 
-% vertical dotted lines
-\draw[dotted] (t_k)          -- (t_k_unten);
-\draw[dotted] (t_k_opt)      -- (t_k_opt_unten);
-\draw[dotted] (t_k_opt_impl) -- (t_k_opt_impl_unten);
+    % vertical dotted lines
+    \draw[dotted] (t_k)          -- (t_k_unten);
+    \draw[dotted] (t_k_opt)      -- (t_k_opt_unten);
+    \draw[dotted] (t_k_opt_impl) -- (t_k_opt_impl_unten);
 \end{tikzpicture}
+
 \end{document}
 ```
 ****
@@ -15845,6 +15898,7 @@ mostly used in (cognitive) psychology and neuroscience.
 \usetikzlibrary{positioning}
 
 \begin{document}
+
 \begin{tikzpicture}
   \tikzset{
         basefont/.style = {font = \Large\sffamily},
@@ -15898,6 +15952,7 @@ mostly used in (cognitive) psychology and neuroscience.
   \path[ultra thick,->] (frame5.south west) edge 
     node[timing, below] {next trial} (frame6);
 \end{tikzpicture}
+
 \end{document}
 ```
 ****
@@ -15921,11 +15976,8 @@ mostly used in (cognitive) psychology and neuroscience.
 \PreviewEnvironment{tikzpicture}
 \setlength\PreviewBorder{1pt}%
 
+
 \begin{document}
-
-
-
-
 
 % TIMELINE - simple
 \begin{tikzpicture}[]
@@ -16294,8 +16346,6 @@ mostly used in (cognitive) psychology and neuroscience.
     
 \end{tikzpicture}
   
-  
-
 \end{document}
 ```
 ****
@@ -16347,50 +16397,50 @@ mostly used in (cognitive) psychology and neuroscience.
 
 
 \begin{document}
+
 \resizebox{\linewidth}{!}{% Resize table to fit within
-\begin{tikzpicture}[snake=zigzag, line before snake = 5mm, line after snake = 5mm]
-	%draw 1st horizontal line
-	\draw (0,0) -- (19/2,0);
-	\draw[snake] (19/2,0) -- (25/2,0);
-	\draw (25/2,0) -- (30/2,0);
-	\draw[snake] (30/2,0) -- (35/2,0);
-	\draw (35/2,0) -- (40/2,0);
-	%draw vertical lines
-	\foreach \x in {0, 5, 10, 19, 30, 40}{
-	   \draw (\x/2,3pt) -- (\x/2,-3pt);
-	}
-	%draw nodes
-	\draw (-2,0) node { PHYS1060 };
-	
-	\draw (0,0) node[below=3pt] { Pre-test published } node[above=3pt] { Jan 4, 2014  };
-	\draw (5/2,0) node[below=3pt] { Nudge } node[above=3pt] { Jan 9, 2014  };
-	\draw (10/2,0) node[below=3pt] { First class } node[above=3pt] { Jan 13, 2014  };
-	\draw (19/2,0) node[below=3pt] { Pre-test due } node[above=3pt] { Jan 22, 2014  };
-	\draw (30/2,0) node[below=3pt] { Midterm } node[above=3pt] { Feb 17, 2014  };
-	\draw (40/2,0) node[below=3pt] { Final Exam} node[above=3pt] { May 5, 2014  };
-	
-	%draw 2nd horizontal line
-	\draw (-2,-2) node { PHYS1050 };
-	\draw (0,-2) -- (19/2,-2);
-	\draw[snake] (19/2,-2) -- (25/2,-2);
-	\draw (25/2,-2) -- (30/2,-2);
-	\draw[snake] (30/2,-2) -- (35/2,-2);
-	\draw (35/2,-2) -- (40/2,-2);
-	draw vertical lines
-	\foreach \x in {0, 5, 10, 19, 30, 40}{
-	   \draw ($(0,-2)+(\x/2, 3pt)$) -- ($(0,-2)+(\x/2, -3pt)$);
-	}
+	\begin{tikzpicture}[snake=zigzag, line before snake = 5mm, line after snake = 5mm]
+		%draw 1st horizontal line
+		\draw (0,0) -- (19/2,0);
+		\draw[snake] (19/2,0) -- (25/2,0);
+		\draw (25/2,0) -- (30/2,0);
+		\draw[snake] (30/2,0) -- (35/2,0);
+		\draw (35/2,0) -- (40/2,0);
+		%draw vertical lines
+		\foreach \x in {0, 5, 10, 19, 30, 40}{
+		\draw (\x/2,3pt) -- (\x/2,-3pt);
+		}
+		%draw nodes
+		\draw (-2,0) node { PHYS1060 };
 		
-	%draw nodes
-	\draw (0,-2) node[below=3pt] { Pre-test published } node[above=3pt] { Aug 10, 2014  };
-	\draw (5/2,-2) node[below=3pt] { First class } node[above=3pt] { Aug 27, 2014  };
-	\draw (10/2,-2) node[below=3pt] { Nudge } node[above=3pt] { Sept 4, 2014  };
-	\draw (19/2,-2) node[below=3pt] { Pre-test due } node[above=3pt] { Sept 7, 2014  };
-	\draw (30/2,-2) node[below=3pt] { Midterm } node[above=3pt] { ?, 2014  };
-	\draw (40/2,-2) node[below=3pt] { Final Exam} node[above=3pt] { ?, 2014  };	
+		\draw (0,0) node[below=3pt] { Pre-test published } node[above=3pt] { Jan 4, 2014  };
+		\draw (5/2,0) node[below=3pt] { Nudge } node[above=3pt] { Jan 9, 2014  };
+		\draw (10/2,0) node[below=3pt] { First class } node[above=3pt] { Jan 13, 2014  };
+		\draw (19/2,0) node[below=3pt] { Pre-test due } node[above=3pt] { Jan 22, 2014  };
+		\draw (30/2,0) node[below=3pt] { Midterm } node[above=3pt] { Feb 17, 2014  };
+		\draw (40/2,0) node[below=3pt] { Final Exam} node[above=3pt] { May 5, 2014  };
+		
+		%draw 2nd horizontal line
+		\draw (-2,-2) node { PHYS1050 };
+		\draw (0,-2) -- (19/2,-2);
+		\draw[snake] (19/2,-2) -- (25/2,-2);
+		\draw (25/2,-2) -- (30/2,-2);
+		\draw[snake] (30/2,-2) -- (35/2,-2);
+		\draw (35/2,-2) -- (40/2,-2);
+		draw vertical lines
+		\foreach \x in {0, 5, 10, 19, 30, 40}{
+		\draw ($(0,-2)+(\x/2, 3pt)$) -- ($(0,-2)+(\x/2, -3pt)$);
+		}
+			
+		%draw nodes
+		\draw (0,-2) node[below=3pt] { Pre-test published } node[above=3pt] { Aug 10, 2014  };
+		\draw (5/2,-2) node[below=3pt] { First class } node[above=3pt] { Aug 27, 2014  };
+		\draw (10/2,-2) node[below=3pt] { Nudge } node[above=3pt] { Sept 4, 2014  };
+		\draw (19/2,-2) node[below=3pt] { Pre-test due } node[above=3pt] { Sept 7, 2014  };
+		\draw (30/2,-2) node[below=3pt] { Midterm } node[above=3pt] { ?, 2014  };
+		\draw (40/2,-2) node[below=3pt] { Final Exam} node[above=3pt] { ?, 2014  };	
 
-
-\end{tikzpicture}
+	\end{tikzpicture}
 }
 
 \end{document}
@@ -16417,140 +16467,134 @@ mostly used in (cognitive) psychology and neuroscience.
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-
 \usepackage{tikz}
 
 \usetikzlibrary{arrows, calc, decorations.markings, positioning}
 
 \pagestyle{empty}
 
-
-% create an environment
 \makeatletter
-\newenvironment{timeline}[6]{%
-    % #1 is startyear
-    % #2 is tlendyear
-    % #3 is yearcolumnwidth
-    % #4 is rulecolumnwidth
-    % #5 is entrycolumnwidth
-    % #6 is timelineheight
 
-    \newcommand{\startyear}{#1}
-    \newcommand{\tlendyear}{#2}
+% create a timeline environment
+    \newenvironment{timeline}[6]{%
+        % #1 is startyear
+        % #2 is tlendyear
+        % #3 is yearcolumnwidth
+        % #4 is rulecolumnwidth
+        % #5 is entrycolumnwidth
+        % #6 is timelineheight
 
-    \newcommand{\yearcolumnwidth}{#3}
-    \newcommand{\rulecolumnwidth}{#4}
-    \newcommand{\entrycolumnwidth}{#5}
-    \newcommand{\timelineheight}{#6}
+        \newcommand{\startyear}{#1}
+        \newcommand{\tlendyear}{#2}
+        \newcommand{\yearcolumnwidth}{#3}
+        \newcommand{\rulecolumnwidth}{#4}
+        \newcommand{\entrycolumnwidth}{#5}
+        \newcommand{\timelineheight}{#6}
+        \newcommand{\templength}{}
+        \newcommand{\entrycounter}{0}
 
-    \newcommand{\templength}{}
-
-    \newcommand{\entrycounter}{0}
-
-    % https://tex.stackexchange.com/questions/85528/checking-whether-or-not-a-node-has-been-previously-defined
-    % https://tex.stackexchange.com/questions/37709/how-can-i-know-if-a-node-is-already-defined
-    \long\def\ifnodedefined##1##2##3{%
-        \@ifundefined{pgf@sh@ns@##1}{##3}{##2}%
-    }
-
-    \newcommand{\ifnodeundefined}[2]{%
-        \ifnodedefined{##1}{}{##2}
-    }
-
-    \newcommand{\drawtimeline}{%
-        \draw[timelinerule] (\yearcolumnwidth+5pt, 0pt) -- (\yearcolumnwidth+5pt, -\timelineheight);
-        \draw (\yearcolumnwidth+0pt, -10pt) -- (\yearcolumnwidth+10pt, -10pt);
-        \draw (\yearcolumnwidth+0pt, -\timelineheight+15pt) -- (\yearcolumnwidth+10pt, -\timelineheight+15pt);
-
-        \pgfmathsetlengthmacro{\templength}{neg(add(multiply(subtract(\startyear, \startyear), divide(subtract(\timelineheight, 25), subtract(\tlendyear, \startyear))), 10))}
-        \node[year] (year-\startyear) at (\yearcolumnwidth, \templength) {\startyear};
-
-        \pgfmathsetlengthmacro{\templength}{neg(add(multiply(subtract(\tlendyear, \startyear), divide(subtract(\timelineheight, 25), subtract(\tlendyear, \startyear))), 10))}
-        \node[year] (year-\tlendyear) at (\yearcolumnwidth, \templength) {\tlendyear};
-    }
-
-    \newcommand{\entry}[2]{%
-        % #1 is the year
-        % #2 is the entry text
-
-        \pgfmathtruncatemacro{\lastentrycount}{\entrycounter}
-        \pgfmathtruncatemacro{\entrycounter}{\entrycounter + 1}
-
-        \ifdim \lastentrycount pt > 0 pt%
-            \node[entry] (entry-\entrycounter) [below of=entry-\lastentrycount] {##2};
-        \else%
-            \pgfmathsetlengthmacro{\templength}{neg(add(multiply(subtract(\startyear, \startyear), divide(subtract(\timelineheight, 25), subtract(\tlendyear, \startyear))), 10))}
-            \node[entry] (entry-\entrycounter) at (\yearcolumnwidth+\rulecolumnwidth+10pt, \templength) {##2};
-        \fi
-
-        \ifnodeundefined{year-##1}{%
-            \pgfmathsetlengthmacro{\templength}{neg(add(multiply(subtract(##1, \startyear), divide(subtract(\timelineheight, 25), subtract(\tlendyear, \startyear))), 10))}
-            \draw (\yearcolumnwidth+2.5pt, \templength) -- (\yearcolumnwidth+7.5pt, \templength);
-            \node[year] (year-##1) at (\yearcolumnwidth, \templength) {##1};
+        % https://tex.stackexchange.com/questions/85528/checking-whether-or-not-a-node-has-been-previously-defined
+        % https://tex.stackexchange.com/questions/37709/how-can-i-know-if-a-node-is-already-defined
+        \long\def\ifnodedefined##1##2##3{%
+            \@ifundefined{pgf@sh@ns@##1}{##3}{##2}%
         }
 
-        \draw ($(year-##1.east)+(2.5pt, 0pt)$) -- ($(year-##1.east)+(7.5pt, 0pt)$) -- ($(entry-\entrycounter.west)-(5pt,0)$) -- (entry-\entrycounter.west);
-    }
-
-    \newcommand{\plainentry}[2]{% plainentry won't print date in the timeline
-        % #1 is the year
-        % #2 is the entry text
-
-        \pgfmathtruncatemacro{\lastentrycount}{\entrycounter}
-        \pgfmathtruncatemacro{\entrycounter}{\entrycounter + 1}
-
-        \ifdim \lastentrycount pt > 0 pt%
-            \node[entry] (entry-\entrycounter) [below of=entry-\lastentrycount] {##2};
-        \else%
-            \pgfmathsetlengthmacro{\templength}{neg(add(multiply(subtract(\startyear, \startyear), divide(subtract(\timelineheight, 25), subtract(\tlendyear, \startyear))), 10))}
-            \node[entry] (entry-\entrycounter) at (\yearcolumnwidth+\rulecolumnwidth+10pt, \templength) {##2};
-        \fi
-
-        \ifnodeundefined{invisible-year-##1}{%
-            \pgfmathsetlengthmacro{\templength}{neg(add(multiply(subtract(##1, \startyear), divide(subtract(\timelineheight, 25), subtract(\tlendyear, \startyear))), 10))}
-            \draw (\yearcolumnwidth+2.5pt, \templength) -- (\yearcolumnwidth+7.5pt, \templength);
-            \node[year] (invisible-year-##1) at (\yearcolumnwidth, \templength) {};
+        \newcommand{\ifnodeundefined}[2]{%
+            \ifnodedefined{##1}{}{##2}
         }
 
-        \draw ($(invisible-year-##1.east)+(2.5pt, 0pt)$) -- ($(invisible-year-##1.east)+(7.5pt, 0pt)$) -- ($(entry-\entrycounter.west)-(5pt,0)$) -- (entry-\entrycounter.west);
-    }
+        \newcommand{\drawtimeline}{%
+            \draw[timelinerule] (\yearcolumnwidth+5pt, 0pt) -- (\yearcolumnwidth+5pt, -\timelineheight);
+            \draw (\yearcolumnwidth+0pt, -10pt) -- (\yearcolumnwidth+10pt, -10pt);
+            \draw (\yearcolumnwidth+0pt, -\timelineheight+15pt) -- (\yearcolumnwidth+10pt, -\timelineheight+15pt);
 
-    \begin{tikzpicture}
-        \tikzstyle{entry} = [%
-            align=left,%
-            text width=\entrycolumnwidth,%
-            node distance=10mm,%
-            anchor=west]
-        \tikzstyle{year} = [anchor=east]
-        \tikzstyle{timelinerule} = [%
-            draw,%
-            decoration={markings, mark=at position 1 with {\arrow[scale=1.5]{latex'}}},%
-            postaction={decorate},%
-            shorten >=0.4pt]
+            \pgfmathsetlengthmacro{\templength}{neg(add(multiply(subtract(\startyear, \startyear), divide(subtract(\timelineheight, 25), subtract(\tlendyear, \startyear))), 10))}
+            \node[year] (year-\startyear) at (\yearcolumnwidth, \templength) {\startyear};
 
-        \drawtimeline
-}
-{
-    \end{tikzpicture}
-    \let\startyear\@undefined
-    \let\tlendyear\@undefined
-    \let\yearcolumnwidth\@undefined
-    \let\rulecolumnwidth\@undefined
-    \let\entrycolumnwidth\@undefined
-    \let\timelineheight\@undefined
-    \let\entrycounter\@undefined
-    \let\ifnodedefined\@undefined
-    \let\ifnodeundefined\@undefined
-    \let\drawtimeline\@undefined
-    \let\entry\@undefined
-}
+            \pgfmathsetlengthmacro{\templength}{neg(add(multiply(subtract(\tlendyear, \startyear), divide(subtract(\timelineheight, 25), subtract(\tlendyear, \startyear))), 10))}
+            \node[year] (year-\tlendyear) at (\yearcolumnwidth, \templength) {\tlendyear};
+        }
+
+        \newcommand{\entry}[2]{%
+            % #1 is the year
+            % #2 is the entry text
+            \pgfmathtruncatemacro{\lastentrycount}{\entrycounter}
+            \pgfmathtruncatemacro{\entrycounter}{\entrycounter + 1}
+
+            \ifdim \lastentrycount pt > 0 pt%
+                \node[entry] (entry-\entrycounter) [below of=entry-\lastentrycount] {##2};
+            \else%
+                \pgfmathsetlengthmacro{\templength}{neg(add(multiply(subtract(\startyear, \startyear), divide(subtract(\timelineheight, 25), subtract(\tlendyear, \startyear))), 10))}
+                \node[entry] (entry-\entrycounter) at (\yearcolumnwidth+\rulecolumnwidth+10pt, \templength) {##2};
+            \fi
+
+            \ifnodeundefined{year-##1}{%
+                \pgfmathsetlengthmacro{\templength}{neg(add(multiply(subtract(##1, \startyear), divide(subtract(\timelineheight, 25), subtract(\tlendyear, \startyear))), 10))}
+                \draw (\yearcolumnwidth+2.5pt, \templength) -- (\yearcolumnwidth+7.5pt, \templength);
+                \node[year] (year-##1) at (\yearcolumnwidth, \templength) {##1};
+            }
+            \draw ($(year-##1.east)+(2.5pt, 0pt)$) -- ($(year-##1.east)+(7.5pt, 0pt)$) -- ($(entry-\entrycounter.west)-(5pt,0)$) -- (entry-\entrycounter.west);
+        }
+
+        \newcommand{\plainentry}[2]{% plainentry won't print date in the timeline
+            % #1 is the year
+            % #2 is the entry text
+            \pgfmathtruncatemacro{\lastentrycount}{\entrycounter}
+            \pgfmathtruncatemacro{\entrycounter}{\entrycounter + 1}
+
+            \ifdim \lastentrycount pt > 0 pt%
+                \node[entry] (entry-\entrycounter) [below of=entry-\lastentrycount] {##2};
+            \else%
+                \pgfmathsetlengthmacro{\templength}{neg(add(multiply(subtract(\startyear, \startyear), divide(subtract(\timelineheight, 25), subtract(\tlendyear, \startyear))), 10))}
+                \node[entry] (entry-\entrycounter) at (\yearcolumnwidth+\rulecolumnwidth+10pt, \templength) {##2};
+            \fi
+
+            \ifnodeundefined{invisible-year-##1}{%
+                \pgfmathsetlengthmacro{\templength}{neg(add(multiply(subtract(##1, \startyear), divide(subtract(\timelineheight, 25), subtract(\tlendyear, \startyear))), 10))}
+                \draw (\yearcolumnwidth+2.5pt, \templength) -- (\yearcolumnwidth+7.5pt, \templength);
+                \node[year] (invisible-year-##1) at (\yearcolumnwidth, \templength) {};
+            }
+            \draw ($(invisible-year-##1.east)+(2.5pt, 0pt)$) -- ($(invisible-year-##1.east)+(7.5pt, 0pt)$) -- ($(entry-\entrycounter.west)-(5pt,0)$) -- (entry-\entrycounter.west);
+        }
+
+        \begin{tikzpicture}
+            \tikzstyle{entry} = [%
+                align=left,%
+                text width=\entrycolumnwidth,%
+                node distance=10mm,%
+                anchor=west]
+            \tikzstyle{year} = [anchor=east]
+            \tikzstyle{timelinerule} = [%
+                draw,%
+                decoration={markings, mark=at position 1 with {\arrow[scale=1.5]{latex'}}},%
+                postaction={decorate},%
+                shorten >=0.4pt]
+
+    \drawtimeline
+    } 
+    {
+        \end{tikzpicture}
+
+        \let\startyear\@undefined
+        \let\tlendyear\@undefined
+        \let\yearcolumnwidth\@undefined
+        \let\rulecolumnwidth\@undefined
+        \let\entrycolumnwidth\@undefined
+        \let\timelineheight\@undefined
+        \let\entrycounter\@undefined
+        \let\ifnodedefined\@undefined
+        \let\ifnodeundefined\@undefined
+        \let\drawtimeline\@undefined
+        \let\entry\@undefined
+
+    } % end of timeline environment
+
+
 \makeatother
-
-
-% first timeline
 
 \begin{document}
 
+% first timeline
 \begin{timeline}{1900}{1990}{2cm}{2.5cm}{5cm}{12cm}
 	\entry{1903}{Wilbur and Orville Wright fly the first powered airplane}
 	\entry{1914}{Assassination of Franz Ferdinand}
@@ -16567,9 +16611,7 @@ mostly used in (cognitive) psychology and neuroscience.
 \end{timeline}
 
 \bigskip
-
 Text from: A Brief History of LaTeX http://www.xent.com/FoRK-archive/feb98/0307.html
-
 \smallskip
 
 % second timeline
@@ -16605,8 +16647,8 @@ Text from: A Brief History of LaTeX http://www.xent.com/FoRK-archive/feb98/0307.
 ```tex
 % https://tex.stackexchange.com/a/369484/173708
 \documentclass[margin=10pt]{standalone}
-\usepackage{tikz}
 
+\usepackage{tikz}
 \usetikzlibrary{
     shapes.geometric
     ,positioning
@@ -16623,8 +16665,10 @@ Text from: A Brief History of LaTeX http://www.xent.com/FoRK-archive/feb98/0307.
         \node[zeitmarkernode,pic actions,rotate=90](-u){};
     }
 }
+
 \begin{document}
-    \begin{tikzpicture}[x=6cm,thick]
+
+\begin{tikzpicture}[x=6cm,thick]
     % Achse und Beschriftung unterhalb
     \draw (11.9,0) -- (12,0) coordinate (s) -- (12+18/25,0) coordinate (a) 
         -- (12+27/25,0) coordinate (b) -- (14,0) coordinate (e) -- (14.2,0);
@@ -16645,7 +16689,8 @@ Text from: A Brief History of LaTeX http://www.xent.com/FoRK-archive/feb98/0307.
     }
     \node[below left =.5cm and 1cm of s, text width=5em, align=center, text height=1.5ex,text depth=.25ex] {\emph{Year}};
     \node[above left =.5cm and 1cm of s, text width=5em, align=center] {\emph{Approaches}};
-    \end{tikzpicture}
+\end{tikzpicture}
+
 \end{document}
 ```
 ****
@@ -16658,6 +16703,7 @@ Text from: A Brief History of LaTeX http://www.xent.com/FoRK-archive/feb98/0307.
 ```tex
 % https://tex.stackexchange.com/a/48596/173708
 \documentclass{scrartcl}
+
 \usepackage{tikz}
 \usetikzlibrary{calc}  
 
@@ -16761,29 +16807,29 @@ Text from: A Brief History of LaTeX http://www.xent.com/FoRK-archive/feb98/0307.
 \begin{document}
 	
 \begin{tikzpicture}
-[level distance=10mm,
-every node/.style={fill=red!60,circle,inner sep=1pt},
-level 1/.style={sibling distance=20mm,nodes={fill=red!45}},
-level 2/.style={sibling distance=10mm,nodes={fill=red!30}},
-level 3/.style={sibling distance=5mm,nodes={fill=red!25}}]
-\node {31}
-child {node {30}
+	[level distance=10mm,
+	every node/.style={fill=red!60,circle,inner sep=1pt},
+	level 1/.style={sibling distance=20mm,nodes={fill=red!45}},
+	level 2/.style={sibling distance=10mm,nodes={fill=red!30}},
+	level 3/.style={sibling distance=5mm,nodes={fill=red!25}}]
+	\node {31}
+	child {node {30}
+		child {node {20}
+			child {node {5}}
+			child {node {4}}
+		}
+		child {node {10}
+			child {node {9}}
+			child {node {1}}
+		}
+	}
 	child {node {20}
-		child {node {5}}
-		child {node {4}}
-	}
-	child {node {10}
-		child {node {9}}
-		child {node {1}}
-	}
-}
-child {node {20}
-	child {node {19}
-		child {node {1}}
-		child[missing]
-	}
-	child {node {18}}
-};
+		child {node {19}
+			child {node {1}}
+			child[missing]
+		}
+		child {node {18}}
+	};
 \end{tikzpicture}
 	
 \end{document}
@@ -16803,36 +16849,38 @@ child {node {20}
 \usetikzlibrary{trees}
 
 \begin{document}
-	\begin{tikzpicture}[
-		man/.style={rectangle, 
+
+\begin{tikzpicture}[
+	man/.style={rectangle, 
+				draw, 
+				fill=blue!20, 
+				align=center},
+	woman/.style={rectangle, 
 					draw, 
-					fill=blue!20, 
+					fill=red!20,
+					rounded corners=.8ex, 
 					align=center},
-		woman/.style={rectangle, 
-						draw, 
-						fill=red!20,
-						rounded corners=.8ex, 
-						align=center},
-		grandchild/.style={grow=down, 
-							xshift=1em, 
-							anchor=west,
-							edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}},
-		first/.style={level distance=6ex},
-		second/.style={level distance=12ex},
-		third/.style={level distance=18ex},
-		level 1/.style={sibling distance=5em}]
-		% Parents
-		\coordinate
-		child[grow=left] {node[man,anchor=east]{Jim}}
-		child[grow=right] {node[woman,anchor=west]{Jane}}
-		child[grow=down,level distance=0ex]
-		[edge from parent fork down]
-		% Children and grandchildren
-		child{node[man] {Alfred \\ 05-04-83}}
-		child{node[woman] {Berta \\ 05-04-99}}
-		child {node[man] {Charles \\ 05-04-77}}
-		child {node[woman]{Doris \\ 05-04-80}};        
-	\end{tikzpicture}
+	grandchild/.style={grow=down, 
+						xshift=1em, 
+						anchor=west,
+						edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}},
+	first/.style={level distance=6ex},
+	second/.style={level distance=12ex},
+	third/.style={level distance=18ex},
+	level 1/.style={sibling distance=5em}]
+	% Parents
+	\coordinate
+	child[grow=left] {node[man,anchor=east]{Jim}}
+	child[grow=right] {node[woman,anchor=west]{Jane}}
+	child[grow=down,level distance=0ex]
+	[edge from parent fork down]
+	% Children and grandchildren
+	child{node[man] {Alfred \\ 05-04-83}}
+	child{node[woman] {Berta \\ 05-04-99}}
+	child {node[man] {Charles \\ 05-04-77}}
+	child {node[woman]{Doris \\ 05-04-80}};        
+\end{tikzpicture}
+
 \end{document}
 ```
 ****
@@ -16856,12 +16904,12 @@ child {node {20}
 	%---
 	\linespread{1}% <--- locally defined vertical line spacing in nodes
 	%---
-	  \node {Decision}
-	    child {node {No Drill\\\$0} }
-	    child {node {Drill\\-\$1 million}
-	      child {node {Oil\\\$4 million} edge from parent node [above] {.6} }
-	      child {node {No Oil\\\$0} edge from parent node [above] {.4} }
-	      };
+	\node {Decision}
+	child {node {No Drill\\\$0} }
+	child {node {Drill\\-\$1 million}
+		child {node {Oil\\\$4 million} edge from parent node [above] {.6} }
+		child {node {No Oil\\\$0} edge from parent node [above] {.4} }
+		};
 \end{tikzpicture}
 \end{document}
 ```
@@ -16894,9 +16942,11 @@ child {node {20}
 \usetikzlibrary{trees}
 
 \begin{document}
+
 \tikzstyle{every node}=[draw=black,thick,anchor=west]
 \tikzstyle{selected}=[draw=red,fill=red!30]
 \tikzstyle{optional}=[dashed,fill=gray!50]
+
 \begin{tikzpicture}[%
   grow via three points={one child at (0.5,-0.7) and
   two children at (0.5,-0.7) and (0.5,-1.4)},
@@ -16928,6 +16978,7 @@ child {node {20}
 % % https://github.com/FriendlyUser/LatexDiagrams
 \documentclass{standalone}
 \usepackage{forest}
+
 \usetikzlibrary{arrows.meta,shapes,positioning,shadows,trees}
 %
 \tikzset{
@@ -16943,32 +16994,33 @@ child {node {20}
 }
 %
 \begin{document}
-\begin{forest} for tree={
-    grow=east,
-    growth parent anchor=east,
-    parent anchor=east,
-    child anchor=west,
-    edge path={\noexpand\path[\forestoption{edge},->, >={latex}] 
-         (!u.parent anchor) -- +(5pt,0pt) |- (.child anchor)
-         \forestoption{edge label};}
-}
-[Networked Game Work BreakDown, root
-    [Software Engineering Report, xnode
-        [Setting shape, tnode]
-        [Choosing color, tnode]
-        [Adding shading, tnode] ]
-    [Game Demo Preparation, onode
-        [Using a Matrix, tnode]
-        [Relatively, tnode]
-        [Absolutely, tnode] 
-        [Using overlays, wnode] ]
-    [Project Proposal and Game Logic, onode
-        [Default arrows, tnode]
-        [Arrow library, tnode]
-        [Resizing tips, tnode] 
-        [Shortening, tnode]
-        [Bending, tnode] ] ]
-\end{forest}
+
+    \begin{forest} for tree={
+        grow=east,
+        growth parent anchor=east,
+        parent anchor=east,
+        child anchor=west,
+        edge path={\noexpand\path[\forestoption{edge},->, >={latex}] 
+            (!u.parent anchor) -- +(5pt,0pt) |- (.child anchor)
+            \forestoption{edge label};}
+    }
+    [Networked Game Work BreakDown, root
+        [Software Engineering Report, xnode
+            [Setting shape, tnode]
+            [Choosing color, tnode]
+            [Adding shading, tnode] ]
+        [Game Demo Preparation, onode
+            [Using a Matrix, tnode]
+            [Relatively, tnode]
+            [Absolutely, tnode] 
+            [Using overlays, wnode] ]
+        [Project Proposal and Game Logic, onode
+            [Default arrows, tnode]
+            [Arrow library, tnode]
+            [Resizing tips, tnode] 
+            [Shortening, tnode]
+            [Bending, tnode] ] ]
+    \end{forest}
 \end{document}
 ```
 

@@ -983,14 +983,6 @@ description = "https://github.com/f0nzie/tikz_favorites"
 url = "https://github.com/f0nzie/tikz_favorites/blob/master/src/network-complex-networks.tex"
  
 [[items]]
-title = "network-ex_multilayer.lualatex"
-image = "https://github.com/f0nzie/tikz_favorites/raw/master/out/network-ex_multilayer.lualatex.png"
-thumb = "https://github.com/f0nzie/tikz_favorites/raw/master/out/network-ex_multilayer.lualatex.png"
-alt = "network-ex_multilayer.lualatex"
-description = "https://github.com/f0nzie/tikz_favorites"
-url = "https://github.com/f0nzie/tikz_favorites/blob/master/src/network-ex_multilayer.lualatex.tex"
- 
-[[items]]
 title = "network-layers-and-layouts"
 image = "https://github.com/f0nzie/tikz_favorites/raw/master/out/network-layers-and-layouts.png"
 thumb = "https://github.com/f0nzie/tikz_favorites/raw/master/out/network-layers-and-layouts.png"
@@ -1621,14 +1613,6 @@ thumb = "https://github.com/f0nzie/tikz_favorites/raw/master/out/time-colored_cu
 alt = "time-colored_custom_draw+timeline+text+pgf"
 description = "https://github.com/f0nzie/tikz_favorites"
 url = "https://github.com/f0nzie/tikz_favorites/blob/master/src/time-colored_custom_draw+timeline+text+pgf.tex"
- 
-[[items]]
-title = "time-colored-periods+timeline+set+command+environment+text"
-image = "https://github.com/f0nzie/tikz_favorites/raw/master/out/time-colored-periods+timeline+set+command+environment+text.png"
-thumb = "https://github.com/f0nzie/tikz_favorites/raw/master/out/time-colored-periods+timeline+set+command+environment+text.png"
-alt = "time-colored-periods+timeline+set+command+environment+text"
-description = "https://github.com/f0nzie/tikz_favorites"
-url = "https://github.com/f0nzie/tikz_favorites/blob/master/src/time-colored-periods+timeline+set+command+environment+text.tex"
  
 [[items]]
 title = "time-days-hours-minutes+timeline+foreach+set+multi"
