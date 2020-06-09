@@ -178,7 +178,7 @@ endif
 
 # remove PNG and PDF files
 .PHONY: clean
-clean: tidy cleanlualatex
+clean: tidy cleanlualatex cleansource
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.png -delete
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.pdf -delete
 
