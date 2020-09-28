@@ -1,4 +1,5 @@
 % http://pgfplots.net/media/tikz/examples/TEX/graph-in-table.tex
+% arr: reindent
 \documentclass[border=10pt]{standalone}
 %%%<
 \usepackage{verbatim}
@@ -7,7 +8,7 @@
 
 Data file
 -------
-if you want the data to be saved as you modify this file, add this:
+if you want the data to be saved as you modify this file, add this above comments:
 
 	\usepackage{filecontents}
 	
@@ -40,6 +41,7 @@ if you want the data to be saved as you modify this file, add this:
 \usepackage{pgfplotstable}
 \usepackage{booktabs}
 \usepackage{multirow}
+
 \begin{comment}
 :Title: Graph within a table
 :Tags: 2D;PGFPlotstable;Styles
@@ -91,38 +93,41 @@ This code was written by Jake on TeX.SE.
 \let\numberofrows=\pgfplotsretval
 
 % Print the table
-\pgfplotstabletypeset[columns={name,error,z,p,mean,ci},
-  % Booktabs rules
-  every head row/.style = {before row=\toprule, after row=\midrule},
-  every last row/.style = {after row=[3ex]\bottomrule},
-  % Set header name
-  columns/name/.style = {string type, column name=Name},
-  % Use the ``error'' column to call the \errplot command in a multirow cell
-  % in the first row, keep empty for all other rows
-  columns/error/.style = {
-    column name = {},
-    assign cell content/.code = {% use \multirow for Z column:
-    \ifnum\pgfplotstablerow=0
-    \pgfkeyssetvalue{/pgfplots/table/@cell content}
-    {\multirow{\numberofrows}{6.5cm}{\errplot}}%
-    \else
-    \pgfkeyssetvalue{/pgfplots/table/@cell content}{}%
-    \fi
-    }
-  },
-  % Format numbers and titles
-  columns/mean/.style = {column name = Mean, fixed ,fixed zerofill, dec sep align},
-  columns/z/.style    = {column name = $z$, fixed, fixed zerofill, dec sep align},
-  columns/p/.style    = {column name = $p$, fixed, fixed zerofill, dec sep align},
-  columns/ci/.style   = {string type, column name = 95\% CI},
-  % Create the ``(x to y)'' format, use \pgfmathprintnumber with `showpos`
-  % to make things align nicely
-  create on use/ci/.style={
+\pgfplotstabletypeset
+  [
+    columns={name,error,z,p,mean,ci},
+    % Booktabs rules
+    every head row/.style = {before row=\toprule, after row=\midrule},
+    every last row/.style = {after row=[3ex]\bottomrule},
+    % Set header name
+    columns/name/.style = {string type, column name=Name},
+    % Use the ``error'' column to call the \errplot command in a multirow cell
+    % in the first row, keep empty for all other rows
+    columns/error/.style = {
+      column name = {},
+      assign cell content/.code = {% use \multirow for Z column:
+      \ifnum\pgfplotstablerow=0
+        \pgfkeyssetvalue{/pgfplots/table/@cell content}
+        {\multirow{\numberofrows}{6.5cm}{\errplot}}%
+      \else
+        \pgfkeyssetvalue{/pgfplots/table/@cell content}{}%
+      \fi
+      }
+    },
+    % Format numbers and titles
+    columns/mean/.style = {column name = Mean, fixed ,fixed zerofill, dec sep align},
+    columns/z/.style    = {column name = $z$, fixed, fixed zerofill, dec sep align},
+    columns/p/.style    = {column name = $p$, fixed, fixed zerofill, dec sep align},
+    columns/ci/.style   = {string type, column name = 95\% CI},
+    % Create the ``(x to y)'' format, use \pgfmathprintnumber with `showpos`
+    % to make things align nicely
+    create on use/ci/.style={
     create col/assign/.code={\edef\value{(
       \noexpand\pgfmathprintnumber[showpos,fixed,fixed zerofill]{\thisrow{lci}}
       to \noexpand\pgfmathprintnumber[showpos,fixed,fixed zerofill]{\thisrow{uci}})}
       \pgfkeyslet{/pgfplots/table/create col/next content}\value
+      }
     }
-  }
-]{\data}
+  ]
+{\data}
 \end{document}

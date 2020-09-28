@@ -37,6 +37,7 @@ readLines('template.Rmd') %>%
 # TODO: use a temporary file for this.
 ```
 
+
 ## NEWS
 * Output files like .png and .pdf are now being stored in `./out`
 * The `README.Rmd` document now allows to customize variables for the folders
@@ -190,7 +191,6 @@ The figures are sorted by filename.
 
 
 
-
 ## TikZ graphics and code
 
 ```{r, child = "child.Rmd"}
@@ -198,8 +198,9 @@ The figures are sorted by filename.
 
 ```{r}
 # delete dummy template
-if (file.exists("_template.Rmd")) file.remove("_template.Rmd") 
+invisible(if (file.exists("_template.Rmd")) file.remove("_template.Rmd") )
 ```
+
 
 
 ## Implementation of a simple tag system for files
@@ -211,3 +212,4 @@ To tag the file -as you will see in the repository- I use the plus sign. I tried
 * Characters that pass the search test at OS level: `@`, `!`, `=`, `+`.
 * Character that do not pass: `#`.
 
+> Other possibilities include using the comments section of the TikZ file to add the tags and categories.

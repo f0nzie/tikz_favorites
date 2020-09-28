@@ -1,0 +1,38 @@
+\documentclass[0pt]{article}
+\usepackage{pgf,tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+
+\pagestyle{empty}
+
+\begin{document}
+
+%\SweaveOpts{concordance=TRUE}
+\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+\definecolor{cqcqcq}{rgb}{0.7529411764705882,0.7529411764705882,0.7529411764705882}
+
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+	\draw [color=cqcqcq,, xstep=1cm,ystep=1cm] (-11.22,-7.62) grid (8.54,8.3);
+	\draw[->,color=black] (-11.22,0) -- (8.54,0);
+	\foreach \x in {-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,7,8}
+	\draw[shift={(\x,0)},color=black] (0pt,2pt) -- (0pt,-2pt) node[below] {\footnotesize $\x$};
+	\draw[->,color=black] (0,-7.62) -- (0,8.3);
+	\foreach \y in {-7,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,7,8}
+	\draw[shift={(0,\y)},color=black] (2pt,0pt) -- (-2pt,0pt) node[left] {\footnotesize $\y$};
+	\draw[color=black] (0pt,-10pt) node[right] {\footnotesize $0$};
+	\clip(-11.22,-7.62) rectangle (8.54,8.3);
+	\draw [rotate around={-27.068368650285745:(-4.32,2.45)},line width=2pt] (-4.32,2.45) ellipse (4.618210097836655cm and 3.463721193710664cm);
+	\draw (-4.98,-1.58) node[anchor=north west] {ellipse};
+	\begin{scriptsize}
+		\draw [fill=ududff] (-7.04,3.84) circle (2.5pt);
+		\draw[color=ududff] (-6.85,4.35) node {$A$};
+		\draw [fill=ududff] (-1.6,1.06) circle (2.5pt);
+		\draw[color=ududff] (-1.41,1.57) node {$B$};
+		\draw [fill=ududff] (-3.78,-1.26) circle (2.5pt);
+		\draw[color=ududff] (-3.59,-0.75) node {$C$};
+		\draw[color=black] (-5.11,6.09) node {$c$};
+		\draw [fill=ududff] (-6.64,-1.24) circle (2.5pt);
+		\draw[color=ududff] (-6.45,-0.73) node {$D$};
+		\end{scriptsize}
+\end{tikzpicture}
+\end{document}

@@ -2,15 +2,16 @@
 \documentclass[tikz,border=10pt]{standalone}
 \usepackage{tikz}
 
-\usetikzlibrary{arrows, calc,decorations.pathmorphing,positioning,decorations.markings}
+\usetikzlibrary{arrows,calc,decorations.pathmorphing,positioning,decorations.markings}
 
 \tikzset{
+    % build the shaded rectangle
     shadedrec/.style={
         rectangle,
         draw=black,
-        top color=gray, 
-        bottom color=white, 
-        shading angle={135},
+        top color=gray,        % this is part of the shade
+        bottom color=white,    % this is part of the shade
+        shading angle={135},   % this is part of the shade
         text width=3cm,
         inner sep=1em,
         rounded corners=1.2ex,
@@ -36,44 +37,39 @@
 \pagestyle{empty}
 
 \begin{tikzpicture}
-
-% Shapes
-
+    % Shapes
     \node[shadedrec, anchor=center] (S1) at (4,3) {$M$};
     \node[shadedrec, anchor=center, below=2 of S1] (S2) {$m$};
 
-%Nodes side
+    %Nodes side
     \node[anchor=center,text centered,right=2cm of S1.east] (sm) {Sprung mass};
     \node[below=of sm] (susp) {Suspension};
     \node[below=of susp] (usm) {Unsprung mass};
     \node[below=of usm] {Tire};
 
-% Paths
+    % Paths
 
-%side arrows
+    %side arrows
     \draw[->,very thick] (S1.west) -- ++ (-1.5,0) -- ++ (0,-1.5) node[below] {$Z$};
     \draw[->,very thick] (S2.west) -- ++ (-1.5,0) -- ++ (0,-1.5) node[below] {$Z_u$};
 
-%zigzag lines
+    %zigzag lines
     \draw[very thick, snake arrow] ($(S1.south west)!.5!(S1.south)$) -- ++ (0,-2) node[left,midway,xshift=-1em] {$K_s$};
     \draw[very thick, snake arrow] (S2.south) -- ++ (0,-2) 
         node[left,midway,xshift=-1em] {$K_t$};
 
-%Connector shape
+    %Connector shape
     \draw[damper] ($(S2.north east)!.5!(S2.north)$) -- ($(S1.south east)!.5!(S1.south)$) node[right,midway,xshift=1em] {$C_s$};
 
-
-% Road
+    % Road
     \coordinate (A) at ($(S2.west)+(5.5,-2.45)$);
     \draw[->,very thick] (A) -- ++(-7,0) -- ++ (0,-1.5) node[below] {$Z_r$};
 
-\begin{scope}[shift={($(S2.west)+(-1.5,-2.45)$)}]
-
-    \foreach \x in {0.5,1,...,7} { %This one draws the little diagonal lines
-    \draw (\x,0) -- ({\x-.5},-.5);
-    }
-
-\end{scope} 
+    \begin{scope}[shift={($(S2.west)+(-1.5,-2.45)$)}]
+        \foreach \x in {0.5,1,...,7} { %This one draws the little diagonal lines
+        \draw (\x,0) -- ({\x-.5},-.5);
+        }
+    \end{scope} 
 \end{tikzpicture}
 
 \end{document}

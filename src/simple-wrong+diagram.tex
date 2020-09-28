@@ -1,0 +1,33 @@
+\documentclass[tikz,border=10pt]{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\begin{document}
+	
+\tikzstyle{block} = [draw, fill=white, rectangle, 
+minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=white, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+
+	\node [input, name=input] {};
+	\node [sum, right of=input] (sum) {};
+	\node [block, right of=sum] (controller) {Controller};
+	\node [block, right of=controller, pin={[pinstyle]above:D},
+	node distance=3cm] (system) {System};
+
+	\draw [->] (controller) -- node[name=u] {$u$} (system);
+	\node [output, right of=system] (output) {};
+	\node [block, below of=u] (measurements) {Measurements};
+
+	\draw [draw,->] (input) -- node {$r$} (sum);
+	\draw [->] (sum) -- node {$e$} (controller);
+	\draw [->] (system) -- node [name=y] {$y$}(output);
+	\draw [->] (y) |- (measurements);
+	\draw [->] (measurements) -| node[pos=0.99] {$-$} 
+	node [near end] {$y_m$} (sum);
+\end{tikzpicture}
+\end{document}

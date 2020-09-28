@@ -1,0 +1,41 @@
+% https://tex.stackexchange.com/a/239506/173708
+\documentclass{standalone}
+
+\usepackage{tikz}       
+\usetikzlibrary{arrows, positioning, patterns, calc, decorations.pathmorphing}
+
+\begin{document}
+
+\tikzstyle{block} = [draw, rectangle, inner sep=6pt, minimum width=2cm, minimum height=1cm, align=center]
+\tikzstyle{joint} = [draw, circle, minimum size=1em, anchor=center]
+\tikzstyle{layer} = [draw, rectangle, dashed, fill=gray!20, minimum width=7cm, minimum height=8mm, align=center, anchor=center]
+
+\begin{tikzpicture}
+    [
+        >=stealth, 
+        auto, 
+        node distance=2cm
+    ]
+    
+    % Place nodes
+    \node [block] (system) {System};
+    \node [block, below=of system] (model) {Model};
+    \node [layer] at ($(system)!.5!(model)$) {\textsc{Measurement}};
+    \coordinate [left=of system] (infork) {};
+    \coordinate [left=of infork] (input) {};
+    \coordinate [right=of system] (outfork) {};
+    \coordinate [right=of outfork] (output) {};
+    \coordinate [above=of system] (disturbances) {};
+    \node [joint, label={[inner sep=1pt]210:\tiny\(+\)}, label={[inner sep=1pt]60:\tiny\(-\)}] (sum) at (outfork|-model) {};
+    \coordinate (error) at (output|-model) {};
+    % Connect nodes
+    \draw [->, decorate, decoration={snake, post length=1mm}] (disturbances) -- node {\(d'\)} (system);
+    \draw [->] (input) -- node {\(u'\)} (system);
+    \draw [->] (system) -- node {\(t'\)} (output);
+    \draw [->] (model) -- node {\(y\)} (sum);
+    \draw [->] (sum) -- node {\(\epsilon\)} (error);
+    \draw [->] (infork) |- node [anchor=south west] {\(u\)} (model);
+    \draw [->] (outfork) -| (sum.north) node [very near end] {\(t\)};
+\end{tikzpicture}
+
+\end{document}

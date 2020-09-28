@@ -1,0 +1,11 @@
+% from manual https://www.researchgate.net/profile/Juergen_Hackl/publication/319894904_TikZ-network_manual/links/59cb46e2a6fdcc451d5c91ff/TikZ-network-manual.pdf?origin=publication_detail
+
+\documentclass[tikz,border=5]{standalone}
+\usepackage{tikz-network}  % tikz-network.sty file must be present
+
+\begin{document} 
+\begin{tikzpicture}
+	\Vertices{data/vertices.csv}
+	\Edges{data/edges.csv}
+\end{tikzpicture}
+\end{document} 

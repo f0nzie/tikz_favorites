@@ -1,0 +1,26 @@
+% https://tex.stackexchange.com/a/271584/173708
+\documentclass[border={10}]{standalone}
+\usepackage{tikz}  
+\usepackage{tikz-3dplot} 
+
+\tdplotsetmaincoords{60}{125} % view angles
+\tdplotsetrotatedcoords{0}{0}{0} 
+\begin{document}
+
+\begin{tikzpicture}
+    [%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        scale=5,tdplot_rotated_coords,
+        grid/.style={very thin,gray}
+    ]%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    %draw a grid in the x-y plane
+    \foreach \x in {0,1,...,10}
+        \foreach \y in {0,1,...,10}
+        {
+            \draw[grid] (\x,0) -- (\x,10);
+            \draw[grid] (0,\y) -- (10,\y);
+        };
+    \draw[fill=blue]  (0,0,0) -- (0,1,0) -- (1,1,0) -- (1,0,0) -- cycle;
+    \draw[fill=red ]  (1,1,0) -- (2,1,0) -- (2,2,0) -- (1,2,0) -- cycle;
+\end{tikzpicture}    
+\end{document}

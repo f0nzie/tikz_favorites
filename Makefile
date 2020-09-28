@@ -27,31 +27,86 @@
 #	make website local
 #
 # This has been tested with Mac and Linux
-# Maybe sometime I will test it in Windows as well.
 #
 #
+# This Makefile
 #
-# using folder src/texmf to save .sty .cls files
+# Using folder "src/texmf" to save .sty .cls files. Indicate that with:
+#
+# 	export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
+#
+# But this requires manually setting "texmf" in the machine. So we are leaving open
+# the possibility of the user placing libraries, styles and classes in the same
+# folder "src/" using these three lines:
+#
+#   TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
+# 	TIKZ_FILES_ALL_ = $(wildcard $(SOURCE_DIR)/*.tex)
+# 	TIKZ_FILES_ALL  = $(filter-out $(TIKZ_LIBS), $(TIKZ_FILES_ALL_))
+#
+# Files that are libraries such as "tikzlibraryunitcircle.code.tex" are not
+# included in the compilation.
+#
+# Since we are naming TikZ files to be compiled with "lualatex", we are filtering
+# those files with
+#
+# 	TIKZ_LUALATEX = $(filter %.lualatex.tex, $(TIKZ_FILES_ALL))
+# 	TIKZ_LATEX = $(filter-out  $(TIKZ_LUALATEX), $(TIKZ_FILES_ALL))
+#
+# To be able to generate the website you need "Hugo". This can be downloaded
+# and istalled manually. Also the R package "blogdown" can be use used to
+# download and install "Hugo" automatically. Just be sure that the "hugo.exe"
+# is installed in a folder that is in the PATH. It is recommended that you 
+# put "hugo.exe" in a folder "/Users/user/bin", or "home/user/bin" and then 
+# add that folder to the computer PATH.
+#
+# Must have software:
+#	LaTeX, TeX compiler
+#	R, Rtools
+# Linux and Mac OSX:
+#	texlive
+# Windows:
+#	MixTeX
+#
+# Other useful sofware to install (optional):
+# All operating systems:
+# 	TexStudio
+#	Texmaker
+#	VS Code
+#	Firefox
+# Linux:
+# 	tree
+# Windows:
+#	Git for Windows. Set "Bash" as default terminal in "vscode"
+# 
 export TEXINPUTS:=.:./texmf:~/texmf:src/texmf:${TEXINPUT$}
-# common
+UNAME_S = $(shell uname -s)
 PKGSRC  := $(shell basename `pwd`)
 SOURCE_DIR  = src
 OUTPUT_DIR = out
+PUBLISH_DIR := docs
 README = README.md
-TIKZ_LIBS = code.tex
 TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
-TIKZ_FILES_ALL = $(wildcard $(SOURCE_DIR)/*.tex)
-# files that need to be compiled with lualatex
-#TIKZ_LUALATEX = $(wildcard $(SOURCE_DIR)/*.lualatex.tex)
-
-# extract the directory
+TIKZ_FILES_ALL_ = $(wildcard $(SOURCE_DIR)/*.tex)
+TIKZ_FILES_ALL  = $(filter-out $(TIKZ_LIBS), $(TIKZ_FILES_ALL_))
 TIKZ_LUALATEX = $(filter %.lualatex.tex, $(TIKZ_FILES_ALL))
 TIKZ_LATEX = $(filter-out  $(TIKZ_LUALATEX), $(TIKZ_FILES_ALL))
-
 PDF_LUALATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_LUALATEX) ))))  
 PNG_LUALATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LUALATEX) )))) 
 PDF_LATEX = $(addprefix out/, $(addsuffix .pdf, $(basename  $(notdir $(TIKZ_LATEX) ))))  
 PNG_LATEX = $(addprefix out/, $(addsuffix .png, $(basename  $(notdir $(TIKZ_LATEX) )))) 
+# Detect operating system. Sort of tricky for Windows because of MSYS, cygwin, MGWIN
+OSFLAG :=
+ifeq ($(OS), Windows_NT)
+	OSFLAG = WINDOWS
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S), Linux)
+		OSFLAG = LINUX
+	endif
+	ifeq ($(UNAME_S), Darwin)
+		OSFLAG = OSX
+	endif
+endif
 
 
 .PHONY: all
@@ -70,7 +125,7 @@ out/%.pdf:: src/%.tex msg_pdf_files
 
 # here we check for the operating system. ghostscript to be used in Mac
 out/%.png:: out/%.pdf msg_png_files
-	@if test $(findstring $(shell uname -s), "Darwin"); then \
+	@if test $(OSFLAG) = OSX; then \
 		gs -q -sDEVICE=png256 -sBATCH -sOutputFile=$@ -dNOPAUSE -r1200 $<; \
 	else \
 		cd $(OUTPUT_DIR) && pdftoppm -q -png $(<F) > $(@F); \
@@ -88,22 +143,42 @@ msg_png_files:
 
 
 # render the README file
-$(README): $(addsuffix .Rmd, $(basename $(README))) $(PNG_FILES) $(PNG_LUALATEX)
+$(README): $(addsuffix .Rmd, $(basename $(README))) $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX) $(PNG_LATEX) 
 	Rscript -e "rmarkdown::render('$<')"
-ifeq ($(shell uname -s), Darwin)	
-	open -a firefox $(addsuffix .html, $(basename $(README)))
+	@echo "Operating system is:" $(OSFLAG)
+ifeq ($(OSFLAG), OSX)		
+	@open -a firefox $(addsuffix .html, $(basename $(README)))
 endif
-ifeq ($(shell uname -s), Linux)
-	firefox $(addsuffix .html, $(basename $(README)))
+ifeq ($(OSFLAG), LINUX)
+	@firefox $(addsuffix .html, $(basename $(README)))
 endif	
-ifeq ($(shell uname -s), MSYS_NT-10.0-WOW)
-	"C:\Program Files\Mozilla Firefox\firefox" $(addsuffix .html, $(basename $(README)))
+ifeq ($(OSFLAG), WINDOWS)
+	@"C:\Program Files\Mozilla Firefox\firefox" $(addsuffix .html, $(basename $(README)))
+endif
+
+
+# simplify the website construction with one rule
+website:
+	@echo "\nGenerating Hugo website as " $(word 2, $(MAKECMDGOALS))
+	@echo "Operating system is" $(OSFLAG)
+	Rscript _build_site.R $(word 2, $(MAKECMDGOALS))
+	@cd site && hugo
+	@# TODO: what happens if "tree" is not installed in Linux. Windows has its own "tree".
+	@tree -h -F docs/ -L 1
+ifeq ($(OSFLAG), OSX)	
+	@open -a firefox  $(PUBLISH_DIR)/index.html
+endif
+ifeq ($(OSFLAG), LINUX)
+	@firefox  $(PUBLISH_DIR)/index.html
 endif	
+ifeq ($(OSFLAG), WINDOWS)
+	@"C:\Program Files\Mozilla Firefox\firefox" $(PUBLISH_DIR)/index.html
+endif
 
 
 # remove PNG and PDF files
 .PHONY: clean
-clean: tidy cleanlualatex
+clean: tidy cleanlualatex cleansource
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.png -delete
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.pdf -delete
 
@@ -118,6 +193,8 @@ tidy: chrono
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.snm -delete
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.toc -delete
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.nav -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.fls -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \*.fdb_latexmk -delete
 	if [ -f "$(README)" ]; then \
         rm  $(README); \
     fi
@@ -133,11 +210,20 @@ cleansource:
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.snm -delete
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.toc -delete
 	find $(SOURCE_DIR) -maxdepth 1 -name \*.nav -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.fls -delete
+	find $(SOURCE_DIR) -maxdepth 1 -name \*.fdb_latexmk -delete
 
 .PHONY: cleanlualatex
 cleanlualatex: tidylualatex
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.lualatex.png -delete
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.lualatex.pdf -delete
+
+# for testing
+.PHONY: cleanpdflatex
+cleanpdflatex:
+	find $(OUTPUT_DIR) -maxdepth 1 -name \physics-*.png -delete
+	find $(OUTPUT_DIR) -maxdepth 1 -name \physics-*.pdf -delete
+
 
 .PHONY: tidylualatex
 tidylualatex:
@@ -157,36 +243,39 @@ tikz_list:
 		find . -name \*.tex	
 
 
-
-# simplify the website construction with one rule
-website:
-	@echo "\nGenerating Hugo website as " $(word 2, $(MAKECMDGOALS))
-	Rscript _build_site.R $(word 2, $(MAKECMDGOALS))
-	@cd site && hugo
-	@tree -h -F docs/ -L 1
-ifeq ($(shell uname -s), Darwin)	
-	@open -a firefox  docs/index.html
-endif
-ifeq ($(shell uname -s), Linux)
-	@firefox  docs/index.html
-endif	
-ifeq ($(shell uname -s), MSYS_NT-10.0-WOW)
-	@"C:\Program Files\Mozilla Firefox\firefox"  docs/index.html
-endif	
-
 .PHONY: info
 info:
-	#@echo $(PDF_FILES)
+	@echo $(words $(TIKZ_LIBS))
+	@echo $(words $(TIKZ_FILES_ALL_))
 	@echo $(words $(TIKZ_FILES_ALL))
 	@echo $(words $(TIKZ_LATEX)) 
 	@echo $(words $(TIKZ_LUALATEX)) 
-	@echo $(PDF_LUALATEX)
-	@echo $(PNG_LUALATEX)
-	@echo $(PDF_LATEX)
-	@echo $(PNG_LATEX)
-	# @make print-TIKZ_FILES
-	# @make print-TIKZ_LUALATEX
-	# @echo $PKGSRC
+	@echo $(TIKZ_LIBS)
+
+
+
+.PHONY: getos
+getos:
+	@# Testing different ways of detecting the OS
+	@echo "OS is:" $(OSFLAG)
+	@# these two are equivalent
+	@echo "Number of words in OS env var:" $(words $(OS))
+	@echo count words in findstring $(words $(findstring $(OS),))
+	@if [  $(words $(OS)) -gt 0 ]; then echo "OS env word count it is greater than zero, means it is WINDOWS"; fi
+	@# Using if
+	@if [ "$(findstring $(OS), Windows_NT)" != "" ]; then echo "OS returns Windows_NT, not an empty string"; fi
+	@# using test
+	@if test $(findstring $(OS), Windows_NT) ; then echo "WINDOWS passed the test"; fi;
+	@if test $(findstring $(OSFLAG), WINDOWS); then echo "findstring of OSFLAG found WINDOWS"; fi
+	@if test $(OSFLAG) = WINDOWS; then echo "OSFLAG is WINDOWS"; fi
+	@if test $(findstring $(OSFLAG), OSX); then echo "it is a Mac"; fi	
+	$(eval NUMWORDS = $(words $(findstring $(OS), Windows_NT)))
+	@echo NUMWORDS $(NUMWORDS)
+ifeq ($(strip $(findstring $(OS), Windows_NT) ),)
+	@echo "findstring found OS empty. No WINDOWS here"
+else	
+	@echo "findstring found OS filled, so it is WINDOWS"
+endif
 
 
 %:
@@ -199,3 +288,11 @@ print-%  : ; @echo $* = $($*)
 
 # TODO: read values from site/config.toml file 
 # TODO: use R to read .toml parameters and values
+# Use the following for some debugging:
+	# @make print-TIKZ_FILES
+	# @make print-TIKZ_LUALATEX
+	# @echo $PKGSRC
+	# @echo $(PDF_LUALATEX)
+	# @echo $(PNG_LUALATEX)
+	# @echo $(PDF_LATEX)
+	# @echo $(PNG_LATEX)
