@@ -96,9 +96,9 @@ Some useful tutorials:
 
 ## Useful statistics
 
-* There are 228 total Tikz figures saved as `.tex` files in this gallery. 
+* There are 230 total Tikz figures saved as `.tex` files in this gallery. 
 The figures are sorted by filename.
-* There are 228 files under `src/` to be compiled with `pdflatex`
+* There are 230 files under `src/` to be compiled with `pdflatex`
 * There are 1 files under `src/` to be compiled with `lualatex`
 * There are 19 data files under the folder `src/data` that are being used by the TikZ scripts
 * There are 2 Latex classes, styles and library files under the `src/texmf` folder
@@ -1196,6 +1196,189 @@ Create the gif with:
 ```
 ****
 
+![](./out/artificial_intelligence_aiama_arr+diagram+ai.png)
+
+  
+  * [artificial_intelligence_aiama_arr+diagram+ai.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/artificial_intelligence_aiama_arr+diagram+ai.tex)
+
+```tex
+% Artificial Intelligence Agent Contributors
+% Drawn by Alfonso R. Reyes
+% November 2020
+% Personal interpretation of "Artificial Intelligence: A Modern Approach" by Peter Norvig and Stuart Russell
+% Original diagram: https://github.com/FriendlyUser/LatexDiagrams
+\documentclass[border=5pt]{standalone}
+\usepackage{xcolor}
+
+	\definecolor{ocre}{HTML}{800000}
+	\definecolor{sky}{HTML}{C6D9F1}
+	\definecolor{skybox}{HTML}{5F86B3}
+
+\usepackage{tikz}
+\usepackage{pgfmath}
+\usetikzlibrary{decorations.text, arrows.meta,calc,shadows.blur,shadings}
+
+\renewcommand*\familydefault{\sfdefault} % Set font to serif family
+
+% arctext from Andrew code with modifications:
+%Variables: 1: ID, 2:Style 3:box height 4: Radious 5:start-angl 6:end-angl 7:text {format along path} 
+\def\arctext[#1][#2][#3](#4)(#5)(#6)#7{
+
+\draw[#2] (#5:#4cm+#3) coordinate (above #1) arc (#5:#6:#4cm+#3)
+             -- (#6:#4) coordinate (right #1) -- (#6:#4cm-#3) coordinate (below right #1) arc (#6:#5:#4cm-#3) coordinate (below #1)
+             -- (#5:#4) coordinate (left #1) -- cycle;
+            \def\a#1{#4cm+#3}
+            \def\b#1{#4cm-#3}
+\path[
+    decoration={
+        raise = -0.5ex, % Controls relavite text height position.
+        text  along path,
+        text = {#7},
+        text align = center,        
+    },
+    decorate
+    ]
+    (#5:#4) arc (#5:#6:#4);
+}
+
+% arcarrow, this is mine, for beerware purpose...
+% Function: Draw an arrow from arctex coordinate specific nodes to another 
+% Arrow start at the start of arctext box and could be shifted to change the position
+% to avoid go over another box.
+% Var: 1:Start coordinate 2:End coordinate 3:angle to shift from acrtext box  
+\def\arcarrow(#1)(#2)[#3]{
+    \draw[thick,->,>=latex] 
+        let \p1 = (#1), \p2 = (#2), % To access cartesian coordinates x, and y.
+            \n1 = {veclen(\x1,\y1)}, % Distance from the origin
+            \n2 = {veclen(\x2,\y2)}, % Distance from the origin
+            \n3 = {atan2(\y1,\x1)} % Angle where acrtext starts.
+        in (\n3-#3: \n1) -- (\n3-#3: \n2); % Draw the arrow.
+}
+
+
+\begin{document}
+\begin{tikzpicture}[
+	    % Environment Cfg
+	    font=\sf    \scriptsize,
+	    % Styles
+	    myarrow/.style={
+	        thick,
+	        -latex,
+	    },
+	    Center/.style ={
+	        circle,
+	        fill=ocre,
+	        text=white,
+	        align=center,
+	        font =\footnotesize\bf,
+	        inner sep=1pt,          
+	    },
+	    RedArc/.style ={
+	        color=black,
+	        thick,
+	        fill=ocre,
+	        blur shadow, 
+	    },
+	    SkyArc/.style ={
+	        color=skybox,
+	        thick,
+	        fill=sky,
+	        blur shadow, 
+	    },
+    ]
+
+    % Drawing the center for AI
+    \node[Center](AI) at (0,0) { Artificial \\ Intelligence \\(AI)\\ Agent};
+    \coordinate (AROUND) at (0:1.2); 
+
+    % Drawing the Text Arcs
+    % Format: \Arctext[ID][box-style][box-height](radious)(start-angl)(end-angl){|text-styles| Text}
+    
+	% Machine Learning
+    \arctext[ML][RedArc][8pt](2.75)(140)(75){|\footnotesize\bf\color{white}| Machine Learning};
+    \arctext[REIN][SkyArc][5pt](3.50)(140)(75){|\scriptsize\color{black}| Reinforcement Learning};
+    \arctext[KNOW][SkyArc][5pt](4.00)(110)(75){|\scriptsize| Knowledge L.};
+    \arctext[SUPL][SkyArc][5pt](4.00)(140)(115){|\scriptsize| Supervised L.};
+    \arctext[PROB][SkyArc][5pt](4.50)(140)(75){|\scriptsize\color{black}| Probabilistic Models};
+    
+    % Problem Solving
+    \arctext[SOLV][RedArc][8pt](2.75)(70)(23){|\footnotesize\bf\color{white}| Problem Solving};
+    \arctext[SRCH][SkyArc][5pt](3.50)(70)(23){|\scriptsize\color{black}| Search };
+    \arctext[HEUR][SkyArc][5pt](4.00)(70)(50){|\scriptsize| Heuristics};
+	\arctext[ADVS][SkyArc][5pt](4.00)(47)(23){|\scriptsize| Adversarial S.};    
+	\arctext[CONST][SkyArc][5pt](4.50)(70)(23){|\scriptsize\color{black}| Constraint Analysis };
+	
+	% Natural Language Processing
+    \arctext[NLP][RedArc][8pt](2.75)(15)(-15){|\footnotesize\bf\color{white}| NLP};
+    \arctext[TRAN][SkyArc][5pt](3.50)(20)(-20){|\scriptsize\color{black}| Machine translation};
+    \arctext[SPER][SkyArc][5pt](4.00)(20)(-20){|\scriptsize| Speech Recognition};
+    \arctext[INFX][SkyArc][5pt](4.50)(20)(-20){|\scriptsize\color{black}| Information Extraction};
+
+    % Decision Making
+    \arctext[DEC][RedArc][8pt](2.75)(290)(340){|\footnotesize\bf\color{white}| Decision Making};
+    \arctext[LOG][SkyArc][5pt](3.50)(290)(335){|\scriptsize\color{black}| Logic};
+    \arctext[KNOW][SkyArc][5pt](4.00)(290)(335){|\scriptsize| Knowledge Engineering};
+    \arctext[PLAN][SkyArc][5pt](4.50)(290)(335){|\scriptsize| Real World Planning};
+    
+    % Reasoning
+    \arctext[REAS][RedArc][8pt](2.75)(250)(285){|\footnotesize\bf\color{white}|  Reasoning};
+    \arctext[PROB][SkyArc][5pt](3.50)(250)(285){|\scriptsize\color{black}| Probabilistic R.};
+    \arctext[REAT][SkyArc][5pt](4.00)(250)(285){|\scriptsize| Reasoning over time};
+    \arctext[UNQU][SkyArc][5pt](4.50)(248)(287){|\scriptsize\color{black}| Uncertainty Quantification};
+    
+    % Robotics
+    \arctext[ROB][RedArc][8pt](2.75)(210)(245){|\footnotesize\bf\color{white}|  Robotics};
+    \arctext[RPER][SkyArc][5pt](3.50)(210)(245){|\scriptsize\color{black}| R. Perception};
+    \arctext[RACT][SkyArc][5pt](4.00)(210)(245){|\scriptsize| R. Actuation};
+    \arctext[MAPL][SkyArc][5pt](4.50)(210)(245){|\scriptsize\color{black}| Mapping, Localization};
+    
+    % Object Recognition
+    \arctext[RECO][RedArc][8pt](2.75)(145)(205){|\footnotesize\bf\color{white}| Object Recognition};
+    \arctext[VIS][SkyArc][5pt](3.50)(145)(205){|\scriptsize\color{black}| Vision};
+    \arctext[IMGP][SkyArc][5pt](4.00)(145)(205){|\scriptsize\color{black}| Image Processing };
+    \arctext[MOTC][SkyArc][5pt](4.50)(145)(205){|\scriptsize\color{black}| Motion, shading, contour analysis};   
+  
+
+    %ADITIONAL EXTERNAL ARC
+   \arctext[NEW][
+       color=white,
+       shade,      
+       upper left=gray,
+       upper right=black!50,
+       lower left=gray,
+       lower right=gray!50,
+       rounded corners = 8pt
+       ][8pt](5.2)(180)(0){|\footnotesize\bf\color{white}| "Artificial Intelligence: A Modern Approach" by Peter Norvig and Stuart Russell};
+
+    % Drawing the Arrows from contributing branch to AI
+    % Format: \arcarrow(above/below ID)(abobe/below ID)[shift]
+    \arcarrow(below ML)(AROUND)[30];
+    \arcarrow(below SOLV)(AROUND)[24];
+    \arcarrow(below NLP)(AROUND)[15];
+    \arcarrow(below DEC)(AROUND)[-25];
+    \arcarrow(below REAS)(AROUND)[-17];
+    \arcarrow(below ROB)(AROUND)[-19];
+    \arcarrow(below RECO)(AROUND)[-33];
+
+    % Same level Arrows. Not needed now
+    % \draw[myarrow] (left SSNX) -- (right DUAM);
+    % \draw[myarrow] (left ML) -- (left SRel);
+    % \draw[myarrow] (left SCap) -- (right ML);
+
+	% Legend
+    \draw[myarrow] (-5,-5) coordinate (legend) -- ++(.8,0) node[anchor=west] {(contribution)};
+    \draw[RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node[anchor=west] {disciplines};
+    \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {requirements};
+        
+		% \node[draw] at (0,0) {};
+		% \node[draw,align=left] at (3,0) {};
+		\node[text width=3cm] at (3,-6.25) {\begin{tiny}Copyright \textcopyright Alfonso R. Reyes, 2020\end{tiny}};
+
+\end{tikzpicture}  
+\end{document}
+```
+****
+
 ![](./out/box_arrows+diagram.png)
 
   
@@ -1612,6 +1795,190 @@ $$
 \perfectly    as fast as possible
 
 \end{center}
+\end{document}
+```
+****
+
+![](./out/computational_intelligence-pool,mackworth_arr+diagram+ai.png)
+
+  
+  * [computational_intelligence-pool,mackworth_arr+diagram+ai.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/computational_intelligence-pool,mackworth_arr+diagram+ai.tex)
+
+```tex
+% Computational Intelligence Agent Contributors
+% Drawn by Alfonso R. Reyes
+% November 2020
+% Personal interpretation of "Computational Intelligence: A Logical Approach" by David Poole, Alan Mackworth and Randy Goebel.
+% Original diagram: https://github.com/FriendlyUser/LatexDiagrams
+\documentclass[border=5pt]{standalone}
+\usepackage{xcolor}
+
+	\definecolor{ocre}{HTML}{800000}
+	\definecolor{sky}{HTML}{C6D9F1}
+	\definecolor{skybox}{HTML}{5F86B3}
+
+\usepackage{tikz}
+\usepackage{pgfmath}
+\usetikzlibrary{decorations.text, arrows.meta,calc,shadows.blur,shadings}
+
+\renewcommand*\familydefault{\sfdefault} % Set font to serif family
+
+% arctext from Andrew code with modifications:
+%Variables: 1: ID, 2:Style 3:box height 4: Radious 5:start-angl 6:end-angl 7:text {format along path} 
+\def\arctext[#1][#2][#3](#4)(#5)(#6)#7{
+
+\draw[#2] (#5:#4cm+#3) coordinate (above #1) arc (#5:#6:#4cm+#3)
+             -- (#6:#4) coordinate (right #1) -- (#6:#4cm-#3) coordinate (below right #1) arc (#6:#5:#4cm-#3) coordinate (below #1)
+             -- (#5:#4) coordinate (left #1) -- cycle;
+            \def\a#1{#4cm+#3}
+            \def\b#1{#4cm-#3}
+\path[
+    decoration={
+        raise = -0.5ex, % Controls relavite text height position.
+        text  along path,
+        text = {#7},
+        text align = center,        
+    },
+    decorate
+    ]
+    (#5:#4) arc (#5:#6:#4);
+}
+
+% arcarrow, this is mine, for beerware purpose...
+% Function: Draw an arrow from arctex coordinate specific nodes to another 
+% Arrow start at the start of arctext box and could be shifted to change the position
+% to avoid go over another box.
+% Var: 1:Start coordinate 2:End coordinate 3:angle to shift from acrtext box  
+\def\arcarrow(#1)(#2)[#3]{
+    \draw[thick,->,>=latex] 
+        let \p1 = (#1), \p2 = (#2), % To access cartesian coordinates x, and y.
+            \n1 = {veclen(\x1,\y1)}, % Distance from the origin
+            \n2 = {veclen(\x2,\y2)}, % Distance from the origin
+            \n3 = {atan2(\y1,\x1)} % Angle where acrtext starts.
+        in (\n3-#3: \n1) -- (\n3-#3: \n2); % Draw the arrow.
+}
+
+
+\begin{document}
+\begin{tikzpicture}[
+	    % Environment Cfg
+	    font=\sf    \scriptsize,
+	    % Styles
+	    myarrow/.style={
+	        thick,
+	        -latex,
+	    },
+	    Center/.style ={
+	        circle,
+	        fill=ocre,
+	        text=white,
+	        align=center,
+	        font =\footnotesize\bf,
+	        inner sep=1pt,          
+	    },
+	    RedArc/.style ={
+	        color=black,
+	        thick,
+	        fill=ocre,
+	        blur shadow, 
+	    },
+	    SkyArc/.style ={
+	        color=skybox,
+	        thick,
+	        fill=sky,
+	        blur shadow, 
+	    },
+    ]
+
+    % Drawing the center for AI
+    \node[Center](AI) at (0,0) { Computational \\ Intelligence \\(AI)\\ Agent};
+    \coordinate (AROUND) at (0:1.2); 
+
+    % Drawing the Text Arcs
+    % Format: \Arctext[ID][box-style][box-height](radious)(start-angl)(end-angl){|text-styles| Text}
+    
+	% Machine Learning
+    \arctext[ML][RedArc][8pt](2.75)(135)(85){|\footnotesize\bf\color{white}| Machine Learning};
+    \arctext[REIN][SkyArc][5pt](3.50)(135)(85){|\scriptsize\color{black}| Decision Trees};
+    \arctext[KNOW][SkyArc][5pt](4.00)(135)(85){|\scriptsize| Neural Networks};
+%    \arctext[SUPL][SkyArc][5pt](4.00)(140)(115){|\scriptsize| Supervised L.};
+    \arctext[PROB][SkyArc][5pt](4.50)(135)(85){|\scriptsize\color{black}| Explanation Based Learning};
+    
+    % Problem Solving
+    \arctext[SOLV][RedArc][8pt](2.75)(80)(40){|\footnotesize\bf\color{white}| Searching};
+    \arctext[SRCH][SkyArc][5pt](3.50)(80)(40){|\scriptsize\color{black}| Graph Searching };
+    \arctext[HEUR][SkyArc][5pt](4.00)(80)(40){|\scriptsize| Heuristic Search};
+	\arctext[CONST][SkyArc][5pt](4.50)(80)(40){|\scriptsize\color{black}| Constraint Satisfaction};
+	
+	% Natural Language Processing
+    \arctext[NLP][RedArc][8pt](2.75)(35)(-20){|\footnotesize\bf\color{white}| Definite Knowledge};
+    \arctext[TRAN][SkyArc][5pt](3.50)(35)(5){|\scriptsize\color{black}| Recursion};
+    \arctext[TRAN][SkyArc][5pt](3.50)(0)(-20){|\scriptsize\color{black}| NLP};
+    \arctext[SPER][SkyArc][5pt](4.00)(35)(-20){|\scriptsize| Grammar Augmentation};
+    \arctext[INFX][SkyArc][5pt](4.50)(35)(-20){|\scriptsize\color{black}| First Order Predicate Calculus};
+
+    % Decision Making
+    \arctext[DEC][RedArc][8pt](2.75)(290)(335){|\footnotesize\bf\color{white}| Planning};
+    \arctext[LOG][SkyArc][5pt](3.50)(290)(335){|\scriptsize\color{black}| Time Representation};
+    \arctext[KNOW][SkyArc][5pt](4.00)(290)(335){|\scriptsize| World Representations};
+    \arctext[PLAN][SkyArc][5pt](4.50)(290)(335){|\scriptsize| Forward Planning};
+    
+    % Reasoning
+    \arctext[REAS][RedArc][8pt](2.75)(250)(285){|\footnotesize\bf\color{white}|  Reasoning};
+    \arctext[PROB][SkyArc][5pt](3.50)(250)(285){|\scriptsize\color{black}| Semantics};
+    \arctext[REAT][SkyArc][5pt](4.00)(249)(287){|\scriptsize| Symbolic Representation};
+    \arctext[UNQU][SkyArc][5pt](4.50)(248)(287){|\scriptsize\color{black}| Clauses, Questions, Answers};
+    
+    % Robotics
+    \arctext[ROB][RedArc][8pt](2.75)(200)(245){|\footnotesize\bf\color{white}|  Robotics};
+    \arctext[RPER][SkyArc][5pt](3.50)(200)(245){|\scriptsize\color{black}| Agent Functions};
+    \arctext[RACT][SkyArc][5pt](4.00)(200)(245){|\scriptsize| Robotic Systems};
+    \arctext[MAPL][SkyArc][5pt](4.50)(200)(224){|\scriptsize\color{black}| Agent Models};
+    \arctext[MAPL][SkyArc][5pt](4.50)(226)(245){|\scriptsize\color{black}| Architecture};
+    
+    % Object Recognition
+    \arctext[RECO][RedArc][8pt](2.75)(140)(195){|\footnotesize\bf\color{white}| Knowledge};
+    \arctext[VIS][SkyArc][5pt](3.50)(140)(195){|\scriptsize\color{black}| Representation Language};
+    \arctext[IMGP][SkyArc][5pt](4.00)(140)(195){|\scriptsize\color{black}| Map Problem to Representation };
+    \arctext[MOTC][SkyArc][5pt](4.50)(140)(195){|\scriptsize\color{black}| Knowledge Based Systems};   
+  
+
+    %ADITIONAL EXTERNAL ARC
+    \arctext[NEW][
+        color=white,
+        shade,      
+        upper left=gray,
+        upper right=black!50,
+        lower left=gray,
+        lower right=gray!50,
+        rounded corners = 8pt
+        ][8pt](5.2)(180)(0){|\footnotesize\bf\color{white}| "Computational Intelligence: A Logical Approach" by David Poole, Alan Mackworth and Randy Goebel};
+
+    % Drawing the Arrows from contributing branch to AI
+    % Format: \arcarrow(above/below ID)(abobe/below ID)[shift]
+    \arcarrow(below ML)(AROUND)[30];
+    \arcarrow(below SOLV)(AROUND)[24];
+    \arcarrow(below NLP)(AROUND)[15];
+    \arcarrow(below DEC)(AROUND)[-25];
+    \arcarrow(below REAS)(AROUND)[-17];
+    \arcarrow(below ROB)(AROUND)[-19];
+    \arcarrow(below RECO)(AROUND)[-33];
+
+    % Same level Arrows. Not needed now
+    % \draw[myarrow] (left SSNX) -- (right DUAM);
+    % \draw[myarrow] (left ML) -- (left SRel);
+    % \draw[myarrow] (left SCap) -- (right ML);
+
+	% Legend
+    \draw[myarrow] (-5,-5) coordinate (legend) -- ++(.8,0) node[anchor=west] {(contribution)};
+    \draw[RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node[anchor=west] {disciplines};
+    \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {requirements};
+        
+		% \node[draw] at (0,0) {};
+		% \node[draw,align=left] at (3,0) {};
+		\node[text width=3cm] at (3,-6.25) {\begin{tiny}Copyright \textcopyright Alfonso R. Reyes, 2020\end{tiny}};
+
+\end{tikzpicture}  
 \end{document}
 ```
 ****
