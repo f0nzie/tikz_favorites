@@ -1,0 +1,169 @@
+% https://gist.github.com/MatteoRagni/3920cd55d4ef29e4aff19a8ece3f225a
+\documentclass[]{standalone}
+
+\usepackage{tikz}
+
+\begin{document}
+  
+  
+  \tikzstyle{scale all}=[every node/.style={scale=#1}, scale=#1]
+  \tikzset{
+    solution/.pic = {
+      \begin{scope}
+        \draw (0, 0) rectangle ++(1, 1);
+        \draw (0, 1) rectangle ++(1, 1);
+        \draw (0, 2) rectangle ++(1, 1);
+        \draw (0, 3) rectangle ++(1, 1);
+        \node[anchor=center] at (0.5, 0.5) {$m_{123}$};
+        \node[anchor=center] at (0.5, 1.5) {$\ldots$};
+        \node[anchor=center] at (0.5, 2.5) {$\ldots$};
+        \node[anchor=center] at (0.5, 3.5) {$m_1$};
+      \end{scope};
+    },
+    population with number/.pic = {
+      \begin{scope}
+        \draw (0, 0) pic {solution} node at (0.5,-0.75) {1};
+        \draw (1.5, 0) pic {solution} node at (2,-0.75) {2};
+        \draw (4.5, 0) pic {solution} node at (5,-0.75) {123};
+        \draw (3, 2) circle (0.1);
+        \draw (3.5, 2) circle (0.1);
+        \draw (4, 2) circle (0.1);
+        \draw (0.3, 4.3) -- (-0.3, 4.3) -- (-0.3, -0.3) -- (0.3, -0.3);
+        \draw (5.2, 4.3) -- (5.8, 4.3) -- (5.8, -0.3) -- (5.2, -0.3);
+      \end{scope}
+    },
+    population/.pic = {
+      \begin{scope}
+        \draw (0, 0) pic {solution};
+        \draw (1.5, 0) pic {solution};
+        \draw (4.5, 0) pic {solution};
+        \draw (3, 2) circle (0.1);
+        \draw (3.5, 2) circle (0.1);
+        \draw (4, 2) circle (0.1);
+        \draw (0.3, 4.3) -- (-0.3, 4.3) -- (-0.3, -0.3) -- (0.3, -0.3); % left square bracket
+        \draw (5.2, 4.3) -- (5.8, 4.3) -- (5.8, -0.3) -- (5.2, -0.3); % right square bracket
+      \end{scope}
+    },
+    population expanded/.pic = {
+      \begin{scope}
+        \draw (0, 0) pic {solution};
+        \draw (1.5, 0) pic {solution};
+        \draw[#1] (4.5, 0) pic {solution};
+        \draw (7.5, 0) pic {solution};
+        
+        \draw (3, 2) circle (0.1);
+        \draw (3.5, 2) circle (0.1);
+        \draw (4, 2) circle (0.1);
+        
+        \draw (6, 2) circle (0.1);
+        \draw (6.5, 2) circle (0.1);
+        \draw (7, 2) circle (0.1);
+        
+        \draw (0.3, 4.3) -- (-0.3, 4.3) -- (-0.3, -0.3) -- (0.3, -0.3);
+        \draw (8.2, 4.3) -- (8.8, 4.3) -- (8.8, -0.3) -- (8.2, -0.3);
+      \end{scope}
+    },
+    population sorted/.pic = {
+      \begin{scope}
+        \draw (0, 0) pic {solution} node at (0.5,-0.75) {1};
+        \draw (1.5, 0) pic {solution} node at (2,-0.75) {2};
+        \draw (4.5, 0) pic {solution} node at (5,-0.75) {123};
+        \draw[red] (6, 0) pic {solution} node at (6.5,-0.75) {124};
+        \draw[red] (9, 0) pic {solution} node at (9.5,-0.75) {123+n};
+        
+        \draw (3, 2) circle (0.1);
+        \draw (3.5, 2) circle (0.1);
+        \draw (4, 2) circle (0.1);
+        
+        \draw[red] (7.5, 2) circle (0.1);
+        \draw[red] (8, 2) circle (0.1);
+        \draw[red] (8.5, 2) circle (0.1);
+        
+        \draw (0.3, 4.3) -- (-0.3, 4.3) -- (-0.3, -0.3) -- (0.3, -0.3);
+        \draw (10.2, 4.3) -- (10.8, 4.3) -- (10.8, -0.3) -- (10.2, -0.3);
+      \end{scope}
+    },
+    initial population/.pic = {
+      % Initial population drawing
+      \draw (0, -0.3) node {$\mathbf{P} = $};
+      \draw (0.75, -1) pic [scale all=0.35] {population with number};
+    },
+    augmenting population ten percent/.pic = {
+      % Increasing population by ten percent
+      \draw[<-] (2, 1.5) -- ++(0, 1) node [pos=0.5, anchor=west, blue] {$\mathbf{P} + 10\% $};
+      \draw (0, 0.425) node {$\mathbf{P} = $};
+      \draw (0.75, -0.3) pic [scale all=0.35] {population expanded={blue}};
+    },
+    pics/gene mutation/.style args ={#1,#2}{
+      code={
+        % Mutate a gene with a mutation Mx
+        \begin{scope}
+          \draw (0, 0) rectangle ++(1, 1);
+          \draw (0, 1) rectangle ++(1, 1);
+          \draw[fill={#1}] (0, 2) rectangle ++(1, 1);
+          \draw (0, 3) rectangle ++(1, 1);
+          \draw (0, 4) rectangle ++(1, 1);
+          \node[anchor=center] at (0.5, 0.5) {$m_{123}$};
+          \node[anchor=center] at (0.5, 1.5) {$\ldots$};
+          \node[anchor=center] at (0.5, 2.5) {{#2}};
+          \node[anchor=center] at (0.5, 3.5) {$\ldots$};
+          \node[anchor=center] at (0.5, 4.5) {$m_1$};
+        \end{scope};
+      }
+    },
+    mutate a gene/.pic = {
+      \draw[->] (-1, 3.725) -- ++(0, -1.25) -- ++(0.75, 0) node [pos=0.25, scale=0.75, anchor=north, yshift=-2] {cloning};
+      \draw (0, 1.575) pic [scale all=0.35] {gene mutation={yellow,$m_k$}};
+      \draw[->] (0.75, 2.5) -- ++(1, 0) node [yshift=-2, scale=0.75, pos=0.5, anchor=north] {$\textbf{Mx}(m_k)$};
+      \draw[fill=green] (2, 2.325) rectangle ++(0.35, 0.35);
+      \node[anchor=center, scale=0.35] at (2.175, 2.495) {$m_{k}'$};
+      \draw[->] (2.75, 2.5) -- ++(1, 0) node[pos=0.5, yshift=-2, scale=0.75, anchor=north] {mutation};
+      \draw (4, 1.575) pic [scale all=0.35] {gene mutation={green, $m_k'$}};
+      \draw[->] (4.175, 3.5) -- ++(0, 1.2) -- ++(-3.5, 0) node[pos=0.5, scale=0.75, anchor=north] {insertion};
+    },
+    pics/cluster population/.style args = {#1}{
+      code = {
+        \draw (0, 0) pic [scale all=0.35] {population};
+        \draw (0.85, 2) node {{#1}};
+      }
+    },
+    clusters populations/.pic = {
+      \draw (0, 0) pic {cluster population={$\mathbf{P}_{G(s) = 0}$}};
+      \draw[dashed] (2.225, -0.5) -- ++(0, 2.5) node [pos=0, anchor=north] {$ < 123$};
+      \draw (2.5, 0) pic {cluster population={$\mathbf{P}_{G(s) = 1}$}};
+      \draw[dashed] (4.725, -0.5) -- ++(0, 2.5) node [pos=0, anchor=north] {$ < 123$};
+      \draw (5, 0) pic {cluster population={$\mathbf{P}_{G(s) = 2}$}};
+      \draw (7.225, -0.5) -- ++(0, 2.5) node [pos=0, anchor=north] {$\geq 123$};
+      \draw (7.5, 0) pic[red] {cluster population={$\mathbf{P}_{G(s) = 3}$}};
+      \draw[red] (9.725, -0.5) -- ++(0, 2.5) node [pos=0, anchor=north] {$> 123$};
+      
+      \draw (-0.25, -1) -- (-0.25, -1.3) -- (7.225, -1.3) -- (7.225, -1);
+    },
+    sorting cost/.pic = {
+      \draw (0, 0) pic[scale all=0.35] {population sorted};
+      \draw (0, -0.5) node [anchor=center, scale=0.75] {$\min\,C(s)$};
+      \draw (3.8, -0.5) node [anchor=center, scale=0.75] {$\max\,C(s)$};
+    }
+  }
+  
+  
+  \begin{tikzpicture}
+    \draw (0, 0) pic {initial population};
+    \draw (0, -4) pic {augmenting population ten percent};    
+    \draw (3.5, -8.25) pic {mutate a gene};
+    \draw[<-] (2, -8) -- ++(0, 1) node [pos=0.5, anchor=west, blue] {$\mathbf{P} + 50\% $};
+    \draw (0, -10.5) pic {clusters populations};
+    \draw[<-] (2, -12.80) -- ++(0, 1) node [pos=0.5, anchor=west, blue] {Gap-based selection};
+    \draw (0, -14.5) pic {sorting cost};
+    \draw[->] (2, -15.3) -- ++(0, -1) node [pos=0.5, anchor=west, blue] {Cost-based selection}
+      -- ++(-3, 0) -- (-1, -0.25) -- ++(0.5, 0);
+    %\draw (0, -17) pic {initial population};
+    
+    % Indication lateral
+    \draw (10, 1) -- ++(0.5, 0) -- node [rotate=90, pos=0.5, anchor=north] {(1) Random augmentation} ++(0, -3.5) -- ++(-0.5, 0);
+    \draw (10, -2.7) -- ++(0.5, 0) -- node [rotate=90, pos=0.5, anchor=north] {(2) Cloning and Mutate} ++(0, -5.25) -- ++(-0.5, 0);
+    \draw (10, -8.1) -- ++(0.5, 0) -- node [rotate=90, pos=0.5, anchor=north] {(3) Gap Sorting/Selection} ++(0, -4.5) -- ++(-0.5, 0);
+    \draw (10, -12.8) -- ++(0.5, 0) -- node [rotate=90, pos=0.5, anchor=north] {(4) Cost Sorting/Selection} ++(0, -3.5) -- ++(-0.5, 0);
+  \end{tikzpicture}
+  
+\end{document}
