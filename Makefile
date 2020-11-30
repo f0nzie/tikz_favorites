@@ -158,6 +158,7 @@ endif
 
 
 # simplify the website construction with one rule
+# Script _build_site.R is ready for two values: remote or local
 website:
 	@echo "\nGenerating Hugo website as " $(word 2, $(MAKECMDGOALS))
 	@echo "Operating system is" $(OSFLAG)
