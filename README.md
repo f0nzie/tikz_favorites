@@ -96,9 +96,9 @@ Some useful tutorials:
 
 ## Useful statistics
 
-* There are 230 total Tikz figures saved as `.tex` files in this gallery. 
+* There are 238 total Tikz figures saved as `.tex` files in this gallery. 
 The figures are sorted by filename.
-* There are 230 files under `src/` to be compiled with `pdflatex`
+* There are 238 files under `src/` to be compiled with `pdflatex`
 * There are 1 files under `src/` to be compiled with `lualatex`
 * There are 19 data files under the folder `src/data` that are being used by the TikZ scripts
 * There are 2 Latex classes, styles and library files under the `src/texmf` folder
@@ -1204,7 +1204,7 @@ Create the gif with:
 ```tex
 % Artificial Intelligence Agent Contributors
 % Drawn by Alfonso R. Reyes
-% November 2020
+% November 27, 2020. Published in LinkedIn
 % Personal interpretation of "Artificial Intelligence: A Modern Approach" by Peter Norvig and Stuart Russell
 % Original diagram: https://github.com/FriendlyUser/LatexDiagrams
 \documentclass[border=5pt]{standalone}
@@ -8642,6 +8642,229 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 ```
 ****
 
+![](./out/ml_evolutionary+scope.png)
+
+  
+  * [ml_evolutionary+scope.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/ml_evolutionary+scope.tex)
+
+```tex
+% https://gist.github.com/MatteoRagni/3920cd55d4ef29e4aff19a8ece3f225a
+\documentclass[]{standalone}
+
+\usepackage{tikz}
+
+\begin{document}
+  
+  
+  \tikzstyle{scale all}=[every node/.style={scale=#1}, scale=#1]
+  \tikzset{
+    solution/.pic = {
+      \begin{scope}
+        \draw (0, 0) rectangle ++(1, 1);
+        \draw (0, 1) rectangle ++(1, 1);
+        \draw (0, 2) rectangle ++(1, 1);
+        \draw (0, 3) rectangle ++(1, 1);
+        \node[anchor=center] at (0.5, 0.5) {$m_{123}$};
+        \node[anchor=center] at (0.5, 1.5) {$\ldots$};
+        \node[anchor=center] at (0.5, 2.5) {$\ldots$};
+        \node[anchor=center] at (0.5, 3.5) {$m_1$};
+      \end{scope};
+    },
+    population with number/.pic = {
+      \begin{scope}
+        \draw (0, 0) pic {solution} node at (0.5,-0.75) {1};
+        \draw (1.5, 0) pic {solution} node at (2,-0.75) {2};
+        \draw (4.5, 0) pic {solution} node at (5,-0.75) {123};
+        \draw (3, 2) circle (0.1);
+        \draw (3.5, 2) circle (0.1);
+        \draw (4, 2) circle (0.1);
+        \draw (0.3, 4.3) -- (-0.3, 4.3) -- (-0.3, -0.3) -- (0.3, -0.3);
+        \draw (5.2, 4.3) -- (5.8, 4.3) -- (5.8, -0.3) -- (5.2, -0.3);
+      \end{scope}
+    },
+    population/.pic = {
+      \begin{scope}
+        \draw (0, 0) pic {solution};
+        \draw (1.5, 0) pic {solution};
+        \draw (4.5, 0) pic {solution};
+        \draw (3, 2) circle (0.1);
+        \draw (3.5, 2) circle (0.1);
+        \draw (4, 2) circle (0.1);
+        \draw (0.3, 4.3) -- (-0.3, 4.3) -- (-0.3, -0.3) -- (0.3, -0.3); % left square bracket
+        \draw (5.2, 4.3) -- (5.8, 4.3) -- (5.8, -0.3) -- (5.2, -0.3); % right square bracket
+      \end{scope}
+    },
+    population expanded/.pic = {
+      \begin{scope}
+        \draw (0, 0) pic {solution};
+        \draw (1.5, 0) pic {solution};
+        \draw[#1] (4.5, 0) pic {solution};
+        \draw (7.5, 0) pic {solution};
+        
+        \draw (3, 2) circle (0.1);
+        \draw (3.5, 2) circle (0.1);
+        \draw (4, 2) circle (0.1);
+        
+        \draw (6, 2) circle (0.1);
+        \draw (6.5, 2) circle (0.1);
+        \draw (7, 2) circle (0.1);
+        
+        \draw (0.3, 4.3) -- (-0.3, 4.3) -- (-0.3, -0.3) -- (0.3, -0.3);
+        \draw (8.2, 4.3) -- (8.8, 4.3) -- (8.8, -0.3) -- (8.2, -0.3);
+      \end{scope}
+    },
+    population sorted/.pic = {
+      \begin{scope}
+        \draw (0, 0) pic {solution} node at (0.5,-0.75) {1};
+        \draw (1.5, 0) pic {solution} node at (2,-0.75) {2};
+        \draw (4.5, 0) pic {solution} node at (5,-0.75) {123};
+        \draw[red] (6, 0) pic {solution} node at (6.5,-0.75) {124};
+        \draw[red] (9, 0) pic {solution} node at (9.5,-0.75) {123+n};
+        
+        \draw (3, 2) circle (0.1);
+        \draw (3.5, 2) circle (0.1);
+        \draw (4, 2) circle (0.1);
+        
+        \draw[red] (7.5, 2) circle (0.1);
+        \draw[red] (8, 2) circle (0.1);
+        \draw[red] (8.5, 2) circle (0.1);
+        
+        \draw (0.3, 4.3) -- (-0.3, 4.3) -- (-0.3, -0.3) -- (0.3, -0.3);
+        \draw (10.2, 4.3) -- (10.8, 4.3) -- (10.8, -0.3) -- (10.2, -0.3);
+      \end{scope}
+    },
+    initial population/.pic = {
+      % Initial population drawing
+      \draw (0, -0.3) node {$\mathbf{P} = $};
+      \draw (0.75, -1) pic [scale all=0.35] {population with number};
+    },
+    augmenting population ten percent/.pic = {
+      % Increasing population by ten percent
+      \draw[<-] (2, 1.5) -- ++(0, 1) node [pos=0.5, anchor=west, blue] {$\mathbf{P} + 10\% $};
+      \draw (0, 0.425) node {$\mathbf{P} = $};
+      \draw (0.75, -0.3) pic [scale all=0.35] {population expanded={blue}};
+    },
+    pics/gene mutation/.style args ={#1,#2}{
+      code={
+        % Mutate a gene with a mutation Mx
+        \begin{scope}
+          \draw (0, 0) rectangle ++(1, 1);
+          \draw (0, 1) rectangle ++(1, 1);
+          \draw[fill={#1}] (0, 2) rectangle ++(1, 1);
+          \draw (0, 3) rectangle ++(1, 1);
+          \draw (0, 4) rectangle ++(1, 1);
+          \node[anchor=center] at (0.5, 0.5) {$m_{123}$};
+          \node[anchor=center] at (0.5, 1.5) {$\ldots$};
+          \node[anchor=center] at (0.5, 2.5) {{#2}};
+          \node[anchor=center] at (0.5, 3.5) {$\ldots$};
+          \node[anchor=center] at (0.5, 4.5) {$m_1$};
+        \end{scope};
+      }
+    },
+    mutate a gene/.pic = {
+      \draw[->] (-1, 3.725) -- ++(0, -1.25) -- ++(0.75, 0) node [pos=0.25, scale=0.75, anchor=north, yshift=-2] {cloning};
+      \draw (0, 1.575) pic [scale all=0.35] {gene mutation={yellow,$m_k$}};
+      \draw[->] (0.75, 2.5) -- ++(1, 0) node [yshift=-2, scale=0.75, pos=0.5, anchor=north] {$\textbf{Mx}(m_k)$};
+      \draw[fill=green] (2, 2.325) rectangle ++(0.35, 0.35);
+      \node[anchor=center, scale=0.35] at (2.175, 2.495) {$m_{k}'$};
+      \draw[->] (2.75, 2.5) -- ++(1, 0) node[pos=0.5, yshift=-2, scale=0.75, anchor=north] {mutation};
+      \draw (4, 1.575) pic [scale all=0.35] {gene mutation={green, $m_k'$}};
+      \draw[->] (4.175, 3.5) -- ++(0, 1.2) -- ++(-3.5, 0) node[pos=0.5, scale=0.75, anchor=north] {insertion};
+    },
+    pics/cluster population/.style args = {#1}{
+      code = {
+        \draw (0, 0) pic [scale all=0.35] {population};
+        \draw (0.85, 2) node {{#1}};
+      }
+    },
+    clusters populations/.pic = {
+      \draw (0, 0) pic {cluster population={$\mathbf{P}_{G(s) = 0}$}};
+      \draw[dashed] (2.225, -0.5) -- ++(0, 2.5) node [pos=0, anchor=north] {$ < 123$};
+      \draw (2.5, 0) pic {cluster population={$\mathbf{P}_{G(s) = 1}$}};
+      \draw[dashed] (4.725, -0.5) -- ++(0, 2.5) node [pos=0, anchor=north] {$ < 123$};
+      \draw (5, 0) pic {cluster population={$\mathbf{P}_{G(s) = 2}$}};
+      \draw (7.225, -0.5) -- ++(0, 2.5) node [pos=0, anchor=north] {$\geq 123$};
+      \draw (7.5, 0) pic[red] {cluster population={$\mathbf{P}_{G(s) = 3}$}};
+      \draw[red] (9.725, -0.5) -- ++(0, 2.5) node [pos=0, anchor=north] {$> 123$};
+      
+      \draw (-0.25, -1) -- (-0.25, -1.3) -- (7.225, -1.3) -- (7.225, -1);
+    },
+    sorting cost/.pic = {
+      \draw (0, 0) pic[scale all=0.35] {population sorted};
+      \draw (0, -0.5) node [anchor=center, scale=0.75] {$\min\,C(s)$};
+      \draw (3.8, -0.5) node [anchor=center, scale=0.75] {$\max\,C(s)$};
+    }
+  }
+  
+  
+  \begin{tikzpicture}
+    \draw (0, 0) pic {initial population};
+    \draw (0, -4) pic {augmenting population ten percent};    
+    \draw (3.5, -8.25) pic {mutate a gene};
+    \draw[<-] (2, -8) -- ++(0, 1) node [pos=0.5, anchor=west, blue] {$\mathbf{P} + 50\% $};
+    \draw (0, -10.5) pic {clusters populations};
+    \draw[<-] (2, -12.80) -- ++(0, 1) node [pos=0.5, anchor=west, blue] {Gap-based selection};
+    \draw (0, -14.5) pic {sorting cost};
+    \draw[->] (2, -15.3) -- ++(0, -1) node [pos=0.5, anchor=west, blue] {Cost-based selection}
+      -- ++(-3, 0) -- (-1, -0.25) -- ++(0.5, 0);
+    %\draw (0, -17) pic {initial population};
+    
+    % Indication lateral
+    \draw (10, 1) -- ++(0.5, 0) -- node [rotate=90, pos=0.5, anchor=north] {(1) Random augmentation} ++(0, -3.5) -- ++(-0.5, 0);
+    \draw (10, -2.7) -- ++(0.5, 0) -- node [rotate=90, pos=0.5, anchor=north] {(2) Cloning and Mutate} ++(0, -5.25) -- ++(-0.5, 0);
+    \draw (10, -8.1) -- ++(0.5, 0) -- node [rotate=90, pos=0.5, anchor=north] {(3) Gap Sorting/Selection} ++(0, -4.5) -- ++(-0.5, 0);
+    \draw (10, -12.8) -- ++(0.5, 0) -- node [rotate=90, pos=0.5, anchor=north] {(4) Cost Sorting/Selection} ++(0, -3.5) -- ++(-0.5, 0);
+  \end{tikzpicture}
+  
+\end{document}
+```
+****
+
+![](./out/ml_feature_selection.png)
+
+  
+  * [ml_feature_selection.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/ml_feature_selection.tex)
+
+```tex
+\documentclass[margin=3pt]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shadows,positioning}
+
+\tikzset{
+  frame/.style={
+    rectangle, draw, 
+    text width=6em, text centered,
+    minimum height=4em,drop shadow,fill=yellow!40,
+    rounded corners,
+  },
+  line/.style={
+    draw, -latex',rounded corners=3mm,
+  }
+}
+
+\begin{document}
+\begin{tikzpicture}[font=\small\sffamily\bfseries,very thick,node distance = 4cm]
+\node [frame] (pop) {Population};
+\node [above=2cm, text width=2cm, align=center, left of=pop] (init) {Random \\ Initialisation};
+\node [below=2cm, text width = 2cm, align = center, left of=pop] (term) {Termination};
+\node [frame, above=2cm, right of=pop] (parents)  {Parents};
+\node [frame, below=2cm, right of=pop] (off)  {Offspring};
+
+% termination condition label
+\node [draw=none, text width=3cm, above right = -0.1cm and -1cm of term ] () {(unique features \\ less than $\frac{1}{3}$ of \\ maximum features)};
+\path [line] (parents)
+ -- node[right,align=left,pos=.5] {Crossover\\[3mm]Inversion\\[3mm]Mutation}
+ (off);
+\path [line] (init) |- (pop.170);
+\path [line] (pop.190) -| (term);
+\path [line] (off) -| node[below,pos=.25, align=center] {Survivor\\ selection}(pop);
+\path [line] (pop) |- node[above,pos=.75, align=center] {Parents\\ selection}(parents);
+\end{tikzpicture}
+\end{document}
+```
+****
+
 ![](./out/multiline-flowchart.png)
 
   
@@ -9069,6 +9292,628 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 	\Edges{data/edges.csv}
 \end{tikzpicture}
 \end{document} 
+```
+****
+
+![](./out/nn_2figs_1page+neuralnet.png)
+
+  
+  * [nn_2figs_1page+neuralnet.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/nn_2figs_1page+neuralnet.tex)
+
+```tex
+% https://github.com/dreading/tex-neural-network
+% https://medium.com/momenton/typesetting-neural-network-diagrams-with-tex-4920b6b9fc19
+
+\documentclass{article}
+
+% Preamble
+\usepackage{tikz}
+\usetikzlibrary{matrix,chains,positioning,decorations.pathreplacing,arrows}
+
+\begin{document}
+
+ % Listing 1: Tex for neural network layers
+\begin{figure}
+
+    \centering
+    
+    \begin{tikzpicture}[
+         % define styles 
+          clear/.style={
+          draw=none,
+          fill=none,
+          },
+        net/.style={
+          matrix of nodes,
+          nodes={
+               draw,
+               circle,
+               inner sep=10pt
+          },
+          nodes in empty cells,
+          column sep=2cm,
+          row sep=-19pt
+          } 
+    ]
+        % define matrix mat to hold nodes
+        % using net as default style for cells
+        \matrix[net] (mat)
+        {
+            % Define layer headings
+            |[clear]| \parbox{1.3cm}{\centering Input\\layer} 
+              & |[clear]| \parbox{1.3cm}{\centering Hidden\\layer} 
+              & |[clear]| \parbox{1.3cm}{\centering Output\\layer} \\
+         
+            $\alpha_{0}^{0}$  & |[clear]|        & |[clear]| \\
+            |[clear]|         & $\alpha_{0}^{1}$ & |[clear]| \\
+            $\alpha_{1}^{0}$  & |[clear]|        & |[clear]| \\
+            |[clear]|         & |[clear]|        & |[clear]| \phantom{$\alpha_{0}^{0}$} \\
+            $\alpha_{2}^{0}$  & $\alpha_{1}^{1}$ & $\alpha_{0}^{2}$ \\
+            |[clear]|         & |[clear]|        & |[clear]|  \phantom{$\alpha_{0}^{0}$} \\
+            $\alpha_{3}^{0}$  & |[clear]|        & |[clear]| \\
+            |[clear]|         & $\alpha_{2}^{1}$ & |[clear]| \\
+            $\alpha_{4}^{0}$  & |[clear]|        & |[clear]| \\ 
+        };
+        
+        
+        % left most lines into input layers
+        \foreach \ai in {2,4,...,10}
+            \draw[<-] (mat-\ai-1) -- +(-2cm,0);
+        
+        % lines from a_{i}^{0} to each a_{j}^{1}
+        \foreach \ai in {2,4,...,10} {
+            \foreach \aii in {3,6,9}
+                \draw[->] (mat-\ai-1) -- (mat-\aii-2);
+                }
+        
+        % lines from a_{i}^{1} to a_{0}^{2}
+        \foreach \ai in {3,6,9}
+          \draw[->] (mat-\ai-2) -- (mat-6-3);
+            
+        % right most line with Output label
+        \draw[->] (mat-6-3) -- node[above] {Output} +(3cm,0);
+        
+    \end{tikzpicture}
+    
+    \caption{Neural network layers}
+    
+\end{figure}
+
+
+% Listing 2: Tex for neural network pipeline
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[
+        % define styles    
+        init/.style={ 
+             draw, 
+             circle, 
+             inner sep=2pt,
+             font=\Huge,
+             join = by -latex
+        },
+        squa/.style={ 
+            font=\Large,
+            join = by -latex
+        }
+    ]
+        
+        % Top chain x1 to w1
+        \begin{scope}[start chain=1]
+            \node[on chain=1] at (0,1.5cm)  (x1) {$x_1$};
+            \node[on chain=1,join=by o-latex] (w1) {$w_1$};
+        \end{scope}
+        
+        % Middle chain x2 to output
+        \begin{scope}[start chain=2]
+            \node[on chain=2] (x2) {$x_2$};
+            \node[on chain=2,join=by o-latex] {$w_2$};
+            \node[on chain=2,init] (sigma) {$\displaystyle\Sigma$};
+            \node[on chain=2,squa,label=above:{\parbox{2cm}{\centering Activation\\ function}}]   {$f_{act}$};
+            \node[on chain=2,squa,label=above:Output,join=by -latex] {$y_{out}$};
+        \end{scope}
+        
+        % Bottom chain x3 to w3
+        \begin{scope}[start chain=3]
+            \node[on chain=3] at (0,-1.5cm) 
+            (x3) {$x_3$};
+            \node[on chain=3,label=below:Weights,join=by o-latex]
+            (w3) {$w_3$};
+        \end{scope}
+        
+        % Bias
+        \node[label=above:\parbox{2cm}{\centering Bias \\ $b$}] at (sigma|-w1) (b) {};
+        
+        % Arrows joining w1, w3 and b to sigma
+        \draw[-latex] (w1) -- (sigma);
+        \draw[-latex] (w3) -- (sigma);
+        \draw[o-latex] (b) -- (sigma);
+        
+        % left hand side brace
+        \draw[decorate,decoration={brace,mirror}] (x1.north west) -- node[left=10pt] {Inputs} (x3.south west);
+        
+    \end{tikzpicture}
+    
+    \caption{Neural network pipeline}
+    
+\end{figure}
+
+
+\end{document}
+```
+****
+
+![](./out/nn_3in_3_h_3_out+neuralnet.png)
+
+  
+  * [nn_3in_3_h_3_out+neuralnet.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/nn_3in_3_h_3_out+neuralnet.tex)
+
+```tex
+% https://newbiettn.github.io/2016/12/16/tikz/
+% Unit circle
+% Author: The Author
+% What this does
+\documentclass[landscape]{article}
+\usepackage{tikz}
+
+% DON'T FORGET TO ADD THOSE IN THE HEADER OF LATEX FILES
+%\usepackage{tikz}
+\usetikzlibrary{arrows,backgrounds}
+\usepgflibrary{shapes.multipart}
+
+%%%<
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+%%%>
+
+\begin{comment}
+	:Title: the title
+	
+	Describe the application
+\end{comment}
+
+\usepackage[top=1in,bottom=1in,right=1in,left=1in]{geometry}
+
+\begin{document}
+
+
+\begin{tikzpicture}
+\tikzstyle{place}=[circle, draw=black, minimum size = 8mm]
+
+% Input
+\draw node at (0, -1.25) [place] (first_1) {$x^{(1)}_0$};
+\draw node at (0, -2*1.25) [place] (first_2) {$x^{(1)}_1$};
+\draw node at (0, -3*1.25) [place] (first_3) {$x^{(1)}_2$};	
+
+% Hidden 1
+\foreach \x in {1,...,3}
+\node at (4, -\x*1.25) [place] (second_\x){$a^{(2)}_\x$};
+
+% Output
+\foreach \x in {2,...,2}
+\node at (8, -\x*1.25) [place] (fourth_\x){$a^{(3)}_\x$};
+
+\foreach \x in {2,...,2}
+\node at (10, -\x*1.25) [circle, ] (output_\x){$y_\x$};
+
+% Input -> Hidden
+\foreach \i in {1,...,3}
+\foreach \j in {1,...,3}
+\draw [->] (first_\i) to (second_\j);
+
+% Hidden -> Output
+\foreach \i in {1,...,3}
+\foreach \j in {2,...,2}
+\draw [->] (second_\i) to (fourth_\j);
+
+\foreach \i in {2,...,2}
+\draw [->] (fourth_\i) to (output_\i);
+
+
+%Parameters theta
+\node at (2, 0) [black, ] {$\Theta^{(1)}$};
+\node at (6, 0) [black, ] {$\Theta^{(2)}$};
+\node at (4, 0) [black, ] {$a^{(2)}$};
+\node at (8, 0) [black, ] {$a^{(3)}$};
+
+\end{tikzpicture}
+\end{document}
+```
+****
+
+![](./out/nn_back_propagation+neuralnet.png)
+
+  
+  * [nn_back_propagation+neuralnet.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/nn_back_propagation+neuralnet.tex)
+
+```tex
+% https://davidstutz.de/illustrating-convolutional-neural-networks-in-latex-with-tikz/
+
+    \documentclass[twoside,11pt,a4paper]{article}
+     
+    \usepackage[utf8]{inputenc}
+    \usepackage{amsmath, amssymb, latexsym}
+    \usepackage{sidecap}
+     
+    \usepackage{tikz}
+    \usetikzlibrary{decorations.pathreplacing}
+     
+    \begin{document}
+     
+    \begin{SCfigure}[2\sidecaptionrelwidth][t!]
+    	\centering
+    	\begin{tikzpicture}[shorten >=1pt]
+          		\tikzstyle{unit}=[draw,shape=circle,minimum size =1.4cm]
+     
+           	\node[unit](i) at (0,1){$y_i^{(l)}$};
+            	\node[unit](k1) at (3,2){$y_1^{(l+1)}$};
+    		\node at (3, 1){$\vdots$};
+    		\node[unit](km) at (3,-0.25){$y_{m^{(l+1)}}^{(l+1)}$};
+    		
+    		\node at (1.25,2.25){$\delta_1^{(l+1)}$};
+    		\node at (1.25,-0.5){$\delta_{m^{(l+1)}}^{(l+1)}$};
+     
+            	\draw[->] (i) -- (k1);
+    		\draw[->] (i) -- (km);
+    		
+    		\draw[->,red,line width=0.05cm] (2,-0.25) -- (0.75,0.3);
+    		\draw[->,red,line width=0.05cm] (2,2) -- (0.75,1.6);
+        	\end{tikzpicture}
+    	\caption[Backpropagation of errors through the network.]{Once evaluated for all output units, the errors $\delta_i^{(L+1)}$ can be propagated backwards.}.
+    	\label{fig:error-backpropagation}
+    \end{SCfigure}
+     
+    \end{document}
+```
+****
+
+![](./out/nn_encoder_2pages_3figs_+neuralnet.png)
+
+  
+  * [nn_encoder_2pages_3figs_+neuralnet.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/nn_encoder_2pages_3figs_+neuralnet.tex)
+
+```tex
+% https://davidstutz.de/illustrating-convolutional-neural-networks-in-latex-with-tikz/
+
+\documentclass[twoside,11pt,a4paper]{article}
+ 
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, latexsym}
+ 
+\usepackage{tikz}
+ 
+\usepackage{xcolor}
+\definecolor{fc}{HTML}{1E90FF}
+\definecolor{h}{HTML}{228B22}
+\definecolor{bias}{HTML}{87CEFA}
+\definecolor{noise}{HTML}{8B008B}
+\definecolor{conv}{HTML}{FFA500}
+\definecolor{pool}{HTML}{B22222}
+\definecolor{up}{HTML}{B22222}
+\definecolor{view}{HTML}{FFFFFF}
+\definecolor{bn}{HTML}{FFD700}
+\tikzset{fc/.style={black,draw=black,fill=fc,rectangle,minimum height=1cm}}
+\tikzset{h/.style={black,draw=black,fill=h,rectangle,minimum height=1cm}}
+\tikzset{bias/.style={black,draw=black,fill=bias,rectangle,minimum height=1cm}}
+\tikzset{noise/.style={black,draw=black,fill=noise,rectangle,minimum height=1cm}}
+\tikzset{conv/.style={black,draw=black,fill=conv,rectangle,minimum height=1cm}}
+\tikzset{pool/.style={black,draw=black,fill=pool,rectangle,minimum height=1cm}}
+\tikzset{up/.style={black,draw=black,fill=up,rectangle,minimum height=1cm}}
+\tikzset{view/.style={black,draw=black,fill=view,rectangle,minimum height=1cm}}
+\tikzset{bn/.style={black,draw=black,fill=bn,rectangle,minimum height=1cm}}
+ 
+\begin{document}
+ 
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}
+    \node (x) at (0.5,0) {$x$};
+    \node[fc] (fc1) at (2,0) {\small$\text{fc}_{C_0, C_1}$};
+    \node[bias] (b1) at (3.5,0) {\small$\text{bias}$};
+    \node[h] (h1) at (4.5,0) {\small$h$};
+    \node[fc] (fc2) at (5.75,0) {\small$\text{fc}_{C_1, C_2}$};
+    \node[bias] (b2) at (7.25,0) {\small$\text{bias}$};
+    \node[h] (h2) at (8.25,0) {\small$h$};
+    \node[fc] (fc3) at (9.5,0) {\small$\text{fc}_{C_2, C_3}$};
+    \node[bias] (b3) at (11,0) {\small$\text{bias}$};
+    \node[h] (h3) at (12,0) {\small$h$};
+    \node (y) at (13.5,0) {\small$y$};
+    \draw[->] (x) -- (fc1);
+    \draw[->] (fc1) -- (b1);
+    \draw[->] (b1) -- (h1);
+    \draw[->] (h1) -- (fc2);
+    \draw[->] (fc2) -- (b2);
+    \draw[->] (b2) -- (h2);
+    \draw[->] (h2) -- (fc3);
+    \draw[->] (fc3) -- (b3);
+    \draw[->] (b3) -- (h3);
+    \draw[->] (h3) -- (y);
+  \end{tikzpicture}
+%  \vskip 6px
+  % TODO short caption
+  % TODO parameters
+  \caption[]{Illustration of a multi-layer perceptron with $L = 3$ fully-connected 
+  layers followed by bias layers and non-linearities. The sizes $C_1$ and $C_2$ are
+  hyper-parameters while $C_0$ and $C_3$ are determined by the problem at hand.
+Overall, the multi-layer perceptron represents a function $y(x;w)$ parameterized by
+the weights $w$ in the fully-connected and bias layers.}
+  \label{fig:deep-learning-mlp}
+\end{figure}
+ 
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \node (x) at (1.25,0) {\small$x$};
+  
+    \node[fc,rotate=90,minimum width=2cm] (fc1) at (2.5,0) {\small$\text{fc}_{R, C_1}$};
+    \node[bias,rotate=90,minimum width=2cm] (b1) at (3.75,0) {\small$\text{bias}$};
+    \node[h,rotate=90,minimum width=2cm] (h1) at (5,0) {\small$h$};
+    \node[fc,rotate=90,minimum width=2cm] (fc2) at (6.25,0) {\small$\text{fc}_{C_1, C_2}$};
+    \node[bias,rotate=90,minimum width=2cm] (b2) at (7.5,0) {\small$\text{bias}$};
+    \node[h,rotate=90,minimum width=2cm] (h2) at (8.75,0) {\small$h$};
+    \node[fc,rotate=90,minimum width=2cm] (fc3) at (10,0) {\small$\text{fc}_{C_2, Q}$};
+    \node[bias,rotate=90,minimum width=2cm] (b3) at (11.25,0) {\small$\text{bias}$};
+    \node[h,rotate=90,minimum width=2cm] (h3) at (12.5,0) {\small$h$};
+  
+    \node (z) at (13.75,-2.5) {\small$z$};
+  
+    \node[h,rotate=90,minimum width=2cm] (h6) at (2.5,-2.5) {\small$h$};
+    \node[bias,rotate=90,minimum width=2cm] (b6) at (3.75,-2.5) {\small$\text{bias}$};
+    \node[fc,rotate=90,minimum width=2cm] (fc6) at (5,-2.5) {\small$\text{fc}_{C_1, R}$};
+    \node[h,rotate=90,minimum width=2cm] (h5) at (6.25,-2.5) {\small$h$};
+    \node[bias,rotate=90,minimum width=2cm] (b5) at (7.5,-2.5) {\small$\text{bias}$};
+    \node[fc,rotate=90,minimum width=2cm] (fc5) at (8.75,-2.5) {\small$\text{fc}_{C_2, C_1}$};
+    \node[h,rotate=90,minimum width=2cm] (h4) at (10,-2.5) {\small$h$};
+    \node[bias,rotate=90,minimum width=2cm] (b4) at (11.25,-2.5) {\small$\text{bias}$};
+    \node[fc,rotate=90,minimum width=2cm] (fc4) at (12.5,-2.5) {\small$\text{fc}_{Q, C_2}$};
+  
+    \node (rx) at (1.25,-2.5) {\small$\tilde{x}$};
+  
+    \draw[->] (x) -- (fc1);
+    \draw[->] (fc1) -- (b1);
+    \draw[->] (b1) -- (h1);
+    \draw[->] (h1) -- (fc2);
+    \draw[->] (fc2) -- (b2);
+    \draw[->] (b2) -- (h2);
+    \draw[->] (h2) -- (fc3);
+    \draw[->] (fc3) -- (b3);
+    \draw[->] (b3) -- (h3);
+    \draw[-] (h3) -- (13.75,0);
+    \draw[->] (13.75,0) -- (z);
+    \draw[->] (z) -- (fc4);
+    \draw[->] (fc4) -- (b4);
+    \draw[->] (b4) -- (h4);
+    \draw[->] (h4) -- (fc5);
+    \draw[->] (fc5) -- (b5);
+    \draw[->] (b5) -- (h5);
+    \draw[->] (h5) -- (fc6);
+    \draw[->] (fc6) -- (b6);
+    \draw[->] (b6) -- (h6);
+    \draw[->] (h6) -- (rx);
+ 
+    \node[rotate=90] (L) at (1.25, -1.25) {\small$\mathcal{L}(\tilde{x}, x)$};
+    \draw[-,dashed] (x) -- (L);
+    \draw[-,dashed] (rx) -- (L);
+  \end{tikzpicture}
+%  \vskip 6px
+  \caption{A simple variant of a multi-layer perceptron based auto-encoder.
+  Both encoder (top) and decoder (bottom) consist of 3-layer perceptrons
+  taking an $R$-dimensional
+  input $x$. The parameters $C_1, C_2,$ and $Q$ can be chosen; $Q$ also
+  determines the size of the latent code $z$ and is usually chosen significantly
+  lower than $R$ such that the auto-encoder learns a dimensionality reduction.
+  The non-linearity $h$ is also not fixed and might be determined experimentally.
+  The reconstruction loss $\mathcal{L}(\tilde{x}, x)$ quantifies the quality of
+  the reconstruction $\tilde{x}$ and is minimized during training.}
+  \label{subfig:deep-learning-auto-encoder}
+\end{figure}
+ 
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \node (x) at (1.25,0) {\small$x$};
+    
+    %\node[noise,rotate=90,minimum width=3.3cm] (noise1) at(1.25,0) {\small$\text{noise}_{\sigma^2}$};
+    \node[conv,rotate=90,minimum width=3.3cm] (conv1) at (2.5,0) {\small$\text{conv}_{1, C_1, K}$\,+\,$\text{bias}$};
+    %\node[bias,rotate=90,minimum width=3cm] (bias1) at (3.75,0) {$\text{bias}$};
+    \node[h,rotate=90,minimum width=3.3cm] (h1) at (3.75,0) {\small$h$};
+    \node[pool,rotate=90,minimum width=3.3cm] (pool1) at (5,0) {\small$\text{pool}_{2}$};
+    
+    \node[conv,rotate=90,minimum width=3.3cm] (conv2) at (6.25,0) {\small$\text{conv}_{C_1, C_2, K}$\,+\,$\text{bias}$};
+    %\node[bias,rotate=90,minimum width=3cm] (bias2) at (8.75,0) {$\text{bias}$};
+    \node[h,rotate=90,minimum width=3.3cm] (h2) at (7.5,0) {\small$h$};
+    \node[pool,rotate=90,minimum width=3.3cm] (pool2) at (8.75,0) {\small$\text{pool}_{2}$};
+    \node[view,rotate=90,minimum width=3.3cm] (view2) at (10,0) {\small$\text{view}_{B, C_3}$};
+    \node[fc,rotate=90,minimum width=3.3cm] (fc2) at (11.25,0) {\small$\text{fc}_{C_3,Q}$};
+    
+    \node (z) at (12.5,-3.75) {\small$z$};
+    
+    \node[h,rotate=90,minimum width=3.3cm] (h4) at (6.25,-3.75) {\small$h$};
+    %\node[bias,rotate=90,minimum width=3cm] (bias4) at (8.75,-3.75) {$\text{bias}$};
+    \node[conv,rotate=90,minimum width=3.3cm] (conv4) at (7.5,-3.75) {\small$\text{conv}_{C_2, C_1, K}$\,+\,$\text{bias}$};
+    \node[up,rotate=90,minimum width=3.3cm] (up4) at (8.75,-3.75) {\small$\text{nnup}_{2}$};
+    \node[view,rotate=90,minimum width=3.3cm] (view4) at (10,-3.75) {\small$\text{view}_{B, C_2, \frac{H}{4}, \frac{W}{4}, \frac{D}{4}}$};
+    \node[fc,rotate=90,minimum width=3.3cm] (fc4) at (11.25,-3.75) {\small$\text{fc}_{Q,C_3}$};
+    
+    \node[h,rotate=90,minimum width=3.3cm] (h5) at (2.5,-3.75) {\small$h$};
+    %\node[bias,rotate=90,minimum width=3cm] (bias5) at (3.75,-4) {$\text{bias}$};
+    \node[conv,rotate=90,minimum width=3.3cm] (conv5) at (3.75,-3.75) {\small$\text{conv}_{C_2, 1, K}$\,+\,$\text{bias}$};
+    \node[up,rotate=90,minimum width=3.3cm] (up5) at (5,-3.75) {\small$\text{nnup}_{2}$};
+    
+    \node (rx) at (1.25,-3.75) {\small$\tilde{x}$};
+    
+    %\draw[->] (x) -- (noise1);
+    \draw[->] (x) -- (conv1);
+    \draw[->] (conv1) -- (h1);
+    %\draw[->] (bias1) -- (h1);
+    \draw[->] (h1) -- (pool1);
+    
+    \draw[->] (pool1) -- (conv2);
+    \draw[->] (conv2) -- (h2);
+    %\draw[->] (bias2) -- (h2);
+    \draw[->] (h2) -- (pool2);
+    \draw[->] (pool2) -- (view2);
+    \draw[->] (view2) -- (fc2);
+    
+    \draw[-] (fc2) -- (12.5,0);
+    \draw[->] (12.5,0) -- (z);
+    \draw[->] (z) -- (fc4);
+    
+    \draw[->] (fc4) -- (view4);
+    \draw[->] (view4) -- (up4);
+    \draw[->] (up4) -- (conv4);
+    %\draw[->] (conv4) -- (bias4);
+    \draw[->] (conv4) -- (h4);
+    
+    \draw[->] (h4) -- (up5);
+    \draw[->] (up5) -- (conv5);
+    \draw[->] (conv5) -- (h5);
+    %\draw[->] (bias5) -- (h5);
+    \draw[->] (h5) -- (rx);
+ 
+    \node[rotate=90] (L) at (1.25, -1.875) {\small$\mathcal{L}(\tilde{x}, x)$};
+    \draw[-,dashed] (x) -- (L);
+    \draw[-,dashed] (rx) -- (L);
+  \end{tikzpicture}
+%  \vskip 6px
+  % TODO short caption
+  \caption{Illustration of a convolutional auto-encoder consisting of encoder (top)
+  and decoder (bottom). Both are modeled using two stages of convolutional
+  layers each followed by a bias layer and a non-linearity layer. The encoder uses
+  max pooling to decrease the spatial size of the input; the decoder uses upsampling
+  to increase it again. The number of channels $C_1$, $C_2$ and $C_3$ as well as
+  the size $Q$ are hyper parameters. We assume the input to comprise one channel.
+  Again, the reconstruction loss $\mathcal{L}(\tilde{x}, x)$ quantifies the quality of
+  the reconstruction and is minimized during training.}
+  \label{fig:deep-learning-convolutional-auto-encoder}
+\end{figure}
+ 
+\end{document}
+```
+****
+
+![](./out/nn_neuron+neuralnet.png)
+
+  
+  * [nn_neuron+neuralnet.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/nn_neuron+neuralnet.tex)
+
+```tex
+% https://github.com/FriendlyUser/LatexDiagrams
+\documentclass[tikz]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes,snakes}
+\usetikzlibrary{calc, shapes.geometric,shapes.symbols,fit,positioning,shadows}
+\begin{document}
+\begin{tikzpicture}
+\node [circle split,draw,rotate=90, align=center,label={[anchor=north, inner sep=0pt, yshift=1.2em] east:{\selectfont Neural Body}}] (part){\rotatebox{-90}{ \parbox{1.5cm}{Network input to neuron z} } \nodepart{lower} \rotatebox{-90}{\parbox{1.5cm}{Neuron Output o}} };
+\draw[->,rounded corners=5pt] (part.south) -- ($(part.south)+(1.5,0)$);
+\node[right = 3 em of part.south, label=Neuron Output] () {};
+
+\node[above left = 0em and 10em of part.east] (t1) {$I_1-$Input 1};
+\node[left = 4em of part.north] (t2) {$I_2-$Input 2};
+\node[below left = 4em and 4em of part.north] (t3) {$I_3-$Input 3};
+
+\draw[->] (t1) -- (part) node[midway,sloped,above] {$W_1$};
+\draw[->] (t2) -- (part) node[midway,sloped,above] {$W_2$};
+\draw[->] (t3) -- (part) node[midway,sloped,above] {$W_3$};
+\end{tikzpicture}
+\end{document}
+```
+****
+
+![](./out/nn_signal_flow+neuralnet.png)
+
+  
+  * [nn_signal_flow+neuralnet.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/nn_signal_flow+neuralnet.tex)
+
+```tex
+% https://newbiettn.github.io/2016/12/16/tikz/
+% Unit circle
+% Author: The Author
+% What this does
+\documentclass[landscape]{article}
+\usepackage{tikz}
+
+% DON'T FORGET TO ADD THOSE IN THE HEADER OF LATEX FILES
+%\usepackage{tikz}
+\usetikzlibrary{arrows,backgrounds}
+\usepgflibrary{shapes.multipart}
+
+%%%<
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+%%%>
+
+\begin{comment}
+	:Title: the title
+	
+	Describe the application
+\end{comment}
+
+\usepackage[top=1in,bottom=1in,right=1in,left=1in]{geometry}
+
+\begin{document}
+
+
+\begin{tikzpicture}
+\tikzstyle{rectangle_style}=[rectangle, draw]
+\tikzstyle{dividedrectangle_style}=[draw, rectangle split, rectangle split parts=2, rotate = 90, minimum height = 15mm, minimum width = 10mm]
+
+% neuron i
+\foreach \x in {0,...,2}
+\draw node at (0, -\x) [rectangle_style] (neuron_i_\x) {$y_\x$};
+\foreach \x in {1,...,3}
+\fill (0, -2.5 - \x*0.15) circle (1pt);
+\draw node at (0, -3.5) [rectangle_style] (neuron_i_3) {$y_i$};
+
+% w_ji
+\foreach \x in {0,...,2}
+\draw node at (1.5, -\x) [] (w_ji_\x) {$w_{j\x}$};
+\draw node at (1.5, -3.5) [] (w_ji_i) {$w_{ji}$};
+\foreach \x in {1,...,3}
+\fill (1.5, -2.5 - \x*0.15) circle (1pt);
+
+% neuron j
+\node at (6.5, -1.5) [dividedrectangle_style] (neuron_j){\rotatebox{-90}{$s_j = \sum {w_{ji}y_i}$} \nodepart{second} \rotatebox{-90}{$y_j = \varphi (s_j)$}};
+\foreach \x in {1,...,3}
+\fill (6.5, -2.25 - \x*0.15) circle (1pt);
+\foreach \x in {1,...,3}
+\fill (6.5,  - 0.15 - \x*0.15) circle (1pt);
+
+% output
+\node at (10, -1.5) [circle, draw, fill=black] (output) {$$};
+
+% desired output
+\node at (10, 0) [] (desired_output) {$d_j$};
+
+% error
+\node at (12, -1.5) [] (error) {$e_j = d_j - y_j$};
+
+% connect: y_i -> w_ji
+\foreach \i in {0,...,2}
+\path[-] (neuron_i_\i) edge node[] {} (w_ji_\i);
+\path[-] (neuron_i_3) edge node[] {} (w_ji_i);
+
+% connect: w_ji -> neuron j
+\foreach \i in {0,...,2}
+\path[->] (w_ji_\i) edge node[] {} (neuron_j);
+\path[->] (w_ji_i) edge node[] {} (neuron_j);
+
+% connect: neuron j -> output
+\path[->] (neuron_j) edge node[above, midway] {$$} (output);
+
+% connect: desired output -> output
+\path[->] (desired_output) edge node[] {} (output);
+
+% connect: output -> error
+\path[->] (output) edge node[] {} (error);
+
+\end{tikzpicture}
+\end{document}
 ```
 ****
 

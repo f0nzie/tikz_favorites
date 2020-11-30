@@ -1,0 +1,85 @@
+% https://newbiettn.github.io/2016/12/16/tikz/
+% Unit circle
+% Author: The Author
+% What this does
+\documentclass[landscape]{article}
+\usepackage{tikz}
+
+% DON'T FORGET TO ADD THOSE IN THE HEADER OF LATEX FILES
+%\usepackage{tikz}
+\usetikzlibrary{arrows,backgrounds}
+\usepgflibrary{shapes.multipart}
+
+%%%<
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+%%%>
+
+\begin{comment}
+	:Title: the title
+	
+	Describe the application
+\end{comment}
+
+\usepackage[top=1in,bottom=1in,right=1in,left=1in]{geometry}
+
+\begin{document}
+
+
+\begin{tikzpicture}
+\tikzstyle{rectangle_style}=[rectangle, draw]
+\tikzstyle{dividedrectangle_style}=[draw, rectangle split, rectangle split parts=2, rotate = 90, minimum height = 15mm, minimum width = 10mm]
+
+% neuron i
+\foreach \x in {0,...,2}
+\draw node at (0, -\x) [rectangle_style] (neuron_i_\x) {$y_\x$};
+\foreach \x in {1,...,3}
+\fill (0, -2.5 - \x*0.15) circle (1pt);
+\draw node at (0, -3.5) [rectangle_style] (neuron_i_3) {$y_i$};
+
+% w_ji
+\foreach \x in {0,...,2}
+\draw node at (1.5, -\x) [] (w_ji_\x) {$w_{j\x}$};
+\draw node at (1.5, -3.5) [] (w_ji_i) {$w_{ji}$};
+\foreach \x in {1,...,3}
+\fill (1.5, -2.5 - \x*0.15) circle (1pt);
+
+% neuron j
+\node at (6.5, -1.5) [dividedrectangle_style] (neuron_j){\rotatebox{-90}{$s_j = \sum {w_{ji}y_i}$} \nodepart{second} \rotatebox{-90}{$y_j = \varphi (s_j)$}};
+\foreach \x in {1,...,3}
+\fill (6.5, -2.25 - \x*0.15) circle (1pt);
+\foreach \x in {1,...,3}
+\fill (6.5,  - 0.15 - \x*0.15) circle (1pt);
+
+% output
+\node at (10, -1.5) [circle, draw, fill=black] (output) {$$};
+
+% desired output
+\node at (10, 0) [] (desired_output) {$d_j$};
+
+% error
+\node at (12, -1.5) [] (error) {$e_j = d_j - y_j$};
+
+% connect: y_i -> w_ji
+\foreach \i in {0,...,2}
+\path[-] (neuron_i_\i) edge node[] {} (w_ji_\i);
+\path[-] (neuron_i_3) edge node[] {} (w_ji_i);
+
+% connect: w_ji -> neuron j
+\foreach \i in {0,...,2}
+\path[->] (w_ji_\i) edge node[] {} (neuron_j);
+\path[->] (w_ji_i) edge node[] {} (neuron_j);
+
+% connect: neuron j -> output
+\path[->] (neuron_j) edge node[above, midway] {$$} (output);
+
+% connect: desired output -> output
+\path[->] (desired_output) edge node[] {} (output);
+
+% connect: output -> error
+\path[->] (output) edge node[] {} (error);
+
+\end{tikzpicture}
+\end{document}
