@@ -110,7 +110,7 @@ endif
 
 
 .PHONY: all
-all:  $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) $(README) local remote
+all: clean $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) $(README) remote local
 
 # rules for .tex files to be compiled with pdflatex
 out/%.pdf:: src/%.tex msg_pdf_files
@@ -163,7 +163,7 @@ remote: web_remote open_index
 
 
 web_local:
-	Rscript _build_site.R remote
+	Rscript _build_site.R local
 	@cd site && hugo
 	@tree -h -F docs/ -L 1
 

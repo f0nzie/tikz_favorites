@@ -1,10 +1,12 @@
 % Artificial Intelligence Agent Contributors
 % Drawn by Alfonso R. Reyes
-% November 27, 2020. Published in LinkedIn
+% November 27, 2020
 % Personal interpretation of "Artificial Intelligence: A Modern Approach" by Peter Norvig and Stuart Russell
 % Original diagram: https://github.com/FriendlyUser/LatexDiagrams
 \documentclass[border=5pt]{standalone}
 \usepackage{xcolor}
+\usepackage{ulem}
+
 
 	\definecolor{ocre}{HTML}{800000}
 	\definecolor{sky}{HTML}{C6D9F1}
@@ -43,7 +45,7 @@
 % to avoid go over another box.
 % Var: 1:Start coordinate 2:End coordinate 3:angle to shift from acrtext box  
 \def\arcarrow(#1)(#2)[#3]{
-    \draw[thick,->,>=latex] 
+    \draw[very thick,->,>=latex,black!60] 
         let \p1 = (#1), \p2 = (#2), % To access cartesian coordinates x, and y.
             \n1 = {veclen(\x1,\y1)}, % Distance from the origin
             \n2 = {veclen(\x2,\y2)}, % Distance from the origin
@@ -58,8 +60,9 @@
 	    font=\sf    \scriptsize,
 	    % Styles
 	    myarrow/.style={
-	        thick,
+	        very thick,
 	        -latex,
+            black!60,            
 	    },
 	    Center/.style ={
 	        circle,
@@ -92,10 +95,11 @@
     
 	% Machine Learning
     \arctext[ML][RedArc][8pt](2.75)(140)(75){|\footnotesize\bf\color{white}| Machine Learning};
-    \arctext[REIN][SkyArc][5pt](3.50)(140)(75){|\scriptsize\color{black}| Reinforcement Learning};
-    \arctext[KNOW][SkyArc][5pt](4.00)(110)(75){|\scriptsize| Knowledge L.};
-    \arctext[SUPL][SkyArc][5pt](4.00)(140)(115){|\scriptsize| Supervised L.};
-    \arctext[PROB][SkyArc][5pt](4.50)(140)(75){|\scriptsize\color{black}| Probabilistic Models};
+	\arctext[REIN][SkyArc][5pt](3.50)(140)(75){|\scriptsize\color{black}| Reinforcement Learning};
+	\arctext[KNOW][SkyArc][5pt](4.00)(110)(75){|\scriptsize| Knowledge L.};
+	\arctext[SUPL][SkyArc][5pt](4.00)(140)(112){|\scriptsize| Supervised L.};
+	\arctext[PROB][SkyArc][5pt](4.50)(140)(109){|\scriptsize\color{black}| Probabilistic Models};
+	\arctext[PROB][SkyArc][5pt](4.50)(107)(75){|\scriptsize\color{black}| Unsupervised L.};
     
     % Problem Solving
     \arctext[SOLV][RedArc][8pt](2.75)(70)(23){|\footnotesize\bf\color{white}| Problem Solving};
@@ -103,24 +107,25 @@
     \arctext[HEUR][SkyArc][5pt](4.00)(70)(50){|\scriptsize| Heuristics};
 	\arctext[ADVS][SkyArc][5pt](4.00)(47)(23){|\scriptsize| Adversarial S.};    
 	\arctext[CONST][SkyArc][5pt](4.50)(70)(23){|\scriptsize\color{black}| Constraint Analysis };
-	
+	   
 	% Natural Language Processing
-    \arctext[NLP][RedArc][8pt](2.75)(15)(-15){|\footnotesize\bf\color{white}| NLP};
-    \arctext[TRAN][SkyArc][5pt](3.50)(20)(-20){|\scriptsize\color{black}| Machine translation};
-    \arctext[SPER][SkyArc][5pt](4.00)(20)(-20){|\scriptsize| Speech Recognition};
-    \arctext[INFX][SkyArc][5pt](4.50)(20)(-20){|\scriptsize\color{black}| Information Extraction};
+	\arctext[NLP][RedArc][8pt](2.75)(20)(-17){|\footnotesize\bf\color{white}| NLP};
+	\arctext[TRAN][SkyArc][5pt](3.50)(20)(-20){|\scriptsize\color{black}| Machine translation};
+	\arctext[SPER][SkyArc][5pt](4.00)(20)(-20){|\scriptsize| Speech Recognition};
+	\arctext[INFX][SkyArc][5pt](4.50)(20)(-20){|\scriptsize\color{black}| Information Extraction};    
 
     % Decision Making
-    \arctext[DEC][RedArc][8pt](2.75)(290)(340){|\footnotesize\bf\color{white}| Decision Making};
-    \arctext[LOG][SkyArc][5pt](3.50)(290)(335){|\scriptsize\color{black}| Logic};
-    \arctext[KNOW][SkyArc][5pt](4.00)(290)(335){|\scriptsize| Knowledge Engineering};
-    \arctext[PLAN][SkyArc][5pt](4.50)(290)(335){|\scriptsize| Real World Planning};
+    \arctext[DEC][RedArc][8pt](2.75)(293)(340){|\footnotesize\bf\color{white}| Decision Making};
+    \arctext[LOG][SkyArc][5pt](3.50)(293)(335){|\scriptsize\color{black}| Logic};
+    \arctext[KNOW][SkyArc][5pt](4.00)(293)(335){|\scriptsize| Knowledge Engineering};
+    \arctext[PLAN][SkyArc][5pt](4.50)(293)(335){|\scriptsize| Real World Planning};
     
     % Reasoning
-    \arctext[REAS][RedArc][8pt](2.75)(250)(285){|\footnotesize\bf\color{white}|  Reasoning};
-    \arctext[PROB][SkyArc][5pt](3.50)(250)(285){|\scriptsize\color{black}| Probabilistic R.};
-    \arctext[REAT][SkyArc][5pt](4.00)(250)(285){|\scriptsize| Reasoning over time};
-    \arctext[UNQU][SkyArc][5pt](4.50)(248)(287){|\scriptsize\color{black}| Uncertainty Quantification};
+    \arctext[REAS][RedArc][8pt](2.75)(247)(291){|\footnotesize\bf\color{white} | Reasoning};
+    \arctext[PROB][SkyArc][5pt](3.50)(247)(291){|\scriptsize\color{black}| Probabilistic R.};
+    \arctext[REAT][SkyArc][5pt](4.00)(247)(271){|\scriptsize| Bayesian Nets};
+    \arctext[REAT][SkyArc][5pt](4.00)(272)(291){|\scriptsize| R.over time};
+    \arctext[UNQU][SkyArc][5pt](4.50)(247)(291){|\scriptsize\color{black}| Uncertainty Quantification};
     
     % Robotics
     \arctext[ROB][RedArc][8pt](2.75)(210)(245){|\footnotesize\bf\color{white}|  Robotics};
@@ -129,22 +134,23 @@
     \arctext[MAPL][SkyArc][5pt](4.50)(210)(245){|\scriptsize\color{black}| Mapping, Localization};
     
     % Object Recognition
-    \arctext[RECO][RedArc][8pt](2.75)(145)(205){|\footnotesize\bf\color{white}| Object Recognition};
-    \arctext[VIS][SkyArc][5pt](3.50)(145)(205){|\scriptsize\color{black}| Vision};
-    \arctext[IMGP][SkyArc][5pt](4.00)(145)(205){|\scriptsize\color{black}| Image Processing };
-    \arctext[MOTC][SkyArc][5pt](4.50)(145)(205){|\scriptsize\color{black}| Motion, shading, contour analysis};   
+    \arctext[RECO][RedArc][8pt](2.75)(145)(206){|\footnotesize\bf\color{white}| Object Recognition};
+    \arctext[VIS][SkyArc][5pt](3.50)(145)(206){|\scriptsize\color{black}| Vision};
+    \arctext[IMGP][SkyArc][5pt](4.00)(145)(175){|\scriptsize\color{black}| Image Processing };
+    \arctext[IMGP][SkyArc][5pt](4.00)(176)(206){|\scriptsize\color{black}| 3D Reconstruction };
+    \arctext[MOTC][SkyArc][5pt](4.50)(145)(206){|\scriptsize\color{black}| Motion, shading, contour analysis};   
   
 
-    %ADITIONAL EXTERNAL ARC
-   \arctext[NEW][
-       color=white,
-       shade,      
-       upper left=gray,
-       upper right=black!50,
-       lower left=gray,
-       lower right=gray!50,
-       rounded corners = 8pt
-       ][8pt](5.2)(180)(0){|\footnotesize\bf\color{white}| "Artificial Intelligence: A Modern Approach" by Peter Norvig and Stuart Russell};
+%    %ADITIONAL EXTERNAL ARC
+%   \arctext[NEW][
+%       color=white,
+%       shade,      
+%       upper left=gray,
+%       upper right=black!50,
+%       lower left=gray,
+%       lower right=gray!50,
+%       rounded corners = 8pt
+%       ][8pt](5.2)(180)(0){|\footnotesize\bf\color{white}| "Artificial Intelligence: A Modern Approach" by Peter Norvig and Stuart Russell};
 
     % Drawing the Arrows from contributing branch to AI
     % Format: \arcarrow(above/below ID)(abobe/below ID)[shift]
@@ -163,12 +169,13 @@
 
 	% Legend
     \draw[myarrow] (-5,-5) coordinate (legend) -- ++(.8,0) node[anchor=west] {(contribution)};
-    \draw[RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node[anchor=west] {disciplines};
-    \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {requirements};
+    \draw [RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node [anchor=west, text width=3em] {capabilities,\\disciplines};
+    \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {subfield};
         
-		% \node[draw] at (0,0) {};
-		% \node[draw,align=left] at (3,0) {};
-		\node[text width=3cm] at (3,-6.25) {\begin{tiny}Copyright \textcopyright Alfonso R. Reyes, 2020\end{tiny}};
+    % source, book and authors
+    \node [text width=6.45cm] at (1,-5.6) {Source: \textit {"Artificial Intelligence: A Modern Approach"} \\by Peter Norvig and Stuart Russell};        
+    % copyright
+	\node[text width=3cm] at (3,-6.25) {\begin{tiny}Copyright \textcopyright Alfonso R. Reyes, 2020\end{tiny}};
 
 \end{tikzpicture}  
 \end{document}

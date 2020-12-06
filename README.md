@@ -1,5 +1,5 @@
 ---
-title: "My Tikz Favorites"
+title: "README - My Tikz Favorite Things"
 author: "Alfonso R. Reyes"
 output:
   html_document:
@@ -96,9 +96,9 @@ Some useful tutorials:
 
 ## Useful statistics
 
-* There are 241 total Tikz figures saved as `.tex` files in this gallery. 
+* There are 249 total Tikz figures saved as `.tex` files in this gallery. 
 The figures are sorted by filename.
-* There are 241 files under `src/` to be compiled with `pdflatex`
+* There are 249 files under `src/` to be compiled with `pdflatex`
 * There are 1 files under `src/` to be compiled with `lualatex`
 * There are 19 data files under the folder `src/data` that are being used by the TikZ scripts
 * There are 2 Latex classes, styles and library files under the `src/texmf` folder
@@ -1138,6 +1138,559 @@ This code was written by cmhughes on TeX.SE.
 ```
 ****
 
+![](./out/ai-artificial_intelligence_aiama_arr.png)
+
+  
+  * [ai-artificial_intelligence_aiama_arr.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/ai-artificial_intelligence_aiama_arr.tex)
+
+```tex
+% Artificial Intelligence Agent Contributors
+% Drawn by Alfonso R. Reyes
+% November 27, 2020
+% Personal interpretation of "Artificial Intelligence: A Modern Approach" by Peter Norvig and Stuart Russell
+% Original diagram: https://github.com/FriendlyUser/LatexDiagrams
+\documentclass[border=5pt]{standalone}
+\usepackage{xcolor}
+\usepackage{ulem}
+
+
+	\definecolor{ocre}{HTML}{800000}
+	\definecolor{sky}{HTML}{C6D9F1}
+	\definecolor{skybox}{HTML}{5F86B3}
+
+\usepackage{tikz}
+\usepackage{pgfmath}
+\usetikzlibrary{decorations.text, arrows.meta,calc,shadows.blur,shadings}
+
+\renewcommand*\familydefault{\sfdefault} % Set font to serif family
+
+% arctext from Andrew code with modifications:
+%Variables: 1: ID, 2:Style 3:box height 4: Radious 5:start-angl 6:end-angl 7:text {format along path} 
+\def\arctext[#1][#2][#3](#4)(#5)(#6)#7{
+
+\draw[#2] (#5:#4cm+#3) coordinate (above #1) arc (#5:#6:#4cm+#3)
+             -- (#6:#4) coordinate (right #1) -- (#6:#4cm-#3) coordinate (below right #1) arc (#6:#5:#4cm-#3) coordinate (below #1)
+             -- (#5:#4) coordinate (left #1) -- cycle;
+            \def\a#1{#4cm+#3}
+            \def\b#1{#4cm-#3}
+\path[
+    decoration={
+        raise = -0.5ex, % Controls relavite text height position.
+        text  along path,
+        text = {#7},
+        text align = center,        
+    },
+    decorate
+    ]
+    (#5:#4) arc (#5:#6:#4);
+}
+
+% arcarrow, this is mine, for beerware purpose...
+% Function: Draw an arrow from arctex coordinate specific nodes to another 
+% Arrow start at the start of arctext box and could be shifted to change the position
+% to avoid go over another box.
+% Var: 1:Start coordinate 2:End coordinate 3:angle to shift from acrtext box  
+\def\arcarrow(#1)(#2)[#3]{
+    \draw[very thick,->,>=latex,black!60] 
+        let \p1 = (#1), \p2 = (#2), % To access cartesian coordinates x, and y.
+            \n1 = {veclen(\x1,\y1)}, % Distance from the origin
+            \n2 = {veclen(\x2,\y2)}, % Distance from the origin
+            \n3 = {atan2(\y1,\x1)} % Angle where acrtext starts.
+        in (\n3-#3: \n1) -- (\n3-#3: \n2); % Draw the arrow.
+}
+
+
+\begin{document}
+\begin{tikzpicture}[
+	    % Environment Cfg
+	    font=\sf    \scriptsize,
+	    % Styles
+	    myarrow/.style={
+	        very thick,
+	        -latex,
+            black!60,            
+	    },
+	    Center/.style ={
+	        circle,
+	        fill=ocre,
+	        text=white,
+	        align=center,
+	        font =\footnotesize\bf,
+	        inner sep=1pt,          
+	    },
+	    RedArc/.style ={
+	        color=black,
+	        thick,
+	        fill=ocre,
+	        blur shadow, 
+	    },
+	    SkyArc/.style ={
+	        color=skybox,
+	        thick,
+	        fill=sky,
+	        blur shadow, 
+	    },
+    ]
+
+    % Drawing the center for AI
+    \node[Center](AI) at (0,0) { Artificial \\ Intelligence \\(AI)\\ Agent};
+    \coordinate (AROUND) at (0:1.2); 
+
+    % Drawing the Text Arcs
+    % Format: \Arctext[ID][box-style][box-height](radious)(start-angl)(end-angl){|text-styles| Text}
+    
+	% Machine Learning
+    \arctext[ML][RedArc][8pt](2.75)(140)(75){|\footnotesize\bf\color{white}| Machine Learning};
+	\arctext[REIN][SkyArc][5pt](3.50)(140)(75){|\scriptsize\color{black}| Reinforcement Learning};
+	\arctext[KNOW][SkyArc][5pt](4.00)(110)(75){|\scriptsize| Knowledge L.};
+	\arctext[SUPL][SkyArc][5pt](4.00)(140)(112){|\scriptsize| Supervised L.};
+	\arctext[PROB][SkyArc][5pt](4.50)(140)(109){|\scriptsize\color{black}| Probabilistic Models};
+	\arctext[PROB][SkyArc][5pt](4.50)(107)(75){|\scriptsize\color{black}| Unsupervised L.};
+    
+    % Problem Solving
+    \arctext[SOLV][RedArc][8pt](2.75)(70)(23){|\footnotesize\bf\color{white}| Problem Solving};
+    \arctext[SRCH][SkyArc][5pt](3.50)(70)(23){|\scriptsize\color{black}| Search };
+    \arctext[HEUR][SkyArc][5pt](4.00)(70)(50){|\scriptsize| Heuristics};
+	\arctext[ADVS][SkyArc][5pt](4.00)(47)(23){|\scriptsize| Adversarial S.};    
+	\arctext[CONST][SkyArc][5pt](4.50)(70)(23){|\scriptsize\color{black}| Constraint Analysis };
+	   
+	% Natural Language Processing
+	\arctext[NLP][RedArc][8pt](2.75)(20)(-17){|\footnotesize\bf\color{white}| NLP};
+	\arctext[TRAN][SkyArc][5pt](3.50)(20)(-20){|\scriptsize\color{black}| Machine translation};
+	\arctext[SPER][SkyArc][5pt](4.00)(20)(-20){|\scriptsize| Speech Recognition};
+	\arctext[INFX][SkyArc][5pt](4.50)(20)(-20){|\scriptsize\color{black}| Information Extraction};    
+
+    % Decision Making
+    \arctext[DEC][RedArc][8pt](2.75)(293)(340){|\footnotesize\bf\color{white}| Decision Making};
+    \arctext[LOG][SkyArc][5pt](3.50)(293)(335){|\scriptsize\color{black}| Logic};
+    \arctext[KNOW][SkyArc][5pt](4.00)(293)(335){|\scriptsize| Knowledge Engineering};
+    \arctext[PLAN][SkyArc][5pt](4.50)(293)(335){|\scriptsize| Real World Planning};
+    
+    % Reasoning
+    \arctext[REAS][RedArc][8pt](2.75)(247)(291){|\footnotesize\bf\color{white} | Reasoning};
+    \arctext[PROB][SkyArc][5pt](3.50)(247)(291){|\scriptsize\color{black}| Probabilistic R.};
+    \arctext[REAT][SkyArc][5pt](4.00)(247)(271){|\scriptsize| Bayesian Nets};
+    \arctext[REAT][SkyArc][5pt](4.00)(272)(291){|\scriptsize| R.over time};
+    \arctext[UNQU][SkyArc][5pt](4.50)(247)(291){|\scriptsize\color{black}| Uncertainty Quantification};
+    
+    % Robotics
+    \arctext[ROB][RedArc][8pt](2.75)(210)(245){|\footnotesize\bf\color{white}|  Robotics};
+    \arctext[RPER][SkyArc][5pt](3.50)(210)(245){|\scriptsize\color{black}| R. Perception};
+    \arctext[RACT][SkyArc][5pt](4.00)(210)(245){|\scriptsize| R. Actuation};
+    \arctext[MAPL][SkyArc][5pt](4.50)(210)(245){|\scriptsize\color{black}| Mapping, Localization};
+    
+    % Object Recognition
+    \arctext[RECO][RedArc][8pt](2.75)(145)(206){|\footnotesize\bf\color{white}| Object Recognition};
+    \arctext[VIS][SkyArc][5pt](3.50)(145)(206){|\scriptsize\color{black}| Vision};
+    \arctext[IMGP][SkyArc][5pt](4.00)(145)(175){|\scriptsize\color{black}| Image Processing };
+    \arctext[IMGP][SkyArc][5pt](4.00)(176)(206){|\scriptsize\color{black}| 3D Reconstruction };
+    \arctext[MOTC][SkyArc][5pt](4.50)(145)(206){|\scriptsize\color{black}| Motion, shading, contour analysis};   
+  
+
+%    %ADITIONAL EXTERNAL ARC
+%   \arctext[NEW][
+%       color=white,
+%       shade,      
+%       upper left=gray,
+%       upper right=black!50,
+%       lower left=gray,
+%       lower right=gray!50,
+%       rounded corners = 8pt
+%       ][8pt](5.2)(180)(0){|\footnotesize\bf\color{white}| "Artificial Intelligence: A Modern Approach" by Peter Norvig and Stuart Russell};
+
+    % Drawing the Arrows from contributing branch to AI
+    % Format: \arcarrow(above/below ID)(abobe/below ID)[shift]
+    \arcarrow(below ML)(AROUND)[30];
+    \arcarrow(below SOLV)(AROUND)[24];
+    \arcarrow(below NLP)(AROUND)[15];
+    \arcarrow(below DEC)(AROUND)[-25];
+    \arcarrow(below REAS)(AROUND)[-17];
+    \arcarrow(below ROB)(AROUND)[-19];
+    \arcarrow(below RECO)(AROUND)[-33];
+
+    % Same level Arrows. Not needed now
+    % \draw[myarrow] (left SSNX) -- (right DUAM);
+    % \draw[myarrow] (left ML) -- (left SRel);
+    % \draw[myarrow] (left SCap) -- (right ML);
+
+	% Legend
+    \draw[myarrow] (-5,-5) coordinate (legend) -- ++(.8,0) node[anchor=west] {(contribution)};
+    \draw [RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node [anchor=west, text width=3em] {capabilities,\\disciplines};
+    \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {subfield};
+        
+    % source, book and authors
+    \node [text width=6.45cm] at (1,-5.6) {Source: \textit {"Artificial Intelligence: A Modern Approach"} \\by Peter Norvig and Stuart Russell};        
+    % copyright
+	\node[text width=3cm] at (3,-6.25) {\begin{tiny}Copyright \textcopyright Alfonso R. Reyes, 2020\end{tiny}};
+
+\end{tikzpicture}  
+\end{document}
+```
+****
+
+![](./out/ai-artificial_intelligence_jmccarthy_arr.png)
+
+  
+  * [ai-artificial_intelligence_jmccarthy_arr.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/ai-artificial_intelligence_jmccarthy_arr.tex)
+
+```tex
+% Branches of Artificial Intelligence
+% Drawn by Alfonso R. Reyes
+% November 27, 2020
+% Personal interpretation of "What is AI? / Branches of AI" article by Prof. John McCarthy.
+% Original diagram: https://github.com/FriendlyUser/LatexDiagrams
+\documentclass[border=5pt]{standalone}
+\usepackage{xcolor}
+\usepackage{ulem}
+
+
+\definecolor{ocre}{HTML}{800000}
+\definecolor{sky}{HTML}{C6D9F1}
+\definecolor{skybox}{HTML}{5F86B3}
+
+\usepackage{tikz}
+\usepackage{pgfmath}
+\usetikzlibrary{decorations.text, arrows.meta,calc,shadows.blur,shadings}
+
+\renewcommand*\familydefault{\sfdefault} % Set font to serif family
+
+% arctext from Andrew code with modifications:
+%Variables: 1: ID, 2:Style 3:box height 4: Radious 5:start-angl 6:end-angl 7:text {format along path} 
+\def\arctext[#1][#2][#3](#4)(#5)(#6)#7{
+	\draw[#2] (#5:#4cm+#3) coordinate (above #1) arc (#5:#6:#4cm+#3)
+	             -- (#6:#4) coordinate (right #1) -- (#6:#4cm-#3) coordinate (below right #1) arc (#6:#5:#4cm-#3) coordinate (below #1)
+	             -- (#5:#4) coordinate (left #1) -- cycle;
+	            \def\a#1{#4cm+#3}
+	            \def\b#1{#4cm-#3}
+	\path[
+	    decoration={
+	        raise = -0.5ex, % Controls relavite text height position.
+	        text  along path,
+	        text = {#7},
+	        text align = center,        
+	    },
+	    decorate
+	    ]
+	    (#5:#4) arc (#5:#6:#4);
+}
+
+% arcarrow, this is mine, for beerware purpose...
+% Function: Draw an arrow from arctex coordinate specific nodes to another 
+% Arrow start at the start of arctext box and could be shifted to change the position
+% to avoid go over another box.
+% Var: 1:Start coordinate 2:End coordinate 3:angle to shift from acrtext box  
+\def\arcarrow(#1)(#2)[#3]{
+    \draw[very thick,->,>=latex,black!60] 
+        let \p1 = (#1), \p2 = (#2), % To access cartesian coordinates x, and y.
+            \n1 = {veclen(\x1,\y1)}, % Distance from the origin
+            \n2 = {veclen(\x2,\y2)}, % Distance from the origin
+            \n3 = {atan2(\y1,\x1)} % Angle where acrtext starts.
+        in (\n3-#3: \n1) -- (\n3-#3: \n2); % Draw the arrow.
+}
+
+
+\begin{document}
+\begin{tikzpicture}[
+	    % Environment Cfg
+	    font=\sf    \scriptsize,
+	    % Styles
+	    myarrow/.style={
+	        thick,
+	        -latex,
+            black!60,
+	    },
+	    Center/.style ={
+	        circle,
+	        fill=ocre,
+	        text=white,
+	        align=center,
+	        font =\footnotesize\bf,
+	        inner sep=1pt,          
+	    },
+	    RedArc/.style ={
+	        color=black,
+	        thick,
+	        fill=ocre,
+	        blur shadow, 
+	    },
+	    SkyArc/.style ={
+	        color=skybox,
+	        thick,
+	        fill=sky,
+	        blur shadow, 
+	    },
+    ]
+
+    % Drawing the center for AI
+    \node[Center](AI) at (0,0) { Artificial \\ Intelligence \\(AI)\\ Agent};
+    \coordinate (AROUND) at (0:1.2); 
+
+    % Drawing the Text Arcs
+    % Format: \Arctext[ID][box-style][box-height](radious)(start-angl)(end-angl){|text-styles| Text}
+   
+	% Logic
+    \arctext[LOGI][RedArc][8pt](2.5)(120)(70){|\footnotesize\bf\color{white}| Logic};
+	\arcarrow(below LOGI)(AROUND)[25];
+    
+    % Search
+    \arctext[SRCH][RedArc][8pt](2.5)(60)(20){|\footnotesize\bf\color{white}| Search};
+	\arcarrow(below SRCH)(AROUND)[20];
+	   
+	% Pattern Recognition
+	\arctext[RECO][RedArc][8pt](2.5)(-60)(10){|\footnotesize\bf\color{white}| Pattern Recognition};
+	\arcarrow(below RECO)(AROUND)[-35];
+
+    % Representation
+    \arctext[REPR][RedArc][8pt](2.5)(240)(290){|\footnotesize\bf\color{white}| Representation};
+	\arcarrow(below REPR)(AROUND)[-25];
+    
+    % Inference
+    \arctext[INFE][RedArc][8pt](2.5)(190)(230){|\footnotesize\bf\color{white} | Inference};    
+    \arcarrow(below INFE)(AROUND)[-20];
+    
+    % Reasoning
+    \arctext[REAS][RedArc][8pt](2.5)(180)(130){|\footnotesize\bf\color{white} | Reasoning};
+	\arcarrow(below REAS)(AROUND)[25];
+        
+	% Epistemology
+    \arctext[EPIS][RedArc][8pt](3.30)(220)(260){|\footnotesize\bf\color{white}|  Epistemology};
+
+	% Planning
+    \arctext[PLAN][RedArc][8pt](3.30)(210)(160){|\footnotesize\bf\color{white}| Planning};  
+    
+    % Learning
+    \arctext[LEAR][RedArc][8pt](3.30)(150)(110){|\footnotesize\bf\color{white}| Learning};  
+
+	% Ontology
+    \arctext[ONTO][RedArc][8pt](3.30)(90)(50){|\footnotesize\bf\color{white}| Ontology};  
+    
+    % Heuristics
+    \arctext[HEUR][RedArc][8pt](3.30)(40)(-10){|\footnotesize\bf\color{white}| Heuristics};  
+
+	% Genetic Programming
+	\arctext[GENE][RedArc][8pt](3.30)(270)(330){|\footnotesize\bf\color{white}| Genetic Programming};  
+	
+
+%    %ADITIONAL EXTERNAL ARC
+%   \arctext[NEW][
+%       color=white,
+%       shade,      
+%       upper left=gray!7,
+%       upper right=gray!7,
+%       lower left=gray!7,
+%       lower right=gray!7,
+%       rounded corners = 8pt
+%       ][8pt](5.2)(180)(0){|\footnotesize\bf\color{black}| Interpration of "What is AI? / Branches of AI" article by Prof. John McCarthy.};
+
+    % Drawing the Arrows from contributing branch to AI
+    % Format: \arcarrow(above/below ID)(abobe/below ID)[shift]
+    \arcarrow(below LEAR)(AROUND)[25];
+    \arcarrow(below ONTO)(AROUND)[25];
+    \arcarrow(below HEUR)(AROUND)[25];
+    \arcarrow(below GENE)(AROUND)[-25];
+    \arcarrow(below EPIS)(AROUND)[-15];
+    \arcarrow(below PLAN)(AROUND)[25];
+       
+
+	% Legend and labels
+    \draw[myarrow] (-5,-5) coordinate (legend) -- ++(.8,0) node[anchor=west] {(contribution)};
+    \draw[RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, text width=3em] {capabilities,\\disciplines};
+    \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {subfield};
+    % source, book and authors
+    \node [text width=5.5cm] at (1,-5.6) {Source: \textit {"What is AI? / Branches of AI"} article by Prof. John McCarthy. Stanford University.};
+    % copyright
+	\node[text width=3cm] at (3.25,-6.25) {\begin{tiny}Copyright \textcopyright Alfonso R. Reyes, 2020\end{tiny}};
+
+\end{tikzpicture}  
+\end{document}
+```
+****
+
+![](./out/ai-computational_intelligence-pool,mackworth_arr.png)
+
+  
+  * [ai-computational_intelligence-pool,mackworth_arr.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/ai-computational_intelligence-pool,mackworth_arr.tex)
+
+```tex
+% Computational Intelligence Agent Contributors
+% Drawn by Alfonso R. Reyes
+% November 2020
+% Personal interpretation of "Computational Intelligence: A Logical Approach" by David Poole, Alan Mackworth and Randy Goebel.
+% Original diagram: https://github.com/FriendlyUser/LatexDiagrams
+\documentclass[border=5pt]{standalone}
+\usepackage{xcolor}
+
+	\definecolor{ocre}{HTML}{800000}
+	\definecolor{sky}{HTML}{C6D9F1}
+	\definecolor{skybox}{HTML}{5F86B3}
+
+\usepackage{tikz}
+\usepackage{pgfmath}
+\usetikzlibrary{decorations.text, arrows.meta,calc,shadows.blur,shadings}
+
+\renewcommand*\familydefault{\sfdefault} % Set font to serif family
+
+% arctext from Andrew code with modifications:
+%Variables: 1: ID, 2:Style 3:box height 4: Radious 5:start-angl 6:end-angl 7:text {format along path} 
+\def\arctext[#1][#2][#3](#4)(#5)(#6)#7{
+
+\draw[#2] (#5:#4cm+#3) coordinate (above #1) arc (#5:#6:#4cm+#3)
+             -- (#6:#4) coordinate (right #1) -- (#6:#4cm-#3) coordinate (below right #1) arc (#6:#5:#4cm-#3) coordinate (below #1)
+             -- (#5:#4) coordinate (left #1) -- cycle;
+            \def\a#1{#4cm+#3}
+            \def\b#1{#4cm-#3}
+\path[
+    decoration={
+        raise = -0.5ex, % Controls relavite text height position.
+        text  along path,
+        text = {#7},
+        text align = center,        
+    },
+    decorate
+    ]
+    (#5:#4) arc (#5:#6:#4);
+}
+
+% arcarrow, this is mine, for beerware purpose...
+% Function: Draw an arrow from arctex coordinate specific nodes to another 
+% Arrow start at the start of arctext box and could be shifted to change the position
+% to avoid go over another box.
+% Var: 1:Start coordinate 2:End coordinate 3:angle to shift from acrtext box  
+\def\arcarrow(#1)(#2)[#3]{
+    \draw[very thick,->,>=latex,black!60] 
+        let \p1 = (#1), \p2 = (#2), % To access cartesian coordinates x, and y.
+            \n1 = {veclen(\x1,\y1)}, % Distance from the origin
+            \n2 = {veclen(\x2,\y2)}, % Distance from the origin
+            \n3 = {atan2(\y1,\x1)} % Angle where acrtext starts.
+        in (\n3-#3: \n1) -- (\n3-#3: \n2); % Draw the arrow.
+}
+
+
+\begin{document}
+\begin{tikzpicture}[
+	    % Environment Cfg
+	    font=\sf    \scriptsize,
+	    % Styles
+	    myarrow/.style={
+	        very thick,
+	        -latex,
+            black!60,
+	    },
+	    Center/.style ={
+	        circle,
+	        fill=ocre,
+	        text=white,
+	        align=center,
+	        font =\footnotesize\bf,
+	        inner sep=1pt,          
+	    },
+	    RedArc/.style ={
+	        color=black,
+	        thick,
+	        fill=ocre,
+	        blur shadow, 
+	    },
+	    SkyArc/.style ={
+	        color=skybox,
+	        thick,
+	        fill=sky,
+	        blur shadow, 
+	    },
+    ]
+
+    % Drawing the center for AI
+    \node[Center](AI) at (0,0) { Computational \\ Intelligence \\(AI)\\ Agent};
+    \coordinate (AROUND) at (0:1.2); 
+
+    % Drawing the Text Arcs
+    % Format: \Arctext[ID][box-style][box-height](radious)(start-angl)(end-angl){|text-styles| Text}
+    
+	% Machine Learning
+    \arctext[ML][RedArc][8pt](2.75)(135)(85){|\footnotesize\bf\color{white}| Machine Learning};
+    \arctext[REIN][SkyArc][5pt](3.50)(135)(85){|\scriptsize\color{black}| Decision Trees};
+    \arctext[KNOW][SkyArc][5pt](4.00)(135)(85){|\scriptsize| Neural Networks};
+%    \arctext[SUPL][SkyArc][5pt](4.00)(140)(115){|\scriptsize| Supervised L.};
+    \arctext[PROB][SkyArc][5pt](4.50)(135)(85){|\scriptsize\color{black}| Explanation Based Learning};
+    
+    % Problem Solving
+    \arctext[SOLV][RedArc][8pt](2.75)(80)(40){|\footnotesize\bf\color{white}| Searching};
+    \arctext[SRCH][SkyArc][5pt](3.50)(80)(40){|\scriptsize\color{black}| Graph Searching };
+    \arctext[HEUR][SkyArc][5pt](4.00)(80)(40){|\scriptsize| Heuristic Search};
+	\arctext[CONST][SkyArc][5pt](4.50)(80)(40){|\scriptsize\color{black}| Constraint Satisfaction};
+	
+	% Natural Language Processing
+    \arctext[NLP][RedArc][8pt](2.75)(35)(-20){|\footnotesize\bf\color{white}| Definite Knowledge};
+    \arctext[TRAN][SkyArc][5pt](3.50)(35)(5){|\scriptsize\color{black}| Recursion};
+    \arctext[TRAN][SkyArc][5pt](3.50)(0)(-20){|\scriptsize\color{black}| NLP};
+    \arctext[SPER][SkyArc][5pt](4.00)(35)(-20){|\scriptsize| Grammar Augmentation};
+    \arctext[INFX][SkyArc][5pt](4.50)(35)(-20){|\scriptsize\color{black}| First Order Predicate Calculus};
+
+    % Decision Making
+    \arctext[DEC][RedArc][8pt](2.75)(290)(335){|\footnotesize\bf\color{white}| Planning};
+    \arctext[LOG][SkyArc][5pt](3.50)(290)(335){|\scriptsize\color{black}| Time Representation};
+    \arctext[KNOW][SkyArc][5pt](4.00)(290)(335){|\scriptsize| World Representations};
+    \arctext[PLAN][SkyArc][5pt](4.50)(290)(335){|\scriptsize| Forward Planning};
+    
+    % Reasoning
+    \arctext[REAS][RedArc][8pt](2.75)(250)(285){|\footnotesize\bf\color{white}|  Reasoning};
+    \arctext[PROB][SkyArc][5pt](3.50)(250)(285){|\scriptsize\color{black}| Semantics};
+    \arctext[REAT][SkyArc][5pt](4.00)(249)(287){|\scriptsize| Symbolic Representation};
+    \arctext[UNQU][SkyArc][5pt](4.50)(248)(287){|\scriptsize\color{black}| Clauses, Questions, Answers};
+    
+    % Robotics
+    \arctext[ROB][RedArc][8pt](2.75)(200)(245){|\footnotesize\bf\color{white}|  Robotics};
+    \arctext[RPER][SkyArc][5pt](3.50)(200)(245){|\scriptsize\color{black}| Agent Functions};
+    \arctext[RACT][SkyArc][5pt](4.00)(200)(245){|\scriptsize| Robotic Systems};
+    \arctext[MAPL][SkyArc][5pt](4.50)(200)(224){|\scriptsize\color{black}| Agent Models};
+    \arctext[MAPL][SkyArc][5pt](4.50)(226)(245){|\scriptsize\color{black}| Architecture};
+    
+    % Object Recognition
+    \arctext[RECO][RedArc][8pt](2.75)(140)(195){|\footnotesize\bf\color{white}| Knowledge};
+    \arctext[VIS][SkyArc][5pt](3.50)(140)(195){|\scriptsize\color{black}| Representation Language};
+    \arctext[IMGP][SkyArc][5pt](4.00)(140)(195){|\scriptsize\color{black}| Map Problem to Representation };
+    \arctext[MOTC][SkyArc][5pt](4.50)(140)(195){|\scriptsize\color{black}| Knowledge Based Systems};   
+  
+
+%    %ADITIONAL EXTERNAL ARC
+%    \arctext[NEW][
+%        color=white,
+%        shade,      
+%        upper left=gray,
+%        upper right=black!50,
+%        lower left=gray,
+%        lower right=gray!50,
+%        rounded corners = 8pt
+%        ][8pt](5.2)(180)(0){|\footnotesize\bf\color{white}| "Computational Intelligence: A Logical Approach" by David Poole, Alan Mackworth and Randy Goebel};
+
+    % Drawing the Arrows from contributing branch to AI
+    % Format: \arcarrow(above/below ID)(abobe/below ID)[shift]
+    \arcarrow(below ML)(AROUND)[30];
+    \arcarrow(below SOLV)(AROUND)[24];
+    \arcarrow(below NLP)(AROUND)[15];
+    \arcarrow(below DEC)(AROUND)[-25];
+    \arcarrow(below REAS)(AROUND)[-17];
+    \arcarrow(below ROB)(AROUND)[-19];
+    \arcarrow(below RECO)(AROUND)[-33];
+
+    % Same level Arrows. Not needed now
+    % \draw[myarrow] (left SSNX) -- (right DUAM);
+    % \draw[myarrow] (left ML) -- (left SRel);
+    % \draw[myarrow] (left SCap) -- (right ML);
+
+	% Color Legend and labels
+    \draw [myarrow] (-5,-5) coordinate (legend) -- ++(.8,0) node[anchor=west] {(contribution)};
+    \draw [RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node [anchor=west, text width=3em] {capabilities,\\disciplines};
+    \draw [SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {subfield};
+    % source, book and authors
+    \node [text width=6.45cm] at (1,-5.6) {Source: \textit {"Computational Intelligence: A Logical Approach"} \\by David Poole, Alan Mackworth and Randy Goebel};
+    % copyright
+	\node [text width=3cm] at (3.25,-6.25) {\begin{tiny}Copyright \textcopyright Alfonso R. Reyes, 2020\end{tiny}};
+
+\end{tikzpicture}  
+\end{document}
+```
+****
+
 ![](./out/animation-dynamic_labels.png)
 
   
@@ -1192,189 +1745,6 @@ Create the gif with:
 
 \end{tikzpicture}
 }
-\end{document}
-```
-****
-
-![](./out/artificial_intelligence_aiama_arr+diagram+ai.png)
-
-  
-  * [artificial_intelligence_aiama_arr+diagram+ai.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/artificial_intelligence_aiama_arr+diagram+ai.tex)
-
-```tex
-% Artificial Intelligence Agent Contributors
-% Drawn by Alfonso R. Reyes
-% November 27, 2020. Published in LinkedIn
-% Personal interpretation of "Artificial Intelligence: A Modern Approach" by Peter Norvig and Stuart Russell
-% Original diagram: https://github.com/FriendlyUser/LatexDiagrams
-\documentclass[border=5pt]{standalone}
-\usepackage{xcolor}
-
-	\definecolor{ocre}{HTML}{800000}
-	\definecolor{sky}{HTML}{C6D9F1}
-	\definecolor{skybox}{HTML}{5F86B3}
-
-\usepackage{tikz}
-\usepackage{pgfmath}
-\usetikzlibrary{decorations.text, arrows.meta,calc,shadows.blur,shadings}
-
-\renewcommand*\familydefault{\sfdefault} % Set font to serif family
-
-% arctext from Andrew code with modifications:
-%Variables: 1: ID, 2:Style 3:box height 4: Radious 5:start-angl 6:end-angl 7:text {format along path} 
-\def\arctext[#1][#2][#3](#4)(#5)(#6)#7{
-
-\draw[#2] (#5:#4cm+#3) coordinate (above #1) arc (#5:#6:#4cm+#3)
-             -- (#6:#4) coordinate (right #1) -- (#6:#4cm-#3) coordinate (below right #1) arc (#6:#5:#4cm-#3) coordinate (below #1)
-             -- (#5:#4) coordinate (left #1) -- cycle;
-            \def\a#1{#4cm+#3}
-            \def\b#1{#4cm-#3}
-\path[
-    decoration={
-        raise = -0.5ex, % Controls relavite text height position.
-        text  along path,
-        text = {#7},
-        text align = center,        
-    },
-    decorate
-    ]
-    (#5:#4) arc (#5:#6:#4);
-}
-
-% arcarrow, this is mine, for beerware purpose...
-% Function: Draw an arrow from arctex coordinate specific nodes to another 
-% Arrow start at the start of arctext box and could be shifted to change the position
-% to avoid go over another box.
-% Var: 1:Start coordinate 2:End coordinate 3:angle to shift from acrtext box  
-\def\arcarrow(#1)(#2)[#3]{
-    \draw[thick,->,>=latex] 
-        let \p1 = (#1), \p2 = (#2), % To access cartesian coordinates x, and y.
-            \n1 = {veclen(\x1,\y1)}, % Distance from the origin
-            \n2 = {veclen(\x2,\y2)}, % Distance from the origin
-            \n3 = {atan2(\y1,\x1)} % Angle where acrtext starts.
-        in (\n3-#3: \n1) -- (\n3-#3: \n2); % Draw the arrow.
-}
-
-
-\begin{document}
-\begin{tikzpicture}[
-	    % Environment Cfg
-	    font=\sf    \scriptsize,
-	    % Styles
-	    myarrow/.style={
-	        thick,
-	        -latex,
-	    },
-	    Center/.style ={
-	        circle,
-	        fill=ocre,
-	        text=white,
-	        align=center,
-	        font =\footnotesize\bf,
-	        inner sep=1pt,          
-	    },
-	    RedArc/.style ={
-	        color=black,
-	        thick,
-	        fill=ocre,
-	        blur shadow, 
-	    },
-	    SkyArc/.style ={
-	        color=skybox,
-	        thick,
-	        fill=sky,
-	        blur shadow, 
-	    },
-    ]
-
-    % Drawing the center for AI
-    \node[Center](AI) at (0,0) { Artificial \\ Intelligence \\(AI)\\ Agent};
-    \coordinate (AROUND) at (0:1.2); 
-
-    % Drawing the Text Arcs
-    % Format: \Arctext[ID][box-style][box-height](radious)(start-angl)(end-angl){|text-styles| Text}
-    
-	% Machine Learning
-    \arctext[ML][RedArc][8pt](2.75)(140)(75){|\footnotesize\bf\color{white}| Machine Learning};
-    \arctext[REIN][SkyArc][5pt](3.50)(140)(75){|\scriptsize\color{black}| Reinforcement Learning};
-    \arctext[KNOW][SkyArc][5pt](4.00)(110)(75){|\scriptsize| Knowledge L.};
-    \arctext[SUPL][SkyArc][5pt](4.00)(140)(115){|\scriptsize| Supervised L.};
-    \arctext[PROB][SkyArc][5pt](4.50)(140)(75){|\scriptsize\color{black}| Probabilistic Models};
-    
-    % Problem Solving
-    \arctext[SOLV][RedArc][8pt](2.75)(70)(23){|\footnotesize\bf\color{white}| Problem Solving};
-    \arctext[SRCH][SkyArc][5pt](3.50)(70)(23){|\scriptsize\color{black}| Search };
-    \arctext[HEUR][SkyArc][5pt](4.00)(70)(50){|\scriptsize| Heuristics};
-	\arctext[ADVS][SkyArc][5pt](4.00)(47)(23){|\scriptsize| Adversarial S.};    
-	\arctext[CONST][SkyArc][5pt](4.50)(70)(23){|\scriptsize\color{black}| Constraint Analysis };
-	
-	% Natural Language Processing
-    \arctext[NLP][RedArc][8pt](2.75)(15)(-15){|\footnotesize\bf\color{white}| NLP};
-    \arctext[TRAN][SkyArc][5pt](3.50)(20)(-20){|\scriptsize\color{black}| Machine translation};
-    \arctext[SPER][SkyArc][5pt](4.00)(20)(-20){|\scriptsize| Speech Recognition};
-    \arctext[INFX][SkyArc][5pt](4.50)(20)(-20){|\scriptsize\color{black}| Information Extraction};
-
-    % Decision Making
-    \arctext[DEC][RedArc][8pt](2.75)(290)(340){|\footnotesize\bf\color{white}| Decision Making};
-    \arctext[LOG][SkyArc][5pt](3.50)(290)(335){|\scriptsize\color{black}| Logic};
-    \arctext[KNOW][SkyArc][5pt](4.00)(290)(335){|\scriptsize| Knowledge Engineering};
-    \arctext[PLAN][SkyArc][5pt](4.50)(290)(335){|\scriptsize| Real World Planning};
-    
-    % Reasoning
-    \arctext[REAS][RedArc][8pt](2.75)(250)(285){|\footnotesize\bf\color{white}|  Reasoning};
-    \arctext[PROB][SkyArc][5pt](3.50)(250)(285){|\scriptsize\color{black}| Probabilistic R.};
-    \arctext[REAT][SkyArc][5pt](4.00)(250)(285){|\scriptsize| Reasoning over time};
-    \arctext[UNQU][SkyArc][5pt](4.50)(248)(287){|\scriptsize\color{black}| Uncertainty Quantification};
-    
-    % Robotics
-    \arctext[ROB][RedArc][8pt](2.75)(210)(245){|\footnotesize\bf\color{white}|  Robotics};
-    \arctext[RPER][SkyArc][5pt](3.50)(210)(245){|\scriptsize\color{black}| R. Perception};
-    \arctext[RACT][SkyArc][5pt](4.00)(210)(245){|\scriptsize| R. Actuation};
-    \arctext[MAPL][SkyArc][5pt](4.50)(210)(245){|\scriptsize\color{black}| Mapping, Localization};
-    
-    % Object Recognition
-    \arctext[RECO][RedArc][8pt](2.75)(145)(205){|\footnotesize\bf\color{white}| Object Recognition};
-    \arctext[VIS][SkyArc][5pt](3.50)(145)(205){|\scriptsize\color{black}| Vision};
-    \arctext[IMGP][SkyArc][5pt](4.00)(145)(205){|\scriptsize\color{black}| Image Processing };
-    \arctext[MOTC][SkyArc][5pt](4.50)(145)(205){|\scriptsize\color{black}| Motion, shading, contour analysis};   
-  
-
-    %ADITIONAL EXTERNAL ARC
-   \arctext[NEW][
-       color=white,
-       shade,      
-       upper left=gray,
-       upper right=black!50,
-       lower left=gray,
-       lower right=gray!50,
-       rounded corners = 8pt
-       ][8pt](5.2)(180)(0){|\footnotesize\bf\color{white}| "Artificial Intelligence: A Modern Approach" by Peter Norvig and Stuart Russell};
-
-    % Drawing the Arrows from contributing branch to AI
-    % Format: \arcarrow(above/below ID)(abobe/below ID)[shift]
-    \arcarrow(below ML)(AROUND)[30];
-    \arcarrow(below SOLV)(AROUND)[24];
-    \arcarrow(below NLP)(AROUND)[15];
-    \arcarrow(below DEC)(AROUND)[-25];
-    \arcarrow(below REAS)(AROUND)[-17];
-    \arcarrow(below ROB)(AROUND)[-19];
-    \arcarrow(below RECO)(AROUND)[-33];
-
-    % Same level Arrows. Not needed now
-    % \draw[myarrow] (left SSNX) -- (right DUAM);
-    % \draw[myarrow] (left ML) -- (left SRel);
-    % \draw[myarrow] (left SCap) -- (right ML);
-
-	% Legend
-    \draw[myarrow] (-5,-5) coordinate (legend) -- ++(.8,0) node[anchor=west] {(contribution)};
-    \draw[RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node[anchor=west] {disciplines};
-    \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {requirements};
-        
-		% \node[draw] at (0,0) {};
-		% \node[draw,align=left] at (3,0) {};
-		\node[text width=3cm] at (3,-6.25) {\begin{tiny}Copyright \textcopyright Alfonso R. Reyes, 2020\end{tiny}};
-
-\end{tikzpicture}  
 \end{document}
 ```
 ****
@@ -1795,190 +2165,6 @@ $$
 \perfectly    as fast as possible
 
 \end{center}
-\end{document}
-```
-****
-
-![](./out/computational_intelligence-pool,mackworth_arr+diagram+ai.png)
-
-  
-  * [computational_intelligence-pool,mackworth_arr+diagram+ai.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/computational_intelligence-pool,mackworth_arr+diagram+ai.tex)
-
-```tex
-% Computational Intelligence Agent Contributors
-% Drawn by Alfonso R. Reyes
-% November 2020
-% Personal interpretation of "Computational Intelligence: A Logical Approach" by David Poole, Alan Mackworth and Randy Goebel.
-% Original diagram: https://github.com/FriendlyUser/LatexDiagrams
-\documentclass[border=5pt]{standalone}
-\usepackage{xcolor}
-
-	\definecolor{ocre}{HTML}{800000}
-	\definecolor{sky}{HTML}{C6D9F1}
-	\definecolor{skybox}{HTML}{5F86B3}
-
-\usepackage{tikz}
-\usepackage{pgfmath}
-\usetikzlibrary{decorations.text, arrows.meta,calc,shadows.blur,shadings}
-
-\renewcommand*\familydefault{\sfdefault} % Set font to serif family
-
-% arctext from Andrew code with modifications:
-%Variables: 1: ID, 2:Style 3:box height 4: Radious 5:start-angl 6:end-angl 7:text {format along path} 
-\def\arctext[#1][#2][#3](#4)(#5)(#6)#7{
-
-\draw[#2] (#5:#4cm+#3) coordinate (above #1) arc (#5:#6:#4cm+#3)
-             -- (#6:#4) coordinate (right #1) -- (#6:#4cm-#3) coordinate (below right #1) arc (#6:#5:#4cm-#3) coordinate (below #1)
-             -- (#5:#4) coordinate (left #1) -- cycle;
-            \def\a#1{#4cm+#3}
-            \def\b#1{#4cm-#3}
-\path[
-    decoration={
-        raise = -0.5ex, % Controls relavite text height position.
-        text  along path,
-        text = {#7},
-        text align = center,        
-    },
-    decorate
-    ]
-    (#5:#4) arc (#5:#6:#4);
-}
-
-% arcarrow, this is mine, for beerware purpose...
-% Function: Draw an arrow from arctex coordinate specific nodes to another 
-% Arrow start at the start of arctext box and could be shifted to change the position
-% to avoid go over another box.
-% Var: 1:Start coordinate 2:End coordinate 3:angle to shift from acrtext box  
-\def\arcarrow(#1)(#2)[#3]{
-    \draw[thick,->,>=latex] 
-        let \p1 = (#1), \p2 = (#2), % To access cartesian coordinates x, and y.
-            \n1 = {veclen(\x1,\y1)}, % Distance from the origin
-            \n2 = {veclen(\x2,\y2)}, % Distance from the origin
-            \n3 = {atan2(\y1,\x1)} % Angle where acrtext starts.
-        in (\n3-#3: \n1) -- (\n3-#3: \n2); % Draw the arrow.
-}
-
-
-\begin{document}
-\begin{tikzpicture}[
-	    % Environment Cfg
-	    font=\sf    \scriptsize,
-	    % Styles
-	    myarrow/.style={
-	        thick,
-	        -latex,
-	    },
-	    Center/.style ={
-	        circle,
-	        fill=ocre,
-	        text=white,
-	        align=center,
-	        font =\footnotesize\bf,
-	        inner sep=1pt,          
-	    },
-	    RedArc/.style ={
-	        color=black,
-	        thick,
-	        fill=ocre,
-	        blur shadow, 
-	    },
-	    SkyArc/.style ={
-	        color=skybox,
-	        thick,
-	        fill=sky,
-	        blur shadow, 
-	    },
-    ]
-
-    % Drawing the center for AI
-    \node[Center](AI) at (0,0) { Computational \\ Intelligence \\(AI)\\ Agent};
-    \coordinate (AROUND) at (0:1.2); 
-
-    % Drawing the Text Arcs
-    % Format: \Arctext[ID][box-style][box-height](radious)(start-angl)(end-angl){|text-styles| Text}
-    
-	% Machine Learning
-    \arctext[ML][RedArc][8pt](2.75)(135)(85){|\footnotesize\bf\color{white}| Machine Learning};
-    \arctext[REIN][SkyArc][5pt](3.50)(135)(85){|\scriptsize\color{black}| Decision Trees};
-    \arctext[KNOW][SkyArc][5pt](4.00)(135)(85){|\scriptsize| Neural Networks};
-%    \arctext[SUPL][SkyArc][5pt](4.00)(140)(115){|\scriptsize| Supervised L.};
-    \arctext[PROB][SkyArc][5pt](4.50)(135)(85){|\scriptsize\color{black}| Explanation Based Learning};
-    
-    % Problem Solving
-    \arctext[SOLV][RedArc][8pt](2.75)(80)(40){|\footnotesize\bf\color{white}| Searching};
-    \arctext[SRCH][SkyArc][5pt](3.50)(80)(40){|\scriptsize\color{black}| Graph Searching };
-    \arctext[HEUR][SkyArc][5pt](4.00)(80)(40){|\scriptsize| Heuristic Search};
-	\arctext[CONST][SkyArc][5pt](4.50)(80)(40){|\scriptsize\color{black}| Constraint Satisfaction};
-	
-	% Natural Language Processing
-    \arctext[NLP][RedArc][8pt](2.75)(35)(-20){|\footnotesize\bf\color{white}| Definite Knowledge};
-    \arctext[TRAN][SkyArc][5pt](3.50)(35)(5){|\scriptsize\color{black}| Recursion};
-    \arctext[TRAN][SkyArc][5pt](3.50)(0)(-20){|\scriptsize\color{black}| NLP};
-    \arctext[SPER][SkyArc][5pt](4.00)(35)(-20){|\scriptsize| Grammar Augmentation};
-    \arctext[INFX][SkyArc][5pt](4.50)(35)(-20){|\scriptsize\color{black}| First Order Predicate Calculus};
-
-    % Decision Making
-    \arctext[DEC][RedArc][8pt](2.75)(290)(335){|\footnotesize\bf\color{white}| Planning};
-    \arctext[LOG][SkyArc][5pt](3.50)(290)(335){|\scriptsize\color{black}| Time Representation};
-    \arctext[KNOW][SkyArc][5pt](4.00)(290)(335){|\scriptsize| World Representations};
-    \arctext[PLAN][SkyArc][5pt](4.50)(290)(335){|\scriptsize| Forward Planning};
-    
-    % Reasoning
-    \arctext[REAS][RedArc][8pt](2.75)(250)(285){|\footnotesize\bf\color{white}|  Reasoning};
-    \arctext[PROB][SkyArc][5pt](3.50)(250)(285){|\scriptsize\color{black}| Semantics};
-    \arctext[REAT][SkyArc][5pt](4.00)(249)(287){|\scriptsize| Symbolic Representation};
-    \arctext[UNQU][SkyArc][5pt](4.50)(248)(287){|\scriptsize\color{black}| Clauses, Questions, Answers};
-    
-    % Robotics
-    \arctext[ROB][RedArc][8pt](2.75)(200)(245){|\footnotesize\bf\color{white}|  Robotics};
-    \arctext[RPER][SkyArc][5pt](3.50)(200)(245){|\scriptsize\color{black}| Agent Functions};
-    \arctext[RACT][SkyArc][5pt](4.00)(200)(245){|\scriptsize| Robotic Systems};
-    \arctext[MAPL][SkyArc][5pt](4.50)(200)(224){|\scriptsize\color{black}| Agent Models};
-    \arctext[MAPL][SkyArc][5pt](4.50)(226)(245){|\scriptsize\color{black}| Architecture};
-    
-    % Object Recognition
-    \arctext[RECO][RedArc][8pt](2.75)(140)(195){|\footnotesize\bf\color{white}| Knowledge};
-    \arctext[VIS][SkyArc][5pt](3.50)(140)(195){|\scriptsize\color{black}| Representation Language};
-    \arctext[IMGP][SkyArc][5pt](4.00)(140)(195){|\scriptsize\color{black}| Map Problem to Representation };
-    \arctext[MOTC][SkyArc][5pt](4.50)(140)(195){|\scriptsize\color{black}| Knowledge Based Systems};   
-  
-
-    %ADITIONAL EXTERNAL ARC
-    \arctext[NEW][
-        color=white,
-        shade,      
-        upper left=gray,
-        upper right=black!50,
-        lower left=gray,
-        lower right=gray!50,
-        rounded corners = 8pt
-        ][8pt](5.2)(180)(0){|\footnotesize\bf\color{white}| "Computational Intelligence: A Logical Approach" by David Poole, Alan Mackworth and Randy Goebel};
-
-    % Drawing the Arrows from contributing branch to AI
-    % Format: \arcarrow(above/below ID)(abobe/below ID)[shift]
-    \arcarrow(below ML)(AROUND)[30];
-    \arcarrow(below SOLV)(AROUND)[24];
-    \arcarrow(below NLP)(AROUND)[15];
-    \arcarrow(below DEC)(AROUND)[-25];
-    \arcarrow(below REAS)(AROUND)[-17];
-    \arcarrow(below ROB)(AROUND)[-19];
-    \arcarrow(below RECO)(AROUND)[-33];
-
-    % Same level Arrows. Not needed now
-    % \draw[myarrow] (left SSNX) -- (right DUAM);
-    % \draw[myarrow] (left ML) -- (left SRel);
-    % \draw[myarrow] (left SCap) -- (right ML);
-
-	% Legend
-    \draw[myarrow] (-5,-5) coordinate (legend) -- ++(.8,0) node[anchor=west] {(contribution)};
-    \draw[RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node[anchor=west] {disciplines};
-    \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {requirements};
-        
-		% \node[draw] at (0,0) {};
-		% \node[draw,align=left] at (3,0) {};
-		\node[text width=3cm] at (3,-6.25) {\begin{tiny}Copyright \textcopyright Alfonso R. Reyes, 2020\end{tiny}};
-
-\end{tikzpicture}  
 \end{document}
 ```
 ****
@@ -3046,41 +3232,6 @@ $$
 ```
 ****
 
-![](./out/elem-network-ex_doc_4-13+elem+network.png)
-
-  
-  * [elem-network-ex_doc_4-13+elem+network.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/elem-network-ex_doc_4-13+elem+network.tex)
-
-```tex
-
-% =============================================================================
-% File      : ex_doc_4-13.tex -- example 4.13
-% Author    : Jürgen Hackl <hackl.j@gmx.at>
-% Creation  : 2019-08-14
-% Time-stamp: <Thu 2019-08-15 09:44 juergen>
-%
-% Copyright (c) 2019 Jürgen Hackl <hackl.j@gmx.at>
-% =============================================================================
-\documentclass{standalone}
-\usepackage{tikz-network}
-
-\begin{document}
-
-\begin{tikzpicture}[multilayer=3d]
-	\Plane[x=-.5,y=-.5,width=3,height=2.5,grid=5mm]
-\end{tikzpicture}
-
-\end{document}
-% =============================================================================
-% eof
-
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: t
-%%% End:
-```
-****
-
 ![](./out/elem-node_connector+elem+diagram+command+params.png)
 
   
@@ -3527,6 +3678,103 @@ We are working on
 \end{tikzpicture}
 
 \end{document}
+```
+****
+
+![](./out/elem-transparent_circles+multi+pgf+set.png)
+
+  
+  * [elem-transparent_circles+multi+pgf+set.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/elem-transparent_circles+multi+pgf+set.tex)
+
+```tex
+% https://tex.stackexchange.com/a/48596/173708
+\documentclass{scrartcl}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}  
+
+% split figures into pages
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{1pt}%
+
+\begin{document} 
+
+% If their areas of the circle nodes represent some numbers with proportionality 
+% then you need to know exactly the radius. The radius depends of minimum width 
+% and of \pgflinewidth.
+%
+% we have : radius = (minimum width + line width) / 2  if inner sep = 0pt
+%
+% In the next example, I choice first minimum width=2cm then minimum width=2cm,
+% line width=5mm and finally line width=5mm,minimum width=2cm-\pgflinewidth 
+% with in all cases inner sep= 0 pt.
+%
+
+	
+\begin{tikzpicture} 
+  \draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
+  \draw[help lines] (0,0) grid (8,1);     
+  \node[minimum width=2cm,circle,inner sep=0pt,fill=blue!20,fill opacity=.5]{};
+  \node[minimum width=2cm,circle,inner sep=0pt,fill=blue!20,fill opacity=.5,
+        line width=5mm,draw=gray,opacity=.5] at (3,0){}; 
+  \node[circle,inner sep=0pt,fill=blue!20,,fill opacity=.5,
+        line width=5mm,draw=gray,opacity=.5,minimum width=2cm-\pgflinewidth]  at (6,0) {}; 
+\end{tikzpicture}  
+
+% Now if I want to get three circles with areas equal to pi, 2pi and 3pi 
+% I created a macro `def\lw{2mm}` to change quickly the line width in all nodes
+
+\tikzset{myrad/.style 2 args={circle,inner sep=0pt,minimum width=(2*(sqrt(#1)*1 cm ) - \pgflinewidth,fill=#2,draw=#2,fill opacity=.5,opacity=.8}}    
+
+\begin{tikzpicture} 
+	\def\lw{2mm}
+	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
+	\draw[help lines] (0,0) grid (8,1);     
+	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
+	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
+	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
+\end{tikzpicture}  
+
+% Finally If you want nodes with areas equal to 1 cm^2, 2 cm^2 and 3 cm^2 : 
+% I change the line width for the second group of nodes
+
+\begin{tikzpicture} 
+	\def\lw{2mm}
+	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
+	\draw[help lines] (0,0) grid (8,1);     
+	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
+	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
+	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
+\end{tikzpicture}    
+
+\begin{tikzpicture} 
+	\def\lw{5mm}
+	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
+	\draw[help lines] (0,0) grid (8,1);     
+	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
+	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
+	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
+\end{tikzpicture}
+
+%To avoid this kind of problem, we can use circles instead of circle nodes. But we need to adjust the radius wit the pgflinewidth. In the next example,I want a radius = 2cm so I need to use : radius=2cm-0.5\pgflinewidth. Then I need to create a node with the same dimensions.
+%
+%Like the question about node and rectangle here, we can associate a node to the shape The main problem : we can't use scale but it's more easy to place a label.
+
+\tikzset{set node/.style={insert path={% 
+	\pgfextra{% 
+		\node[inner sep=0pt,outer sep = 0pt,draw=black, % draw= none only to show what I do
+		circle,
+		minimum width=2*\pgfkeysvalueof{/tikz/x radius}+0.5\pgflinewidth](#1) {};
+}}}}
+
+\begin{tikzpicture}
+	\draw[help lines] (-3,-3) grid (3,3);
+	\draw[blue,line width=5mm,opacity=.2] (0,0) circle [radius=2cm-0.5\pgflinewidth,set node=C1]  ; 
+	\draw[thick,->] (3,-3) -- (C1.east);
+\end{tikzpicture}
+
+\end{document} 
 ```
 ****
 
@@ -5965,148 +6213,6 @@ showing an implicit way.
 ```
 ****
 
-![](./out/impact-particles_table+physics.png)
-
-  
-  * [impact-particles_table+physics.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/impact-particles_table+physics.tex)
-
-```tex
-% Standard model of physics
-% Author: Carsten Burgard
-\documentclass[border=10pt]{standalone}
-\usepackage{tikz}
-\usetikzlibrary{calc,positioning,shadows.blur,decorations.pathreplacing}
-\usepackage{etoolbox}
-
-\tikzset{%
-        brace/.style = { decorate, decoration={brace, amplitude=5pt} },
-       mbrace/.style = { decorate, decoration={brace, amplitude=5pt, mirror} },
-        label/.style = { black, midway, scale=0.5, align=center },
-     toplabel/.style = { label, above=.5em, anchor=south },
-    leftlabel/.style = { label,rotate=-90,left=.5em,anchor=north },   
-  bottomlabel/.style = { label, below=.5em, anchor=north },
-        force/.style = { rotate=-90,scale=0.4 },
-        round/.style = { rounded corners=2mm },
-       legend/.style = { right,scale=0.4 },
-        nosep/.style = { inner sep=0pt },
-   generation/.style = { anchor=base },
-       dasher/.style = { orange, dashed }   % color for graviton
-}
-
-% the style for each of the particles
-% #1 fill color; #2 symbol; #3 name; #4 mass; #5 spin; #6 charge; #7 colors
-%
-\newcommand\particle[7][white]{%
-  \begin{tikzpicture}[x=1cm, y=1cm]
-    \path[fill=#1,blur shadow={shadow blur steps=5}] (0.1,0) -- (0.9,0)
-        arc (90:0:1mm) -- (1.0,-0.9) arc (0:-90:1mm) -- (0.1,-1.0)
-        arc (-90:-180:1mm) -- (0,-0.1) arc(180:90:1mm) -- cycle;
-    \ifstrempty{#7}{}{\path[fill=purple!50!white]                           % colors: band, purple
-        (0.6,0) --(0.7,0) -- (1.0,-0.3) -- (1.0,-0.4);}
-    \ifstrempty{#6}{}{\path[fill=green!50!black!50] (0.7,0) -- (0.9,0)      % charge: corner, green
-        arc (90:0:1mm) -- (1.0,-0.3);}
-    \ifstrempty{#5}{}{\path[fill=orange!50!white] (1.0,-0.7) -- (1.0,-0.9)  % spin: bottom corner, orange
-        arc (0:-90:1mm) -- (0.7,-1.0);}
-    \draw[\ifstrempty{#2}{dasher}{black}] (0.1,0) -- (0.9,0)                % line
-        arc (90:0:1mm) -- (1.0,-0.9) arc (0:-90:1mm) -- (0.1,-1.0)
-        arc (-90:-180:1mm) -- (0,-0.1) arc(180:90:1mm) -- cycle;
-    \ifstrempty{#7}{}{\node at(0.825,-0.175) [rotate=-45,scale=0.2] {#7};}      % colors
-    \ifstrempty{#6}{}{\node at(0.9,-0.1)  [nosep,scale=0.17] {#6};}             % charge
-    \ifstrempty{#5}{}{\node at(0.9,-0.9)  [nosep,scale=0.2] {#5};}              % spin
-    \ifstrempty{#4}{}{\node at(0.1,-0.1)  [nosep,anchor=west,scale=0.25]{#4};}  % mass
-    \ifstrempty{#3}{}{\node at(0.1,-0.85) [nosep,anchor=west,scale=0.3] {#3};}  % name
-    \ifstrempty{#2}{}{\node at(0.1,-0.5)  [nosep,anchor=west,scale=1.5] {#2};}  % symbol
-  \end{tikzpicture}
-}
-
-
-\begin{document}
-\begin{tikzpicture}[x=1.2cm, y=1.2cm]
-  % draw force blocks
-  \draw[round] (-0.5,0.5) rectangle (4.4,-1.5);     % strong force
-  \draw[round] (-0.6,0.6) rectangle (5.0,-2.5);     % electromagnetic force
-  \draw[round] (-0.7,0.7) rectangle (5.6,-3.5);     % weak force
-
-  % draw all particles  
-  \node at(0, 0)   {\particle[gray!20!white]
-                    {$u$}        {up}       {$2.3$ MeV}{1/2}{$2/3$}{R/G/B}};
-  \node at(0,-1)   {\particle[gray!20!white]
-                    {$d$}        {down}    {$4.8$ MeV}{1/2}{$-1/3$}{R/G/B}};
-  \node at(0,-2)   {\particle[gray!20!white]
-                    {$e$}        {electron}       {$511$ keV}{1/2}{$-1$}{}};
-  \node at(0,-3)   {\particle[gray!20!white]
-                    {$\nu_e$}    {$e$ neutrino}         {$<2$ eV}{1/2}{}{}};
-  \node at(1, 0)   {\particle
-                    {$c$}        {charm}   {$1.28$ GeV}{1/2}{$2/3$}{R/G/B}};
-  \node at(1,-1)   {\particle 
-                    {$s$}        {strange}  {$95$ MeV}{1/2}{$-1/3$}{R/G/B}};
-  \node at(1,-2)   {\particle
-                    {$\mu$}      {muon}         {$105.7$ MeV}{1/2}{$-1$}{}};
-  \node at(1,-3)   {\particle
-                    {$\nu_\mu$}  {$\mu$ neutrino}    {$<190$ keV}{1/2}{}{}};
-  \node at(2, 0)   {\particle
-                    {$t$}        {top}    {$173.2$ GeV}{1/2}{$2/3$}{R/G/B}};
-  \node at(2,-1)   {\particle
-                    {$b$}        {bottom}  {$4.7$ GeV}{1/2}{$-1/3$}{R/G/B}};
-  \node at(2,-2)   {\particle
-                    {$\tau$}     {tau}          {$1.777$ GeV}{1/2}{$-1$}{}};
-  \node at(2,-3)   {\particle
-                    {$\nu_\tau$} {$\tau$ neutrino}  {$<18.2$ MeV}{1/2}{}{}};
-  \node at(3,-3)   {\particle[orange!20!white]
-                    {$W^{\hspace{-.3ex}\scalebox{.5}{$\pm$}}$}               
-                                {}              {$80.4$ GeV}{1}{$\pm1$}{}}; % W
-  \node at(4,-3)   {\particle[orange!20!white]
-                    {$Z$}        {}                    {$91.2$ GeV}{1}{}{}}; % Z
-  \node at(3.5,-2) {\particle[green!50!black!20]
-                    {$\gamma$}   {photon}                        {}{1}{}{}}; % gamma-photon
-  \node at(3.5,-1) {\particle[purple!20!white]
-                    {$g$}        {gluon}                    {}{1}{}{color}}; % g-gluon
-  \node at(5,0)    {\particle[gray!50!white]
-                    {$H$}        {Higgs}              {$125.1$ GeV}{0}{}{}}; % H-Higgs
-  \node at(6.1,-3) {\particle[gray!5!white]
-                    {}           {graviton}                       {}{}{}{}}; % graviton
-
-  % add text labels for forces
-  \node at(4.25,-0.5) [force]      {strong nuclear force (color)};
-  \node at(4.85,-1.5) [force]    {electromagnetic force (charge)};
-  \node at(5.45,-2.4) [force] {weak nuclear force (weak isospin)};
-  \node at(6.75,-2.5) [force]        {gravitational force (mass)};
-
-  % draw arrows and add labels for legends
-  \draw [<-] (2.50,0.30)  -- (2.7,0.3)          node [legend] {charge};
-  \draw [<-] (2.50,0.15)  -- (2.7,0.15)         node [legend] {colors};
-  \draw [<-] (2.05,0.25)  -- (2.3,0) -- (2.7,0) node [legend]   {mass};
-  \draw [<-] (2.50,-0.3)  -- (2.7,-0.3)         node [legend]   {spin};
-
-  % draw vertical braces and labels
-  \draw [mbrace] (-0.8,0.5)  -- (-0.8,-1.5)
-                  node[leftlabel] {6 quarks\\(+6 anti-quarks)};
-  \draw [mbrace] (-0.8,-1.5) -- (-0.8,-3.5)
-                  node[leftlabel] {6 leptons\\(+6 anti-leptons)};
-  % draw bottom braces and labels                  
-  \draw [mbrace] (-0.5,-3.6) -- (2.5,-3.6)
-                  node[bottomlabel]
-                  {12 fermions\\(+12 anti-fermions)\\increasing mass $\to$};
-  \draw [mbrace] (2.5,-3.6) -- (5.5,-3.6)
-                  node[bottomlabel] {5 bosons\\(+1 opposite charge $W$)};
-
-  % draw top braces and add text labels
-  \draw [brace] (-0.5,.8) -- (0.5,.8) node[toplabel]         {standard matter};
-  \draw [brace] (0.5,.8)  -- (2.5,.8) node[toplabel]         {unstable matter};
-  \draw [brace] (2.5,.8)  -- (4.5,.8) node[toplabel]          {force carriers};
-  \draw [brace] (4.5,.8)  -- (5.5,.8) node[toplabel]       {Goldstone\\bosons};  % two lines
-  \draw [brace] (5.5,.8)  -- (7,.8)   node[toplabel] {outside\\standard model};  % two lines
-
-  % add big numbers on top
-  \node at (0,1.2)   [generation] {1\tiny st};
-  \node at (1,1.2)   [generation] {2\tiny nd};
-  \node at (2,1.2)   [generation] {3\tiny rd};
-  \node at (2.8,1.2) [generation] {\tiny generation};
-\end{tikzpicture}
-\end{document}
-```
-****
-
 ![](./out/impact-simulation_abstraction+physics.png)
 
   
@@ -6659,6 +6765,880 @@ much as possible.
 ```
 ****
 
+![](./out/iso-louvre-planes.png)
+
+  
+  * [iso-louvre-planes.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-louvre-planes.tex)
+
+```tex
+% louvre-plaes.tex
+% https://tex.stackexchange.com/q/186058/173708
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usetikzlibrary{shapes,shadows,positioning,arrows,calc,matrix,decorations.markings,decorations.pathreplacing}
+
+% like standalone
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+
+\begin{document}
+
+\definecolor{colone}{RGB}{209,220,204}
+\definecolor{coltwo}{RGB}{204,222,210}
+\definecolor{colthree}{RGB}{207,233,232}
+\definecolor{colfour}{RGB}{248,243,214}
+\definecolor{colfive}{RGB}{245,238,197}
+\definecolor{colsix}{RGB}{243,235,179}
+\definecolor{colseven}{RGB}{241,231,163}
+\definecolor{colortop}{RGB}{184,223,155}
+\definecolor{colorside}{RGB}{0,209,54}
+
+\begin{figure}
+\begin{tikzpicture}[every node/.style={minimum size=1cm,font=\scriptsize},on grid]
+  \begin{scope}[every node/.append style={yslant=-0.5},yslant=-0.5]
+    \shade[right color=colorside!30, left color=colorside!50] (-1,0) rectangle +(4,3);
+    \node  at (-0.5,2.25) {};
+    \node at (0.5,2.75) {$Sex$};
+    \node at (1.5,2.75) {$Age$};
+    \node at (2.5,2.75) {$Area$};
+    \node at (-0.5,1.25) {$User_3$};
+    \node at (-0.5,0.75) {$...$};
+    \node at (0.5,0.75) {$...$};
+    \node at (2.5,0.75) {$...$};
+    \node at (0.5,1.25) {$*$};
+    \node at (1.5,1.25) {$4$};
+    \node at (2.5,1.25) {$0$};
+    \node at (-0.5,0.25) {$User_n$};
+    \node at (1.5,0.75) {$...$};
+    \node at (-0.5,2.25) {$user_1$};
+    \node at (0.5,2.25) {$0$};
+    \node at (1.5,2.25) {$*$};
+    \node at (2.5,2.25) {$1$};
+      \node at (-0.5,1.75) {$User_2$};
+      \node at (0.5,1.75) {$1$};
+      \node at (1.5,1.75) {$3$};
+      \node at (2.5,1.75) {$0$};
+      \node at (0.5,0.25) {$2$};
+      \node at (1.5,0.25) {$*$};
+      \node at (2.5,0.25) {$9$};
+    \draw (-1,0) grid[ystep=0.5] (3,3);
+  \end{scope}
+  
+  \begin{scope}[every node/.append style={yslant=0.5},yslant=0.5]
+    \shade[right color=colorside!70,left color=colorside!10] (3,-3) rectangle +(5,3);
+    \node at (3.5,-0.25) {};
+    \node at (3.5,-0.75) {$user_1$};
+    \node at (3.5,-1.25) {$user_2$};
+    \node at (3.5,-1.75){$user_3$};
+    \node at (3.5,-2.25) {$...$};
+    \node at (3.5,-2.75) {$user_n$};
+    \node at (4.5,-0.25) {$item_1$};
+    \node at (4.5,-1.25) {$3$};
+    \node at (4.5,-0.75) {$*$};
+    \node at (4.5,-1.75) {$*$};
+    \node at (4.5,-2.25) {$...$};
+    \node at (4.5,-2.75) {$*$};
+    \node at (5.5,-0.25) {$item_2$};
+    \node at (5.5,-0.75) {$2$};
+    \node at (5.5,-1.75) {$3$};
+    \node at (5.5,-1.25) {$4$};
+    \node at (5.5,-2.75) {$5$};
+    \node at (5.5,-2.25) {$...$};
+    \node at (6.5,-0.25) {$...$};
+    \node at (6.5,-1.25) {$...$};
+    \node at (6.5,-2.25) {$...$};
+    \node at (6.5,-0.75) {$...$};
+    \node at (6.5,-1.75) {$...$};
+    \node at (6.5,-2.75) {$...$};
+    \node at (7.5,-0.25) {$item_n$};
+    \node at (7.5,-0.75) {$3$};
+    \node at (7.5,-1.25) {$5$};
+    \node at (7.5,-1.75) {$4$};
+    \node at (7.5,-2.25) {$...$};
+    \node at (7.5,-2.75) {$*$};
+
+    \draw (3,-3) grid[ystep=0.5] (8,0);
+  \end{scope}
+
+  \begin{scope}[every node/.append style={
+    yslant=0.5,xslant=-1},yslant=0.5,xslant=-0.75
+    ]
+    \shade[bottom color=colortop!10, top color=colortop!80] (8,4) rectangle +(-5,-4);
+    \draw (3.0,0.0) grid[ystep=0.5] (8,4);
+    \node at (3.5,3.75) {};
+    \node at (3.5,3.25) {$Legal$};
+    \node at (3.5,2.75) {$Fin.$};
+    \node at (3.5,2.25) {$Med.$};
+    \node at (3.5,1.75) {$Home$};
+    \node at (3.5,1.25) {$Road$};
+    \node at (3.5,0.75) {$Travel$};
+    \node at (3.5,0.25) {$Din.$};
+    \node at (4.5,3.75) {$item_1$};
+    \node at (4.5,3.25) {$1$};
+    \node at (4.5,2.75) {$0$};
+    \node at (4.5,2.25) {$0$};
+    \node at (4.5,1.75) {$1$};
+    \node at (4.5,1.25) {$1$};
+    \node at (4.5,0.75) {$0$};
+    \node at (4.5,0.25) {$1$};
+    \node at (5.5,3.75) {$item_2$};
+    \node at (5.5,3.25) {$1$};
+    \node at (5.5,2.75) {$0$};
+    \node at (5.5,2.25) {$0$};
+    \node at (5.5,1.75) {$1$};
+    \node at (5.5,1.25) {$0$};
+    \node at (5.5,0.75) {$1$};
+    \node at (5.5,0.25) {$1$};
+    \node at (6.5,3.75) {$...$};
+    \node at (6.5,3.25) {$...$};
+    \node at (6.5,2.75) {$...$};
+    \node at (6.5,2.25) {$...$};
+    \node at (6.5,1.75) {$...$};
+    \node at (6.5,1.25) {$...$};
+    \node at (6.5,0.75) {$...$};
+    \node at (6.5,0.25) {$...$};
+    \node at (7.5,3.75) {$item_n$};
+    \node at (7.5,3.25) {$0$};
+    \node at (7.5,2.75) {$1$};
+    \node at (7.5,2.25) {$1$};
+    \node at (7.5,1.75) {$0$};
+    \node at (7.5,1.25) {$0$};
+    \node at (7.5,0.75) {$1$};
+    \node at (7.5,0.25) {$0$};
+  \end{scope}
+\end{tikzpicture}
+  \caption{User-Item Combined Matrix}
+  \label{fig:com}
+\end{figure}
+\end{document}
+```
+****
+
+![](./out/iso-network-ex_doc_4-13+elem+network.png)
+
+  
+  * [iso-network-ex_doc_4-13+elem+network.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-network-ex_doc_4-13+elem+network.tex)
+
+```tex
+
+% =============================================================================
+% File      : ex_doc_4-13.tex -- example 4.13
+% Author    : Jürgen Hackl <hackl.j@gmx.at>
+% Creation  : 2019-08-14
+% Time-stamp: <Thu 2019-08-15 09:44 juergen>
+%
+% Copyright (c) 2019 Jürgen Hackl <hackl.j@gmx.at>
+% =============================================================================
+\documentclass{standalone}
+\usepackage{tikz-network}
+
+\begin{document}
+
+\begin{tikzpicture}[multilayer=3d]
+	\Plane[x=-.5,y=-.5,width=3,height=2.5,grid=5mm]
+\end{tikzpicture}
+
+\end{document}
+% =============================================================================
+% eof
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+```
+****
+
+![](./out/iso-planes_multiple_ocean+projection+style+scope+slant.png)
+
+  
+  * [iso-planes_multiple_ocean+projection+style+scope+slant.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-planes_multiple_ocean+projection+style+scope+slant.tex)
+
+```tex
+\documentclass[border=5pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{positioning, patterns, decorations.pathreplacing}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows,shapes,backgrounds}
+
+\begin{document}
+
+
+\begin{tikzpicture}[scale=.9,every node/.style={minimum size=1cm},on grid]
+
+    \tikzstyle{select arrow}=[->, thick,cyan!70!black]
+    \tikzstyle{action arrow}=[->, thick,cyan!90!black]
+    \tikzstyle{action good}=[thick,cyan!50!black]
+    \tikzstyle{action bad}=[thick,cyan!30]
+    \tikzstyle{active neuron}=[cyan!90]
+    \tikzstyle{selected neuron}=[cyan!30]
+    \tikzstyle{bad action}=[pattern=north west lines, pattern color=cyan!30]
+
+    %FINAL STATE. plane at the bottom
+    \begin{scope}[
+                yshift=-160,every node/.append style={
+                yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+                ]
+
+            \fill[white,fill opacity=0.9] (0,0) rectangle (2.5,2.5);
+            \draw[step=5mm, black] (0,0) grid (2.5,2.5);
+            \draw[black,very thick] (0,0) rectangle (2.5,2.5);
+            \fill[active neuron] (0.55,0.55) rectangle (0.95,0.95);
+
+        \draw[->,thick, blue!50!cyan] (0.3,0.25) -- (0.7,0.25);
+    \end{scope}
+
+    \draw[action arrow, red, thin] (-0.5,-3.25) -- (0,-4.9);
+
+    %SECOND ACTION
+    \begin{scope}[
+        yshift=-120,every node/.append style={
+        yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+                    ]
+        \fill[white,fill opacity=.95] (0,0) rectangle (1.5,1.5);
+        \draw[step=5mm, black] (0,0) grid (1.5,1.5);
+        \draw[black,very thick] (0,0) rectangle (1.5,1.5);
+
+        \fill[bad action] (0.05,0.05) rectangle (0.45,0.45);
+        \fill[bad action] (1.05,0.05) rectangle (1.45,0.45);
+        \fill[bad action] (1.05,1.05) rectangle (1.45,1.45);
+        \fill[bad action] (0.05,1.05) rectangle (0.45,1.45);
+
+        \node[action good] at (0.25,0.75) {W};
+        \node[action good] at (1.25,0.75) {E};
+        \node[action good] at (0.75,1.25) {N};
+        \node[action bad] at (0.75,0.25) {S};
+        \end{scope}
+
+    \draw[action arrow] (0.5,-2.45) -- (0.5,-3.25);
+    \draw[action arrow, red] (0.5,-2.45) -- (-0.5,-3.25);
+    \draw[action arrow] (0.5,-2.45) -- (-0.5,-3.75);
+
+    %SECOND STATE
+    \begin{scope}[
+        yshift=-80,every node/.append style={
+        yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+
+        \fill[white,fill opacity=0.9] (0,0) rectangle (2.5,2.5);
+        \draw[step=5mm, black] (0,0) grid (2.5,2.5);
+        \draw[black,very thick] (0,0) rectangle (2.5,2.5);
+        \fill[active neuron] (0.55,0.05) rectangle (0.95,0.45);  
+        \fill[selected neuron] (0.05,0.05) rectangle (0.45,0.45);
+        \fill[selected neuron] (1.05,0.05) rectangle (1.45,0.45);
+        \fill[selected neuron] (0.55,0.55) rectangle (0.95,0.95);
+
+        \draw[select arrow] (0.85,0.25) -- (1.25,0.25);
+        \draw[select arrow] (0.75,0.35) -- (0.75,.75);
+        \draw[select arrow] (0.65,0.25) -- (0.25,0.25);
+    \end{scope}
+
+    \draw[action arrow, red] (0.5,-0.45) -- (0.5,-2.3);
+
+    %FIRST ACTION
+    \begin{scope}[
+        yshift=-40,every node/.append style={
+        yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+                    ]
+        \fill[white,fill opacity=.95] (0,0) rectangle (1.5,1.5);
+        \draw[step=5mm, black] (0,0) grid (1.5,1.5);
+        \draw[black,very thick] (0,0) rectangle (1.5,1.5);
+
+        \fill[bad action] (0.05,0.05) rectangle (0.45,0.45);
+        \fill[bad action] (1.05,0.05) rectangle (1.45,0.45);
+        \fill[bad action] (1.05,1.05) rectangle (1.45,1.45);
+        \fill[bad action] (0.05,1.05) rectangle (0.45,1.45);
+
+        \node[action bad] at (0.25,0.75) {W};
+        \node[action good] at (1.25,0.75) {E};
+        \node[action good] at (0.75,1.25) {N};
+        \node[action bad] at (0.75,0.25) {S};
+    \end{scope}
+
+    \draw[action arrow, red] (0.125,0.125) -- (0.5,-0.45);
+    \draw[action arrow] (-0.125,0.125) -- (-0.5,-0.45);
+
+    %INITIAL STATE. plane at the top
+    \begin{scope}[
+        every node/.append style={
+        yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+
+        \fill[white,fill opacity=0.9] (0,0) rectangle (2.5,2.5);
+        \draw[step=5mm, black] (0,0) grid (2.5,2.5);
+        \draw[black,very thick] (0,0) rectangle (2.5,2.5);
+        \fill[active neuron] (0.05,0.05) rectangle (0.45,0.45);
+        \fill[selected neuron] (0.55,0.05) rectangle (0.95,0.45);
+        \fill[selected neuron] (0.05,0.55) rectangle (0.45,0.95);
+
+        \draw [decorate,decoration={brace,amplitude=10pt}] (0,2.6) -- (2.6,2.6);
+        \node at (1.6,3.3) {d};
+
+        \draw[select arrow] (0.25,0.35) -- (0.25,0.75);
+        \draw[select arrow] (0.35,0.25) -- (0.75,0.25);
+
+        \node at (1.125,-0.3) {\textbf{x}};
+        \node at (-0.3,1.125) {\textbf{y}};
+
+    \end{scope}
+
+    \node at (4,1.25) {$S$};
+    \node at (4,-0.5) {$a$};
+    \node at (4,-1.5) {$S'$};
+    \node at (4,-3.25) {$a'$};
+
+\end{tikzpicture}
+\end{document}
+```
+****
+
+![](./out/iso-planes-multidimensional-array-inclined.png)
+
+  
+  * [iso-planes-multidimensional-array-inclined.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-planes-multidimensional-array-inclined.tex)
+
+```tex
+% https://tex.stackexchange.com/a/295021/173708
+\documentclass[tikz,border=5]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}[x=0.5cm,y=0.5cm]
+    \begin{scope}[rotate=130,]
+        \draw[gray] (-4  ,-1.5) -- (6  ,3.5);
+    \end{scope}
+    \foreach \shift in {-5,0,5}
+    {
+        \foreach \x in {1,...,4}
+        {
+            \foreach \y in {1,...,4}
+            {
+                \begin{scope}[rotate=130,shift={(\shift,0.5*\shift)},]
+                    \draw[fill=white] (\x,\y) rectangle (\x+1,\y+1);
+                    \node at (\x+0.5,\y+0.5) {\pgfmathrnd\pgfmathparse{round(\pgfmathresult)}
+                        \pgfmathprintnumber[precision=1]{\pgfmathresult}};
+                \end{scope}
+            }
+        }
+    }
+    \begin{scope}[rotate=130,]
+        \draw         (-4, 2.5) -- (6  ,7.5);
+        \draw[dashed] (0 , 2.5) -- (10,7.5);
+        \draw[dashed] (0 ,-1.5) -- (10,3.5) node[midway,anchor=south west] {Channel};
+    \end{scope}
+\end{tikzpicture}
+\end{document}
+```
+****
+
+![](./out/iso-planes-multidimensional-array.png)
+
+  
+  * [iso-planes-multidimensional-array.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-planes-multidimensional-array.tex)
+
+```tex
+% https://tex.stackexchange.com/a/295109/173708
+
+\documentclass[tikz,border=5]{standalone}
+\begin{document} 
+	
+\begin{tikzpicture}[x=(15:.5cm), y=(90:.5cm), z=(330:.5cm), >=stealth]
+	\draw (0, 0, 0) -- (0, 0, 10) (4, 0, 0) -- (4, 0, 10);
+	\foreach \z in {0, 5, 10} \foreach \x in {0,...,3}
+	  \foreach \y [evaluate={\b=random(0, 1);}] in {0,...,3}
+	    \filldraw [fill=white] (\x, \y, \z) -- (\x+1, \y, \z) -- (\x+1, \y+1, \z) --
+	      (\x, \y+1, \z) -- cycle (\x+.5, \y+.5, \z) node [yslant=tan(15)] {\b};
+	\draw [dashed] (0, 4, 0) -- (0, 4, 10) (4, 4, 0) -- (4, 4, 10);
+	\draw [->] (0, 4.5, 0)  -- (4, 4.5, 0)   node [near end, above left] {Column};
+	\draw [->] (-.5, 4, 0)  -- (-.5, 0, 0)   node [midway, left] {Row};
+	\draw [->] (4, 4.5, 10) -- (4, 4.5, 2.5) node [near end, above right] {Channel};
+\end{tikzpicture}%
+\end{document}
+```
+****
+
+![](./out/iso-planes-polarization+3d+foreach.png)
+
+  
+  * [iso-planes-polarization+3d+foreach.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-planes-polarization+3d+foreach.tex)
+
+```tex
+% Polarizing microscope
+% Author: Cyril Langlois
+% This TikZ code sketches the light behavior during its travel in a polarizing
+% petrographic microscope when a birefringent crystal thin section is inserted
+% between the polarizing devices.
+% 
+% The goal was to correctly show the vectorial relationships between light
+% electric fields during its travel through the first polaroid, the mineral
+% section and the second polaroid.
+\documentclass[11pt]{article}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+%%%<
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+%%%>
+
+\begin{comment}
+:Title: Polarizing microscope
+:Tags: 3D; Earth Sciences; Petrography; Physics
+:Author: Cyril Langlois
+
+This TikZ code sketches the light behavior during its travel in a polarizing
+petrographic microscope when a birefringent crystal thin section is inserted
+between the polarizing devices.
+
+The goal was to correctly show the vectorial relationships between light
+electric fields during its travel through the first polaroid, the mineral
+section and the second polaroid.
+\end{comment}
+
+\begin{document}
+\begin{tikzpicture}[x={(0.866cm,-0.5cm)}, y={(0.866cm,0.5cm)}, z={(0cm,1cm)}, scale=1.0,
+    %Option for nice arrows
+    >=stealth, %
+    inner sep=0pt, outer sep=2pt,%
+    axis/.style={thick,->},
+    wave/.style={thick,color=#1,smooth},
+    polaroid/.style={fill=black!60!white, opacity=0.3},
+]
+    % Colors
+    \colorlet{darkgreen}{green!50!black}
+    \colorlet{lightgreen}{green!80!black}
+    \colorlet{darkred}{red!50!black}
+    \colorlet{lightred}{red!80!black}
+
+    % Frame
+    \coordinate (O) at (0, 0, 0);
+    \draw[axis] (O) -- +(14, 0,   0) node [right] {x};
+    \draw[axis] (O) -- +(0,  2.5, 0) node [right] {y};
+    \draw[axis] (O) -- +(0,  0,   2) node [above] {z};
+
+    \draw[thick,dashed] (-2,0,0) -- (O);
+
+    % monochromatic incident light with electric field
+    \draw[wave=blue, opacity=0.7, variable=\x, samples at={-2,-1.75,...,0}]
+        plot (\x, { cos(1.0*\x r)*sin(2.0*\x r)}, { sin(1.0*\x r)*sin(2.0*\x r)})
+        plot (\x, {-cos(1.0*\x r)*sin(2.0*\x r)}, {-sin(1.0*\x r)*sin(2.0*\x r)});
+
+    \foreach \x in{-2,-1.75,...,0}{
+        \draw[color=blue, opacity=0.7,->]
+            (\x,0,0) -- (\x, { cos(1.0*\x r)*sin(2.0*\x r)}, { sin(1.0*\x r)*sin(2.0*\x r)})
+            (\x,0,0) -- (\x, {-cos(1.0*\x r)*sin(2.0*\x r)}, {-sin(1.0*\x r)*sin(2.0*\x r)});
+    }
+
+    \filldraw[polaroid] (0,-2,-1.5) -- (0,-2,1.5) -- (0,2,1.5) -- (0,2,-1.5) -- (0,-2,-1.5)
+        node[below, sloped, near end]{Polaroid};%
+
+    %Direction of polarization
+    \draw[thick,<->] (0,-1.75,-1) -- (0,-0.75,-1);
+
+    % Electric field vectors
+    \draw[wave=blue, variable=\x,samples at={0,0.25,...,6}]
+        plot (\x,{sin(2*\x r)},0)node[anchor=north]{$\vec{E}$};
+
+    %Polarized light between polaroid and thin section
+    \foreach \x in{0, 0.25,...,6}
+        \draw[color=blue,->] (\x,0,0) -- (\x,{sin(2*\x r)},0);
+
+    \draw (3,1,1) node [text width=2.5cm, text centered]{Polarized light};
+
+    %Crystal thin section
+    \begin{scope}[thick]
+        \draw (6,-2,-1.5) -- (6,-2,1.5) node [above, sloped, midway]{Crystal section}
+                -- (6, 2, 1.5) -- (6, 2, -1.5) -- cycle % First face
+            (6,  -2, -1.5) -- (6.2, -2,-1.5)
+            (6,   2, -1.5) -- (6.2,  2,-1.5)
+            (6,  -2,  1.5) -- (6.2, -2, 1.5)
+            (6,   2,  1.5) -- (6.2,  2, 1.5)
+            (6.2,-2, -1.5) -- (6.2, -2, 1.5) -- (6.2, 2, 1.5) 
+                -- (6.2, 2, -1.5) -- cycle; % Second face
+
+        %Optical indices
+        \draw[darkred, ->]       (6.1, 0, 0) -- (6.1, 0.26,  0.966) node [right] {$n_{g}'$}; % index 1
+        \draw[darkred, dashed]   (6.1, 0, 0) -- (6.1,-0.26, -0.966); % index 1
+        \draw[darkgreen, ->]     (6.1, 0, 0) -- (6.1, 0.644,-0.173) node [right] {$n_{p}'$}; % index 2
+        \draw[darkgreen, dashed] (6.1, 0, 0) -- (6.1,-0.644, 0.173); % index 2
+    \end{scope}
+
+    %Rays leaving thin section
+    \draw[wave=darkred,   variable=\x, samples at={6.2,6.45,...,12}] 
+        plot (\x, {0.26*0.26*sin(2*(\x-0.5) r)},  {0.966*0.26*sin(2*(\x-0.5) r)});  %n'g-oriented ray
+    \draw[wave=darkgreen, variable=\x, samples at={6.2,6.45,...,12}]
+        plot (\x, {0.966*0.966*sin(2*(\x-0.1) r)},{-0.26*0.966*sin(2*(\x-0.1) r)}); %n'p-oriented ray
+    \draw (10,1,1) node [text width=2.5cm, text centered] {Polarized and dephased light};
+
+    \foreach \x in{6.2,6.45,...,12} {
+        \draw[color=darkgreen, ->] (\x, 0, 0) --
+            (\x, {0.966*0.966*sin(2*(\x-0.1) r)}, {-0.26*0.966*sin(2*(\x-0.1) r)});
+        \draw[color=darkred,   ->] (\x, 0, 0) --
+            (\x, {0.26*0.26*sin(2*(\x-0.5) r)}, {0.966*0.26*sin(2*(\x-0.5) r)});
+    }
+
+    %Second polarization
+    \draw[polaroid]   (12, -2,  -1.5) -- (12, -2,   1.5)  %Polarizing filter
+        node [above, sloped,midway] {Polaroid} -- (12, 2, 1.5) -- (12, 2, -1.5) -- cycle;
+    \draw[thick, <->] (12, -1.5,-0.5) -- (12, -1.5, 0.5); %Polarization direction
+
+    %Light leaving the second polaroid
+    \draw[wave=lightgreen,variable=\x, samples at={12, 12.25,..., 14}]
+        plot (\x,{0}, {0.966*0.966*0.26*sin(2*(\x-0.5) r)}); %n'g polarized ray
+    \draw[wave=lightred,  variable=\x, samples at={12, 12.25,..., 14}]
+        plot (\x,{0}, {-0.26*0.966*sin(2*(\x-0.1) r)});      %n'p polarized ray
+
+    \node[align=justify, text width=14cm, anchor=north west, yshift=-2mm] at (current bounding box.south west)
+        {Light behavior in a petrographic microscope with light polarizing
+        device. Only one incident wavelength is shown (monochromatic light).
+        The magnetic field, perpendicular to the electric one, is not drawn.};
+\end{tikzpicture}
+\end{document}
+```
+****
+
+![](./out/iso-swan_wave_model-iso-off.png)
+
+  
+  * [iso-swan_wave_model-iso-off.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-swan_wave_model-iso-off.tex)
+
+```tex
+% layers off
+
+% https://texample.net/tikz/examples/swan-wave-model/
+% Author: Marco Miani
+% SWAN (developed by SWAN group, TU Delft, The Netherlands) is a wave spectral numerical model.
+%For Simlating WAves Nearshore, it is necessary to define spatial grids of
+%physical dominant factors (wind friction, dissipation) as well as define a COMPUTATIONAL
+%grid on which the model performs its (spectral) calculations: budgeting energy spectra over
+%each cell of the (computational) grid. Grids might have different spatial resolution and extension.
+
+\documentclass[12pt]{article}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+
+\begin{document}
+\pagestyle{empty}
+
+% Define the layers to draw the diagram
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+
+\begin{tikzpicture}[scale=.9,every node/.style={minimum size=1cm},on grid]
+
+    \begin{pgfonlayer}{background}
+%       \draw [help lines, step=1,color=blue!15, very thin] (-6, 11) grid (10,-7);
+    \end{pgfonlayer}          
+        
+    \begin{pgfonlayer}{foreground}
+%        % help guide lines
+%        \draw [help lines,dashed] (0,-7) -- (0,11);    
+%        \draw [help lines,dashed] (-6,0) -- (10,0);            
+%        \node at (9,10) (zero) {(9,10)};        
+%        \node at (6,6) (zero) {(6,6)};        
+%        \node at (4,4) (zero) {(4,4)};        
+%        \node at (-5,4) (zero) {(-5,4)};        
+%        \node at (-5,1) (zero) {(-5,1)};        
+%        \node at (-5,-2) (zero) {(-5,-2)};        
+%        \node at (-5,-5) (zero) {(-5,-5)};             
+%        \node at (7,-5) (zero) {(7,-5)};                  
+%        \node at (8,-7) (zero) {(8,-7)};                       
+%        \node at (0,-7) (zero) {(0,-7)};                                       
+    \end{pgfonlayer}          
+
+    % Comp G
+    %slanting: production of a set of n 'laminae' to be piled up. N=number of grids.
+    \begin{scope}[
+        yshift=-83,every node/.append style={
+            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        % opacity to prevent graphical interference
+        \fill[white,fill opacity=0.9] (0,0) rectangle (5,5);
+        \draw[step=5mm, black] (0,0) grid (5,5);        % defining grids
+        \draw[step=1mm, red!50,thin] (3,1) grid (4,2);  % Nested Grid
+        \draw[black,very thick] (0,0) rectangle (5,5);  % marking borders
+        \fill[red] (0.05,0.05) rectangle (0.5,0.5);   % Idem as above, for the n-th grid:
+        % add some labels
+        \begin{scope}[color=blue,font=\footnotesize]
+            \node at (0,0) (a) {(0,0)};
+            \node at (5,5) (a) {(5,5)};
+            \node at (5,0) (a) {(5,0)};
+            \node at (0,5) (a) {(0,5)};   
+        \end{scope}     
+    \end{scope}
+    
+    % Bathymetry up
+    \begin{scope}[
+        yshift=0,every node/.append style={
+            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
+        \draw[black,very thick] (0,0) rectangle (5,5);
+        \draw[step=5mm, black] (0,0) grid (5,5);
+    \end{scope}  
+    
+    % Wind G
+    % grid with internal 3x3 of step=10mm
+    \begin{scope}[
+        yshift=90,every node/.append style={
+            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
+        \draw[step=10mm, black] (1,1) grid (4,4);
+        \draw[black,very thick] (1,1) rectangle (4,4);
+        \draw[black,dashed] (0,0) rectangle (5,5);
+        
+        \node at (1,1) (a) {(1,1)};
+    \end{scope}      
+
+    % Friction G
+    % grid with green subgrid of 2mm step
+    \begin{scope}[
+        yshift=170,every node/.append style={
+         yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+         ]
+        \fill[white,fill opacity=0.6] (0,0) rectangle (5,5);
+        \draw[step=10mm, black] (2,2) grid (5,5);
+        \draw[step=2mm, green] (2,2) grid (3,3);
+        \draw[black,very thick] (2,2) rectangle (5,5);
+        \draw[black,dashed] (0,0) rectangle (5,5);
+        
+        \node at (2,2) (a) {(2,2)};
+    \end{scope}    
+    
+    % bottom grid
+    \begin{scope}[
+        yshift=-170,every node/.append style={
+            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        %marking border
+        \draw[black,very thick] (0,0) rectangle (5,5);
+        
+        %drawing corners (P1,P2, P3): only 3 points needed to define a plane.
+        \draw [fill=lime](0,0) circle (.1) ;
+        \draw [fill=lime](0,5) circle (.1);
+        \draw [fill=lime](5,0) circle (.1);
+        \draw [fill=lime](5,5) circle (.1);
+        
+        %drawing bathymetric hypotetic countours on the bottom grid:    	
+        \draw [ultra thick](0,1)   parabola bend (2,2) (5,1)  ;
+        \draw [dashed]     (0,1.5) parabola bend (2.5,2.5) (5,1.5) ;
+        \draw [dashed]     (0,2)   parabola bend (2.7,2.7) (5,2)  ;
+        \draw [dashed]     (0,2.5) parabola bend (3.5,3.5) (5,2.5)  ;
+        \draw [dashed]     (0,3.5) parabola bend (2.75,4.5) (5,3.5);
+        \draw [dashed]     (0,4)   parabola bend (2.75,4.8) (5,4);
+        \draw [dashed]     (0,3)   parabola bend (2.75,3.8) (5,3);
+        \draw[-latex,thick](2.8,1) node[right]{$\mathsf{Shoreline}$}
+            to[out=180,in=270] (2,1.99);
+    \end{scope} %end of drawing grids   
+    
+    
+    % arrows
+    %putting arrows and labels:
+    \draw[-latex,thick] (6.2,2) node[right]{$\mathsf{Bathymetry (up)}$}
+        to[out=180,in=90] (4,2);
+    
+    \draw[-latex,thick](5.8,-.3)node[right]{$\mathsf{Comp.\ G.}$}
+        to[out=180,in=90] (3.9,-1);
+    
+    \draw[-latex,thick](5.9,5)node[right]{$\mathsf{Wind\ G.}$}
+        to[out=180,in=90] (3.6,5);
+    
+    \draw[-latex,thick](5.9,8.4)node[right]{$\mathsf{Friction\ G.}$}
+        to[out=180,in=90] (3.2,8);
+    
+    \draw[-latex,thick,red](5.3,-4.2)node[right]{$\mathsf{G. Cell}$}
+        to[out=180,in=90] (0,-2.5);
+    
+    \draw[-latex,thick,red](4.3,-1.9)node[right]{$\mathsf{Nested\ G.}$}
+        to[out=180,in=90] (2,-.5);
+    
+    \draw[-latex,thick](4,-6)node[right]{$\mathsf{Batymetry (dn)}$}
+        to[out=180,in=90] (2,-5);	    
+     
+
+\end{tikzpicture}
+
+\end{document}
+```
+****
+
+![](./out/iso-swan_wave_model-iso-on.png)
+
+  
+  * [iso-swan_wave_model-iso-on.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-swan_wave_model-iso-on.tex)
+
+```tex
+% layers on
+
+% https://texample.net/tikz/examples/swan-wave-model/
+% Author: Marco Miani
+% SWAN (developed by SWAN group, TU Delft, The Netherlands) is a wave spectral numerical model.
+%For Simlating WAves Nearshore, it is necessary to define spatial grids of
+%physical dominant factors (wind friction, dissipation) as well as define a COMPUTATIONAL
+%grid on which the model performs its (spectral) calculations: budgeting energy spectra over
+%each cell of the (computational) grid. Grids might have different spatial resolution and extension.
+
+\documentclass[12pt]{article}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+
+\begin{document}
+\pagestyle{empty}
+
+% Define the layers to draw the diagram
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+
+\begin{tikzpicture}[scale=.9,every node/.style={minimum size=1cm},on grid]
+
+    \begin{pgfonlayer}{background}
+       \draw [help lines, step=1,color=blue!15, very thin] (-6, 11) grid (10,-7);
+    \end{pgfonlayer}          
+        
+    \begin{pgfonlayer}{foreground}
+        % help guide lines
+        \draw [help lines,dashed] (0,-7) -- (0,11);    
+        \draw [help lines,dashed] (-6,0) -- (10,0);            
+        \node at (9,10) (zero) {(9,10)};        
+        \node at (6,6) (zero) {(6,6)};        
+        \node at (4,4) (zero) {(4,4)};        
+        \node at (-5,4) (zero) {(-5,4)};        
+        \node at (-5,1) (zero) {(-5,1)};        
+        \node at (-5,-2) (zero) {(-5,-2)};        
+        \node at (-5,-5) (zero) {(-5,-5)};             
+        \node at (7,-5) (zero) {(7,-5)};                  
+        \node at (8,-7) (zero) {(8,-7)};                       
+        \node at (0,-7) (zero) {(0,-7)};                                       
+    \end{pgfonlayer}          
+
+    % Comp G
+    %slanting: production of a set of n 'laminae' to be piled up. N=number of grids.
+    \begin{scope}[
+        yshift=-83,every node/.append style={
+            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        % opacity to prevent graphical interference
+        \fill[white,fill opacity=0.9] (0,0) rectangle (5,5);
+        \draw[step=5mm, black] (0,0) grid (5,5);        % defining grids
+        \draw[step=1mm, red!50,thin] (3,1) grid (4,2);  % Nested Grid
+        \draw[black,very thick] (0,0) rectangle (5,5);  % marking borders
+        \fill[red] (0.05,0.05) rectangle (0.5,0.5);   % Idem as above, for the n-th grid:
+        % add some labels
+        \begin{scope}[color=blue,font=\footnotesize]
+            \node at (0,0) (a) {(0,0)};
+            \node at (5,5) (a) {(5,5)};
+            \node at (5,0) (a) {(5,0)};
+            \node at (0,5) (a) {(0,5)};   
+        \end{scope}     
+    \end{scope}
+    
+    % Bathymetry up
+    \begin{scope}[
+        yshift=0,every node/.append style={
+            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
+        \draw[black,very thick] (0,0) rectangle (5,5);
+        \draw[step=5mm, black] (0,0) grid (5,5);
+    \end{scope}  
+    
+    % Wind G
+    % grid with internal 3x3 of step=10mm
+    \begin{scope}[
+        yshift=90,every node/.append style={
+            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
+        \draw[step=10mm, black] (1,1) grid (4,4);
+        \draw[black,very thick] (1,1) rectangle (4,4);
+        \draw[black,dashed] (0,0) rectangle (5,5);
+        
+        \node at (1,1) (a) {(1,1)};
+    \end{scope}      
+
+    % Friction G
+    % grid with green subgrid of 2mm step
+    \begin{scope}[
+        yshift=170,every node/.append style={
+         yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+         ]
+        \fill[white,fill opacity=0.6] (0,0) rectangle (5,5);
+        \draw[step=10mm, black] (2,2) grid (5,5);
+        \draw[step=2mm, green] (2,2) grid (3,3);
+        \draw[black,very thick] (2,2) rectangle (5,5);
+        \draw[black,dashed] (0,0) rectangle (5,5);
+        
+        \node at (2,2) (a) {(2,2)};
+    \end{scope}    
+    
+    % bottom grid
+    \begin{scope}[
+        yshift=-170,every node/.append style={
+            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        %marking border
+        \draw[black,very thick] (0,0) rectangle (5,5);
+        
+        %drawing corners (P1,P2, P3): only 3 points needed to define a plane.
+        \draw [fill=lime](0,0) circle (.1) ;
+        \draw [fill=lime](0,5) circle (.1);
+        \draw [fill=lime](5,0) circle (.1);
+        \draw [fill=lime](5,5) circle (.1);
+        
+        %drawing bathymetric hypotetic countours on the bottom grid:    	
+        \draw [ultra thick](0,1)   parabola bend (2,2) (5,1)  ;
+        \draw [dashed]     (0,1.5) parabola bend (2.5,2.5) (5,1.5) ;
+        \draw [dashed]     (0,2)   parabola bend (2.7,2.7) (5,2)  ;
+        \draw [dashed]     (0,2.5) parabola bend (3.5,3.5) (5,2.5)  ;
+        \draw [dashed]     (0,3.5) parabola bend (2.75,4.5) (5,3.5);
+        \draw [dashed]     (0,4)   parabola bend (2.75,4.8) (5,4);
+        \draw [dashed]     (0,3)   parabola bend (2.75,3.8) (5,3);
+        \draw[-latex,thick](2.8,1) node[right]{$\mathsf{Shoreline}$}
+            to[out=180,in=270] (2,1.99);
+    \end{scope} %end of drawing grids   
+    
+    
+    % arrows
+    %putting arrows and labels:
+    \draw[-latex,thick] (6.2,2) node[right]{$\mathsf{Bathymetry (up)}$}
+        to[out=180,in=90] (4,2);
+    
+    \draw[-latex,thick](5.8,-.3)node[right]{$\mathsf{Comp.\ G.}$}
+        to[out=180,in=90] (3.9,-1);
+    
+    \draw[-latex,thick](5.9,5)node[right]{$\mathsf{Wind\ G.}$}
+        to[out=180,in=90] (3.6,5);
+    
+    \draw[-latex,thick](5.9,8.4)node[right]{$\mathsf{Friction\ G.}$}
+        to[out=180,in=90] (3.2,8);
+    
+    \draw[-latex,thick,red](5.3,-4.2)node[right]{$\mathsf{G. Cell}$}
+        to[out=180,in=90] (0,-2.5);
+    
+    \draw[-latex,thick,red](4.3,-1.9)node[right]{$\mathsf{Nested\ G.}$}
+        to[out=180,in=90] (2,-.5);
+    
+    \draw[-latex,thick](4,-6)node[right]{$\mathsf{Batymetry (dn)}$}
+        to[out=180,in=90] (2,-5);	    
+     
+
+\end{tikzpicture}
+
+\end{document}
+```
+****
+
 ![](./out/kalman+diagram+set.png)
 
   
@@ -6876,157 +7856,6 @@ measurement vector $\mathbf{z}_k$ consists of the information contained
 within the state vector $\mathbf{x}_k$ multiplied by the measurement
 matrix $\mathbf{H}$, and the additional measurement noise $\mathbf{v}_k$.
 
-\end{document}
-```
-****
-
-![](./out/louvre-planes.png)
-
-  
-  * [louvre-planes.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/louvre-planes.tex)
-
-```tex
-% louvre-plaes.tex
-% https://tex.stackexchange.com/q/186058/173708
-\documentclass{article}
-\usepackage{tikz}
-\usepackage{verbatim}
-\usetikzlibrary{shapes,shadows,positioning,arrows,calc,matrix,decorations.markings,decorations.pathreplacing}
-
-% like standalone
-\usepackage[active,tightpage]{preview}
-\PreviewEnvironment{tikzpicture}
-\setlength\PreviewBorder{5pt}%
-
-\begin{document}
-
-\definecolor{colone}{RGB}{209,220,204}
-\definecolor{coltwo}{RGB}{204,222,210}
-\definecolor{colthree}{RGB}{207,233,232}
-\definecolor{colfour}{RGB}{248,243,214}
-\definecolor{colfive}{RGB}{245,238,197}
-\definecolor{colsix}{RGB}{243,235,179}
-\definecolor{colseven}{RGB}{241,231,163}
-\definecolor{colortop}{RGB}{184,223,155}
-\definecolor{colorside}{RGB}{0,209,54}
-
-\begin{figure}
-\begin{tikzpicture}[every node/.style={minimum size=1cm,font=\scriptsize},on grid]
-  \begin{scope}[every node/.append style={yslant=-0.5},yslant=-0.5]
-    \shade[right color=colorside!30, left color=colorside!50] (-1,0) rectangle +(4,3);
-    \node  at (-0.5,2.25) {};
-    \node at (0.5,2.75) {$Sex$};
-    \node at (1.5,2.75) {$Age$};
-    \node at (2.5,2.75) {$Area$};
-    \node at (-0.5,1.25) {$User_3$};
-    \node at (-0.5,0.75) {$...$};
-    \node at (0.5,0.75) {$...$};
-    \node at (2.5,0.75) {$...$};
-    \node at (0.5,1.25) {$*$};
-    \node at (1.5,1.25) {$4$};
-    \node at (2.5,1.25) {$0$};
-    \node at (-0.5,0.25) {$User_n$};
-    \node at (1.5,0.75) {$...$};
-    \node at (-0.5,2.25) {$user_1$};
-    \node at (0.5,2.25) {$0$};
-    \node at (1.5,2.25) {$*$};
-    \node at (2.5,2.25) {$1$};
-      \node at (-0.5,1.75) {$User_2$};
-      \node at (0.5,1.75) {$1$};
-      \node at (1.5,1.75) {$3$};
-      \node at (2.5,1.75) {$0$};
-      \node at (0.5,0.25) {$2$};
-      \node at (1.5,0.25) {$*$};
-      \node at (2.5,0.25) {$9$};
-    \draw (-1,0) grid[ystep=0.5] (3,3);
-  \end{scope}
-  
-  \begin{scope}[every node/.append style={yslant=0.5},yslant=0.5]
-    \shade[right color=colorside!70,left color=colorside!10] (3,-3) rectangle +(5,3);
-    \node at (3.5,-0.25) {};
-    \node at (3.5,-0.75) {$user_1$};
-    \node at (3.5,-1.25) {$user_2$};
-    \node at (3.5,-1.75){$user_3$};
-    \node at (3.5,-2.25) {$...$};
-    \node at (3.5,-2.75) {$user_n$};
-    \node at (4.5,-0.25) {$item_1$};
-    \node at (4.5,-1.25) {$3$};
-    \node at (4.5,-0.75) {$*$};
-    \node at (4.5,-1.75) {$*$};
-    \node at (4.5,-2.25) {$...$};
-    \node at (4.5,-2.75) {$*$};
-    \node at (5.5,-0.25) {$item_2$};
-    \node at (5.5,-0.75) {$2$};
-    \node at (5.5,-1.75) {$3$};
-    \node at (5.5,-1.25) {$4$};
-    \node at (5.5,-2.75) {$5$};
-    \node at (5.5,-2.25) {$...$};
-    \node at (6.5,-0.25) {$...$};
-    \node at (6.5,-1.25) {$...$};
-    \node at (6.5,-2.25) {$...$};
-    \node at (6.5,-0.75) {$...$};
-    \node at (6.5,-1.75) {$...$};
-    \node at (6.5,-2.75) {$...$};
-    \node at (7.5,-0.25) {$item_n$};
-    \node at (7.5,-0.75) {$3$};
-    \node at (7.5,-1.25) {$5$};
-    \node at (7.5,-1.75) {$4$};
-    \node at (7.5,-2.25) {$...$};
-    \node at (7.5,-2.75) {$*$};
-
-    \draw (3,-3) grid[ystep=0.5] (8,0);
-  \end{scope}
-
-  \begin{scope}[every node/.append style={
-    yslant=0.5,xslant=-1},yslant=0.5,xslant=-0.75
-    ]
-    \shade[bottom color=colortop!10, top color=colortop!80] (8,4) rectangle +(-5,-4);
-    \draw (3.0,0.0) grid[ystep=0.5] (8,4);
-    \node at (3.5,3.75) {};
-    \node at (3.5,3.25) {$Legal$};
-    \node at (3.5,2.75) {$Fin.$};
-    \node at (3.5,2.25) {$Med.$};
-    \node at (3.5,1.75) {$Home$};
-    \node at (3.5,1.25) {$Road$};
-    \node at (3.5,0.75) {$Travel$};
-    \node at (3.5,0.25) {$Din.$};
-    \node at (4.5,3.75) {$item_1$};
-    \node at (4.5,3.25) {$1$};
-    \node at (4.5,2.75) {$0$};
-    \node at (4.5,2.25) {$0$};
-    \node at (4.5,1.75) {$1$};
-    \node at (4.5,1.25) {$1$};
-    \node at (4.5,0.75) {$0$};
-    \node at (4.5,0.25) {$1$};
-    \node at (5.5,3.75) {$item_2$};
-    \node at (5.5,3.25) {$1$};
-    \node at (5.5,2.75) {$0$};
-    \node at (5.5,2.25) {$0$};
-    \node at (5.5,1.75) {$1$};
-    \node at (5.5,1.25) {$0$};
-    \node at (5.5,0.75) {$1$};
-    \node at (5.5,0.25) {$1$};
-    \node at (6.5,3.75) {$...$};
-    \node at (6.5,3.25) {$...$};
-    \node at (6.5,2.75) {$...$};
-    \node at (6.5,2.25) {$...$};
-    \node at (6.5,1.75) {$...$};
-    \node at (6.5,1.25) {$...$};
-    \node at (6.5,0.75) {$...$};
-    \node at (6.5,0.25) {$...$};
-    \node at (7.5,3.75) {$item_n$};
-    \node at (7.5,3.25) {$0$};
-    \node at (7.5,2.75) {$1$};
-    \node at (7.5,2.25) {$1$};
-    \node at (7.5,1.75) {$0$};
-    \node at (7.5,1.25) {$0$};
-    \node at (7.5,0.75) {$1$};
-    \node at (7.5,0.25) {$0$};
-  \end{scope}
-\end{tikzpicture}
-  \caption{User-Item Combined Matrix}
-  \label{fig:com}
-\end{figure}
 \end{document}
 ```
 ****
@@ -8962,6 +9791,143 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 \path [line] (off) -| node[below,pos=.25, align=center] {Survivor\\ selection}(pop);
 \path [line] (pop) |- node[above,pos=.75, align=center] {Parents\\ selection}(parents);
 \end{tikzpicture}
+\end{document}
+```
+****
+
+![](./out/ml-cnn.png)
+
+  
+  * [ml-cnn.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/ml-cnn.tex)
+
+```tex
+% https://davidstutz.de/illustrating-convolutional-neural-networks-in-latex-with-tikz/
+
+\documentclass[twoside,11pt,a4paper]{article}
+ 
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, latexsym}
+ 
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{fadings}
+ 
+\begin{document}
+ 
+\begin{figure}[t!]
+   	\centering
+   	\begin{tikzpicture}
+   		\node at (0.5,-1){\begin{tabular}{c}input image\\layer $l = 0$\end{tabular}};
+   		
+   		\draw (0,0) -- (1,0) -- (1,1) -- (0,1) -- (0,0);
+   		
+   		\node at (3,3.5){\begin{tabular}{c}convolutional layer\\with non-linearities\\layer $l = 1$\end{tabular}};
+   		
+   		\draw[fill=black,opacity=0.2,draw=black] (2.75,1.25) -- (3.75,1.25) -- (3.75,2.25) -- (2.75,2.25) -- (2.75,1.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (2.5,1) -- (3.5,1) -- (3.5,2) -- (2.5,2) -- (2.5,1);
+   		\draw[fill=black,opacity=0.2,draw=black] (2.25,0.75) -- (3.25,0.75) -- (3.25,1.75) -- (2.25,1.75) -- (2.25,0.75);
+   		\draw[fill=black,opacity=0.2,draw=black] (2,0.5) -- (3,0.5) -- (3,1.5) -- (2,1.5) -- (2,0.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (1.75,0.25) -- (2.75,0.25) -- (2.75,1.25) -- (1.75,1.25) -- (1.75,0.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (1.5,0) -- (2.5,0) -- (2.5,1) -- (1.5,1) -- (1.5,0);
+   		
+   		\node at (4.5,-1){\begin{tabular}{c}subsampling layer\\layer $l = 3$\end{tabular}};
+   		
+   		\draw[fill=black,opacity=0.2,draw=black] (5,1.25) -- (5.75,1.25) -- (5.75,2) -- (5,2) -- (5,1.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (4.75,1) -- (5.5,1) -- (5.5,1.75) -- (4.75,1.75) -- (4.75,1);
+   		\draw[fill=black,opacity=0.2,draw=black] (4.5,0.75) -- (5.25,0.75) -- (5.25,1.5) -- (4.5,1.5) -- (4.5,0.75);
+   		\draw[fill=black,opacity=0.2,draw=black] (4.25,0.5) -- (5,0.5) -- (5,1.25) -- (4.25,1.25) -- (4.25,0.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (4,0.25) -- (4.75,0.25) -- (4.75,1) -- (4,1) -- (4,0.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (3.75,0) -- (4.5,0) -- (4.5,0.75) -- (3.75,0.75) -- (3.75,0);
+   		
+   		\node at (7,3.5){\begin{tabular}{c}convolutional layer\\with non-linearities\\layer $l = 4$\end{tabular}};
+   		
+   		\draw[fill=black,opacity=0.2,draw=black] (7.5,1.75) -- (8.25,1.75) -- (8.25,2.5) -- (7.5,2.5) -- (7.5,1.75);
+   		\draw[fill=black,opacity=0.2,draw=black] (7.25,1.5) -- (8,1.5) -- (8,2.25) -- (7.25,2.25) -- (7.25,1.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (7,1.25) -- (7.75,1.25) -- (7.75,2) -- (7,2) -- (7,1.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (6.75,1) -- (7.5,1) -- (7.5,1.75) -- (6.75,1.75) -- (6.75,1);
+   		\draw[fill=black,opacity=0.2,draw=black] (6.5,0.75) -- (7.25,0.75) -- (7.25,1.5) -- (6.5,1.5) -- (6.5,0.75);
+   		\draw[fill=black,opacity=0.2,draw=black] (6.25,0.5) -- (7,0.5) -- (7,1.25) -- (6.25,1.25) -- (6.25,0.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (6,0.25) -- (6.75,0.25) -- (6.75,1) -- (6,1) -- (6,0.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (5.75,0) -- (6.5,0) -- (6.5,0.75) -- (5.75,0.75) -- (5.75,0);
+   		
+   		\node at (9.5,-1){\begin{tabular}{c}subsampling layer\\layer $l = 6$\end{tabular}};
+   		
+   		\draw[fill=black,opacity=0.2,draw=black] (10,1.75) -- (10.5,1.75) -- (10.5,2.25) -- (10,2.25) -- (10,1.75);
+   		\draw[fill=black,opacity=0.2,draw=black] (9.75,1.5) -- (10.25,1.5) -- (10.25,2) -- (9.75,2) -- (9.75,1.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (9.5,1.25) -- (10,1.25) -- (10,1.75) -- (9.5,1.75) -- (9.5,1.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (9.25,1) -- (9.75,1) -- (9.75,1.5) -- (9.25,1.5) -- (9.25,1);
+   		\draw[fill=black,opacity=0.2,draw=black] (9,0.75) -- (9.5,0.75) -- (9.5,1.25) -- (9,1.25) -- (9,0.75);
+   		\draw[fill=black,opacity=0.2,draw=black] (8.75,0.5) -- (9.25,0.5) -- (9.25,1) -- (8.75,1) -- (8.75,0.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (8.5,0.25) -- (9,0.25) -- (9,0.75) -- (8.5,0.75) -- (8.5,0.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (8.25,0) -- (8.75,0) -- (8.75,0.5) -- (8.25,0.5) -- (8.25,0);
+   		
+   		\node at (12,3.5){\begin{tabular}{c}fully connected layer\\layer $l = 7$\end{tabular}};
+   		
+   		\draw[fill=black,draw=black,opacity=0.5] (10.5,0) -- (11,0) -- (12.5,1.75) -- (12,1.75) -- (10.5,0);
+   		
+   		\node at (13,-1){\begin{tabular}{c}fully connected layer\\output layer $l = 8$\end{tabular}};
+   		
+   		\draw[fill=black,draw=black,opacity=0.5] (12.5,0.5) -- (13,0.5) -- (13.65,1.25) -- (13.15,1.25) -- (12.5,0.5);
+   	\end{tikzpicture}
+   	\caption[Architecture of a traditional convolutional neural network.]{The architecture of the original convolutional neural network, as introduced by LeCun et al. (1989), alternates between convolutional layers including hyperbolic tangent non-linearities and subsampling layers. In this illustration, the convolutional layers already include non-linearities and, thus, a convolutional layer actually represents two layers. The feature maps of the final subsampling layer are then fed into the actual classifier consisting of an arbitrary number of fully connected layers. The output layer usually uses softmax activation functions.}
+   	\label{fig:traditional-convolutional-network}
+\end{figure}
+ 
+\end{document}
+```
+****
+
+![](./out/ml-single_cnn.png)
+
+  
+  * [ml-single_cnn.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/ml-single_cnn.tex)
+
+```tex
+% https://davidstutz.de/illustrating-convolutional-neural-networks-in-latex-with-tikz/
+
+\documentclass[twoside,11pt,a4paper]{article}
+ 
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, latexsym}
+\usepackage{sidecap}
+ 
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+ 
+\begin{document}
+ 
+\begin{SCfigure}[2\sidecaptionrelwidth][t]
+   	\centering
+   	\begin{tikzpicture}
+   		\node at (1.5,4){\begin{tabular}{c}input image\\or input feature map\end{tabular}};
+   	
+   		\draw (0,0) -- (3,0) -- (3,3) -- (0,3) -- (0,0);
+   		
+   		\draw (2,2) -- (2.5,2) -- (2.5,2.5) -- (2,2.5) -- (2,2);
+   		\draw (2,0.5) -- (2.5,0.5) -- (2.5,1) -- (2,1) -- (2,0.5);
+   		\draw (1,1) -- (1.5,1) -- (1.5,1.5) -- (1,1.5) -- (1,1);
+   		
+   		\draw (2.5,2) -- (7,3.25);
+   		\draw (2.5,2.5) -- (7,3.25);
+ 
+   		\draw (2.5,1) -- (5.75,0.25);
+   		\draw (2.5,0.5) -- (5.75,0.25);
+   		
+   		\draw (1.5,1.5) -- (5.5,1.25);
+   		\draw (1.5,1) -- (5.5,1.25);
+   		
+   		\node at (5.75,4){\begin{tabular}{c}output feature maps\end{tabular}};
+   		
+   		\draw[fill=black,opacity=0.2,draw=black] (5.5,1.5) -- (7.5,1.5) -- (7.5,3.5) -- (5.5,3.5) -- (5.5,1.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (5,1) -- (7,1) -- (7,3) -- (5,3) -- (5,1);
+   		\draw[fill=black,opacity=0.2,draw=black] (4.5,0.5) -- (6.5,0.5) -- (6.5,2.5) -- (4.5,2.5) -- (4.5,0.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (4,0) -- (6,0) -- (6,2) -- (4,2) -- (4,0);
+   	\end{tikzpicture}
+   	\caption[Illustration of a convolutional layer.]{Illustration of a single convolutional layer. If layer $l$ is a convolutional layer, the input image (if $l = 1$) or a feature map of the previous layer is convolved by different filters to yield the output feature maps of layer $l$.}
+   	\label{fig:convolutional-layer}
+\end{SCfigure}
+ 
 \end{document}
 ```
 ****
@@ -12435,6 +13401,449 @@ by Grant M. Erickson
 ```
 ****
 
+![](./out/physics-impact-particles_table.png)
+
+  
+  * [physics-impact-particles_table.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/physics-impact-particles_table.tex)
+
+```tex
+% Standard model of physics
+% Author: Carsten Burgard
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc,positioning,shadows.blur,decorations.pathreplacing}
+\usepackage{etoolbox}
+
+\tikzset{%
+        brace/.style = { decorate, decoration={brace, amplitude=5pt} },
+       mbrace/.style = { decorate, decoration={brace, amplitude=5pt, mirror} },
+        label/.style = { black, midway, scale=0.5, align=center },
+     toplabel/.style = { label, above=.5em, anchor=south },
+    leftlabel/.style = { label,rotate=-90,left=.5em,anchor=north },   
+  bottomlabel/.style = { label, below=.5em, anchor=north },
+        force/.style = { rotate=-90,scale=0.4 },
+        round/.style = { rounded corners=2mm },
+       legend/.style = { right,scale=0.4 },
+        nosep/.style = { inner sep=0pt },
+   generation/.style = { anchor=base },
+       dasher/.style = { orange, dashed }   % color for graviton
+}
+
+% the style for each of the particles
+% #1 fill color; #2 symbol; #3 name; #4 mass; #5 spin; #6 charge; #7 colors
+%
+\newcommand\particle[7][white]{%
+  \begin{tikzpicture}[x=1cm, y=1cm]
+    \path[fill=#1,blur shadow={shadow blur steps=5}] (0.1,0) -- (0.9,0)
+        arc (90:0:1mm) -- (1.0,-0.9) arc (0:-90:1mm) -- (0.1,-1.0)
+        arc (-90:-180:1mm) -- (0,-0.1) arc(180:90:1mm) -- cycle;
+    \ifstrempty{#7}{}{\path[fill=purple!50!white]                           % colors: band, purple
+        (0.6,0) --(0.7,0) -- (1.0,-0.3) -- (1.0,-0.4);}
+    \ifstrempty{#6}{}{\path[fill=green!50!black!50] (0.7,0) -- (0.9,0)      % charge: corner, green
+        arc (90:0:1mm) -- (1.0,-0.3);}
+    \ifstrempty{#5}{}{\path[fill=orange!50!white] (1.0,-0.7) -- (1.0,-0.9)  % spin: bottom corner, orange
+        arc (0:-90:1mm) -- (0.7,-1.0);}
+    \draw[\ifstrempty{#2}{dasher}{black}] (0.1,0) -- (0.9,0)                % line
+        arc (90:0:1mm) -- (1.0,-0.9) arc (0:-90:1mm) -- (0.1,-1.0)
+        arc (-90:-180:1mm) -- (0,-0.1) arc(180:90:1mm) -- cycle;
+    \ifstrempty{#7}{}{\node at(0.825,-0.175) [rotate=-45,scale=0.2] {#7};}      % colors
+    \ifstrempty{#6}{}{\node at(0.9,-0.1)  [nosep,scale=0.17] {#6};}             % charge
+    \ifstrempty{#5}{}{\node at(0.9,-0.9)  [nosep,scale=0.2] {#5};}              % spin
+    \ifstrempty{#4}{}{\node at(0.1,-0.1)  [nosep,anchor=west,scale=0.25]{#4};}  % mass
+    \ifstrempty{#3}{}{\node at(0.1,-0.85) [nosep,anchor=west,scale=0.3] {#3};}  % name
+    \ifstrempty{#2}{}{\node at(0.1,-0.5)  [nosep,anchor=west,scale=1.5] {#2};}  % symbol
+  \end{tikzpicture}
+}
+
+
+\begin{document}
+\begin{tikzpicture}[x=1.2cm, y=1.2cm]
+  % draw force blocks
+  \draw[round] (-0.5,0.5) rectangle (4.4,-1.5);     % strong force
+  \draw[round] (-0.6,0.6) rectangle (5.0,-2.5);     % electromagnetic force
+  \draw[round] (-0.7,0.7) rectangle (5.6,-3.5);     % weak force
+
+  % draw all particles  
+  \node at(0, 0)   {\particle[gray!20!white]
+                    {$u$}        {up}       {$2.3$ MeV}{1/2}{$2/3$}{R/G/B}};
+  \node at(0,-1)   {\particle[gray!20!white]
+                    {$d$}        {down}    {$4.8$ MeV}{1/2}{$-1/3$}{R/G/B}};
+  \node at(0,-2)   {\particle[gray!20!white]
+                    {$e$}        {electron}       {$511$ keV}{1/2}{$-1$}{}};
+  \node at(0,-3)   {\particle[gray!20!white]
+                    {$\nu_e$}    {$e$ neutrino}         {$<2$ eV}{1/2}{}{}};
+  \node at(1, 0)   {\particle
+                    {$c$}        {charm}   {$1.28$ GeV}{1/2}{$2/3$}{R/G/B}};
+  \node at(1,-1)   {\particle 
+                    {$s$}        {strange}  {$95$ MeV}{1/2}{$-1/3$}{R/G/B}};
+  \node at(1,-2)   {\particle
+                    {$\mu$}      {muon}         {$105.7$ MeV}{1/2}{$-1$}{}};
+  \node at(1,-3)   {\particle
+                    {$\nu_\mu$}  {$\mu$ neutrino}    {$<190$ keV}{1/2}{}{}};
+  \node at(2, 0)   {\particle
+                    {$t$}        {top}    {$173.2$ GeV}{1/2}{$2/3$}{R/G/B}};
+  \node at(2,-1)   {\particle
+                    {$b$}        {bottom}  {$4.7$ GeV}{1/2}{$-1/3$}{R/G/B}};
+  \node at(2,-2)   {\particle
+                    {$\tau$}     {tau}          {$1.777$ GeV}{1/2}{$-1$}{}};
+  \node at(2,-3)   {\particle
+                    {$\nu_\tau$} {$\tau$ neutrino}  {$<18.2$ MeV}{1/2}{}{}};
+  \node at(3,-3)   {\particle[orange!20!white]
+                    {$W^{\hspace{-.3ex}\scalebox{.5}{$\pm$}}$}               
+                                {}              {$80.4$ GeV}{1}{$\pm1$}{}}; % W
+  \node at(4,-3)   {\particle[orange!20!white]
+                    {$Z$}        {}                    {$91.2$ GeV}{1}{}{}}; % Z
+  \node at(3.5,-2) {\particle[green!50!black!20]
+                    {$\gamma$}   {photon}                        {}{1}{}{}}; % gamma-photon
+  \node at(3.5,-1) {\particle[purple!20!white]
+                    {$g$}        {gluon}                    {}{1}{}{color}}; % g-gluon
+  \node at(5,0)    {\particle[gray!50!white]
+                    {$H$}        {Higgs}              {$125.1$ GeV}{0}{}{}}; % H-Higgs
+  \node at(6.1,-3) {\particle[gray!5!white]
+                    {}           {graviton}                       {}{}{}{}}; % graviton
+
+  % add text labels for forces
+  \node at(4.25,-0.5) [force]      {strong nuclear force (color)};
+  \node at(4.85,-1.5) [force]    {electromagnetic force (charge)};
+  \node at(5.45,-2.4) [force] {weak nuclear force (weak isospin)};
+  \node at(6.75,-2.5) [force]        {gravitational force (mass)};
+
+  % draw arrows and add labels for legends
+  \draw [<-] (2.50,0.30)  -- (2.7,0.3)          node [legend] {charge};
+  \draw [<-] (2.50,0.15)  -- (2.7,0.15)         node [legend] {colors};
+  \draw [<-] (2.05,0.25)  -- (2.3,0) -- (2.7,0) node [legend]   {mass};
+  \draw [<-] (2.50,-0.3)  -- (2.7,-0.3)         node [legend]   {spin};
+
+  % draw vertical braces and labels
+  \draw [mbrace] (-0.8,0.5)  -- (-0.8,-1.5)
+                  node[leftlabel] {6 quarks\\(+6 anti-quarks)};
+  \draw [mbrace] (-0.8,-1.5) -- (-0.8,-3.5)
+                  node[leftlabel] {6 leptons\\(+6 anti-leptons)};
+  % draw bottom braces and labels                  
+  \draw [mbrace] (-0.5,-3.6) -- (2.5,-3.6)
+                  node[bottomlabel]
+                  {12 fermions\\(+12 anti-fermions)\\increasing mass $\to$};
+  \draw [mbrace] (2.5,-3.6) -- (5.5,-3.6)
+                  node[bottomlabel] {5 bosons\\(+1 opposite charge $W$)};
+
+  % draw top braces and add text labels
+  \draw [brace] (-0.5,.8) -- (0.5,.8) node[toplabel]         {standard matter};
+  \draw [brace] (0.5,.8)  -- (2.5,.8) node[toplabel]         {unstable matter};
+  \draw [brace] (2.5,.8)  -- (4.5,.8) node[toplabel]          {force carriers};
+  \draw [brace] (4.5,.8)  -- (5.5,.8) node[toplabel]       {Goldstone\\bosons};  % two lines
+  \draw [brace] (5.5,.8)  -- (7,.8)   node[toplabel] {outside\\standard model};  % two lines
+
+  % add big numbers on top
+  \node at (0,1.2)   [generation] {1\tiny st};
+  \node at (1,1.2)   [generation] {2\tiny nd};
+  \node at (2,1.2)   [generation] {3\tiny rd};
+  \node at (2.8,1.2) [generation] {\tiny generation};
+\end{tikzpicture}
+\end{document}
+```
+****
+
+![](./out/physics-moon_synodic_period.png)
+
+  
+  * [physics-moon_synodic_period.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/physics-moon_synodic_period.tex)
+
+```tex
+% https://tex.stackexchange.com/a/338201/173708
+\documentclass[a4paper,portrait]{article}
+
+\usepackage{tikz}
+\usepackage[margin=0.3in]{geometry}
+
+\usetikzlibrary{scopes}
+\usetikzlibrary{intersections}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+
+\begin{tikzpicture} [
+    scale=0.7,
+    node font=\LARGE,
+    dashed axis/.style={dash pattern=on 4pt off 2pt},
+    moon line/.style={dash pattern=on 8pt off 4pt},
+    information text/.style={rounded corners, fill=Info Color, inner sep=1ex}
+]
+
+\definecolor{Earth Color}{HTML}{358af3};
+\definecolor{Sun Color}{HTML}{fffc00};
+\definecolor{Moon Color}{HTML}{ddbd4c};
+\definecolor{Info Color}{HTML}{eeeeee};
+
+\def\SunPosition{16};
+
+% draw Earth xy-frame (fixed direction Earth frame), and the Earth at the origin
+\fill (0, 0) [Earth Color, opacity=.6] circle (1cm);
+\draw[{Stealth[length=0.3cm]}-{Stealth[length=0.3cm]}] (-4, 0) -- (16, 0) node [right=1em] {$x$};
+\draw[{Stealth[length=0.3cm]}-{Stealth[length=0.3cm]}] (0, -4) -- (0, 16) node [above=1em] {$y$};
+\filldraw (0, 0) circle (3pt);
+\path (0, 0) node [shift={(-3.5, 1.6)}, anchor=north west] {\Large EARTH};
+
+% draw Earth x'y'-frame (Earth frame directed at Sun, ie 'Noon-frame'), and the Sun on the y'-axis
+\begin{scope}[rotate around={-55:(0, 0)}]
+\fill (0, \SunPosition) coordinate (S) [Sun Color, opacity=.7] circle (1.5cm);
+\draw[{Stealth[length=0.3cm]}-{Stealth[length=0.3cm]}] (-4, 0) -- (10, 0) coordinate (X') node [right=1em] {$x'$};
+\draw[{Stealth[length=0.3cm]}-{Stealth[length=0.3cm]}] (0, -4) -- (0, 24) node [above=1em] {$y'$};
+\filldraw (0, \SunPosition) circle (3pt);
+\end{scope}
+\draw[line width=2pt] (0.6,0) -- ($(0,0)!(0.6,0)!(S)$);
+\draw[line width=2pt] (0.6,0) -- ($(0,0)!(0.6,0)!(X')$);
+
+% draw arrow for Earth's orbital motion
+\draw[-{Stealth[length=0.6cm]},line width=3pt,Earth Color,rotate around={203:(S)}] ($(S) + (21,0)$) arc [start angle=0, end angle=10, radius=21];
+
+% draw Sun's x''y''-frame (fixed direction Sun frame)
+\begin{scope}[shift={(S)}]
+\draw[{Stealth[length=0.3cm]}-{Stealth[length=0.3cm]}, dashed axis] (-4, 0) -- (4, 0) node [right=1em] {$x''$};
+\draw[{Stealth[length=0.3cm]}-{Stealth[length=0.3cm]}, dashed axis] (0, -4) -- (0, 8) node [above=1em] {$y''$};
+\draw[-{Stealth[length=0.3cm]}, green!60!black] (2.5, 0) arc [start angle=0, end angle=215, radius=2.5] node[pos=0.65,above left] {$\pi + \theta$};
+\path (0, 0) node [shift={(2.2,-1.2)}] {\Large SUN (fixed)};
+\end{scope}
+
+% draw Moon
+\begin{scope}[rotate around={-20:(0, 0)}]
+\fill (0, 7) coordinate (M) [Moon Color, opacity=.8] circle (.7cm);
+\draw[moon line] (0, 0) -- (0, 15);
+\filldraw (0, 7) circle (3pt);
+\node [shift={(-0.8,1)}] at (0, 7) {\Large MOON};
+\draw[-{Stealth[length=0.6cm]},line width=3pt,Moon Color,rotate around={-10:(0, 0)}] (0, 9.5) arc [start angle=90, end angle=110, radius=9.5];
+\end{scope}
+
+% draw various angles including Moon phase angle psi
+\draw[-{Stealth[length=0.3cm]},green!60!black] (2, 0) arc [start angle=0, end angle=70, radius=2] node[pos=0.7,above right=-4pt] {$\phi$};
+\draw[-{Stealth[length=0.3cm]},green!60!black] (3.5, 0) arc [start angle=0, end angle=35, radius=3.5] node[pos=0.45,above right=-2pt] {$\theta$};
+\draw[-{Stealth[length=0.3cm]}, red!80!black,rotate around={-55:(0, 0)}] (5, 0) arc [start angle=0, end angle=125, radius=5] node[pos=0.3, below right=-2pt] {$\psi$};
+
+% draw information box
+\draw[shift={(10, -11)}] node[above right, text width=7cm,information text] {
+    \Large
+    {\boldmath
+    \textbf{\underline{Moon Phase Angle $\psi$}} }
+
+    \vspace{1ex}
+    \large
+    \begin{description}
+    {\boldmath
+    \item[$xy$-axes]= fixed direction but moving frame centered on Earth
+    \item[$x'y'$-axes]= moving 'noon' frame centered on Earth (always points at Sun)
+    \item[$x''y''$-axes]= fixed frame of Sun
+    \item[$\psi$]= moon phase angle =} $\pi/2 + (\phi - \theta)$
+    \end{description}
+};
+
+\node[above right] at (-5, -11) {\Large \textbf{Fig. 1} \hspace{0.1cm} Moon Phase Angle};
+
+\end{tikzpicture}
+
+\end{document}
+```
+****
+
+![](./out/physics-poincare+diagram+foreach+set+command.png)
+
+  
+  * [physics-poincare+diagram+foreach+set+command.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/physics-poincare+diagram+foreach+set+command.tex)
+
+```tex
+% http://www.texample.net/media/tikz/examples/TEX/poincare.tex
+% PoincarÃ© Diagram: Classification of Phase Portraits in the (det A,Tr A)-plane
+% Author: Gernot Salzer, 22 Jan 2017
+\documentclass[tikz,border=10pt]{standalone}
+%%%<
+\usepackage{verbatim}
+%%%>
+\begin{comment}
+:Title: Poincare Diagram, Classification of Phase Portraits
+:Features: 
+:Tags: Arcs;Foreach;Markings;Diagrams;Plots;Mathematics
+:Author: Gernot Salzer
+:Slug: poincare
+
+The solutions of a system of linear differential equations can be
+classified according to the trace and the determinant of the
+coefficient matrix. This diagram show schematically the different
+types of solutions.
+
+Originally published on TeX.SX, tex.stackexchange.com/a/347401, 6 Jan 2017
+Based on a manual drawing by Douglas R. Hundley,
+http://people.whitman.edu/~hundledr/courses/M244/Poincare.pdf
+
+You may use the code without any restrictions; no rights reserved. 
+\end{comment}
+
+\usetikzlibrary{decorations.markings}
+
+\tikzset
+ {every pin/.style = {pin edge = {<-}},    % pins are arrows from label to point
+  > = stealth,                            % arrow tips look like stealth bombers
+  flow/.style =    % everything marked as "flow" will be decorated with an arrow
+   {decoration = {markings, mark=at position #1 with {\arrow{>}}},
+    postaction = {decorate}
+   },
+  flow/.default = 0.5,          % default position of the arrow is in the middle
+  main/.style = {line width=1pt}                    % thick lines for main graph
+ }
+
+% \newtemplate[Scaling, default 0.18]{\NameOfTemplate}{Caption}{Code}
+%
+% Typesets Code and stores it in the box \NameOfTemplate.
+% This way we avoid nested tikzpictures when inserting the templates into the
+% main picture, since nesting is not guaranteed to work.
+\newcommand\newtemplate[4][0.18]%
+ {\newsavebox#2%
+  \savebox#2%
+   {\begin{tabular}{@{}c@{}}
+      \begin{tikzpicture}[scale=#1]
+      #4
+      \end{tikzpicture}\\[-1ex]
+      \templatecaption{#3}\\[-1ex]
+    \end{tabular}%
+   }%
+ }
+\newcommand\template[1]{\usebox{#1}}             % use the Code stored in box #1
+\newcommand\templatecaption[1]{{\sffamily\scriptsize#1}}       % typeset caption
+\newcommand\Tr{\mathop{\mathrm{Tr}}}
+
+\newtemplate\sink{sink}%
+ {\foreach \sx in {+,-}                   % for right/left half do:
+   {\draw[flow] (\sx4,0) -- (0,0);        %   draw half of horizontal axis
+    \draw[flow] (0,\sx4) -- (0,0);        %   draw half of vertical axis
+    \foreach \sy in {+,-}                 %   for upper/lower quadrant do:
+      \foreach \a/\b in {2/1,3/0.44}      %     draw two half-parabolas
+        \draw[flow,domain=\sx\a:0] plot (\x, {\sy\b*\x*\x});
+   }
+ }
+
+\newtemplate\source{source}%
+ {\foreach \sx in {+,-}                   % for right/left half do:
+   {\draw[flow] (0,0) -- (\sx4,0);        %   draw half of horizontal axis
+    \draw[flow] (0,0) -- (0,\sx4);        %   draw half of vertical axis
+    \foreach \sy in {+,-}                 %   for upper/lower quadrant do:
+      \foreach \a/\b in {2/1,3/0.44}      %     draw two half-parabolas
+        \draw[flow,domain=0:\sx\a] plot (\x, {\sy\b*\x*\x});
+   }
+ }
+
+\newtemplate\stablefp{line of stable fixed points}%
+ {\draw (-4,0) -- (4,0);                  % draw horizontal axis
+  \foreach \sy in {+,-}                   % for upper/lower half do:
+   {\draw[flow] (0,\sy4) -- (0,0);        %   draw half of vertical axis
+    \foreach \x in {-3,-2,-1,1,2,3}       %   draw six vertical half-lines
+      \draw[flow] (\x,\sy3) -- (\x,0);
+   }
+ }
+
+\newtemplate\unstablefp{line of unstable fixed points}%
+ {\draw (-4,0) -- (4,0);                  % draw horizontal axis
+  \foreach \sy in {+,-}                   % for upper/lower half do:
+   {\draw[flow] (0,0) -- (0,\sy4);        %   draw half of vertical axis
+    \foreach \x in {-3,-2,-1,1,2,3}       %   draw six vertical half-lines
+      \draw[flow] (\x,0) -- (\x,\sy3);
+   }
+ }
+
+\newtemplate\spiralsink{spiral sink}%
+ {\draw (-4,0) -- (4,0);                  % draw horizontal axis
+  \draw (0,-4) -- (0,4);                  % draw vertical axis
+  \draw [samples=100,smooth,domain=27:7]  % draw spiral
+       plot ({\x r}:{0.005*\x*\x});       % Using "flow" here gives "Dimension
+  \def\x{26}                              %        too large", so we draw a tiny
+  \draw[->] ({\x r}:{0.005*\x*\x}) -- +(0.01,-0.01);%     tangent for the arrow.
+ }
+
+\newtemplate\spiralsource{spiral source}%
+ {\draw (-4,0) -- (4,0);                  % draw horizontal axis
+  \draw (0,-4) -- (0,4);                  % draw vertical axis
+  \draw [samples=100,smooth,domain=10:28] % draw spiral
+       plot ({-\x r}:{0.005*\x*\x});      % Using "flow" here gives "Dimension
+  \def\x{27.5}                            %        too large", so we draw a tiny
+  \draw[<-] ({-\x r}:{0.005*\x*\x}) -- +(0.01,-0.008);%   tangent for the arrow.
+ }
+
+\newtemplate[0.15]\centre{center}% British spelling since \center is in use
+ {\draw (-4,0) -- (4,0);                  % draw horizontal axis
+  \draw (0,-4) -- (0,4);                  % draw vertical axis
+  \foreach \r in {1,2,3}                  % draw three circles
+    \draw[flow=0.63] (\r,0) arc (0:-360:\r cm);
+ }
+
+\newtemplate\saddle{saddle}%
+ {\foreach \sx in {+,-}                   % for right/left half do:
+   {\draw[flow] (\sx4,0) -- (0,0);        %   draw half of horizontal axis
+    \draw[flow] (0,0) -- (0,\sx4);        %   draw half of vertical axis
+    \foreach \sy in {+,-}                 %   for upper/lower quadrant do:
+      \foreach \a/\b/\c/\d in {2.8/0.3/0.7/0.6, 3.9/0.4/1.3/1.1}
+        \draw[flow] (\sx\a,\sy\b)         %     draw two bent lines
+          .. controls (\sx\c,\sy\d) and (\sx\d,\sy\c)
+          .. (\sx\b,\sy\a);
+   }
+ }
+
+\newtemplate\degensink{degenerate sink}%
+ {\draw (0,-4) -- (0,4);                  % draw vertical axis
+  \foreach \s in {+,-}                    % for upper/lower half do:
+   {\draw[flow] (\s4,0) -- (0,0);         %   draw half of horizontal axis
+    \foreach \a/\b/\c/\d in {3.5/4/1.5/1, 2.5/2/1/0.8}
+      \draw[flow] (\s-3.5,\s\a)           %   draw two bent lines
+        .. controls (\s\b,\s\c) and (\s\b,\s\d)
+        .. (0,0);
+   }
+ }
+
+\newtemplate\degensource{degenerate source}%
+ {\draw (0,-4) -- (0,4);                  % draw vertical axis
+  \foreach \s in {+,-}                    % for upper/lower half do:
+   {\draw[flow] (0,0) -- (\s4,0);         %   draw half of horizontal axis
+    \foreach \a/\b/\c/\d in {3.5/4/1.5/1, 2.5/2/1/0.8}
+      \draw[flow] (0,0)                   %   draw two bent lines
+        .. controls (\s\b,\s\d) and (\s\b,\s\c)
+        .. (\s-3.5,\s\a);
+   }
+ }
+
+\begin{document}
+\begin{tikzpicture}[line cap=round,line join=round]
+  % MAIN DIAGRAM
+  \draw [main,->] (0,-0.3) -- (0,4.7)                            % vertical axis
+    node [label={[above]$\scriptstyle\det A$}] {}
+    node [label={[above,yshift=0.8cm]%
+      {\sffamily\large Poincar\'e Diagram: Classification of Phase
+      Portraits in the $(\det A,\Tr A)$-plane}}] {};
+  \draw [main,->] (-5,0) -- (5,0)                              % horizontal axis
+    node [label={[right,yshift=-0.5ex]$\scriptstyle\Tr A$}] {}; 
+  \draw [main, domain=-4:4] plot (\x, {0.25*\x*\x});                % main graph
+  \node at (-4,4) [pin={[above]$\scriptstyle\Delta=0$}] {};
+  \node at ( 4,4) [pin={[above,align=left]%
+    {$\scriptstyle\Delta=0:\;\det A=\frac{1}{4}(\Tr A)^2$}}] {};
+  % TEMPLATES describing areas
+  \node at ( 0  ,-1.4) {\template\saddle};
+  \node at (-4  , 1  ) {\template\sink};
+  \node at ( 4  , 1  ) {\template\source}; 
+  \node at (-1.8, 3.7) {\template\spiralsink};
+  \node at ( 1.8, 3.7) {\template\spiralsource};
+  % TEMPLATES labeling lines and points
+  \node at ( 0  , 1.2) [pin={[draw,right,xshift=0.3cm]%
+    \template\centre}] {};
+  \node at (-3  , 0  ) [pin={[draw,below,yshift=-1cm]%
+    \template\stablefp}] {};
+  \node at ( 3  , 0  ) [pin={[draw,below,yshift=-1cm]%
+    \template\unstablefp}] {};
+  \node at (-3.5,{0.25*3.5*3.5}) [pin={[draw,left,xshift=-1.15cm,yshift=-0.3cm]%
+    \template\degensink}] {};
+  \node at ( 3.5,{0.25*3.5*3.5}) [pin={[draw,right,xshift=0.9cm,yshift=-0.3cm]%
+    \template\degensource}] {};
+  \node at ( 0  , 0  ) [pin={[draw,above left,align=center,xshift=-0.3cm]%
+    \templatecaption{uniform}\\[-1ex]\templatecaption{motion}}] {};
+\end{tikzpicture}
+\end{document}
+```
+****
+
 ![](./out/physics-solenoid.png)
 
   
@@ -12785,6 +14194,275 @@ by Grant M. Erickson
 ```
 ****
 
+![](./out/physics-torricelli.png)
+
+  
+  * [physics-torricelli.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/physics-torricelli.tex)
+
+```tex
+% https://tex.stackexchange.com/a/338201/173708
+
+\documentclass[landscape]{article}
+
+\usepackage{tikz}
+\usepackage[margin=1in]{geometry}
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{scopes}
+
+\newcommand{\fluidcontainer}{
+    \begin{scope}
+    \draw [rounded corners, line width=2pt] (0, 7) -- (0,0) -- (6,0) -- (6,2) -- (7,2);
+    \draw [rounded corners, line width=2pt] (7,3) -- (6,3) -- (6,7); 
+    
+    \draw[-{Stealth[length=0.25cm]},blue_annot] (3,8.5) -- (3,7.5) node[pos=0.5,left] {\large $p_{1}$} ;
+    \draw[-{Stealth[length=0.25cm]},blue_annot] (8.5,2.8) -- (7.5,2.8) node[pos=0.5,above] {\large $p_{2}$} ;
+    
+    \draw[red_annot] (1,8) node[above] {\large $R_{1}$} to [bend left=15] (1.5,6.6);
+    \draw[red_annot] (7.5,4) node[above] {\large $R_{2}$} to [bend right=20] (6.4,2.5);
+    \node[red_annot] at (3,3.5) {\Large $R_{3}$};
+    
+    \draw[{Stealth[length=0.3cm]}-{Stealth[length=0.3cm]}] (-1,6.8) -- (-1,2.5) node[pos=0.5,left] {$h$}; 
+    
+    \draw[-{Stealth[length=0.2cm]}] (7,7.5) -- (7,6.8);
+    \draw[-{Stealth[length=0.2cm]}] (7,5.7) -- (7,6.4);
+    \node at (7.5,6.6) {\large $\Delta s_{1}$};
+    
+    \draw[-{Stealth[length=0.2cm]}] (5.3,1) -- (6,1);
+    \draw[-{Stealth[length=0.2cm]}] (7.5,1) -- (6.8,1);
+    \node at (6.5,0.7) {\large $\Delta s_{2}$};
+    \end{scope}
+}
+
+
+\begin{document}
+
+\definecolor{fluid_color}{RGB}{255,247,153}
+\definecolor{blue_annot}{RGB}{0,0,255}
+\definecolor{red_annot}{RGB}{255,0,0}
+\definecolor{level_color}{RGB}{0,190,0}
+
+\begin{tikzpicture}[scale=1,level dashed/.style={level_color, line width=1pt, dash pattern=on 4pt off 2pt},level solid/.style={level_color, line width=2pt}]
+
+    \begin{scope}[shift={(0cm,0cm)}]
+    \path [fill=fluid_color] (0,0) -- (6,0) -- (6,6.8) -- (0,6.8) -- cycle;
+    \draw[level solid] (0,6.8) -- (6,6.8);
+    \draw[level dashed] (0,6.4) -- (6,6.4);
+    \draw[level solid] (6,1.5) -- (6,3.5);
+    \draw[level dashed] (6.8,2) -- (6.8,3);
+    \fluidcontainer;
+    \draw[-{Stealth[length=0.25cm]},blue_annot] (5,6.8) -- (5,5) node[pos=0.5,left] {\large $v_{1}$} ;
+    \draw[-{Stealth[length=0.25cm]},blue_annot] (6,2.4) -- (7.7,2.4) node[pos=0.75,below] {\large $v_{2}$} ;
+    \end{scope}
+    
+    \begin{scope}[shift={(11cm,0cm)}]
+    \path [fill=fluid_color] (0,0) -- (6,0) -- (6,2) -- (6.8,2) -- (6.8,3) -- (6,3) -- (6,6.4) -- (0,6.4) -- cycle;
+    \draw[level dashed] (0,6.8) -- (6,6.8);
+    \draw[level solid] (0,6.4) -- (6,6.4);
+    \draw[level dashed] (6,1.5) -- (6,3.5);
+    \draw[level solid] (6.8,2) -- (6.8,3);
+    \fluidcontainer;
+    \draw[-{Stealth[length=0.25cm]},blue_annot] (5,6.4) -- (5,4.6) node[pos=0.5,left] {\large $v_{1}$} ;
+    \draw[-{Stealth[length=0.25cm]},blue_annot] (6.8,2.4) -- (8.5,2.4) node[pos=0.7,below] {\large $v_{2}$} ;
+    \end{scope}
+    
+    \node at (8.5,-1.5) {\Large \textbf{Fig. 1} \hspace{0.2cm} Fluid before and after time $\Delta t$. };
+
+\end{tikzpicture}
+
+\end{document}
+```
+****
+
+![](./out/physics-trajectory.png)
+
+  
+  * [physics-trajectory.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/physics-trajectory.tex)
+
+```tex
+% https://gist.github.com/MatteoRagni/678b1ac217c59db8ced872871da5e323
+\documentclass[tikz]{standalone}
+
+\usepackage{pgfplots}
+\usepackage{amsmath}
+\usepackage{tikz-3dplot}
+
+\pgfplotsset{compat=1.14}
+\tikzset{>=latex}
+
+\begin{document}
+
+% !TEX root = ../main.tex
+\tdplotsetmaincoords{60}{100}
+\begin{tikzpicture}[scale=1.5,tdplot_main_coords]
+  % DEFINITIONS
+  % figOmegaRotation : Value for the Omega angle
+    \pgfmathsetmacro{\figOmega}{33}
+  % figIRotation : value for inclination of the orbital plane
+    \pgfmathsetmacro{\figIRotation}{30}
+  % \figAEll : minimum value for ellipse
+    \pgfmathsetmacro{\figAEll}{2.5}
+  % \figBEll : minimum value for ellipse
+    \pgfmathsetmacro{\figBEll}{3}
+  % figYOrigin : focus of the ellipse with 2.5 and 3
+    \pgfmathsetmacro{\figYOrigin}{sqrt(\figBEll^2 - \figAEll^2)}
+    % sqrt(b^2 - a^2)
+
+  % COMMANDS
+  % \positionOnEl{\storing}{\quadrant}{\x}
+  % Saves into \storing the position \y on the ellipse
+  % specified by \figAEll and \figBEll. \quadrant should help
+  % in defining the quadrant (must be +1 or -1)
+  \newcommand{\positionXOnEl}[3]{%
+    \pgfmathsetmacro{#1}%
+      {\figYOrigin+#2*%
+      \figBEll*((1-#3^2/\figAEll^2)^2)^(0.25)}}
+  \newcommand{\positionYOnEl}[3]{%
+    \pgfmathsetmacro{#1}%
+      {#2*((\figBEll^2-\figYOrigin^2+2*\figYOrigin*#3-#3^2)^2)^(0.25)*(\figAEll/\figBEll)}}
+
+
+  \positionYOnEl{\ellPositY}{-1}{\figBEll}
+  \positionYOnEl{\ellPositYY}{1}{0}
+
+  \pgfmathsetmacro{\xstartV}{cos(atan(\figBEll/\ellPositY))*0.5}
+  \pgfmathsetmacro{\ystartV}{sin(atan(\figBEll/\ellPositY))*0.5}
+
+  % Origin Position for the drawing
+  \coordinate (O) at (0, 0, 0);
+
+  % REFERENCE FRAME
+  % x axis
+  \draw[tdplot_main_coords, very thin]
+    (-4.5, 0, 0) -- (-0.5, 0, 0);
+  % y axis
+  \draw[tdplot_main_coords, very thin]
+    (0, -2.1, 0) -- (0, -0.5, 0);
+  \draw[tdplot_main_coords, ->, very thin]
+    (0, 0.5, 0) -- (0, 5, 0)
+    node [anchor=west] {$y$};
+
+
+  % EQUATORIAL PLANE
+  \draw[tdplot_main_coords, very thin,gray]
+    (4, 4.7, 0) -- (4, -2, 0) --
+    node[anchor=south, rotate=54] {\footnotesize equatorial plane}
+    (-4,-2, 0) -- (-4, 4.7, 0) -- (4, 4.7, 0);
+  % Equatorial plane Ellipses
+  \draw[tdplot_main_coords, very thin, dashed, gray!50]
+    (0, \figYOrigin, 0) ellipse ({\figAEll} and {\figBEll});
+
+
+
+  % Rotazione sulla linea dei nodi
+  \tdplotsetrotatedcoords{0}{0}{\figOmega}
+
+  % Ellipses in equatorial plane
+  \draw[tdplot_rotated_coords, fill, color=gray!40, opacity=0.1]
+    (0, \figYOrigin, 0) ellipse ({\figAEll} and {\figBEll});
+  \draw[tdplot_rotated_coords, very thin, dashed]
+    (0, \figYOrigin, 0) ellipse ({\figAEll} and {\figBEll});
+  %  reference on rotated ellipse
+  \draw[tdplot_rotated_coords, very thin]
+    (0, -2.1, 0) -- (0, -0.5, 0);
+  \draw[tdplot_rotated_coords, ->, very thin]
+    (0, 0.5, 0) -- (0, 5, 0)
+    node [anchor=west] {$y'$};
+
+  \shade[tdplot_rotated_coords, ball color = green!40, opacity = 0.8]
+    (0, 0, 0) circle (0.5cm);
+
+  % Rotation on ascension
+  \tdplotsetrotatedcoords{90+\figOmega}{-\figIRotation}{-90}
+  % Orbit ellipse
+  \draw[tdplot_rotated_coords, fill, color=gray!40, opacity=0.3]
+    (0, \figYOrigin, 0) ellipse ({\figAEll} and {\figBEll});
+  \draw[tdplot_rotated_coords, very thin]
+    (0, \figYOrigin, 0) ellipse ({\figAEll} and {\figBEll});
+
+
+
+  % Part of trajectory
+  \draw[tdplot_rotated_coords, very thick]
+    (\ellPositYY, 0, 0)
+    arc (-33.5:154:{\figAEll} and {\figBEll});
+
+  % Line of Nodes
+  \draw[tdplot_rotated_coords]
+    (0.5, 0, 0) -- (4, 0, 0)
+    node [anchor=north west,fill=white] {\footnotesize line of nodes};
+  % Line of apsis
+  \draw[tdplot_rotated_coords, ->, very thin]
+    (0, 0.5, 0) -- (0, 5, 0)
+    node[anchor=south west] {\footnotesize line of apsis};
+
+  % V vector (solved through ellipse equation)
+  \draw[tdplot_rotated_coords,->,thick]
+    (-\xstartV, -\ystartV, 0) -- (\ellPositY, \figBEll, 0);
+  \shade[tdplot_rotated_coords,ball color = green]
+    (\ellPositY, \figBEll, 0) circle (0.05cm)
+    node[anchor=south east, color=green!40!black!50] {\footnotesize debris};
+
+  % Planet
+  % Equatorial circle in
+  \draw[tdplot_rotated_coords, very thin]
+    (0, 0, 0) circle (0.5);
+  \draw[tdplot_main_coords, very thin, gray]
+    (0, 0, 0) circle (0.5);
+  % x axis in original reference frame
+  % redesegn for z-buffer
+  \draw[tdplot_main_coords, ->, very thin]
+    (0.75, 0, 0) -- (4.5, 0, 0)
+    node [anchor=north] {$x$};
+    % z axis
+  \draw[tdplot_main_coords, ->, very thin]
+    (0, 0, 0.5) -- (0, 0, 2)
+    node[anchor=south] {$z$};
+
+  % OMEGA
+  \tdplotdrawarc[tdplot_main_coords, color=red, ->]
+    {(0,0,0)}{2.5}{0}{\figOmega}{anchor=north}{$\Omega$}
+  % omega
+  \tdplotdrawarc[tdplot_rotated_coords, color=red, ->]
+    {(0,0,0)}{1.8}{0}{90}{anchor=west}{$\omega$}
+  \tdplotdrawarc[tdplot_rotated_coords, color=red, ->]
+    {(0,0,0)}{1.8}{90}{126.8}{anchor=south}{$v$}
+  % n vector
+  \draw[tdplot_rotated_coords, ->, color=red, pos=0.8]
+    (0.5, 0, 0) --  node [anchor=north east, pos=0.6] {$n$} (\ellPositYY, 0, 0);
+  \draw[tdplot_rotated_coords, ->, color=red]
+    (0, 0.5, 0) --  node [anchor=south east, pos=0.85] {$e$}
+    (0, 3 + \figYOrigin, 0);
+
+  % piano per i
+  \shade[tdplot_rotated_coords,ball color = blue]
+    (0, \figYOrigin + \figBEll, 0) circle (0.05cm)
+    node[anchor=west, color=blue] {\footnotesize apoapsis};
+  \shade[tdplot_rotated_coords,ball color = red] (\ellPositYY, 0, 0) circle
+    (0.05cm) node[anchor=west, color=red] {\footnotesize ascending node};
+
+  \draw[tdplot_rotated_coords] (0,0,0) circle (0.5);
+
+  \tdplotsetrotatedcoords{\figOmega}{90}{0}
+  % i angle
+  \tdplotdrawarc[tdplot_rotated_coords, color=red, ->]
+    {(0, 0, 0)}{\figYOrigin+\figBEll}{90}{118}{anchor=west}{$i$}
+  % Orbital Plane Label
+  \node[tdplot_main_coords,rotate=33.5,anchor=east,color=gray]
+    at (-4.8,-0.3,0) {\footnotesize orbital plane};
+
+  % Planet
+
+\end{tikzpicture}
+
+
+
+
+
+\end{document}
+```
+****
+
 ![](./out/physics-vanderpol_oscilator.png)
 
   
@@ -12944,356 +14622,6 @@ by Grant M. Erickson
 	\umlassoc[geometry=|-|,arg1=destroys,pos1=1.75]{Bullet}{Mini-ships}
 	\umlassoc[geometry=-|,arg1=destroys,pos1=0.35]{Bullet}{Hearts}
 \end{tikzpicture} 
-\end{document}
-```
-****
-
-![](./out/planes_multiple_ocean+projection+style+scope+slant.png)
-
-  
-  * [planes_multiple_ocean+projection+style+scope+slant.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/planes_multiple_ocean+projection+style+scope+slant.tex)
-
-```tex
-\documentclass[border=5pt]{standalone}
-\usepackage{tikz}
-\usetikzlibrary{positioning, patterns, decorations.pathreplacing}
-\usetikzlibrary{calc}
-\usetikzlibrary{arrows,shapes,backgrounds}
-
-\begin{document}
-
-
-\begin{tikzpicture}[scale=.9,every node/.style={minimum size=1cm},on grid]
-
-    \tikzstyle{select arrow}=[->, thick,cyan!70!black]
-    \tikzstyle{action arrow}=[->, thick,cyan!90!black]
-    \tikzstyle{action good}=[thick,cyan!50!black]
-    \tikzstyle{action bad}=[thick,cyan!30]
-    \tikzstyle{active neuron}=[cyan!90]
-    \tikzstyle{selected neuron}=[cyan!30]
-    \tikzstyle{bad action}=[pattern=north west lines, pattern color=cyan!30]
-
-    %FINAL STATE. plane at the bottom
-    \begin{scope}[
-                yshift=-160,every node/.append style={
-                yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-                ]
-
-            \fill[white,fill opacity=0.9] (0,0) rectangle (2.5,2.5);
-            \draw[step=5mm, black] (0,0) grid (2.5,2.5);
-            \draw[black,very thick] (0,0) rectangle (2.5,2.5);
-            \fill[active neuron] (0.55,0.55) rectangle (0.95,0.95);
-
-        \draw[->,thick, blue!50!cyan] (0.3,0.25) -- (0.7,0.25);
-    \end{scope}
-
-    \draw[action arrow, red, thin] (-0.5,-3.25) -- (0,-4.9);
-
-    %SECOND ACTION
-    \begin{scope}[
-        yshift=-120,every node/.append style={
-        yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-                    ]
-        \fill[white,fill opacity=.95] (0,0) rectangle (1.5,1.5);
-        \draw[step=5mm, black] (0,0) grid (1.5,1.5);
-        \draw[black,very thick] (0,0) rectangle (1.5,1.5);
-
-        \fill[bad action] (0.05,0.05) rectangle (0.45,0.45);
-        \fill[bad action] (1.05,0.05) rectangle (1.45,0.45);
-        \fill[bad action] (1.05,1.05) rectangle (1.45,1.45);
-        \fill[bad action] (0.05,1.05) rectangle (0.45,1.45);
-
-        \node[action good] at (0.25,0.75) {W};
-        \node[action good] at (1.25,0.75) {E};
-        \node[action good] at (0.75,1.25) {N};
-        \node[action bad] at (0.75,0.25) {S};
-        \end{scope}
-
-    \draw[action arrow] (0.5,-2.45) -- (0.5,-3.25);
-    \draw[action arrow, red] (0.5,-2.45) -- (-0.5,-3.25);
-    \draw[action arrow] (0.5,-2.45) -- (-0.5,-3.75);
-
-    %SECOND STATE
-    \begin{scope}[
-        yshift=-80,every node/.append style={
-        yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-
-        \fill[white,fill opacity=0.9] (0,0) rectangle (2.5,2.5);
-        \draw[step=5mm, black] (0,0) grid (2.5,2.5);
-        \draw[black,very thick] (0,0) rectangle (2.5,2.5);
-        \fill[active neuron] (0.55,0.05) rectangle (0.95,0.45);  
-        \fill[selected neuron] (0.05,0.05) rectangle (0.45,0.45);
-        \fill[selected neuron] (1.05,0.05) rectangle (1.45,0.45);
-        \fill[selected neuron] (0.55,0.55) rectangle (0.95,0.95);
-
-        \draw[select arrow] (0.85,0.25) -- (1.25,0.25);
-        \draw[select arrow] (0.75,0.35) -- (0.75,.75);
-        \draw[select arrow] (0.65,0.25) -- (0.25,0.25);
-    \end{scope}
-
-    \draw[action arrow, red] (0.5,-0.45) -- (0.5,-2.3);
-
-    %FIRST ACTION
-    \begin{scope}[
-        yshift=-40,every node/.append style={
-        yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-                    ]
-        \fill[white,fill opacity=.95] (0,0) rectangle (1.5,1.5);
-        \draw[step=5mm, black] (0,0) grid (1.5,1.5);
-        \draw[black,very thick] (0,0) rectangle (1.5,1.5);
-
-        \fill[bad action] (0.05,0.05) rectangle (0.45,0.45);
-        \fill[bad action] (1.05,0.05) rectangle (1.45,0.45);
-        \fill[bad action] (1.05,1.05) rectangle (1.45,1.45);
-        \fill[bad action] (0.05,1.05) rectangle (0.45,1.45);
-
-        \node[action bad] at (0.25,0.75) {W};
-        \node[action good] at (1.25,0.75) {E};
-        \node[action good] at (0.75,1.25) {N};
-        \node[action bad] at (0.75,0.25) {S};
-    \end{scope}
-
-    \draw[action arrow, red] (0.125,0.125) -- (0.5,-0.45);
-    \draw[action arrow] (-0.125,0.125) -- (-0.5,-0.45);
-
-    %INITIAL STATE. plane at the top
-    \begin{scope}[
-        every node/.append style={
-        yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-
-        \fill[white,fill opacity=0.9] (0,0) rectangle (2.5,2.5);
-        \draw[step=5mm, black] (0,0) grid (2.5,2.5);
-        \draw[black,very thick] (0,0) rectangle (2.5,2.5);
-        \fill[active neuron] (0.05,0.05) rectangle (0.45,0.45);
-        \fill[selected neuron] (0.55,0.05) rectangle (0.95,0.45);
-        \fill[selected neuron] (0.05,0.55) rectangle (0.45,0.95);
-
-        \draw [decorate,decoration={brace,amplitude=10pt}] (0,2.6) -- (2.6,2.6);
-        \node at (1.6,3.3) {d};
-
-        \draw[select arrow] (0.25,0.35) -- (0.25,0.75);
-        \draw[select arrow] (0.35,0.25) -- (0.75,0.25);
-
-        \node at (1.125,-0.3) {\textbf{x}};
-        \node at (-0.3,1.125) {\textbf{y}};
-
-    \end{scope}
-
-    \node at (4,1.25) {$S$};
-    \node at (4,-0.5) {$a$};
-    \node at (4,-1.5) {$S'$};
-    \node at (4,-3.25) {$a'$};
-
-\end{tikzpicture}
-\end{document}
-```
-****
-
-![](./out/planes-multidimensional-array-inclined.png)
-
-  
-  * [planes-multidimensional-array-inclined.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/planes-multidimensional-array-inclined.tex)
-
-```tex
-% https://tex.stackexchange.com/a/295021/173708
-\documentclass[tikz,border=5]{standalone}
-\usepackage{tikz}
-\usetikzlibrary{calc}
-
-\begin{document}
-\begin{tikzpicture}[x=0.5cm,y=0.5cm]
-    \begin{scope}[rotate=130,]
-        \draw[gray] (-4  ,-1.5) -- (6  ,3.5);
-    \end{scope}
-    \foreach \shift in {-5,0,5}
-    {
-        \foreach \x in {1,...,4}
-        {
-            \foreach \y in {1,...,4}
-            {
-                \begin{scope}[rotate=130,shift={(\shift,0.5*\shift)},]
-                    \draw[fill=white] (\x,\y) rectangle (\x+1,\y+1);
-                    \node at (\x+0.5,\y+0.5) {\pgfmathrnd\pgfmathparse{round(\pgfmathresult)}
-                        \pgfmathprintnumber[precision=1]{\pgfmathresult}};
-                \end{scope}
-            }
-        }
-    }
-    \begin{scope}[rotate=130,]
-        \draw         (-4, 2.5) -- (6  ,7.5);
-        \draw[dashed] (0 , 2.5) -- (10,7.5);
-        \draw[dashed] (0 ,-1.5) -- (10,3.5) node[midway,anchor=south west] {Channel};
-    \end{scope}
-\end{tikzpicture}
-\end{document}
-```
-****
-
-![](./out/planes-multidimensional-array.png)
-
-  
-  * [planes-multidimensional-array.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/planes-multidimensional-array.tex)
-
-```tex
-% https://tex.stackexchange.com/a/295109/173708
-
-\documentclass[tikz,border=5]{standalone}
-\begin{document} 
-	
-\begin{tikzpicture}[x=(15:.5cm), y=(90:.5cm), z=(330:.5cm), >=stealth]
-	\draw (0, 0, 0) -- (0, 0, 10) (4, 0, 0) -- (4, 0, 10);
-	\foreach \z in {0, 5, 10} \foreach \x in {0,...,3}
-	  \foreach \y [evaluate={\b=random(0, 1);}] in {0,...,3}
-	    \filldraw [fill=white] (\x, \y, \z) -- (\x+1, \y, \z) -- (\x+1, \y+1, \z) --
-	      (\x, \y+1, \z) -- cycle (\x+.5, \y+.5, \z) node [yslant=tan(15)] {\b};
-	\draw [dashed] (0, 4, 0) -- (0, 4, 10) (4, 4, 0) -- (4, 4, 10);
-	\draw [->] (0, 4.5, 0)  -- (4, 4.5, 0)   node [near end, above left] {Column};
-	\draw [->] (-.5, 4, 0)  -- (-.5, 0, 0)   node [midway, left] {Row};
-	\draw [->] (4, 4.5, 10) -- (4, 4.5, 2.5) node [near end, above right] {Channel};
-\end{tikzpicture}%
-\end{document}
-```
-****
-
-![](./out/planes-polarization+3d+foreach.png)
-
-  
-  * [planes-polarization+3d+foreach.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/planes-polarization+3d+foreach.tex)
-
-```tex
-% Polarizing microscope
-% Author: Cyril Langlois
-% This TikZ code sketches the light behavior during its travel in a polarizing
-% petrographic microscope when a birefringent crystal thin section is inserted
-% between the polarizing devices.
-% 
-% The goal was to correctly show the vectorial relationships between light
-% electric fields during its travel through the first polaroid, the mineral
-% section and the second polaroid.
-\documentclass[11pt]{article}
-\usepackage{tikz}
-\usetikzlibrary{arrows}
-%%%<
-\usepackage{verbatim}
-\usepackage[active,tightpage]{preview}
-\PreviewEnvironment{tikzpicture}
-\setlength\PreviewBorder{5pt}%
-%%%>
-
-\begin{comment}
-:Title: Polarizing microscope
-:Tags: 3D; Earth Sciences; Petrography; Physics
-:Author: Cyril Langlois
-
-This TikZ code sketches the light behavior during its travel in a polarizing
-petrographic microscope when a birefringent crystal thin section is inserted
-between the polarizing devices.
-
-The goal was to correctly show the vectorial relationships between light
-electric fields during its travel through the first polaroid, the mineral
-section and the second polaroid.
-\end{comment}
-
-\begin{document}
-\begin{tikzpicture}[x={(0.866cm,-0.5cm)}, y={(0.866cm,0.5cm)}, z={(0cm,1cm)}, scale=1.0,
-    %Option for nice arrows
-    >=stealth, %
-    inner sep=0pt, outer sep=2pt,%
-    axis/.style={thick,->},
-    wave/.style={thick,color=#1,smooth},
-    polaroid/.style={fill=black!60!white, opacity=0.3},
-]
-    % Colors
-    \colorlet{darkgreen}{green!50!black}
-    \colorlet{lightgreen}{green!80!black}
-    \colorlet{darkred}{red!50!black}
-    \colorlet{lightred}{red!80!black}
-
-    % Frame
-    \coordinate (O) at (0, 0, 0);
-    \draw[axis] (O) -- +(14, 0,   0) node [right] {x};
-    \draw[axis] (O) -- +(0,  2.5, 0) node [right] {y};
-    \draw[axis] (O) -- +(0,  0,   2) node [above] {z};
-
-    \draw[thick,dashed] (-2,0,0) -- (O);
-
-    % monochromatic incident light with electric field
-    \draw[wave=blue, opacity=0.7, variable=\x, samples at={-2,-1.75,...,0}]
-        plot (\x, { cos(1.0*\x r)*sin(2.0*\x r)}, { sin(1.0*\x r)*sin(2.0*\x r)})
-        plot (\x, {-cos(1.0*\x r)*sin(2.0*\x r)}, {-sin(1.0*\x r)*sin(2.0*\x r)});
-
-    \foreach \x in{-2,-1.75,...,0}{
-        \draw[color=blue, opacity=0.7,->]
-            (\x,0,0) -- (\x, { cos(1.0*\x r)*sin(2.0*\x r)}, { sin(1.0*\x r)*sin(2.0*\x r)})
-            (\x,0,0) -- (\x, {-cos(1.0*\x r)*sin(2.0*\x r)}, {-sin(1.0*\x r)*sin(2.0*\x r)});
-    }
-
-    \filldraw[polaroid] (0,-2,-1.5) -- (0,-2,1.5) -- (0,2,1.5) -- (0,2,-1.5) -- (0,-2,-1.5)
-        node[below, sloped, near end]{Polaroid};%
-
-    %Direction of polarization
-    \draw[thick,<->] (0,-1.75,-1) -- (0,-0.75,-1);
-
-    % Electric field vectors
-    \draw[wave=blue, variable=\x,samples at={0,0.25,...,6}]
-        plot (\x,{sin(2*\x r)},0)node[anchor=north]{$\vec{E}$};
-
-    %Polarized light between polaroid and thin section
-    \foreach \x in{0, 0.25,...,6}
-        \draw[color=blue,->] (\x,0,0) -- (\x,{sin(2*\x r)},0);
-
-    \draw (3,1,1) node [text width=2.5cm, text centered]{Polarized light};
-
-    %Crystal thin section
-    \begin{scope}[thick]
-        \draw (6,-2,-1.5) -- (6,-2,1.5) node [above, sloped, midway]{Crystal section}
-                -- (6, 2, 1.5) -- (6, 2, -1.5) -- cycle % First face
-            (6,  -2, -1.5) -- (6.2, -2,-1.5)
-            (6,   2, -1.5) -- (6.2,  2,-1.5)
-            (6,  -2,  1.5) -- (6.2, -2, 1.5)
-            (6,   2,  1.5) -- (6.2,  2, 1.5)
-            (6.2,-2, -1.5) -- (6.2, -2, 1.5) -- (6.2, 2, 1.5) 
-                -- (6.2, 2, -1.5) -- cycle; % Second face
-
-        %Optical indices
-        \draw[darkred, ->]       (6.1, 0, 0) -- (6.1, 0.26,  0.966) node [right] {$n_{g}'$}; % index 1
-        \draw[darkred, dashed]   (6.1, 0, 0) -- (6.1,-0.26, -0.966); % index 1
-        \draw[darkgreen, ->]     (6.1, 0, 0) -- (6.1, 0.644,-0.173) node [right] {$n_{p}'$}; % index 2
-        \draw[darkgreen, dashed] (6.1, 0, 0) -- (6.1,-0.644, 0.173); % index 2
-    \end{scope}
-
-    %Rays leaving thin section
-    \draw[wave=darkred,   variable=\x, samples at={6.2,6.45,...,12}] 
-        plot (\x, {0.26*0.26*sin(2*(\x-0.5) r)},  {0.966*0.26*sin(2*(\x-0.5) r)});  %n'g-oriented ray
-    \draw[wave=darkgreen, variable=\x, samples at={6.2,6.45,...,12}]
-        plot (\x, {0.966*0.966*sin(2*(\x-0.1) r)},{-0.26*0.966*sin(2*(\x-0.1) r)}); %n'p-oriented ray
-    \draw (10,1,1) node [text width=2.5cm, text centered] {Polarized and dephased light};
-
-    \foreach \x in{6.2,6.45,...,12} {
-        \draw[color=darkgreen, ->] (\x, 0, 0) --
-            (\x, {0.966*0.966*sin(2*(\x-0.1) r)}, {-0.26*0.966*sin(2*(\x-0.1) r)});
-        \draw[color=darkred,   ->] (\x, 0, 0) --
-            (\x, {0.26*0.26*sin(2*(\x-0.5) r)}, {0.966*0.26*sin(2*(\x-0.5) r)});
-    }
-
-    %Second polarization
-    \draw[polaroid]   (12, -2,  -1.5) -- (12, -2,   1.5)  %Polarizing filter
-        node [above, sloped,midway] {Polaroid} -- (12, 2, 1.5) -- (12, 2, -1.5) -- cycle;
-    \draw[thick, <->] (12, -1.5,-0.5) -- (12, -1.5, 0.5); %Polarization direction
-
-    %Light leaving the second polaroid
-    \draw[wave=lightgreen,variable=\x, samples at={12, 12.25,..., 14}]
-        plot (\x,{0}, {0.966*0.966*0.26*sin(2*(\x-0.5) r)}); %n'g polarized ray
-    \draw[wave=lightred,  variable=\x, samples at={12, 12.25,..., 14}]
-        plot (\x,{0}, {-0.26*0.966*sin(2*(\x-0.1) r)});      %n'p polarized ray
-
-    \node[align=justify, text width=14cm, anchor=north west, yshift=-2mm] at (current bounding box.south west)
-        {Light behavior in a petrographic microscope with light polarizing
-        device. Only one incident wavelength is shown (monochromatic light).
-        The magnetic field, perpendicular to the electric one, is not drawn.};
-\end{tikzpicture}
 \end{document}
 ```
 ****
@@ -14329,206 +15657,6 @@ postaction=decorate] #1 -- #2 ;
 ```
 ****
 
-![](./out/poincare+physics+diagram+foreach+set+command.png)
-
-  
-  * [poincare+physics+diagram+foreach+set+command.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/poincare+physics+diagram+foreach+set+command.tex)
-
-```tex
-% http://www.texample.net/media/tikz/examples/TEX/poincare.tex
-% PoincarÃ© Diagram: Classification of Phase Portraits in the (det A,Tr A)-plane
-% Author: Gernot Salzer, 22 Jan 2017
-\documentclass[tikz,border=10pt]{standalone}
-%%%<
-\usepackage{verbatim}
-%%%>
-\begin{comment}
-:Title: Poincare Diagram, Classification of Phase Portraits
-:Features: 
-:Tags: Arcs;Foreach;Markings;Diagrams;Plots;Mathematics
-:Author: Gernot Salzer
-:Slug: poincare
-
-The solutions of a system of linear differential equations can be
-classified according to the trace and the determinant of the
-coefficient matrix. This diagram show schematically the different
-types of solutions.
-
-Originally published on TeX.SX, tex.stackexchange.com/a/347401, 6 Jan 2017
-Based on a manual drawing by Douglas R. Hundley,
-http://people.whitman.edu/~hundledr/courses/M244/Poincare.pdf
-
-You may use the code without any restrictions; no rights reserved. 
-\end{comment}
-
-\usetikzlibrary{decorations.markings}
-
-\tikzset
- {every pin/.style = {pin edge = {<-}},    % pins are arrows from label to point
-  > = stealth,                            % arrow tips look like stealth bombers
-  flow/.style =    % everything marked as "flow" will be decorated with an arrow
-   {decoration = {markings, mark=at position #1 with {\arrow{>}}},
-    postaction = {decorate}
-   },
-  flow/.default = 0.5,          % default position of the arrow is in the middle
-  main/.style = {line width=1pt}                    % thick lines for main graph
- }
-
-% \newtemplate[Scaling, default 0.18]{\NameOfTemplate}{Caption}{Code}
-%
-% Typesets Code and stores it in the box \NameOfTemplate.
-% This way we avoid nested tikzpictures when inserting the templates into the
-% main picture, since nesting is not guaranteed to work.
-\newcommand\newtemplate[4][0.18]%
- {\newsavebox#2%
-  \savebox#2%
-   {\begin{tabular}{@{}c@{}}
-      \begin{tikzpicture}[scale=#1]
-      #4
-      \end{tikzpicture}\\[-1ex]
-      \templatecaption{#3}\\[-1ex]
-    \end{tabular}%
-   }%
- }
-\newcommand\template[1]{\usebox{#1}}             % use the Code stored in box #1
-\newcommand\templatecaption[1]{{\sffamily\scriptsize#1}}       % typeset caption
-\newcommand\Tr{\mathop{\mathrm{Tr}}}
-
-\newtemplate\sink{sink}%
- {\foreach \sx in {+,-}                   % for right/left half do:
-   {\draw[flow] (\sx4,0) -- (0,0);        %   draw half of horizontal axis
-    \draw[flow] (0,\sx4) -- (0,0);        %   draw half of vertical axis
-    \foreach \sy in {+,-}                 %   for upper/lower quadrant do:
-      \foreach \a/\b in {2/1,3/0.44}      %     draw two half-parabolas
-        \draw[flow,domain=\sx\a:0] plot (\x, {\sy\b*\x*\x});
-   }
- }
-
-\newtemplate\source{source}%
- {\foreach \sx in {+,-}                   % for right/left half do:
-   {\draw[flow] (0,0) -- (\sx4,0);        %   draw half of horizontal axis
-    \draw[flow] (0,0) -- (0,\sx4);        %   draw half of vertical axis
-    \foreach \sy in {+,-}                 %   for upper/lower quadrant do:
-      \foreach \a/\b in {2/1,3/0.44}      %     draw two half-parabolas
-        \draw[flow,domain=0:\sx\a] plot (\x, {\sy\b*\x*\x});
-   }
- }
-
-\newtemplate\stablefp{line of stable fixed points}%
- {\draw (-4,0) -- (4,0);                  % draw horizontal axis
-  \foreach \sy in {+,-}                   % for upper/lower half do:
-   {\draw[flow] (0,\sy4) -- (0,0);        %   draw half of vertical axis
-    \foreach \x in {-3,-2,-1,1,2,3}       %   draw six vertical half-lines
-      \draw[flow] (\x,\sy3) -- (\x,0);
-   }
- }
-
-\newtemplate\unstablefp{line of unstable fixed points}%
- {\draw (-4,0) -- (4,0);                  % draw horizontal axis
-  \foreach \sy in {+,-}                   % for upper/lower half do:
-   {\draw[flow] (0,0) -- (0,\sy4);        %   draw half of vertical axis
-    \foreach \x in {-3,-2,-1,1,2,3}       %   draw six vertical half-lines
-      \draw[flow] (\x,0) -- (\x,\sy3);
-   }
- }
-
-\newtemplate\spiralsink{spiral sink}%
- {\draw (-4,0) -- (4,0);                  % draw horizontal axis
-  \draw (0,-4) -- (0,4);                  % draw vertical axis
-  \draw [samples=100,smooth,domain=27:7]  % draw spiral
-       plot ({\x r}:{0.005*\x*\x});       % Using "flow" here gives "Dimension
-  \def\x{26}                              %        too large", so we draw a tiny
-  \draw[->] ({\x r}:{0.005*\x*\x}) -- +(0.01,-0.01);%     tangent for the arrow.
- }
-
-\newtemplate\spiralsource{spiral source}%
- {\draw (-4,0) -- (4,0);                  % draw horizontal axis
-  \draw (0,-4) -- (0,4);                  % draw vertical axis
-  \draw [samples=100,smooth,domain=10:28] % draw spiral
-       plot ({-\x r}:{0.005*\x*\x});      % Using "flow" here gives "Dimension
-  \def\x{27.5}                            %        too large", so we draw a tiny
-  \draw[<-] ({-\x r}:{0.005*\x*\x}) -- +(0.01,-0.008);%   tangent for the arrow.
- }
-
-\newtemplate[0.15]\centre{center}% British spelling since \center is in use
- {\draw (-4,0) -- (4,0);                  % draw horizontal axis
-  \draw (0,-4) -- (0,4);                  % draw vertical axis
-  \foreach \r in {1,2,3}                  % draw three circles
-    \draw[flow=0.63] (\r,0) arc (0:-360:\r cm);
- }
-
-\newtemplate\saddle{saddle}%
- {\foreach \sx in {+,-}                   % for right/left half do:
-   {\draw[flow] (\sx4,0) -- (0,0);        %   draw half of horizontal axis
-    \draw[flow] (0,0) -- (0,\sx4);        %   draw half of vertical axis
-    \foreach \sy in {+,-}                 %   for upper/lower quadrant do:
-      \foreach \a/\b/\c/\d in {2.8/0.3/0.7/0.6, 3.9/0.4/1.3/1.1}
-        \draw[flow] (\sx\a,\sy\b)         %     draw two bent lines
-          .. controls (\sx\c,\sy\d) and (\sx\d,\sy\c)
-          .. (\sx\b,\sy\a);
-   }
- }
-
-\newtemplate\degensink{degenerate sink}%
- {\draw (0,-4) -- (0,4);                  % draw vertical axis
-  \foreach \s in {+,-}                    % for upper/lower half do:
-   {\draw[flow] (\s4,0) -- (0,0);         %   draw half of horizontal axis
-    \foreach \a/\b/\c/\d in {3.5/4/1.5/1, 2.5/2/1/0.8}
-      \draw[flow] (\s-3.5,\s\a)           %   draw two bent lines
-        .. controls (\s\b,\s\c) and (\s\b,\s\d)
-        .. (0,0);
-   }
- }
-
-\newtemplate\degensource{degenerate source}%
- {\draw (0,-4) -- (0,4);                  % draw vertical axis
-  \foreach \s in {+,-}                    % for upper/lower half do:
-   {\draw[flow] (0,0) -- (\s4,0);         %   draw half of horizontal axis
-    \foreach \a/\b/\c/\d in {3.5/4/1.5/1, 2.5/2/1/0.8}
-      \draw[flow] (0,0)                   %   draw two bent lines
-        .. controls (\s\b,\s\d) and (\s\b,\s\c)
-        .. (\s-3.5,\s\a);
-   }
- }
-
-\begin{document}
-\begin{tikzpicture}[line cap=round,line join=round]
-  % MAIN DIAGRAM
-  \draw [main,->] (0,-0.3) -- (0,4.7)                            % vertical axis
-    node [label={[above]$\scriptstyle\det A$}] {}
-    node [label={[above,yshift=0.8cm]%
-      {\sffamily\large Poincar\'e Diagram: Classification of Phase
-      Portraits in the $(\det A,\Tr A)$-plane}}] {};
-  \draw [main,->] (-5,0) -- (5,0)                              % horizontal axis
-    node [label={[right,yshift=-0.5ex]$\scriptstyle\Tr A$}] {}; 
-  \draw [main, domain=-4:4] plot (\x, {0.25*\x*\x});                % main graph
-  \node at (-4,4) [pin={[above]$\scriptstyle\Delta=0$}] {};
-  \node at ( 4,4) [pin={[above,align=left]%
-    {$\scriptstyle\Delta=0:\;\det A=\frac{1}{4}(\Tr A)^2$}}] {};
-  % TEMPLATES describing areas
-  \node at ( 0  ,-1.4) {\template\saddle};
-  \node at (-4  , 1  ) {\template\sink};
-  \node at ( 4  , 1  ) {\template\source}; 
-  \node at (-1.8, 3.7) {\template\spiralsink};
-  \node at ( 1.8, 3.7) {\template\spiralsource};
-  % TEMPLATES labeling lines and points
-  \node at ( 0  , 1.2) [pin={[draw,right,xshift=0.3cm]%
-    \template\centre}] {};
-  \node at (-3  , 0  ) [pin={[draw,below,yshift=-1cm]%
-    \template\stablefp}] {};
-  \node at ( 3  , 0  ) [pin={[draw,below,yshift=-1cm]%
-    \template\unstablefp}] {};
-  \node at (-3.5,{0.25*3.5*3.5}) [pin={[draw,left,xshift=-1.15cm,yshift=-0.3cm]%
-    \template\degensink}] {};
-  \node at ( 3.5,{0.25*3.5*3.5}) [pin={[draw,right,xshift=0.9cm,yshift=-0.3cm]%
-    \template\degensource}] {};
-  \node at ( 0  , 0  ) [pin={[draw,above left,align=center,xshift=-0.3cm]%
-    \templatecaption{uniform}\\[-1ex]\templatecaption{motion}}] {};
-\end{tikzpicture}
-\end{document}
-```
-****
-
 ![](./out/porter_model+diagram.png)
 
   
@@ -15328,340 +16456,66 @@ pinstyle/.style = {pin edge={to-,thin,black}
 ```
 ****
 
-![](./out/swan_wave_model-iso-off.png)
+![](./out/table-color.png)
 
   
-  * [swan_wave_model-iso-off.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/swan_wave_model-iso-off.tex)
+  * [table-color.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/table-color.tex)
 
 ```tex
-% layers off
-
-% https://texample.net/tikz/examples/swan-wave-model/
-% Author: Marco Miani
-% SWAN (developed by SWAN group, TU Delft, The Netherlands) is a wave spectral numerical model.
-%For Simlating WAves Nearshore, it is necessary to define spatial grids of
-%physical dominant factors (wind friction, dissipation) as well as define a COMPUTATIONAL
-%grid on which the model performs its (spectral) calculations: budgeting energy spectra over
-%each cell of the (computational) grid. Grids might have different spatial resolution and extension.
-
-\documentclass[12pt]{article}
-\usepackage{tikz}
-\usetikzlibrary{positioning}
-
+\documentclass[tikz,table,border=2mm]{standalone}
+% \usepackage{PTSansNarrow}
+% \usepackage[T1]{fontenc}
+\usepackage{array,tabularx}
+\usepackage[most]{tcolorbox}
 
 \begin{document}
-\pagestyle{empty}
 
-% Define the layers to draw the diagram
-\pgfdeclarelayer{background}
-\pgfdeclarelayer{foreground}
-\pgfsetlayers{background,main,foreground}
-
-
-\begin{tikzpicture}[scale=.9,every node/.style={minimum size=1cm},on grid]
-
-    \begin{pgfonlayer}{background}
-%       \draw [help lines, step=1,color=blue!15, very thin] (-6, 11) grid (10,-7);
-    \end{pgfonlayer}          
-        
-    \begin{pgfonlayer}{foreground}
-%        % help guide lines
-%        \draw [help lines,dashed] (0,-7) -- (0,11);    
-%        \draw [help lines,dashed] (-6,0) -- (10,0);            
-%        \node at (9,10) (zero) {(9,10)};        
-%        \node at (6,6) (zero) {(6,6)};        
-%        \node at (4,4) (zero) {(4,4)};        
-%        \node at (-5,4) (zero) {(-5,4)};        
-%        \node at (-5,1) (zero) {(-5,1)};        
-%        \node at (-5,-2) (zero) {(-5,-2)};        
-%        \node at (-5,-5) (zero) {(-5,-5)};             
-%        \node at (7,-5) (zero) {(7,-5)};                  
-%        \node at (8,-7) (zero) {(8,-7)};                       
-%        \node at (0,-7) (zero) {(0,-7)};                                       
-    \end{pgfonlayer}          
-
-    % Comp G
-    %slanting: production of a set of n 'laminae' to be piled up. N=number of grids.
-    \begin{scope}[
-        yshift=-83,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        % opacity to prevent graphical interference
-        \fill[white,fill opacity=0.9] (0,0) rectangle (5,5);
-        \draw[step=5mm, black] (0,0) grid (5,5);        % defining grids
-        \draw[step=1mm, red!50,thin] (3,1) grid (4,2);  % Nested Grid
-        \draw[black,very thick] (0,0) rectangle (5,5);  % marking borders
-        \fill[red] (0.05,0.05) rectangle (0.5,0.5);   % Idem as above, for the n-th grid:
-        % add some labels
-        \begin{scope}[color=blue,font=\footnotesize]
-            \node at (0,0) (a) {(0,0)};
-            \node at (5,5) (a) {(5,5)};
-            \node at (5,0) (a) {(5,0)};
-            \node at (0,5) (a) {(0,5)};   
-        \end{scope}     
-    \end{scope}
-    
-    % Bathymetry up
-    \begin{scope}[
-        yshift=0,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
-        \draw[black,very thick] (0,0) rectangle (5,5);
-        \draw[step=5mm, black] (0,0) grid (5,5);
-    \end{scope}  
-    
-    % Wind G
-    % grid with internal 3x3 of step=10mm
-    \begin{scope}[
-        yshift=90,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
-        \draw[step=10mm, black] (1,1) grid (4,4);
-        \draw[black,very thick] (1,1) rectangle (4,4);
-        \draw[black,dashed] (0,0) rectangle (5,5);
-        
-        \node at (1,1) (a) {(1,1)};
-    \end{scope}      
-
-    % Friction G
-    % grid with green subgrid of 2mm step
-    \begin{scope}[
-        yshift=170,every node/.append style={
-         yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-         ]
-        \fill[white,fill opacity=0.6] (0,0) rectangle (5,5);
-        \draw[step=10mm, black] (2,2) grid (5,5);
-        \draw[step=2mm, green] (2,2) grid (3,3);
-        \draw[black,very thick] (2,2) rectangle (5,5);
-        \draw[black,dashed] (0,0) rectangle (5,5);
-        
-        \node at (2,2) (a) {(2,2)};
-    \end{scope}    
-    
-    % bottom grid
-    \begin{scope}[
-        yshift=-170,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        %marking border
-        \draw[black,very thick] (0,0) rectangle (5,5);
-        
-        %drawing corners (P1,P2, P3): only 3 points needed to define a plane.
-        \draw [fill=lime](0,0) circle (.1) ;
-        \draw [fill=lime](0,5) circle (.1);
-        \draw [fill=lime](5,0) circle (.1);
-        \draw [fill=lime](5,5) circle (.1);
-        
-        %drawing bathymetric hypotetic countours on the bottom grid:    	
-        \draw [ultra thick](0,1)   parabola bend (2,2) (5,1)  ;
-        \draw [dashed]     (0,1.5) parabola bend (2.5,2.5) (5,1.5) ;
-        \draw [dashed]     (0,2)   parabola bend (2.7,2.7) (5,2)  ;
-        \draw [dashed]     (0,2.5) parabola bend (3.5,3.5) (5,2.5)  ;
-        \draw [dashed]     (0,3.5) parabola bend (2.75,4.5) (5,3.5);
-        \draw [dashed]     (0,4)   parabola bend (2.75,4.8) (5,4);
-        \draw [dashed]     (0,3)   parabola bend (2.75,3.8) (5,3);
-        \draw[-latex,thick](2.8,1) node[right]{$\mathsf{Shoreline}$}
-            to[out=180,in=270] (2,1.99);
-    \end{scope} %end of drawing grids   
-    
-    
-    % arrows
-    %putting arrows and labels:
-    \draw[-latex,thick] (6.2,2) node[right]{$\mathsf{Bathymetry (up)}$}
-        to[out=180,in=90] (4,2);
-    
-    \draw[-latex,thick](5.8,-.3)node[right]{$\mathsf{Comp.\ G.}$}
-        to[out=180,in=90] (3.9,-1);
-    
-    \draw[-latex,thick](5.9,5)node[right]{$\mathsf{Wind\ G.}$}
-        to[out=180,in=90] (3.6,5);
-    
-    \draw[-latex,thick](5.9,8.4)node[right]{$\mathsf{Friction\ G.}$}
-        to[out=180,in=90] (3.2,8);
-    
-    \draw[-latex,thick,red](5.3,-4.2)node[right]{$\mathsf{G. Cell}$}
-        to[out=180,in=90] (0,-2.5);
-    
-    \draw[-latex,thick,red](4.3,-1.9)node[right]{$\mathsf{Nested\ G.}$}
-        to[out=180,in=90] (2,-.5);
-    
-    \draw[-latex,thick](4,-6)node[right]{$\mathsf{Batymetry (dn)}$}
-        to[out=180,in=90] (2,-5);	    
-     
-
-\end{tikzpicture}
-
+\rowcolors{1}{blue!15}{white}
+\begin{tcolorbox}[enhanced, notitle, clip upper, fontupper=\sffamily,%
+    tabularx={>{\centering\arraybackslash}X%
+              >{\centering\arraybackslash}X%
+              >{\centering\arraybackslash}X}]
+  \cellcolor{orange!40} \color{black} \textbf{Traditional} &\cellcolor{orange!40}\color{black} \textbf{Chosen} &\cellcolor{orange!40}\color{black} \textbf{Other} \\
+ cell1  & cell2  & cell3  \\ 
+ cell4  & cell5  & cell6  \\ 
+ cell7  & cell8  & cell9  \\ 
+ cell10 & cell11 & cell12 \\ 
+ cell13 & cell14 & cell15  \\ 
+ cell16 & cell17 & cell18 \\ 
+\end{tcolorbox}
 \end{document}
 ```
 ****
 
-![](./out/swan_wave_model-iso-on.png)
+![](./out/table-strips.png)
 
   
-  * [swan_wave_model-iso-on.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/swan_wave_model-iso-on.tex)
+  * [table-strips.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/table-strips.tex)
 
 ```tex
-% layers on
-
-% https://texample.net/tikz/examples/swan-wave-model/
-% Author: Marco Miani
-% SWAN (developed by SWAN group, TU Delft, The Netherlands) is a wave spectral numerical model.
-%For Simlating WAves Nearshore, it is necessary to define spatial grids of
-%physical dominant factors (wind friction, dissipation) as well as define a COMPUTATIONAL
-%grid on which the model performs its (spectral) calculations: budgeting energy spectra over
-%each cell of the (computational) grid. Grids might have different spatial resolution and extension.
-
-\documentclass[12pt]{article}
-\usepackage{tikz}
-\usetikzlibrary{positioning}
-
+\documentclass[table,border=2mm]{standalone}
+%\documentclass{report}
+\usepackage[table]{xcolor}
+\definecolor{lightblue}{rgb}{0.93,0.95,1.0}
 
 \begin{document}
-\pagestyle{empty}
-
-% Define the layers to draw the diagram
-\pgfdeclarelayer{background}
-\pgfdeclarelayer{foreground}
-\pgfsetlayers{background,main,foreground}
-
-
-\begin{tikzpicture}[scale=.9,every node/.style={minimum size=1cm},on grid]
-
-    \begin{pgfonlayer}{background}
-       \draw [help lines, step=1,color=blue!15, very thin] (-6, 11) grid (10,-7);
-    \end{pgfonlayer}          
-        
-    \begin{pgfonlayer}{foreground}
-        % help guide lines
-        \draw [help lines,dashed] (0,-7) -- (0,11);    
-        \draw [help lines,dashed] (-6,0) -- (10,0);            
-        \node at (9,10) (zero) {(9,10)};        
-        \node at (6,6) (zero) {(6,6)};        
-        \node at (4,4) (zero) {(4,4)};        
-        \node at (-5,4) (zero) {(-5,4)};        
-        \node at (-5,1) (zero) {(-5,1)};        
-        \node at (-5,-2) (zero) {(-5,-2)};        
-        \node at (-5,-5) (zero) {(-5,-5)};             
-        \node at (7,-5) (zero) {(7,-5)};                  
-        \node at (8,-7) (zero) {(8,-7)};                       
-        \node at (0,-7) (zero) {(0,-7)};                                       
-    \end{pgfonlayer}          
-
-    % Comp G
-    %slanting: production of a set of n 'laminae' to be piled up. N=number of grids.
-    \begin{scope}[
-        yshift=-83,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        % opacity to prevent graphical interference
-        \fill[white,fill opacity=0.9] (0,0) rectangle (5,5);
-        \draw[step=5mm, black] (0,0) grid (5,5);        % defining grids
-        \draw[step=1mm, red!50,thin] (3,1) grid (4,2);  % Nested Grid
-        \draw[black,very thick] (0,0) rectangle (5,5);  % marking borders
-        \fill[red] (0.05,0.05) rectangle (0.5,0.5);   % Idem as above, for the n-th grid:
-        % add some labels
-        \begin{scope}[color=blue,font=\footnotesize]
-            \node at (0,0) (a) {(0,0)};
-            \node at (5,5) (a) {(5,5)};
-            \node at (5,0) (a) {(5,0)};
-            \node at (0,5) (a) {(0,5)};   
-        \end{scope}     
-    \end{scope}
-    
-    % Bathymetry up
-    \begin{scope}[
-        yshift=0,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
-        \draw[black,very thick] (0,0) rectangle (5,5);
-        \draw[step=5mm, black] (0,0) grid (5,5);
-    \end{scope}  
-    
-    % Wind G
-    % grid with internal 3x3 of step=10mm
-    \begin{scope}[
-        yshift=90,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
-        \draw[step=10mm, black] (1,1) grid (4,4);
-        \draw[black,very thick] (1,1) rectangle (4,4);
-        \draw[black,dashed] (0,0) rectangle (5,5);
-        
-        \node at (1,1) (a) {(1,1)};
-    \end{scope}      
-
-    % Friction G
-    % grid with green subgrid of 2mm step
-    \begin{scope}[
-        yshift=170,every node/.append style={
-         yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-         ]
-        \fill[white,fill opacity=0.6] (0,0) rectangle (5,5);
-        \draw[step=10mm, black] (2,2) grid (5,5);
-        \draw[step=2mm, green] (2,2) grid (3,3);
-        \draw[black,very thick] (2,2) rectangle (5,5);
-        \draw[black,dashed] (0,0) rectangle (5,5);
-        
-        \node at (2,2) (a) {(2,2)};
-    \end{scope}    
-    
-    % bottom grid
-    \begin{scope}[
-        yshift=-170,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        %marking border
-        \draw[black,very thick] (0,0) rectangle (5,5);
-        
-        %drawing corners (P1,P2, P3): only 3 points needed to define a plane.
-        \draw [fill=lime](0,0) circle (.1) ;
-        \draw [fill=lime](0,5) circle (.1);
-        \draw [fill=lime](5,0) circle (.1);
-        \draw [fill=lime](5,5) circle (.1);
-        
-        %drawing bathymetric hypotetic countours on the bottom grid:    	
-        \draw [ultra thick](0,1)   parabola bend (2,2) (5,1)  ;
-        \draw [dashed]     (0,1.5) parabola bend (2.5,2.5) (5,1.5) ;
-        \draw [dashed]     (0,2)   parabola bend (2.7,2.7) (5,2)  ;
-        \draw [dashed]     (0,2.5) parabola bend (3.5,3.5) (5,2.5)  ;
-        \draw [dashed]     (0,3.5) parabola bend (2.75,4.5) (5,3.5);
-        \draw [dashed]     (0,4)   parabola bend (2.75,4.8) (5,4);
-        \draw [dashed]     (0,3)   parabola bend (2.75,3.8) (5,3);
-        \draw[-latex,thick](2.8,1) node[right]{$\mathsf{Shoreline}$}
-            to[out=180,in=270] (2,1.99);
-    \end{scope} %end of drawing grids   
-    
-    
-    % arrows
-    %putting arrows and labels:
-    \draw[-latex,thick] (6.2,2) node[right]{$\mathsf{Bathymetry (up)}$}
-        to[out=180,in=90] (4,2);
-    
-    \draw[-latex,thick](5.8,-.3)node[right]{$\mathsf{Comp.\ G.}$}
-        to[out=180,in=90] (3.9,-1);
-    
-    \draw[-latex,thick](5.9,5)node[right]{$\mathsf{Wind\ G.}$}
-        to[out=180,in=90] (3.6,5);
-    
-    \draw[-latex,thick](5.9,8.4)node[right]{$\mathsf{Friction\ G.}$}
-        to[out=180,in=90] (3.2,8);
-    
-    \draw[-latex,thick,red](5.3,-4.2)node[right]{$\mathsf{G. Cell}$}
-        to[out=180,in=90] (0,-2.5);
-    
-    \draw[-latex,thick,red](4.3,-1.9)node[right]{$\mathsf{Nested\ G.}$}
-        to[out=180,in=90] (2,-.5);
-    
-    \draw[-latex,thick](4,-6)node[right]{$\mathsf{Batymetry (dn)}$}
-        to[out=180,in=90] (2,-5);	    
-     
-
-\end{tikzpicture}
-
+ \rowcolors{1}{lightgray}{white}   %% <--- here
+ \noindent
+ \begin{tabular}[!ht]{>{\bfseries}l <{\raggedright}p{10cm}}
+      \rowcolor{black!90}\textcolor{white}{Identifier/Name} & \textcolor{white}{\textbf{UC1 - Login}}  \\
+      Importance    & 5/5\\
+      Difficulty    & 1/5\\
+      Actor(s)      & Generalized User\\
+      Goal          & To allow the user to access the system.\\
+      Preconditions & The user is at the login page. \\
+      Summary       & Will validate the users name and password and subsequently give them access to the
+      system.\\
+      Steps         & 
+                      {\begin{tabular}{@{}p{4cm} | p{4cm}@{}}
+                          1. User provides username and password. & 2. System directs user to main system page. \\
+                      \end{tabular}} \\
+      Postcondition & \textbf{Success:} User is logged in. \newline \textbf{Failure:} The system reamins at the login state. \\
+  \end{tabular}
 \end{document}
 ```
 ****
@@ -18343,103 +19197,6 @@ Text from: A Brief History of LaTeX http://www.xent.com/FoRK-archive/feb98/0307.
 \end{tikzpicture}
 
 \end{document}
-```
-****
-
-![](./out/transparent_circles+multi+pgf+set.png)
-
-  
-  * [transparent_circles+multi+pgf+set.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/transparent_circles+multi+pgf+set.tex)
-
-```tex
-% https://tex.stackexchange.com/a/48596/173708
-\documentclass{scrartcl}
-
-\usepackage{tikz}
-\usetikzlibrary{calc}  
-
-% split figures into pages
-\usepackage[active,tightpage]{preview}
-\PreviewEnvironment{tikzpicture}
-\setlength\PreviewBorder{1pt}%
-
-\begin{document} 
-
-% If their areas of the circle nodes represent some numbers with proportionality 
-% then you need to know exactly the radius. The radius depends of minimum width 
-% and of \pgflinewidth.
-%
-% we have : radius = (minimum width + line width) / 2  if inner sep = 0pt
-%
-% In the next example, I choice first minimum width=2cm then minimum width=2cm,
-% line width=5mm and finally line width=5mm,minimum width=2cm-\pgflinewidth 
-% with in all cases inner sep= 0 pt.
-%
-
-	
-\begin{tikzpicture} 
-  \draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
-  \draw[help lines] (0,0) grid (8,1);     
-  \node[minimum width=2cm,circle,inner sep=0pt,fill=blue!20,fill opacity=.5]{};
-  \node[minimum width=2cm,circle,inner sep=0pt,fill=blue!20,fill opacity=.5,
-        line width=5mm,draw=gray,opacity=.5] at (3,0){}; 
-  \node[circle,inner sep=0pt,fill=blue!20,,fill opacity=.5,
-        line width=5mm,draw=gray,opacity=.5,minimum width=2cm-\pgflinewidth]  at (6,0) {}; 
-\end{tikzpicture}  
-
-% Now if I want to get three circles with areas equal to pi, 2pi and 3pi 
-% I created a macro `def\lw{2mm}` to change quickly the line width in all nodes
-
-\tikzset{myrad/.style 2 args={circle,inner sep=0pt,minimum width=(2*(sqrt(#1)*1 cm ) - \pgflinewidth,fill=#2,draw=#2,fill opacity=.5,opacity=.8}}    
-
-\begin{tikzpicture} 
-	\def\lw{2mm}
-	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
-	\draw[help lines] (0,0) grid (8,1);     
-	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
-	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
-	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
-\end{tikzpicture}  
-
-% Finally If you want nodes with areas equal to 1 cm^2, 2 cm^2 and 3 cm^2 : 
-% I change the line width for the second group of nodes
-
-\begin{tikzpicture} 
-	\def\lw{2mm}
-	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
-	\draw[help lines] (0,0) grid (8,1);     
-	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
-	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
-	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
-\end{tikzpicture}    
-
-\begin{tikzpicture} 
-	\def\lw{5mm}
-	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
-	\draw[help lines] (0,0) grid (8,1);     
-	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
-	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
-	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
-\end{tikzpicture}
-
-%To avoid this kind of problem, we can use circles instead of circle nodes. But we need to adjust the radius wit the pgflinewidth. In the next example,I want a radius = 2cm so I need to use : radius=2cm-0.5\pgflinewidth. Then I need to create a node with the same dimensions.
-%
-%Like the question about node and rectangle here, we can associate a node to the shape The main problem : we can't use scale but it's more easy to place a label.
-
-\tikzset{set node/.style={insert path={% 
-	\pgfextra{% 
-		\node[inner sep=0pt,outer sep = 0pt,draw=black, % draw= none only to show what I do
-		circle,
-		minimum width=2*\pgfkeysvalueof{/tikz/x radius}+0.5\pgflinewidth](#1) {};
-}}}}
-
-\begin{tikzpicture}
-	\draw[help lines] (-3,-3) grid (3,3);
-	\draw[blue,line width=5mm,opacity=.2] (0,0) circle [radius=2cm-0.5\pgflinewidth,set node=C1]  ; 
-	\draw[thick,->] (3,-3) -- (C1.east);
-\end{tikzpicture}
-
-\end{document} 
 ```
 ****
 

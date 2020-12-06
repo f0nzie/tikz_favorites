@@ -1,0 +1,180 @@
+% https://gist.github.com/MatteoRagni/678b1ac217c59db8ced872871da5e323
+\documentclass[tikz]{standalone}
+
+\usepackage{pgfplots}
+\usepackage{amsmath}
+\usepackage{tikz-3dplot}
+
+\pgfplotsset{compat=1.14}
+\tikzset{>=latex}
+
+\begin{document}
+
+% !TEX root = ../main.tex
+\tdplotsetmaincoords{60}{100}
+\begin{tikzpicture}[scale=1.5,tdplot_main_coords]
+  % DEFINITIONS
+  % figOmegaRotation : Value for the Omega angle
+    \pgfmathsetmacro{\figOmega}{33}
+  % figIRotation : value for inclination of the orbital plane
+    \pgfmathsetmacro{\figIRotation}{30}
+  % \figAEll : minimum value for ellipse
+    \pgfmathsetmacro{\figAEll}{2.5}
+  % \figBEll : minimum value for ellipse
+    \pgfmathsetmacro{\figBEll}{3}
+  % figYOrigin : focus of the ellipse with 2.5 and 3
+    \pgfmathsetmacro{\figYOrigin}{sqrt(\figBEll^2 - \figAEll^2)}
+    % sqrt(b^2 - a^2)
+
+  % COMMANDS
+  % \positionOnEl{\storing}{\quadrant}{\x}
+  % Saves into \storing the position \y on the ellipse
+  % specified by \figAEll and \figBEll. \quadrant should help
+  % in defining the quadrant (must be +1 or -1)
+  \newcommand{\positionXOnEl}[3]{%
+    \pgfmathsetmacro{#1}%
+      {\figYOrigin+#2*%
+      \figBEll*((1-#3^2/\figAEll^2)^2)^(0.25)}}
+  \newcommand{\positionYOnEl}[3]{%
+    \pgfmathsetmacro{#1}%
+      {#2*((\figBEll^2-\figYOrigin^2+2*\figYOrigin*#3-#3^2)^2)^(0.25)*(\figAEll/\figBEll)}}
+
+
+  \positionYOnEl{\ellPositY}{-1}{\figBEll}
+  \positionYOnEl{\ellPositYY}{1}{0}
+
+  \pgfmathsetmacro{\xstartV}{cos(atan(\figBEll/\ellPositY))*0.5}
+  \pgfmathsetmacro{\ystartV}{sin(atan(\figBEll/\ellPositY))*0.5}
+
+  % Origin Position for the drawing
+  \coordinate (O) at (0, 0, 0);
+
+  % REFERENCE FRAME
+  % x axis
+  \draw[tdplot_main_coords, very thin]
+    (-4.5, 0, 0) -- (-0.5, 0, 0);
+  % y axis
+  \draw[tdplot_main_coords, very thin]
+    (0, -2.1, 0) -- (0, -0.5, 0);
+  \draw[tdplot_main_coords, ->, very thin]
+    (0, 0.5, 0) -- (0, 5, 0)
+    node [anchor=west] {$y$};
+
+
+  % EQUATORIAL PLANE
+  \draw[tdplot_main_coords, very thin,gray]
+    (4, 4.7, 0) -- (4, -2, 0) --
+    node[anchor=south, rotate=54] {\footnotesize equatorial plane}
+    (-4,-2, 0) -- (-4, 4.7, 0) -- (4, 4.7, 0);
+  % Equatorial plane Ellipses
+  \draw[tdplot_main_coords, very thin, dashed, gray!50]
+    (0, \figYOrigin, 0) ellipse ({\figAEll} and {\figBEll});
+
+
+
+  % Rotazione sulla linea dei nodi
+  \tdplotsetrotatedcoords{0}{0}{\figOmega}
+
+  % Ellipses in equatorial plane
+  \draw[tdplot_rotated_coords, fill, color=gray!40, opacity=0.1]
+    (0, \figYOrigin, 0) ellipse ({\figAEll} and {\figBEll});
+  \draw[tdplot_rotated_coords, very thin, dashed]
+    (0, \figYOrigin, 0) ellipse ({\figAEll} and {\figBEll});
+  %  reference on rotated ellipse
+  \draw[tdplot_rotated_coords, very thin]
+    (0, -2.1, 0) -- (0, -0.5, 0);
+  \draw[tdplot_rotated_coords, ->, very thin]
+    (0, 0.5, 0) -- (0, 5, 0)
+    node [anchor=west] {$y'$};
+
+  \shade[tdplot_rotated_coords, ball color = green!40, opacity = 0.8]
+    (0, 0, 0) circle (0.5cm);
+
+  % Rotation on ascension
+  \tdplotsetrotatedcoords{90+\figOmega}{-\figIRotation}{-90}
+  % Orbit ellipse
+  \draw[tdplot_rotated_coords, fill, color=gray!40, opacity=0.3]
+    (0, \figYOrigin, 0) ellipse ({\figAEll} and {\figBEll});
+  \draw[tdplot_rotated_coords, very thin]
+    (0, \figYOrigin, 0) ellipse ({\figAEll} and {\figBEll});
+
+
+
+  % Part of trajectory
+  \draw[tdplot_rotated_coords, very thick]
+    (\ellPositYY, 0, 0)
+    arc (-33.5:154:{\figAEll} and {\figBEll});
+
+  % Line of Nodes
+  \draw[tdplot_rotated_coords]
+    (0.5, 0, 0) -- (4, 0, 0)
+    node [anchor=north west,fill=white] {\footnotesize line of nodes};
+  % Line of apsis
+  \draw[tdplot_rotated_coords, ->, very thin]
+    (0, 0.5, 0) -- (0, 5, 0)
+    node[anchor=south west] {\footnotesize line of apsis};
+
+  % V vector (solved through ellipse equation)
+  \draw[tdplot_rotated_coords,->,thick]
+    (-\xstartV, -\ystartV, 0) -- (\ellPositY, \figBEll, 0);
+  \shade[tdplot_rotated_coords,ball color = green]
+    (\ellPositY, \figBEll, 0) circle (0.05cm)
+    node[anchor=south east, color=green!40!black!50] {\footnotesize debris};
+
+  % Planet
+  % Equatorial circle in
+  \draw[tdplot_rotated_coords, very thin]
+    (0, 0, 0) circle (0.5);
+  \draw[tdplot_main_coords, very thin, gray]
+    (0, 0, 0) circle (0.5);
+  % x axis in original reference frame
+  % redesegn for z-buffer
+  \draw[tdplot_main_coords, ->, very thin]
+    (0.75, 0, 0) -- (4.5, 0, 0)
+    node [anchor=north] {$x$};
+    % z axis
+  \draw[tdplot_main_coords, ->, very thin]
+    (0, 0, 0.5) -- (0, 0, 2)
+    node[anchor=south] {$z$};
+
+  % OMEGA
+  \tdplotdrawarc[tdplot_main_coords, color=red, ->]
+    {(0,0,0)}{2.5}{0}{\figOmega}{anchor=north}{$\Omega$}
+  % omega
+  \tdplotdrawarc[tdplot_rotated_coords, color=red, ->]
+    {(0,0,0)}{1.8}{0}{90}{anchor=west}{$\omega$}
+  \tdplotdrawarc[tdplot_rotated_coords, color=red, ->]
+    {(0,0,0)}{1.8}{90}{126.8}{anchor=south}{$v$}
+  % n vector
+  \draw[tdplot_rotated_coords, ->, color=red, pos=0.8]
+    (0.5, 0, 0) --  node [anchor=north east, pos=0.6] {$n$} (\ellPositYY, 0, 0);
+  \draw[tdplot_rotated_coords, ->, color=red]
+    (0, 0.5, 0) --  node [anchor=south east, pos=0.85] {$e$}
+    (0, 3 + \figYOrigin, 0);
+
+  % piano per i
+  \shade[tdplot_rotated_coords,ball color = blue]
+    (0, \figYOrigin + \figBEll, 0) circle (0.05cm)
+    node[anchor=west, color=blue] {\footnotesize apoapsis};
+  \shade[tdplot_rotated_coords,ball color = red] (\ellPositYY, 0, 0) circle
+    (0.05cm) node[anchor=west, color=red] {\footnotesize ascending node};
+
+  \draw[tdplot_rotated_coords] (0,0,0) circle (0.5);
+
+  \tdplotsetrotatedcoords{\figOmega}{90}{0}
+  % i angle
+  \tdplotdrawarc[tdplot_rotated_coords, color=red, ->]
+    {(0, 0, 0)}{\figYOrigin+\figBEll}{90}{118}{anchor=west}{$i$}
+  % Orbital Plane Label
+  \node[tdplot_main_coords,rotate=33.5,anchor=east,color=gray]
+    at (-4.8,-0.3,0) {\footnotesize orbital plane};
+
+  % Planet
+
+\end{tikzpicture}
+
+
+
+
+
+\end{document}

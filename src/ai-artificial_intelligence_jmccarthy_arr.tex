@@ -1,0 +1,169 @@
+% Branches of Artificial Intelligence
+% Drawn by Alfonso R. Reyes
+% November 27, 2020
+% Personal interpretation of "What is AI? / Branches of AI" article by Prof. John McCarthy.
+% Original diagram: https://github.com/FriendlyUser/LatexDiagrams
+\documentclass[border=5pt]{standalone}
+\usepackage{xcolor}
+\usepackage{ulem}
+
+
+\definecolor{ocre}{HTML}{800000}
+\definecolor{sky}{HTML}{C6D9F1}
+\definecolor{skybox}{HTML}{5F86B3}
+
+\usepackage{tikz}
+\usepackage{pgfmath}
+\usetikzlibrary{decorations.text, arrows.meta,calc,shadows.blur,shadings}
+
+\renewcommand*\familydefault{\sfdefault} % Set font to serif family
+
+% arctext from Andrew code with modifications:
+%Variables: 1: ID, 2:Style 3:box height 4: Radious 5:start-angl 6:end-angl 7:text {format along path} 
+\def\arctext[#1][#2][#3](#4)(#5)(#6)#7{
+	\draw[#2] (#5:#4cm+#3) coordinate (above #1) arc (#5:#6:#4cm+#3)
+	             -- (#6:#4) coordinate (right #1) -- (#6:#4cm-#3) coordinate (below right #1) arc (#6:#5:#4cm-#3) coordinate (below #1)
+	             -- (#5:#4) coordinate (left #1) -- cycle;
+	            \def\a#1{#4cm+#3}
+	            \def\b#1{#4cm-#3}
+	\path[
+	    decoration={
+	        raise = -0.5ex, % Controls relavite text height position.
+	        text  along path,
+	        text = {#7},
+	        text align = center,        
+	    },
+	    decorate
+	    ]
+	    (#5:#4) arc (#5:#6:#4);
+}
+
+% arcarrow, this is mine, for beerware purpose...
+% Function: Draw an arrow from arctex coordinate specific nodes to another 
+% Arrow start at the start of arctext box and could be shifted to change the position
+% to avoid go over another box.
+% Var: 1:Start coordinate 2:End coordinate 3:angle to shift from acrtext box  
+\def\arcarrow(#1)(#2)[#3]{
+    \draw[very thick,->,>=latex,black!60] 
+        let \p1 = (#1), \p2 = (#2), % To access cartesian coordinates x, and y.
+            \n1 = {veclen(\x1,\y1)}, % Distance from the origin
+            \n2 = {veclen(\x2,\y2)}, % Distance from the origin
+            \n3 = {atan2(\y1,\x1)} % Angle where acrtext starts.
+        in (\n3-#3: \n1) -- (\n3-#3: \n2); % Draw the arrow.
+}
+
+
+\begin{document}
+\begin{tikzpicture}[
+	    % Environment Cfg
+	    font=\sf    \scriptsize,
+	    % Styles
+	    myarrow/.style={
+	        thick,
+	        -latex,
+            black!60,
+	    },
+	    Center/.style ={
+	        circle,
+	        fill=ocre,
+	        text=white,
+	        align=center,
+	        font =\footnotesize\bf,
+	        inner sep=1pt,          
+	    },
+	    RedArc/.style ={
+	        color=black,
+	        thick,
+	        fill=ocre,
+	        blur shadow, 
+	    },
+	    SkyArc/.style ={
+	        color=skybox,
+	        thick,
+	        fill=sky,
+	        blur shadow, 
+	    },
+    ]
+
+    % Drawing the center for AI
+    \node[Center](AI) at (0,0) { Artificial \\ Intelligence \\(AI)\\ Agent};
+    \coordinate (AROUND) at (0:1.2); 
+
+    % Drawing the Text Arcs
+    % Format: \Arctext[ID][box-style][box-height](radious)(start-angl)(end-angl){|text-styles| Text}
+   
+	% Logic
+    \arctext[LOGI][RedArc][8pt](2.5)(120)(70){|\footnotesize\bf\color{white}| Logic};
+	\arcarrow(below LOGI)(AROUND)[25];
+    
+    % Search
+    \arctext[SRCH][RedArc][8pt](2.5)(60)(20){|\footnotesize\bf\color{white}| Search};
+	\arcarrow(below SRCH)(AROUND)[20];
+	   
+	% Pattern Recognition
+	\arctext[RECO][RedArc][8pt](2.5)(-60)(10){|\footnotesize\bf\color{white}| Pattern Recognition};
+	\arcarrow(below RECO)(AROUND)[-35];
+
+    % Representation
+    \arctext[REPR][RedArc][8pt](2.5)(240)(290){|\footnotesize\bf\color{white}| Representation};
+	\arcarrow(below REPR)(AROUND)[-25];
+    
+    % Inference
+    \arctext[INFE][RedArc][8pt](2.5)(190)(230){|\footnotesize\bf\color{white} | Inference};    
+    \arcarrow(below INFE)(AROUND)[-20];
+    
+    % Reasoning
+    \arctext[REAS][RedArc][8pt](2.5)(180)(130){|\footnotesize\bf\color{white} | Reasoning};
+	\arcarrow(below REAS)(AROUND)[25];
+        
+	% Epistemology
+    \arctext[EPIS][RedArc][8pt](3.30)(220)(260){|\footnotesize\bf\color{white}|  Epistemology};
+
+	% Planning
+    \arctext[PLAN][RedArc][8pt](3.30)(210)(160){|\footnotesize\bf\color{white}| Planning};  
+    
+    % Learning
+    \arctext[LEAR][RedArc][8pt](3.30)(150)(110){|\footnotesize\bf\color{white}| Learning};  
+
+	% Ontology
+    \arctext[ONTO][RedArc][8pt](3.30)(90)(50){|\footnotesize\bf\color{white}| Ontology};  
+    
+    % Heuristics
+    \arctext[HEUR][RedArc][8pt](3.30)(40)(-10){|\footnotesize\bf\color{white}| Heuristics};  
+
+	% Genetic Programming
+	\arctext[GENE][RedArc][8pt](3.30)(270)(330){|\footnotesize\bf\color{white}| Genetic Programming};  
+	
+
+%    %ADITIONAL EXTERNAL ARC
+%   \arctext[NEW][
+%       color=white,
+%       shade,      
+%       upper left=gray!7,
+%       upper right=gray!7,
+%       lower left=gray!7,
+%       lower right=gray!7,
+%       rounded corners = 8pt
+%       ][8pt](5.2)(180)(0){|\footnotesize\bf\color{black}| Interpration of "What is AI? / Branches of AI" article by Prof. John McCarthy.};
+
+    % Drawing the Arrows from contributing branch to AI
+    % Format: \arcarrow(above/below ID)(abobe/below ID)[shift]
+    \arcarrow(below LEAR)(AROUND)[25];
+    \arcarrow(below ONTO)(AROUND)[25];
+    \arcarrow(below HEUR)(AROUND)[25];
+    \arcarrow(below GENE)(AROUND)[-25];
+    \arcarrow(below EPIS)(AROUND)[-15];
+    \arcarrow(below PLAN)(AROUND)[25];
+       
+
+	% Legend and labels
+    \draw[myarrow] (-5,-5) coordinate (legend) -- ++(.8,0) node[anchor=west] {(contribution)};
+    \draw[RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, text width=3em] {capabilities,\\disciplines};
+    \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {subfield};
+    % source, book and authors
+    \node [text width=5.5cm] at (1,-5.6) {Source: \textit {"What is AI? / Branches of AI"} article by Prof. John McCarthy. Stanford University.};
+    % copyright
+	\node[text width=3cm] at (3.25,-6.25) {\begin{tiny}Copyright \textcopyright Alfonso R. Reyes, 2020\end{tiny}};
+
+\end{tikzpicture}  
+\end{document}
