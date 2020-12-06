@@ -110,7 +110,7 @@ endif
 
 
 .PHONY: all
-all:  $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) $(README)
+all:  $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) $(README) "website remote"
 
 # rules for .tex files to be compiled with pdflatex
 out/%.pdf:: src/%.tex msg_pdf_files
