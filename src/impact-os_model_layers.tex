@@ -1,0 +1,92 @@
+% https://github.com/FriendlyUser/LatexDiagrams
+\documentclass[border=2mm]{standalone}
+
+\usepackage[most]{tcolorbox}
+\usepackage{lmodern}
+\usepackage{lipsum}
+%\usepackage{geometry}
+
+\standaloneenv{tcbposter}
+
+%\pagestyle{empty}
+\begin{document}
+
+\begin{tcbposter}[%
+    poster = {columns=8, rows=9, width=17cm, height=8cm, spacing=1mm},% showframe},
+    boxes = {colback=cyan!80!black, 
+        boxrule=0pt, arc=2mm,
+        colframe=cyan!80!black, 
+        halign=center, valign=center,   
+        colupper=white,
+        fontupper=\sffamily\bfseries, size=small}
+]
+%1st row
+\posterbox{column=1, row=1}{HTTP}
+\posterbox{column=2, row=1}{HTTP/2}
+\posterbox{column=3, row=1}{MQTT}
+\posterbox{column=4, row=1}{CoAP}
+\posterbox{column=5, row=1}{FTP}
+\posterbox{column=6, row=1}{TFTP}
+
+%2nd row
+\posterbox{column=1, row=2}{SMTP}
+\posterbox{column=2, row=2}{SNTP}
+\posterbox{column=3, row=2}{DNS}
+\posterbox{column=4, row=2}{NetBIOS}
+\posterbox{column=5, row=2, span=2}{SNMPv1/v2c/v3}
+
+%3rd row
+\posterbox{column=1, row=3, span=2}{WebSocket}
+\posterbox{column=3, row=3}{mDNS}
+\posterbox{column=4, row=3}{DNS-SD}
+\posterbox{column=5, row=3}{DHCP}
+\posterbox{column=6, row=3}{DHCPv6}
+
+%4th row
+\posterbox{column=1, row=4,span=6}{Socket}
+
+%5th row
+\posterbox{column=1, row=5, span=2.5}{TCP}
+\posterbox{column*=5, row=5, span=2.5}{UDP}
+\posterbox{column=6, row=5}{RAW}
+
+%6th row
+\posterbox{column=1, row=6, span=3}{IPv4}
+\posterbox{column=4, row=6, span=3}{IPv6}
+
+%7th row
+\posterbox{column=1, row=7, span=1.5}{ARP}
+\posterbox{column*=3, row=7, span=1.5}{Auto-IP}
+\posterbox{column=4, row=7, span=1.5}{NDP}
+\posterbox{column*=6, row=7, span=1.5}{SLAAC}
+
+%8th row
+\posterbox{column=1, row=8, span=1.5}{ICMP}
+\posterbox{column*=3, row=8, span=1.5}{IGMPv2}
+\posterbox{column=4, row=8, span=1.5}{ICMPv6}
+\posterbox{column*=6, row=8, span=1.5}{MLDv1}
+
+%9th row
+%5 boxes and 4 separations should use 
+%equivalent to 6 original boxes plus 5 
+%separations 
+\newlength{\mylength}
+\pgfmathsetlength{\mylength}{(6*\tcbpostercolwidth+\tcbpostercolspacing)/5}%
+
+%Use `width` instead of `span` to fix box size
+\posterbox[width=\mylength]{name=91, column=1, row=9}{Ethernet}
+\posterbox[width=\mylength]{name=92, column=1, row=9, xshift=\mylength+\tcbpostercolspacing}{Wi-Fi}
+\posterbox[width=\mylength]{name=92, column=1, row=9, xshift=2*\mylength+2*\tcbpostercolspacing}{PPP}
+\posterbox[width=\mylength]{name=92, column=1, row=9, xshift=3*\mylength+3*\tcbpostercolspacing}{USB/RNDIS}
+\posterbox[width=\mylength]{column*=6, row=9}{G3-PLC}
+
+%Right column
+\posterbox[colback=gray, colframe=gray, colupper=black]{column=7, row=1, span=2, rowspan=3}{7 - Application}
+\posterbox[colback=gray!80, colframe=gray!80, colupper=black]{column=7, row=4, span=2}{5 - Session}
+\posterbox[colback=gray!60, colframe=gray!60, colupper=black]{column=7, row=5, span=2}{4 - Transport}
+\posterbox[colback=gray!40, colframe=gray!40, colupper=black]{column=7, row=6, span=2, rowspan=3}{3 - Network}
+\posterbox[colback=gray!20, colframe=gray!20, colupper=black]{column=7, row=9, span=2}{2 - Data Link}
+
+\end{tcbposter}
+
+\end{document}

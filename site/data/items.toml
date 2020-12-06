@@ -679,6 +679,14 @@ description = "https://github.com/f0nzie/tikz_favorites"
 url = "https://github.com/f0nzie/tikz_favorites/blob/master/src/impact-market_sector+diagram.tex"
  
 [[items]]
+title = "impact-os_model_layers"
+image = "https://github.com/f0nzie/tikz_favorites/raw/master/out/impact-os_model_layers.png"
+thumb = "https://github.com/f0nzie/tikz_favorites/raw/master/out/impact-os_model_layers.png"
+alt = "impact-os_model_layers"
+description = "https://github.com/f0nzie/tikz_favorites"
+url = "https://github.com/f0nzie/tikz_favorites/blob/master/src/impact-os_model_layers.tex"
+ 
+[[items]]
 title = "impact-particles_table+physics"
 image = "https://github.com/f0nzie/tikz_favorites/raw/master/out/impact-particles_table+physics.png"
 thumb = "https://github.com/f0nzie/tikz_favorites/raw/master/out/impact-particles_table+physics.png"

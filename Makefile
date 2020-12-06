@@ -110,7 +110,7 @@ endif
 
 
 .PHONY: all
-all:  $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) $(README)
+all:  $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) $(README) local remote
 
 # rules for .tex files to be compiled with pdflatex
 out/%.pdf:: src/%.tex msg_pdf_files
@@ -157,6 +157,22 @@ ifeq ($(OSFLAG), WINDOWS)
 endif
 
 
+local: web_local open_index
+
+remote: web_remote open_index
+
+
+web_local:
+	Rscript _build_site.R remote
+	@cd site && hugo
+	@tree -h -F docs/ -L 1
+
+web_remote:
+	Rscript _build_site.R remote
+	@cd site && hugo
+	@tree -h -F docs/ -L 1
+
+
 # simplify the website construction with one rule
 # Script _build_site.R is ready for two values: remote or local
 website:
@@ -166,6 +182,18 @@ website:
 	@cd site && hugo
 	@# TODO: what happens if "tree" is not installed in Linux. Windows has its own "tree".
 	@tree -h -F docs/ -L 1
+ifeq ($(OSFLAG), OSX)	
+	@open -a firefox  $(PUBLISH_DIR)/index.html
+endif
+ifeq ($(OSFLAG), LINUX)
+	@firefox  $(PUBLISH_DIR)/index.html
+endif	
+ifeq ($(OSFLAG), WINDOWS)
+	@"C:\Program Files\Mozilla Firefox\firefox" $(PUBLISH_DIR)/index.html
+endif
+
+
+open_index:
 ifeq ($(OSFLAG), OSX)	
 	@open -a firefox  $(PUBLISH_DIR)/index.html
 endif
@@ -278,7 +306,7 @@ else
 	@echo "findstring found OS filled, so it is WINDOWS"
 endif
 
-
+# This allows us to accept extra arguments (by doing nothing when we get a job that doesn't match, rather than throwing an error).
 %:
 	@:
 
