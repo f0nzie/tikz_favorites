@@ -1,0 +1,34 @@
+%\documentclass[a4paper,11pt,oneside]{report}
+\documentclass{standalone}
+\usepackage[english]{babel}
+
+\usepackage{tikz}
+
+\newcommand{\drawBox}[3] % drawing the bog
+{
+\begin{tikzpicture} 
+    \def\w{1.5} % width of a box
+    \def\x{#1/100*\w} % median value
+    \def\xl{#2/100*\w} % lower confidance interval
+    \def\xu{#3/100*\w} % upper confidance interval
+    \filldraw[fill=gray!#1!white!, draw=black] (0,0) rectangle (\x,0.2);
+    \draw [gray] (0,0) rectangle (\w,0.2); % fill with the grey
+    \draw (\x,0.1) -- (\xu,0.1) -- (\xu,0.15) -- (\xu,0.05);
+    \draw (\x,0.1) -- (\xl,0.1) -- (\xl,0.15) -- (\xl,0.05);
+\end{tikzpicture} 
+}
+
+\newcommand{\boxNumberConf}[3] % interface command
+{\drawBox{#1}{#2}{#3} & #1 (#2--#3)} % NOTICE the & for col. sep.
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+    \begin{tabular}{l r lr}
+    & \multicolumn{2}{c}{mean (95\% CI)} \\
+    Sensitivity & \boxNumberConf{74}{65}{81} \\
+    Specificity & \boxNumberConf{90}{81}{95} \\
+    \end{tabular}
+
+\end{document}

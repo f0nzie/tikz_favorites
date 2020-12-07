@@ -96,9 +96,9 @@ Some useful tutorials:
 
 ## Useful statistics
 
-* There are 249 total Tikz figures saved as `.tex` files in this gallery. 
+* There are 254 total Tikz figures saved as `.tex` files in this gallery. 
 The figures are sorted by filename.
-* There are 249 files under `src/` to be compiled with `pdflatex`
+* There are 254 files under `src/` to be compiled with `pdflatex`
 * There are 1 files under `src/` to be compiled with `lualatex`
 * There are 19 data files under the folder `src/data` that are being used by the TikZ scripts
 * There are 2 Latex classes, styles and library files under the `src/texmf` folder
@@ -2386,6 +2386,143 @@ $$
 %\end{tikzpicture} 
 
 \end{document} 
+```
+****
+
+![](./out/doc-ml-cnn.png)
+
+  
+  * [doc-ml-cnn.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/doc-ml-cnn.tex)
+
+```tex
+% https://davidstutz.de/illustrating-convolutional-neural-networks-in-latex-with-tikz/
+
+\documentclass[twoside,11pt,a4paper]{article}
+ 
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, latexsym}
+ 
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{fadings}
+ 
+\begin{document}
+ 
+\begin{figure}[t!]
+   	\centering
+   	\begin{tikzpicture}
+   		\node at (0.5,-1){\begin{tabular}{c}input image\\layer $l = 0$\end{tabular}};
+   		
+   		\draw (0,0) -- (1,0) -- (1,1) -- (0,1) -- (0,0);
+   		
+   		\node at (3,3.5){\begin{tabular}{c}convolutional layer\\with non-linearities\\layer $l = 1$\end{tabular}};
+   		
+   		\draw[fill=black,opacity=0.2,draw=black] (2.75,1.25) -- (3.75,1.25) -- (3.75,2.25) -- (2.75,2.25) -- (2.75,1.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (2.5,1) -- (3.5,1) -- (3.5,2) -- (2.5,2) -- (2.5,1);
+   		\draw[fill=black,opacity=0.2,draw=black] (2.25,0.75) -- (3.25,0.75) -- (3.25,1.75) -- (2.25,1.75) -- (2.25,0.75);
+   		\draw[fill=black,opacity=0.2,draw=black] (2,0.5) -- (3,0.5) -- (3,1.5) -- (2,1.5) -- (2,0.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (1.75,0.25) -- (2.75,0.25) -- (2.75,1.25) -- (1.75,1.25) -- (1.75,0.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (1.5,0) -- (2.5,0) -- (2.5,1) -- (1.5,1) -- (1.5,0);
+   		
+   		\node at (4.5,-1){\begin{tabular}{c}subsampling layer\\layer $l = 3$\end{tabular}};
+   		
+   		\draw[fill=black,opacity=0.2,draw=black] (5,1.25) -- (5.75,1.25) -- (5.75,2) -- (5,2) -- (5,1.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (4.75,1) -- (5.5,1) -- (5.5,1.75) -- (4.75,1.75) -- (4.75,1);
+   		\draw[fill=black,opacity=0.2,draw=black] (4.5,0.75) -- (5.25,0.75) -- (5.25,1.5) -- (4.5,1.5) -- (4.5,0.75);
+   		\draw[fill=black,opacity=0.2,draw=black] (4.25,0.5) -- (5,0.5) -- (5,1.25) -- (4.25,1.25) -- (4.25,0.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (4,0.25) -- (4.75,0.25) -- (4.75,1) -- (4,1) -- (4,0.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (3.75,0) -- (4.5,0) -- (4.5,0.75) -- (3.75,0.75) -- (3.75,0);
+   		
+   		\node at (7,3.5){\begin{tabular}{c}convolutional layer\\with non-linearities\\layer $l = 4$\end{tabular}};
+   		
+   		\draw[fill=black,opacity=0.2,draw=black] (7.5,1.75) -- (8.25,1.75) -- (8.25,2.5) -- (7.5,2.5) -- (7.5,1.75);
+   		\draw[fill=black,opacity=0.2,draw=black] (7.25,1.5) -- (8,1.5) -- (8,2.25) -- (7.25,2.25) -- (7.25,1.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (7,1.25) -- (7.75,1.25) -- (7.75,2) -- (7,2) -- (7,1.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (6.75,1) -- (7.5,1) -- (7.5,1.75) -- (6.75,1.75) -- (6.75,1);
+   		\draw[fill=black,opacity=0.2,draw=black] (6.5,0.75) -- (7.25,0.75) -- (7.25,1.5) -- (6.5,1.5) -- (6.5,0.75);
+   		\draw[fill=black,opacity=0.2,draw=black] (6.25,0.5) -- (7,0.5) -- (7,1.25) -- (6.25,1.25) -- (6.25,0.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (6,0.25) -- (6.75,0.25) -- (6.75,1) -- (6,1) -- (6,0.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (5.75,0) -- (6.5,0) -- (6.5,0.75) -- (5.75,0.75) -- (5.75,0);
+   		
+   		\node at (9.5,-1){\begin{tabular}{c}subsampling layer\\layer $l = 6$\end{tabular}};
+   		
+   		\draw[fill=black,opacity=0.2,draw=black] (10,1.75) -- (10.5,1.75) -- (10.5,2.25) -- (10,2.25) -- (10,1.75);
+   		\draw[fill=black,opacity=0.2,draw=black] (9.75,1.5) -- (10.25,1.5) -- (10.25,2) -- (9.75,2) -- (9.75,1.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (9.5,1.25) -- (10,1.25) -- (10,1.75) -- (9.5,1.75) -- (9.5,1.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (9.25,1) -- (9.75,1) -- (9.75,1.5) -- (9.25,1.5) -- (9.25,1);
+   		\draw[fill=black,opacity=0.2,draw=black] (9,0.75) -- (9.5,0.75) -- (9.5,1.25) -- (9,1.25) -- (9,0.75);
+   		\draw[fill=black,opacity=0.2,draw=black] (8.75,0.5) -- (9.25,0.5) -- (9.25,1) -- (8.75,1) -- (8.75,0.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (8.5,0.25) -- (9,0.25) -- (9,0.75) -- (8.5,0.75) -- (8.5,0.25);
+   		\draw[fill=black,opacity=0.2,draw=black] (8.25,0) -- (8.75,0) -- (8.75,0.5) -- (8.25,0.5) -- (8.25,0);
+   		
+   		\node at (12,3.5){\begin{tabular}{c}fully connected layer\\layer $l = 7$\end{tabular}};
+   		
+   		\draw[fill=black,draw=black,opacity=0.5] (10.5,0) -- (11,0) -- (12.5,1.75) -- (12,1.75) -- (10.5,0);
+   		
+   		\node at (13,-1){\begin{tabular}{c}fully connected layer\\output layer $l = 8$\end{tabular}};
+   		
+   		\draw[fill=black,draw=black,opacity=0.5] (12.5,0.5) -- (13,0.5) -- (13.65,1.25) -- (13.15,1.25) -- (12.5,0.5);
+   	\end{tikzpicture}
+   	\caption[Architecture of a traditional convolutional neural network.]{The architecture of the original convolutional neural network, as introduced by LeCun et al. (1989), alternates between convolutional layers including hyperbolic tangent non-linearities and subsampling layers. In this illustration, the convolutional layers already include non-linearities and, thus, a convolutional layer actually represents two layers. The feature maps of the final subsampling layer are then fed into the actual classifier consisting of an arbitrary number of fully connected layers. The output layer usually uses softmax activation functions.}
+   	\label{fig:traditional-convolutional-network}
+\end{figure}
+ 
+\end{document}
+```
+****
+
+![](./out/doc-ml-single_cnn.png)
+
+  
+  * [doc-ml-single_cnn.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/doc-ml-single_cnn.tex)
+
+```tex
+% https://davidstutz.de/illustrating-convolutional-neural-networks-in-latex-with-tikz/
+
+\documentclass[twoside,11pt,a4paper]{article}
+ 
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, latexsym}
+\usepackage{sidecap}
+ 
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+ 
+\begin{document}
+ 
+\begin{SCfigure}[2\sidecaptionrelwidth][t]
+   	\centering
+   	\begin{tikzpicture}
+   		\node at (1.5,4){\begin{tabular}{c}input image\\or input feature map\end{tabular}};
+   	
+   		\draw (0,0) -- (3,0) -- (3,3) -- (0,3) -- (0,0);
+   		
+   		\draw (2,2) -- (2.5,2) -- (2.5,2.5) -- (2,2.5) -- (2,2);
+   		\draw (2,0.5) -- (2.5,0.5) -- (2.5,1) -- (2,1) -- (2,0.5);
+   		\draw (1,1) -- (1.5,1) -- (1.5,1.5) -- (1,1.5) -- (1,1);
+   		
+   		\draw (2.5,2) -- (7,3.25);
+   		\draw (2.5,2.5) -- (7,3.25);
+ 
+   		\draw (2.5,1) -- (5.75,0.25);
+   		\draw (2.5,0.5) -- (5.75,0.25);
+   		
+   		\draw (1.5,1.5) -- (5.5,1.25);
+   		\draw (1.5,1) -- (5.5,1.25);
+   		
+   		\node at (5.75,4){\begin{tabular}{c}output feature maps\end{tabular}};
+   		
+   		\draw[fill=black,opacity=0.2,draw=black] (5.5,1.5) -- (7.5,1.5) -- (7.5,3.5) -- (5.5,3.5) -- (5.5,1.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (5,1) -- (7,1) -- (7,3) -- (5,3) -- (5,1);
+   		\draw[fill=black,opacity=0.2,draw=black] (4.5,0.5) -- (6.5,0.5) -- (6.5,2.5) -- (4.5,2.5) -- (4.5,0.5);
+   		\draw[fill=black,opacity=0.2,draw=black] (4,0) -- (6,0) -- (6,2) -- (4,2) -- (4,0);
+   	\end{tikzpicture}
+   	\caption[Illustration of a convolutional layer.]{Illustration of a single convolutional layer. If layer $l$ is a convolutional layer, the input image (if $l = 1$) or a feature map of the previous layer is convolved by different filters to yield the output feature maps of layer $l$.}
+   	\label{fig:convolutional-layer}
+\end{SCfigure}
+ 
+\end{document}
 ```
 ****
 
@@ -9803,78 +9940,73 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 ```tex
 % https://davidstutz.de/illustrating-convolutional-neural-networks-in-latex-with-tikz/
 
-\documentclass[twoside,11pt,a4paper]{article}
+\documentclass{standalone}
  
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath, amssymb, latexsym}
  
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+%\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{tikz}
 \usetikzlibrary{decorations.pathreplacing}
 \usetikzlibrary{fadings}
  
 \begin{document}
  
-\begin{figure}[t!]
-   	\centering
-   	\begin{tikzpicture}
+
+\begin{tikzpicture}
    		\node at (0.5,-1){\begin{tabular}{c}input image\\layer $l = 0$\end{tabular}};
-   		
-   		\draw (0,0) -- (1,0) -- (1,1) -- (0,1) -- (0,0);
-   		
-   		\node at (3,3.5){\begin{tabular}{c}convolutional layer\\with non-linearities\\layer $l = 1$\end{tabular}};
-   		
-   		\draw[fill=black,opacity=0.2,draw=black] (2.75,1.25) -- (3.75,1.25) -- (3.75,2.25) -- (2.75,2.25) -- (2.75,1.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (2.5,1) -- (3.5,1) -- (3.5,2) -- (2.5,2) -- (2.5,1);
-   		\draw[fill=black,opacity=0.2,draw=black] (2.25,0.75) -- (3.25,0.75) -- (3.25,1.75) -- (2.25,1.75) -- (2.25,0.75);
-   		\draw[fill=black,opacity=0.2,draw=black] (2,0.5) -- (3,0.5) -- (3,1.5) -- (2,1.5) -- (2,0.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (1.75,0.25) -- (2.75,0.25) -- (2.75,1.25) -- (1.75,1.25) -- (1.75,0.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (1.5,0) -- (2.5,0) -- (2.5,1) -- (1.5,1) -- (1.5,0);
-   		
-   		\node at (4.5,-1){\begin{tabular}{c}subsampling layer\\layer $l = 3$\end{tabular}};
-   		
-   		\draw[fill=black,opacity=0.2,draw=black] (5,1.25) -- (5.75,1.25) -- (5.75,2) -- (5,2) -- (5,1.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (4.75,1) -- (5.5,1) -- (5.5,1.75) -- (4.75,1.75) -- (4.75,1);
-   		\draw[fill=black,opacity=0.2,draw=black] (4.5,0.75) -- (5.25,0.75) -- (5.25,1.5) -- (4.5,1.5) -- (4.5,0.75);
-   		\draw[fill=black,opacity=0.2,draw=black] (4.25,0.5) -- (5,0.5) -- (5,1.25) -- (4.25,1.25) -- (4.25,0.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (4,0.25) -- (4.75,0.25) -- (4.75,1) -- (4,1) -- (4,0.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (3.75,0) -- (4.5,0) -- (4.5,0.75) -- (3.75,0.75) -- (3.75,0);
-   		
-   		\node at (7,3.5){\begin{tabular}{c}convolutional layer\\with non-linearities\\layer $l = 4$\end{tabular}};
-   		
-   		\draw[fill=black,opacity=0.2,draw=black] (7.5,1.75) -- (8.25,1.75) -- (8.25,2.5) -- (7.5,2.5) -- (7.5,1.75);
-   		\draw[fill=black,opacity=0.2,draw=black] (7.25,1.5) -- (8,1.5) -- (8,2.25) -- (7.25,2.25) -- (7.25,1.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (7,1.25) -- (7.75,1.25) -- (7.75,2) -- (7,2) -- (7,1.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (6.75,1) -- (7.5,1) -- (7.5,1.75) -- (6.75,1.75) -- (6.75,1);
-   		\draw[fill=black,opacity=0.2,draw=black] (6.5,0.75) -- (7.25,0.75) -- (7.25,1.5) -- (6.5,1.5) -- (6.5,0.75);
-   		\draw[fill=black,opacity=0.2,draw=black] (6.25,0.5) -- (7,0.5) -- (7,1.25) -- (6.25,1.25) -- (6.25,0.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (6,0.25) -- (6.75,0.25) -- (6.75,1) -- (6,1) -- (6,0.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (5.75,0) -- (6.5,0) -- (6.5,0.75) -- (5.75,0.75) -- (5.75,0);
-   		
-   		\node at (9.5,-1){\begin{tabular}{c}subsampling layer\\layer $l = 6$\end{tabular}};
-   		
-   		\draw[fill=black,opacity=0.2,draw=black] (10,1.75) -- (10.5,1.75) -- (10.5,2.25) -- (10,2.25) -- (10,1.75);
-   		\draw[fill=black,opacity=0.2,draw=black] (9.75,1.5) -- (10.25,1.5) -- (10.25,2) -- (9.75,2) -- (9.75,1.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (9.5,1.25) -- (10,1.25) -- (10,1.75) -- (9.5,1.75) -- (9.5,1.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (9.25,1) -- (9.75,1) -- (9.75,1.5) -- (9.25,1.5) -- (9.25,1);
-   		\draw[fill=black,opacity=0.2,draw=black] (9,0.75) -- (9.5,0.75) -- (9.5,1.25) -- (9,1.25) -- (9,0.75);
-   		\draw[fill=black,opacity=0.2,draw=black] (8.75,0.5) -- (9.25,0.5) -- (9.25,1) -- (8.75,1) -- (8.75,0.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (8.5,0.25) -- (9,0.25) -- (9,0.75) -- (8.5,0.75) -- (8.5,0.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (8.25,0) -- (8.75,0) -- (8.75,0.5) -- (8.25,0.5) -- (8.25,0);
-   		
-   		\node at (12,3.5){\begin{tabular}{c}fully connected layer\\layer $l = 7$\end{tabular}};
-   		
-   		\draw[fill=black,draw=black,opacity=0.5] (10.5,0) -- (11,0) -- (12.5,1.75) -- (12,1.75) -- (10.5,0);
-   		
-   		\node at (13,-1){\begin{tabular}{c}fully connected layer\\output layer $l = 8$\end{tabular}};
-   		
-   		\draw[fill=black,draw=black,opacity=0.5] (12.5,0.5) -- (13,0.5) -- (13.65,1.25) -- (13.15,1.25) -- (12.5,0.5);
-   	\end{tikzpicture}
-   	\caption[Architecture of a traditional convolutional neural network.]{The architecture of the original convolutional neural network, as introduced by LeCun et al. (1989), alternates between convolutional layers including hyperbolic tangent non-linearities and subsampling layers. In this illustration, the convolutional layers already include non-linearities and, thus, a convolutional layer actually represents two layers. The feature maps of the final subsampling layer are then fed into the actual classifier consisting of an arbitrary number of fully connected layers. The output layer usually uses softmax activation functions.}
-   	\label{fig:traditional-convolutional-network}
-\end{figure}
- 
-\end{document}
+
+\draw (0,0) -- (1,0) -- (1,1) -- (0,1) -- (0,0);
+
+\node at (3,3.5){\begin{tabular}{c}convolutional layer\\with non-linearities\\layer $l = 1$\end{tabular}};
+
+\draw[fill=black,opacity=0.2,draw=black] (2.75,1.25) -- (3.75,1.25) -- (3.75,2.25) -- (2.75,2.25) -- (2.75,1.25);
+\draw[fill=black,opacity=0.2,draw=black] (2.5,1) -- (3.5,1) -- (3.5,2) -- (2.5,2) -- (2.5,1);
+\draw[fill=black,opacity=0.2,draw=black] (2.25,0.75) -- (3.25,0.75) -- (3.25,1.75) -- (2.25,1.75) -- (2.25,0.75);
+\draw[fill=black,opacity=0.2,draw=black] (2,0.5) -- (3,0.5) -- (3,1.5) -- (2,1.5) -- (2,0.5);
+\draw[fill=black,opacity=0.2,draw=black] (1.75,0.25) -- (2.75,0.25) -- (2.75,1.25) -- (1.75,1.25) -- (1.75,0.25);
+\draw[fill=black,opacity=0.2,draw=black] (1.5,0) -- (2.5,0) -- (2.5,1) -- (1.5,1) -- (1.5,0);
+
+\node at (4.5,-1){\begin{tabular}{c}subsampling layer\\layer $l = 3$\end{tabular}};
+
+\draw[fill=black,opacity=0.2,draw=black] (5,1.25) -- (5.75,1.25) -- (5.75,2) -- (5,2) -- (5,1.25);
+\draw[fill=black,opacity=0.2,draw=black] (4.75,1) -- (5.5,1) -- (5.5,1.75) -- (4.75,1.75) -- (4.75,1);
+\draw[fill=black,opacity=0.2,draw=black] (4.5,0.75) -- (5.25,0.75) -- (5.25,1.5) -- (4.5,1.5) -- (4.5,0.75);
+\draw[fill=black,opacity=0.2,draw=black] (4.25,0.5) -- (5,0.5) -- (5,1.25) -- (4.25,1.25) -- (4.25,0.5);
+\draw[fill=black,opacity=0.2,draw=black] (4,0.25) -- (4.75,0.25) -- (4.75,1) -- (4,1) -- (4,0.25);
+\draw[fill=black,opacity=0.2,draw=black] (3.75,0) -- (4.5,0) -- (4.5,0.75) -- (3.75,0.75) -- (3.75,0);
+
+\node at (7,3.5){\begin{tabular}{c}convolutional layer\\with non-linearities\\layer $l = 4$\end{tabular}};
+
+\draw[fill=black,opacity=0.2,draw=black] (7.5,1.75) -- (8.25,1.75) -- (8.25,2.5) -- (7.5,2.5) -- (7.5,1.75);
+\draw[fill=black,opacity=0.2,draw=black] (7.25,1.5) -- (8,1.5) -- (8,2.25) -- (7.25,2.25) -- (7.25,1.5);
+\draw[fill=black,opacity=0.2,draw=black] (7,1.25) -- (7.75,1.25) -- (7.75,2) -- (7,2) -- (7,1.25);
+\draw[fill=black,opacity=0.2,draw=black] (6.75,1) -- (7.5,1) -- (7.5,1.75) -- (6.75,1.75) -- (6.75,1);
+\draw[fill=black,opacity=0.2,draw=black] (6.5,0.75) -- (7.25,0.75) -- (7.25,1.5) -- (6.5,1.5) -- (6.5,0.75);
+\draw[fill=black,opacity=0.2,draw=black] (6.25,0.5) -- (7,0.5) -- (7,1.25) -- (6.25,1.25) -- (6.25,0.5);
+\draw[fill=black,opacity=0.2,draw=black] (6,0.25) -- (6.75,0.25) -- (6.75,1) -- (6,1) -- (6,0.25);
+\draw[fill=black,opacity=0.2,draw=black] (5.75,0) -- (6.5,0) -- (6.5,0.75) -- (5.75,0.75) -- (5.75,0);
+
+\node at (9.5,-1){\begin{tabular}{c}subsampling layer\\layer $l = 6$\end{tabular}};
+
+\draw[fill=black,opacity=0.2,draw=black] (10,1.75) -- (10.5,1.75) -- (10.5,2.25) -- (10,2.25) -- (10,1.75);
+\draw[fill=black,opacity=0.2,draw=black] (9.75,1.5) -- (10.25,1.5) -- (10.25,2) -- (9.75,2) -- (9.75,1.5);
+\draw[fill=black,opacity=0.2,draw=black] (9.5,1.25) -- (10,1.25) -- (10,1.75) -- (9.5,1.75) -- (9.5,1.25);
+\draw[fill=black,opacity=0.2,draw=black] (9.25,1) -- (9.75,1) -- (9.75,1.5) -- (9.25,1.5) -- (9.25,1);
+\draw[fill=black,opacity=0.2,draw=black] (9,0.75) -- (9.5,0.75) -- (9.5,1.25) -- (9,1.25) -- (9,0.75);
+\draw[fill=black,opacity=0.2,draw=black] (8.75,0.5) -- (9.25,0.5) -- (9.25,1) -- (8.75,1) -- (8.75,0.5);
+\draw[fill=black,opacity=0.2,draw=black] (8.5,0.25) -- (9,0.25) -- (9,0.75) -- (8.5,0.75) -- (8.5,0.25);
+\draw[fill=black,opacity=0.2,draw=black] (8.25,0) -- (8.75,0) -- (8.75,0.5) -- (8.25,0.5) -- (8.25,0);
+
+\node at (12,3.5){\begin{tabular}{c}fully connected layer\\layer $l = 7$\end{tabular}};
+
+\draw[fill=black,draw=black,opacity=0.5] (10.5,0) -- (11,0) -- (12.5,1.75) -- (12,1.75) -- (10.5,0);
+
+\node at (13,-1){\begin{tabular}{c}fully connected layer\\output layer $l = 8$\end{tabular}};
+
+\draw[fill=black,draw=black,opacity=0.5] (12.5,0.5) -- (13,0.5) -- (13.65,1.25) -- (13.15,1.25) -- (12.5,0.5);       
+\end{tikzpicture}
+\end{document}       
 ```
 ****
 
@@ -9885,8 +10017,8 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 
 ```tex
 % https://davidstutz.de/illustrating-convolutional-neural-networks-in-latex-with-tikz/
-
-\documentclass[twoside,11pt,a4paper]{article}
+%\documentclass[twoside,11pt,a4paper]{standalone}
+\documentclass{standalone}
  
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath, amssymb, latexsym}
@@ -9897,37 +10029,33 @@ level 2/.style={level distance=4cm,sibling angle=45}]
  
 \begin{document}
  
-\begin{SCfigure}[2\sidecaptionrelwidth][t]
-   	\centering
-   	\begin{tikzpicture}
-   		\node at (1.5,4){\begin{tabular}{c}input image\\or input feature map\end{tabular}};
-   	
-   		\draw (0,0) -- (3,0) -- (3,3) -- (0,3) -- (0,0);
-   		
-   		\draw (2,2) -- (2.5,2) -- (2.5,2.5) -- (2,2.5) -- (2,2);
-   		\draw (2,0.5) -- (2.5,0.5) -- (2.5,1) -- (2,1) -- (2,0.5);
-   		\draw (1,1) -- (1.5,1) -- (1.5,1.5) -- (1,1.5) -- (1,1);
-   		
-   		\draw (2.5,2) -- (7,3.25);
-   		\draw (2.5,2.5) -- (7,3.25);
- 
-   		\draw (2.5,1) -- (5.75,0.25);
-   		\draw (2.5,0.5) -- (5.75,0.25);
-   		
-   		\draw (1.5,1.5) -- (5.5,1.25);
-   		\draw (1.5,1) -- (5.5,1.25);
-   		
-   		\node at (5.75,4){\begin{tabular}{c}output feature maps\end{tabular}};
-   		
-   		\draw[fill=black,opacity=0.2,draw=black] (5.5,1.5) -- (7.5,1.5) -- (7.5,3.5) -- (5.5,3.5) -- (5.5,1.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (5,1) -- (7,1) -- (7,3) -- (5,3) -- (5,1);
-   		\draw[fill=black,opacity=0.2,draw=black] (4.5,0.5) -- (6.5,0.5) -- (6.5,2.5) -- (4.5,2.5) -- (4.5,0.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (4,0) -- (6,0) -- (6,2) -- (4,2) -- (4,0);
-   	\end{tikzpicture}
-   	\caption[Illustration of a convolutional layer.]{Illustration of a single convolutional layer. If layer $l$ is a convolutional layer, the input image (if $l = 1$) or a feature map of the previous layer is convolved by different filters to yield the output feature maps of layer $l$.}
-   	\label{fig:convolutional-layer}
-\end{SCfigure}
- 
+
+\begin{tikzpicture}
+	\node at (1.5,4){\begin{tabular}{c}input image\\or input feature map\end{tabular}};
+
+	\draw (0,0) -- (3,0) -- (3,3) -- (0,3) -- (0,0);
+	
+	\draw (2,2) -- (2.5,2) -- (2.5,2.5) -- (2,2.5) -- (2,2);
+	\draw (2,0.5) -- (2.5,0.5) -- (2.5,1) -- (2,1) -- (2,0.5);
+	\draw (1,1) -- (1.5,1) -- (1.5,1.5) -- (1,1.5) -- (1,1);
+	
+	\draw (2.5,2) -- (7,3.25);
+	\draw (2.5,2.5) -- (7,3.25);
+
+	\draw (2.5,1) -- (5.75,0.25);
+	\draw (2.5,0.5) -- (5.75,0.25);
+	
+	\draw (1.5,1.5) -- (5.5,1.25);
+	\draw (1.5,1) -- (5.5,1.25);
+	
+	\node at (5.75,4){\begin{tabular}{c}output feature maps\end{tabular}};
+	
+	\draw[fill=black,opacity=0.2,draw=black] (5.5,1.5) -- (7.5,1.5) -- (7.5,3.5) -- (5.5,3.5) -- (5.5,1.5);
+	\draw[fill=black,opacity=0.2,draw=black] (5,1) -- (7,1) -- (7,3) -- (5,3) -- (5,1);
+	\draw[fill=black,opacity=0.2,draw=black] (4.5,0.5) -- (6.5,0.5) -- (6.5,2.5) -- (4.5,2.5) -- (4.5,0.5);
+	\draw[fill=black,opacity=0.2,draw=black] (4,0) -- (6,0) -- (6,2) -- (4,2) -- (4,0);
+\end{tikzpicture}
+
 \end{document}
 ```
 ****
@@ -10598,41 +10726,37 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 ```tex
 % https://davidstutz.de/illustrating-convolutional-neural-networks-in-latex-with-tikz/
 
-    \documentclass[twoside,11pt,a4paper]{article}
-     
-    \usepackage[utf8]{inputenc}
-    \usepackage{amsmath, amssymb, latexsym}
-    \usepackage{sidecap}
-     
-    \usepackage{tikz}
-    \usetikzlibrary{decorations.pathreplacing}
-     
-    \begin{document}
-     
-    \begin{SCfigure}[2\sidecaptionrelwidth][t!]
-    	\centering
-    	\begin{tikzpicture}[shorten >=1pt]
-          		\tikzstyle{unit}=[draw,shape=circle,minimum size =1.4cm]
-     
-           	\node[unit](i) at (0,1){$y_i^{(l)}$};
-            	\node[unit](k1) at (3,2){$y_1^{(l+1)}$};
-    		\node at (3, 1){$\vdots$};
-    		\node[unit](km) at (3,-0.25){$y_{m^{(l+1)}}^{(l+1)}$};
-    		
-    		\node at (1.25,2.25){$\delta_1^{(l+1)}$};
-    		\node at (1.25,-0.5){$\delta_{m^{(l+1)}}^{(l+1)}$};
-     
-            	\draw[->] (i) -- (k1);
-    		\draw[->] (i) -- (km);
-    		
-    		\draw[->,red,line width=0.05cm] (2,-0.25) -- (0.75,0.3);
-    		\draw[->,red,line width=0.05cm] (2,2) -- (0.75,1.6);
-        	\end{tikzpicture}
-    	\caption[Backpropagation of errors through the network.]{Once evaluated for all output units, the errors $\delta_i^{(L+1)}$ can be propagated backwards.}.
-    	\label{fig:error-backpropagation}
-    \end{SCfigure}
-     
-    \end{document}
+%\documentclass[twoside,11pt,a4paper]{article}
+\documentclass{standalone}
+ 
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, latexsym}
+\usepackage{sidecap}
+ 
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+ 
+\begin{document}
+ 
+\begin{tikzpicture}[shorten >=1pt]
+     \tikzstyle{unit}=[draw,shape=circle,minimum size =1.4cm]
+
+     \node[unit](i) at (0,1){$y_i^{(l)}$};
+     \node[unit](k1) at (3,2){$y_1^{(l+1)}$};
+	\node at (3, 1){$\vdots$};
+	\node[unit](km) at (3,-0.25){$y_{m^{(l+1)}}^{(l+1)}$};
+	
+	\node at (1.25,2.25){$\delta_1^{(l+1)}$};
+	\node at (1.25,-0.5){$\delta_{m^{(l+1)}}^{(l+1)}$};
+
+       	\draw[->] (i) -- (k1);
+	\draw[->] (i) -- (km);
+	
+	\draw[->,red,line width=0.05cm] (2,-0.25) -- (0.75,0.3);
+	\draw[->,red,line width=0.05cm] (2,2) -- (0.75,1.6);
+\end{tikzpicture}
+ 
+\end{document}
 ```
 ****
 
@@ -16483,6 +16607,184 @@ pinstyle/.style = {pin edge={to-,thin,black}
  cell13 & cell14 & cell15  \\ 
  cell16 & cell17 & cell18 \\ 
 \end{tcolorbox}
+\end{document}
+```
+****
+
+![](./out/table-comparison-many.png)
+
+  
+  * [table-comparison-many.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/table-comparison-many.tex)
+
+```tex
+% https://raw.githubusercontent.com/jirispilka/latex-tikz-table/master/latex_tikz_table.tex
+% Jiri Spilka, 2013
+% bio.felk.cvut.cz/~spilkaj
+%
+%\documentclass[a4paper,11pt,oneside]{report}
+\documentclass{standalone}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx,color}
+\usepackage[usenames,dvipsnames]{xcolor}
+
+%\usepackage[top=2.5cm, bottom=2.5cm, right=2.5cm, left=3cm]{geometry}% set boundary
+
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{microtype} % very small changes -- spacing etc
+\usepackage{booktabs}
+\usepackage{multirow} % multirow v tabulce
+
+\usepackage{tikz}
+
+\newcommand{\drawBox}[3]
+{
+  \begin{tikzpicture}
+    \def\w{1.5}        % width of a box
+    \def\x{#1/100*\w}  % median value
+    \def\xl{#2/100*\w} % lower confidance interval
+    \def\xu{#3/100*\w} % upper confidance interval
+    \filldraw[fill=gray!#1!white!, draw=black] (0,0) rectangle (\x,0.2); % draw rectangle (black border)
+    \draw [gray] (0,0) rectangle (\w,0.2);                   % fill with the grey
+    \draw (\x,0.1) -- (\xu,0.1) -- (\xu,0.15) -- (\xu,0.05); % draw  upper confidance interval
+    \draw (\x,0.1) -- (\xl,0.1) -- (\xl,0.15) -- (\xl,0.05); % draw confidance interval
+  \end{tikzpicture} 
+}
+
+\newcommand{\boxNumberConf}[3]
+{\drawBox{#1}{#2}{#3} & #1 (#2--#3)} % NOTICE the & for column separation
+
+\begin{document}
+ 
+   
+\begin{tabular}{p{1.5cm} r lr lr lr}
+    \toprule
+    Feature set&[\%]&  \multicolumn{2}{c}{NaiveBayes} &  \multicolumn{2}{c}{SVM} & \multicolumn{2}{c}{C4.5 Tree}\\
+    \midrule
+    \multirow{4}{1.5cm}{HRV-based} 
+    &SE & \boxNumberConf{53}{47}{63} &  \boxNumberConf{53}{44}{60} & \boxNumberConf{47}{40}{60}\\
+    &SP & \boxNumberConf{74}{71}{77} &  \boxNumberConf{76}{72}{79} & \boxNumberConf{75}{70}{79}\\
+    &PR & \boxNumberConf{21}{18}{24} &  \boxNumberConf{21}{18}{24} & \boxNumberConf{19}{16}{23}\\
+    &F  & \boxNumberConf{30}{27}{34} &  \boxNumberConf{29}{25}{34} & \boxNumberConf{28}{23}{32}\\
+    \midrule
+    \multirow{4}{1.5cm}{Complete set}
+    &SE & \boxNumberConf{60}{53}{67} &  \boxNumberConf{53}{47}{60} & \boxNumberConf{38}{27}{47}\\
+    &SP & \boxNumberConf{75}{72}{77} &  \boxNumberConf{78}{75}{80} & \boxNumberConf{81}{75}{85}\\
+    &PR & \boxNumberConf{23}{20}{25} &  \boxNumberConf{23}{20}{26} & \boxNumberConf{19}{15}{23}\\
+    &F  & \boxNumberConf{33}{29}{36} &  \boxNumberConf{33}{28}{37} & \boxNumberConf{25}{19}{31}\\
+    \bottomrule
+\end{tabular}
+
+        
+\end{document}
+```
+****
+
+![](./out/table-comparison-med.png)
+
+  
+  * [table-comparison-med.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/table-comparison-med.tex)
+
+```tex
+% https://raw.githubusercontent.com/jirispilka/latex-tikz-table/master/latex_tikz_table.tex
+% Jiri Spilka, 2013
+% bio.felk.cvut.cz/~spilkaj
+%
+%\documentclass[a4paper,11pt,oneside]{report}
+\documentclass{standalone}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx,color}
+\usepackage[usenames,dvipsnames]{xcolor}
+
+%\usepackage[top=2.5cm, bottom=2.5cm, right=2.5cm, left=3cm]{geometry}% set boundary
+
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{microtype} % very small changes -- spacing etc
+\usepackage{booktabs}
+\usepackage{multirow} % multirow v tabulce
+
+\usepackage{tikz}
+
+\newcommand{\drawBox}[3]
+{
+  \begin{tikzpicture}
+    \def\w{1.5}        % width of a box
+    \def\x{#1/100*\w}  % median value
+    \def\xl{#2/100*\w} % lower confidance interval
+    \def\xu{#3/100*\w} % upper confidance interval
+    \filldraw[fill=gray!#1!white!, draw=black] (0,0) rectangle (\x,0.2); % draw rectangle (black border)
+    \draw [gray] (0,0) rectangle (\w,0.2);                   % fill with the grey
+    \draw (\x,0.1) -- (\xu,0.1) -- (\xu,0.15) -- (\xu,0.05); % draw  upper confidance interval
+    \draw (\x,0.1) -- (\xl,0.1) -- (\xl,0.15) -- (\xl,0.05); % draw confidance interval
+  \end{tikzpicture} 
+}
+
+\newcommand{\boxNumberConf}[3]
+{\drawBox{#1}{#2}{#3} & #1 (#2--#3)} % NOTICE the & for column separation
+
+\begin{document}
+ 
+   
+\begin{tabular}{p{1.5cm} r lr lr lr}
+    \toprule
+    Feature set&[\%]&  \multicolumn{2}{c}{NaiveBayes} &  \multicolumn{2}{c}{SVM} & \multicolumn{2}{c}{C4.5 Tree}\\
+    \midrule
+    \multirow{4}{1.5cm}{HRV-based} 
+    &SE & \boxNumberConf{53}{47}{63} &  \boxNumberConf{53}{44}{60} & \boxNumberConf{47}{40}{60}\\
+    &SP & \boxNumberConf{74}{71}{77} &  \boxNumberConf{76}{72}{79} & \boxNumberConf{75}{70}{79}\\
+    &PR & \boxNumberConf{21}{18}{24} &  \boxNumberConf{21}{18}{24} & \boxNumberConf{19}{16}{23}\\
+    &F  & \boxNumberConf{30}{27}{34} &  \boxNumberConf{29}{25}{34} & \boxNumberConf{28}{23}{32}\\
+
+    \bottomrule
+\end{tabular}
+
+        
+\end{document}
+```
+****
+
+![](./out/table-comparison-minimal.png)
+
+  
+  * [table-comparison-minimal.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/table-comparison-minimal.tex)
+
+```tex
+%\documentclass[a4paper,11pt,oneside]{report}
+\documentclass{standalone}
+\usepackage[english]{babel}
+
+\usepackage{tikz}
+
+\newcommand{\drawBox}[3] % drawing the bog
+{
+\begin{tikzpicture} 
+    \def\w{1.5} % width of a box
+    \def\x{#1/100*\w} % median value
+    \def\xl{#2/100*\w} % lower confidance interval
+    \def\xu{#3/100*\w} % upper confidance interval
+    \filldraw[fill=gray!#1!white!, draw=black] (0,0) rectangle (\x,0.2);
+    \draw [gray] (0,0) rectangle (\w,0.2); % fill with the grey
+    \draw (\x,0.1) -- (\xu,0.1) -- (\xu,0.15) -- (\xu,0.05);
+    \draw (\x,0.1) -- (\xl,0.1) -- (\xl,0.15) -- (\xl,0.05);
+\end{tikzpicture} 
+}
+
+\newcommand{\boxNumberConf}[3] % interface command
+{\drawBox{#1}{#2}{#3} & #1 (#2--#3)} % NOTICE the & for col. sep.
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+    \begin{tabular}{l r lr}
+    & \multicolumn{2}{c}{mean (95\% CI)} \\
+    Sensitivity & \boxNumberConf{74}{65}{81} \\
+    Specificity & \boxNumberConf{90}{81}{95} \\
+    \end{tabular}
+
 \end{document}
 ```
 ****
