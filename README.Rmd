@@ -1,5 +1,5 @@
 ---
-title: "My Tikz Favorites"
+title: "README - My Tikz Favorite Things"
 author: "Alfonso R. Reyes"
 output:
   html_document:
