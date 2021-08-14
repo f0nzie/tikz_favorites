@@ -1,0 +1,19 @@
+\documentclass[margin=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\begin{document}
+
+\tdplotsetmaincoords{70}{70}
+\begin{tikzpicture}[scale=3,tdplot_main_coords]
+
+\fill[draw=red, fill=red!20, variable=\z,domain=-.5:1,samples=200] 
+    (0,0,-.5) plot (0,{sin(\z*pi r*4)/10},\z)
+    -- (0,1,1)
+    -- (0,1,-0.5)
+    -- cycle;
+
+\draw[thick,->] (0,-0.2,0) -- (0,1.2,0) node[anchor=north west]{$x$};
+\draw[thick,->] (0,0,-0.5) -- (0,0,1.2) node[anchor=south]{$z$};
+\draw[thick,->] (-0.5,0,0) -- (1.2,0,0) node[anchor=north east]{$y$};
+\end{tikzpicture}
+\end{document}
