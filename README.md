@@ -96,15 +96,9 @@ Some useful tutorials:
 
 ## Useful statistics
 
-<<<<<<< HEAD
-* There are 254 total Tikz figures saved as `.tex` files in this gallery. 
+* There are 256 total Tikz figures saved as `.tex` files in this gallery. 
 The figures are sorted by filename.
-* There are 254 files under `src/` to be compiled with `pdflatex`
-=======
-* There are 239 total Tikz figures saved as `.tex` files in this gallery. 
-The figures are sorted by filename.
-* There are 239 files under `src/` to be compiled with `pdflatex`
->>>>>>> develop
+* There are 256 files under `src/` to be compiled with `pdflatex`
 * There are 1 files under `src/` to be compiled with `lualatex`
 * There are 19 data files under the folder `src/data` that are being used by the TikZ scripts
 * There are 2 Latex classes, styles and library files under the `src/texmf` folder
@@ -114,6 +108,109 @@ The figures are sorted by filename.
 ## TikZ graphics and code
 
 
+****
+
+![](./out/3d-3_cylinders_shaded.png)
+
+  
+  * [3d-3_cylinders_shaded.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/3d-3_cylinders_shaded.tex)
+
+```tex
+\documentclass[tikz,border=5]{standalone}
+
+\usetikzlibrary{fadings}
+\tikzfading[name=fade out,
+inner color=transparent!0, outer color=transparent!100]
+
+\def\factor{4}
+\def\xradius{2}
+\def\yradius{2/\factor}
+\def\height{1.05cm}
+\def\xandy{2 and 2/\factor}
+
+\tikzset{
+  pics/.cd, %
+  disc/.style ={
+    code = {
+      %% the foundation
+      \path [fill=black!15] (-\xradius,0) -- (-\xradius,-\height) arc
+      (180:360:\xandy) -- (\xradius,0) arc (0:180:\xandy);%
+      \path [top color=black!25, bottom color=white, opacity=0.2] (0,0) ellipse
+      [x radius=\xradius, y radius =\yradius];%
+      \path [left color=black!25, right color=black!15] (-\xradius,0) --
+      (-\xradius,-\height) arc (180:240:\xandy) -- +(0,\height) arc
+      (240:180:\xandy);%
+      \path [left color=black!15, right color=black!30] (\xradius,0) --
+      (\xradius,-\height) arc (360:320:\xandy) -- +(0,\height) arc
+      (320:360:\xandy);
+
+      %% rays in front
+      \foreach \col/\r/\shift/\stop/\opacity in {%
+        black/205/25/20/100, %
+        black/295/35/30/100, %
+        black/295/30/30/200, %
+        black/295/25/20/300, %
+        white/245/14/14/100, %
+        white/245/12/12/20, %
+        white/245/10/10/10} {%
+        \foreach \i [evaluate={\opposite=\r-180;}] in {0,1,...,\stop}{%
+          \fill [\col, fill opacity = 1/\opacity] (\opposite:0.1 and
+          0.1/\factor) -- (\r+\shift-\i:\xandy) -- ++(0,-\height) arc
+          (\r+\shift-\i:\r-\shift+\i:\xandy) -- +(0,\height) -- cycle; }}
+
+      %% rays in back
+      \foreach \r/\shift/\stop/\opacity in {%
+        25/25/20/100, %
+        115/35/3/150,%
+        115/30/23/100} {%
+        \foreach \i [evaluate={\opposite=\r-180;}] in {0,1,...,\stop}{%
+          \fill [black, fill opacity = 1/\opacity] (\opposite:0.1 and 0.1/\factor) --
+          (\r+\shift-\i:\xandy) arc (\r+\shift-\i:\r-\shift+\i:\xandy) --
+          cycle; }}
+
+      %% masking the four edges in the center
+      \foreach \i in {0.1, 0.2, ..., 0.4}%
+      \fill[black!15, opacity=0.7, path fading=fade out] 
+      (0,0) ellipse[x radius=\i, y radius =\i/\factor];
+
+      %% the light and the dark arcs
+      \foreach \i [evaluate={\start=185+10*\i; \finish=355-10*\i;}]%
+      in {0.1, 0.2, ..., 1.5}{%
+        \draw[white, opacity=0.04, line width=\i, yshift=0.02cm]
+        (\start:\xandy) arc (\start:\finish:\xandy);
+
+        \draw[black!80, opacity=0.05, line width=\i, yshift=-\height]
+        (\start:\xandy) arc (\start:\finish:\xandy); }
+    }
+  },% 
+  disc bottom/.style = {
+    code = {
+      \foreach \i/\opacity in {%
+        1/20,2/20,3/20,4/30,5/35,6/40,7/60,8/80,9/100,10/100,11/100,12/100}%
+        \fill [black, fill opacity = 1/\opacity, yshift=-0.03cm] (0,-\height)
+        ellipse [x radius = \xradius+\i/40, y radius = \yradius+\i/20/\factor]; 
+      \path pic {disc};
+    }
+  },%
+  disc top/.style = {
+    code = {
+      \foreach \i/\opacity in {%
+        2/60, 3/55, 4/50,5/40, 6/35, 7/30, 8/20, 9/20, 10/20, 11/20, 12/20,
+        13/20, 14/20, 15/20, 16/20, 17/20, 18/20, 19/20, 20/20, 21/20, 22/20,
+        23/20, 24/20, 25/20, 26/20}%
+        \fill [black, fill opacity = 1/\opacity, yshift=-0.35cm] (0,-\height)
+        ellipse [x radius = \xradius-\i/40, y radius = \yradius-\i/20/\factor];
+      \path pic {disc};
+    }
+  }
+}
+
+\begin{document}
+\begin{tikzpicture}
+  \path (0,0) pic {disc bottom} (0,1.4) pic {disc top} (0,2.8) pic {disc top};
+\end{tikzpicture}
+\end{document}
+```
 ****
 
 ![](./out/3d-cone_intersection+3d+pgf.lualatex.png)
