@@ -96,9 +96,15 @@ Some useful tutorials:
 
 ## Useful statistics
 
+<<<<<<< HEAD
 * There are 254 total Tikz figures saved as `.tex` files in this gallery. 
 The figures are sorted by filename.
 * There are 254 files under `src/` to be compiled with `pdflatex`
+=======
+* There are 239 total Tikz figures saved as `.tex` files in this gallery. 
+The figures are sorted by filename.
+* There are 239 files under `src/` to be compiled with `pdflatex`
+>>>>>>> develop
 * There are 1 files under `src/` to be compiled with `lualatex`
 * There are 19 data files under the folder `src/data` that are being used by the TikZ scripts
 * There are 2 Latex classes, styles and library files under the `src/texmf` folder
@@ -900,6 +906,34 @@ This code was written by Jake on TeX.SE.
 	(0,0) arc (180:140:2 and 6.0); %node[above] {4};
 	\draw[thick,dashed]
 	(0,0) -- (1,4.6);
+\end{tikzpicture}
+\end{document}
+```
+****
+
+![](./out/3d-plane-sine_wave.png)
+
+  
+  * [3d-plane-sine_wave.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/3d-plane-sine_wave.tex)
+
+```tex
+\documentclass[margin=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\begin{document}
+
+\tdplotsetmaincoords{70}{70}
+\begin{tikzpicture}[scale=3,tdplot_main_coords]
+
+\fill[draw=red, fill=red!20, variable=\z,domain=-.5:1,samples=200] 
+    (0,0,-.5) plot (0,{sin(\z*pi r*4)/10},\z)
+    -- (0,1,1)
+    -- (0,1,-0.5)
+    -- cycle;
+
+\draw[thick,->] (0,-0.2,0) -- (0,1.2,0) node[anchor=north west]{$x$};
+\draw[thick,->] (0,0,-0.5) -- (0,0,1.2) node[anchor=south]{$z$};
+\draw[thick,->] (-0.5,0,0) -- (1.2,0,0) node[anchor=north east]{$y$};
 \end{tikzpicture}
 \end{document}
 ```

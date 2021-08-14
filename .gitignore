@@ -19,3 +19,9 @@ src/data.txt
 counter_file
 .vscode/settings.json
 
+
+*.aux
+
+*.log
+
+*.gz

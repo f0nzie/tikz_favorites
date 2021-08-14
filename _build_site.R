@@ -12,6 +12,7 @@
 source_dir <- "src"
 output_dir <- "out"
 website_url <- "https://github.com/f0nzie/tikz_favorites"
+branch <- "develop"
 all_png <- "%s.png"
 all_tex <- "%s.tex"
 dir_level <- ".."    # directory level of src/ with respect to publishing folder
@@ -22,11 +23,11 @@ get_item_toml <- function(site_mode) {
     x <- c(
       '[[items]]',
       'title = "%s"',
-      paste0('image = ', '"', paste(website_url, "raw/master", output_dir, all_png, sep = "/"), '"'),
-      paste0('thumb = ', '"', paste(website_url, "raw/master", output_dir, all_png, sep = "/"), '"'),
+      paste0('image = ', '"', paste(website_url, "raw", branch, output_dir, all_png, sep = "/"), '"'),
+      paste0('thumb = ', '"', paste(website_url, "raw", branch, output_dir, all_png, sep = "/"), '"'),
       'alt = "%s"',
       paste0('description = ', '"', website_url, '"'),
-      paste0('url = ', '"', paste(website_url, "blob/master", source_dir, all_tex, sep = "/"), '"', "\n")
+      paste0('url = ', '"', paste(website_url, "blob", branch, source_dir, all_tex, sep = "/"), '"', "\n")
     )
   }
   else if (site_mode == "local") {
