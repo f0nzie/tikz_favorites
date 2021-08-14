@@ -96,9 +96,9 @@ Some useful tutorials:
 
 ## Useful statistics
 
-* There are 245 total Tikz figures saved as `.tex` files in this gallery. 
+* There are 239 total Tikz figures saved as `.tex` files in this gallery. 
 The figures are sorted by filename.
-* There are 245 files under `src/` to be compiled with `pdflatex`
+* There are 239 files under `src/` to be compiled with `pdflatex`
 * There are 1 files under `src/` to be compiled with `lualatex`
 * There are 19 data files under the folder `src/data` that are being used by the TikZ scripts
 * There are 2 Latex classes, styles and library files under the `src/texmf` folder
@@ -901,6 +901,47 @@ This code was written by Jake on TeX.SE.
 	\draw[thick,dashed]
 	(0,0) -- (1,4.6);
 \end{tikzpicture}
+\end{document}
+```
+****
+
+![](./out/3d-plane.png)
+
+  
+  * [3d-plane.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/3d-plane.tex)
+
+```tex
+\documentclass[landscape]{article}
+
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+
+%%%<
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+%%%>
+
+\begin{document}
+
+\tdplotsetmaincoords{70}{110}
+\begin{tikzpicture}[scale=3,tdplot_main_coords]
+    \draw[thick,->] (0,0,0) -- (1,0,0) node[anchor=north east]{$x$};
+    \def\x{.5}
+    \draw[thin] (0,0,0) -- ({1.2*\x},{sqrt(3)*1.2*\x},0) node[below] {$y=\sqrt{3}x$};
+    \filldraw[
+        draw=red,%
+        fill=red!20,%
+    ]          (0,0,0)
+            -- (\x,{sqrt(3)*\x},0)
+            -- (\x,{sqrt(3)*\x},1)
+            -- (0,0,1)
+            -- cycle;
+    \draw[thick,->] (0,0,0) -- (0,1,0) node[anchor=north west]{$y$};
+    \draw[thick,->] (0,0,0) -- (0,0,1) node[anchor=south]{$z$};
+\end{tikzpicture}
+
 \end{document}
 ```
 ****
@@ -3046,6 +3087,41 @@ $$
 ```
 ****
 
+![](./out/elem-network-ex_doc_4-13+elem+network.png)
+
+  
+  * [elem-network-ex_doc_4-13+elem+network.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/elem-network-ex_doc_4-13+elem+network.tex)
+
+```tex
+
+% =============================================================================
+% File      : ex_doc_4-13.tex -- example 4.13
+% Author    : Jürgen Hackl <hackl.j@gmx.at>
+% Creation  : 2019-08-14
+% Time-stamp: <Thu 2019-08-15 09:44 juergen>
+%
+% Copyright (c) 2019 Jürgen Hackl <hackl.j@gmx.at>
+% =============================================================================
+\documentclass{standalone}
+\usepackage{tikz-network}
+
+\begin{document}
+
+\begin{tikzpicture}[multilayer=3d]
+	\Plane[x=-.5,y=-.5,width=3,height=2.5,grid=5mm]
+\end{tikzpicture}
+
+\end{document}
+% =============================================================================
+% eof
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+```
+****
+
 ![](./out/elem-node_connector+elem+diagram+command+params.png)
 
   
@@ -3492,103 +3568,6 @@ We are working on
 \end{tikzpicture}
 
 \end{document}
-```
-****
-
-![](./out/elem-transparent_circles+multi+pgf+set.png)
-
-  
-  * [elem-transparent_circles+multi+pgf+set.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/elem-transparent_circles+multi+pgf+set.tex)
-
-```tex
-% https://tex.stackexchange.com/a/48596/173708
-\documentclass{scrartcl}
-
-\usepackage{tikz}
-\usetikzlibrary{calc}  
-
-% split figures into pages
-\usepackage[active,tightpage]{preview}
-\PreviewEnvironment{tikzpicture}
-\setlength\PreviewBorder{1pt}%
-
-\begin{document} 
-
-% If their areas of the circle nodes represent some numbers with proportionality 
-% then you need to know exactly the radius. The radius depends of minimum width 
-% and of \pgflinewidth.
-%
-% we have : radius = (minimum width + line width) / 2  if inner sep = 0pt
-%
-% In the next example, I choice first minimum width=2cm then minimum width=2cm,
-% line width=5mm and finally line width=5mm,minimum width=2cm-\pgflinewidth 
-% with in all cases inner sep= 0 pt.
-%
-
-	
-\begin{tikzpicture} 
-  \draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
-  \draw[help lines] (0,0) grid (8,1);     
-  \node[minimum width=2cm,circle,inner sep=0pt,fill=blue!20,fill opacity=.5]{};
-  \node[minimum width=2cm,circle,inner sep=0pt,fill=blue!20,fill opacity=.5,
-        line width=5mm,draw=gray,opacity=.5] at (3,0){}; 
-  \node[circle,inner sep=0pt,fill=blue!20,,fill opacity=.5,
-        line width=5mm,draw=gray,opacity=.5,minimum width=2cm-\pgflinewidth]  at (6,0) {}; 
-\end{tikzpicture}  
-
-% Now if I want to get three circles with areas equal to pi, 2pi and 3pi 
-% I created a macro `def\lw{2mm}` to change quickly the line width in all nodes
-
-\tikzset{myrad/.style 2 args={circle,inner sep=0pt,minimum width=(2*(sqrt(#1)*1 cm ) - \pgflinewidth,fill=#2,draw=#2,fill opacity=.5,opacity=.8}}    
-
-\begin{tikzpicture} 
-	\def\lw{2mm}
-	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
-	\draw[help lines] (0,0) grid (8,1);     
-	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
-	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
-	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
-\end{tikzpicture}  
-
-% Finally If you want nodes with areas equal to 1 cm^2, 2 cm^2 and 3 cm^2 : 
-% I change the line width for the second group of nodes
-
-\begin{tikzpicture} 
-	\def\lw{2mm}
-	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
-	\draw[help lines] (0,0) grid (8,1);     
-	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
-	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
-	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
-\end{tikzpicture}    
-
-\begin{tikzpicture} 
-	\def\lw{5mm}
-	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
-	\draw[help lines] (0,0) grid (8,1);     
-	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
-	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
-	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
-\end{tikzpicture}
-
-%To avoid this kind of problem, we can use circles instead of circle nodes. But we need to adjust the radius wit the pgflinewidth. In the next example,I want a radius = 2cm so I need to use : radius=2cm-0.5\pgflinewidth. Then I need to create a node with the same dimensions.
-%
-%Like the question about node and rectangle here, we can associate a node to the shape The main problem : we can't use scale but it's more easy to place a label.
-
-\tikzset{set node/.style={insert path={% 
-	\pgfextra{% 
-		\node[inner sep=0pt,outer sep = 0pt,draw=black, % draw= none only to show what I do
-		circle,
-		minimum width=2*\pgfkeysvalueof{/tikz/x radius}+0.5\pgflinewidth](#1) {};
-}}}}
-
-\begin{tikzpicture}
-	\draw[help lines] (-3,-3) grid (3,3);
-	\draw[blue,line width=5mm,opacity=.2] (0,0) circle [radius=2cm-0.5\pgflinewidth,set node=C1]  ; 
-	\draw[thick,->] (3,-3) -- (C1.east);
-\end{tikzpicture}
-
-\end{document} 
 ```
 ****
 
@@ -5926,107 +5905,6 @@ showing an implicit way.
 ```
 ****
 
-![](./out/impact-os_model_layers.png)
-
-  
-  * [impact-os_model_layers.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/impact-os_model_layers.tex)
-
-```tex
-% https://github.com/FriendlyUser/LatexDiagrams
-\documentclass[border=2mm]{standalone}
-
-\usepackage[most]{tcolorbox}
-\usepackage{lmodern}
-\usepackage{lipsum}
-%\usepackage{geometry}
-
-\standaloneenv{tcbposter}
-
-%\pagestyle{empty}
-\begin{document}
-
-\begin{tcbposter}[%
-    poster = {columns=8, rows=9, width=17cm, height=8cm, spacing=1mm},% showframe},
-    boxes = {colback=cyan!80!black, 
-        boxrule=0pt, arc=2mm,
-        colframe=cyan!80!black, 
-        halign=center, valign=center,   
-        colupper=white,
-        fontupper=\sffamily\bfseries, size=small}
-]
-%1st row
-\posterbox{column=1, row=1}{HTTP}
-\posterbox{column=2, row=1}{HTTP/2}
-\posterbox{column=3, row=1}{MQTT}
-\posterbox{column=4, row=1}{CoAP}
-\posterbox{column=5, row=1}{FTP}
-\posterbox{column=6, row=1}{TFTP}
-
-%2nd row
-\posterbox{column=1, row=2}{SMTP}
-\posterbox{column=2, row=2}{SNTP}
-\posterbox{column=3, row=2}{DNS}
-\posterbox{column=4, row=2}{NetBIOS}
-\posterbox{column=5, row=2, span=2}{SNMPv1/v2c/v3}
-
-%3rd row
-\posterbox{column=1, row=3, span=2}{WebSocket}
-\posterbox{column=3, row=3}{mDNS}
-\posterbox{column=4, row=3}{DNS-SD}
-\posterbox{column=5, row=3}{DHCP}
-\posterbox{column=6, row=3}{DHCPv6}
-
-%4th row
-\posterbox{column=1, row=4,span=6}{Socket}
-
-%5th row
-\posterbox{column=1, row=5, span=2.5}{TCP}
-\posterbox{column*=5, row=5, span=2.5}{UDP}
-\posterbox{column=6, row=5}{RAW}
-
-%6th row
-\posterbox{column=1, row=6, span=3}{IPv4}
-\posterbox{column=4, row=6, span=3}{IPv6}
-
-%7th row
-\posterbox{column=1, row=7, span=1.5}{ARP}
-\posterbox{column*=3, row=7, span=1.5}{Auto-IP}
-\posterbox{column=4, row=7, span=1.5}{NDP}
-\posterbox{column*=6, row=7, span=1.5}{SLAAC}
-
-%8th row
-\posterbox{column=1, row=8, span=1.5}{ICMP}
-\posterbox{column*=3, row=8, span=1.5}{IGMPv2}
-\posterbox{column=4, row=8, span=1.5}{ICMPv6}
-\posterbox{column*=6, row=8, span=1.5}{MLDv1}
-
-%9th row
-%5 boxes and 4 separations should use 
-%equivalent to 6 original boxes plus 5 
-%separations 
-\newlength{\mylength}
-\pgfmathsetlength{\mylength}{(6*\tcbpostercolwidth+\tcbpostercolspacing)/5}%
-
-%Use `width` instead of `span` to fix box size
-\posterbox[width=\mylength]{name=91, column=1, row=9}{Ethernet}
-\posterbox[width=\mylength]{name=92, column=1, row=9, xshift=\mylength+\tcbpostercolspacing}{Wi-Fi}
-\posterbox[width=\mylength]{name=92, column=1, row=9, xshift=2*\mylength+2*\tcbpostercolspacing}{PPP}
-\posterbox[width=\mylength]{name=92, column=1, row=9, xshift=3*\mylength+3*\tcbpostercolspacing}{USB/RNDIS}
-\posterbox[width=\mylength]{column*=6, row=9}{G3-PLC}
-
-%Right column
-\posterbox[colback=gray, colframe=gray, colupper=black]{column=7, row=1, span=2, rowspan=3}{7 - Application}
-\posterbox[colback=gray!80, colframe=gray!80, colupper=black]{column=7, row=4, span=2}{5 - Session}
-\posterbox[colback=gray!60, colframe=gray!60, colupper=black]{column=7, row=5, span=2}{4 - Transport}
-\posterbox[colback=gray!40, colframe=gray!40, colupper=black]{column=7, row=6, span=2, rowspan=3}{3 - Network}
-\posterbox[colback=gray!20, colframe=gray!20, colupper=black]{column=7, row=9, span=2}{2 - Data Link}
-
-\end{tcbposter}
-
-\end{document}
-```
-****
-
 ![](./out/impact-particles_table+physics.png)
 
   
@@ -6717,586 +6595,6 @@ much as possible.
     \draw[latex-](z6)--+(-.5,0) node[anchor=east]{Set Speed Limit};
     \draw[-latex](z8)--+(-.5,0) node[anchor=east,minimum width=3.1cm,align=left]{Factored \\ Acceleration}; 
 \end{tikzpicture}
-\end{document}
-```
-****
-
-![](./out/iso-network-ex_doc_4-13+elem+network.png)
-
-  
-  * [iso-network-ex_doc_4-13+elem+network.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-network-ex_doc_4-13+elem+network.tex)
-
-```tex
-
-% =============================================================================
-% File      : ex_doc_4-13.tex -- example 4.13
-% Author    : Jürgen Hackl <hackl.j@gmx.at>
-% Creation  : 2019-08-14
-% Time-stamp: <Thu 2019-08-15 09:44 juergen>
-%
-% Copyright (c) 2019 Jürgen Hackl <hackl.j@gmx.at>
-% =============================================================================
-\documentclass{standalone}
-\usepackage{tikz-network}
-
-\begin{document}
-
-\begin{tikzpicture}[multilayer=3d]
-	\Plane[x=-.5,y=-.5,width=3,height=2.5,grid=5mm]
-\end{tikzpicture}
-
-\end{document}
-% =============================================================================
-% eof
-
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: t
-%%% End:
-```
-****
-
-![](./out/iso-planes-multidimensional-array-inclined.png)
-
-  
-  * [iso-planes-multidimensional-array-inclined.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-planes-multidimensional-array-inclined.tex)
-
-```tex
-% https://tex.stackexchange.com/a/295021/173708
-\documentclass[tikz,border=5]{standalone}
-\usepackage{tikz}
-\usetikzlibrary{calc}
-
-\begin{document}
-\begin{tikzpicture}[x=0.5cm,y=0.5cm]
-    \begin{scope}[rotate=130,]
-        \draw[gray] (-4  ,-1.5) -- (6  ,3.5);
-    \end{scope}
-    \foreach \shift in {-5,0,5}
-    {
-        \foreach \x in {1,...,4}
-        {
-            \foreach \y in {1,...,4}
-            {
-                \begin{scope}[rotate=130,shift={(\shift,0.5*\shift)},]
-                    \draw[fill=white] (\x,\y) rectangle (\x+1,\y+1);
-                    \node at (\x+0.5,\y+0.5) {\pgfmathrnd\pgfmathparse{round(\pgfmathresult)}
-                        \pgfmathprintnumber[precision=1]{\pgfmathresult}};
-                \end{scope}
-            }
-        }
-    }
-    \begin{scope}[rotate=130,]
-        \draw         (-4, 2.5) -- (6  ,7.5);
-        \draw[dashed] (0 , 2.5) -- (10,7.5);
-        \draw[dashed] (0 ,-1.5) -- (10,3.5) node[midway,anchor=south west] {Channel};
-    \end{scope}
-\end{tikzpicture}
-\end{document}
-```
-****
-
-![](./out/iso-planes-multidimensional-array.png)
-
-  
-  * [iso-planes-multidimensional-array.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-planes-multidimensional-array.tex)
-
-```tex
-% https://tex.stackexchange.com/a/295109/173708
-
-\documentclass[tikz,border=5]{standalone}
-\begin{document} 
-	
-\begin{tikzpicture}[x=(15:.5cm), y=(90:.5cm), z=(330:.5cm), >=stealth]
-	\draw (0, 0, 0) -- (0, 0, 10) (4, 0, 0) -- (4, 0, 10);
-	\foreach \z in {0, 5, 10} \foreach \x in {0,...,3}
-	  \foreach \y [evaluate={\b=random(0, 1);}] in {0,...,3}
-	    \filldraw [fill=white] (\x, \y, \z) -- (\x+1, \y, \z) -- (\x+1, \y+1, \z) --
-	      (\x, \y+1, \z) -- cycle (\x+.5, \y+.5, \z) node [yslant=tan(15)] {\b};
-	\draw [dashed] (0, 4, 0) -- (0, 4, 10) (4, 4, 0) -- (4, 4, 10);
-	\draw [->] (0, 4.5, 0)  -- (4, 4.5, 0)   node [near end, above left] {Column};
-	\draw [->] (-.5, 4, 0)  -- (-.5, 0, 0)   node [midway, left] {Row};
-	\draw [->] (4, 4.5, 10) -- (4, 4.5, 2.5) node [near end, above right] {Channel};
-\end{tikzpicture}%
-\end{document}
-```
-****
-
-![](./out/iso-planes-polarization+3d+foreach.png)
-
-  
-  * [iso-planes-polarization+3d+foreach.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-planes-polarization+3d+foreach.tex)
-
-```tex
-% Polarizing microscope
-% Author: Cyril Langlois
-% This TikZ code sketches the light behavior during its travel in a polarizing
-% petrographic microscope when a birefringent crystal thin section is inserted
-% between the polarizing devices.
-% 
-% The goal was to correctly show the vectorial relationships between light
-% electric fields during its travel through the first polaroid, the mineral
-% section and the second polaroid.
-\documentclass[11pt]{article}
-\usepackage{tikz}
-\usetikzlibrary{arrows}
-%%%<
-\usepackage{verbatim}
-\usepackage[active,tightpage]{preview}
-\PreviewEnvironment{tikzpicture}
-\setlength\PreviewBorder{5pt}%
-%%%>
-
-\begin{comment}
-:Title: Polarizing microscope
-:Tags: 3D; Earth Sciences; Petrography; Physics
-:Author: Cyril Langlois
-
-This TikZ code sketches the light behavior during its travel in a polarizing
-petrographic microscope when a birefringent crystal thin section is inserted
-between the polarizing devices.
-
-The goal was to correctly show the vectorial relationships between light
-electric fields during its travel through the first polaroid, the mineral
-section and the second polaroid.
-\end{comment}
-
-\begin{document}
-\begin{tikzpicture}[x={(0.866cm,-0.5cm)}, y={(0.866cm,0.5cm)}, z={(0cm,1cm)}, scale=1.0,
-    %Option for nice arrows
-    >=stealth, %
-    inner sep=0pt, outer sep=2pt,%
-    axis/.style={thick,->},
-    wave/.style={thick,color=#1,smooth},
-    polaroid/.style={fill=black!60!white, opacity=0.3},
-]
-    % Colors
-    \colorlet{darkgreen}{green!50!black}
-    \colorlet{lightgreen}{green!80!black}
-    \colorlet{darkred}{red!50!black}
-    \colorlet{lightred}{red!80!black}
-
-    % Frame
-    \coordinate (O) at (0, 0, 0);
-    \draw[axis] (O) -- +(14, 0,   0) node [right] {x};
-    \draw[axis] (O) -- +(0,  2.5, 0) node [right] {y};
-    \draw[axis] (O) -- +(0,  0,   2) node [above] {z};
-
-    \draw[thick,dashed] (-2,0,0) -- (O);
-
-    % monochromatic incident light with electric field
-    \draw[wave=blue, opacity=0.7, variable=\x, samples at={-2,-1.75,...,0}]
-        plot (\x, { cos(1.0*\x r)*sin(2.0*\x r)}, { sin(1.0*\x r)*sin(2.0*\x r)})
-        plot (\x, {-cos(1.0*\x r)*sin(2.0*\x r)}, {-sin(1.0*\x r)*sin(2.0*\x r)});
-
-    \foreach \x in{-2,-1.75,...,0}{
-        \draw[color=blue, opacity=0.7,->]
-            (\x,0,0) -- (\x, { cos(1.0*\x r)*sin(2.0*\x r)}, { sin(1.0*\x r)*sin(2.0*\x r)})
-            (\x,0,0) -- (\x, {-cos(1.0*\x r)*sin(2.0*\x r)}, {-sin(1.0*\x r)*sin(2.0*\x r)});
-    }
-
-    \filldraw[polaroid] (0,-2,-1.5) -- (0,-2,1.5) -- (0,2,1.5) -- (0,2,-1.5) -- (0,-2,-1.5)
-        node[below, sloped, near end]{Polaroid};%
-
-    %Direction of polarization
-    \draw[thick,<->] (0,-1.75,-1) -- (0,-0.75,-1);
-
-    % Electric field vectors
-    \draw[wave=blue, variable=\x,samples at={0,0.25,...,6}]
-        plot (\x,{sin(2*\x r)},0)node[anchor=north]{$\vec{E}$};
-
-    %Polarized light between polaroid and thin section
-    \foreach \x in{0, 0.25,...,6}
-        \draw[color=blue,->] (\x,0,0) -- (\x,{sin(2*\x r)},0);
-
-    \draw (3,1,1) node [text width=2.5cm, text centered]{Polarized light};
-
-    %Crystal thin section
-    \begin{scope}[thick]
-        \draw (6,-2,-1.5) -- (6,-2,1.5) node [above, sloped, midway]{Crystal section}
-                -- (6, 2, 1.5) -- (6, 2, -1.5) -- cycle % First face
-            (6,  -2, -1.5) -- (6.2, -2,-1.5)
-            (6,   2, -1.5) -- (6.2,  2,-1.5)
-            (6,  -2,  1.5) -- (6.2, -2, 1.5)
-            (6,   2,  1.5) -- (6.2,  2, 1.5)
-            (6.2,-2, -1.5) -- (6.2, -2, 1.5) -- (6.2, 2, 1.5) 
-                -- (6.2, 2, -1.5) -- cycle; % Second face
-
-        %Optical indices
-        \draw[darkred, ->]       (6.1, 0, 0) -- (6.1, 0.26,  0.966) node [right] {$n_{g}'$}; % index 1
-        \draw[darkred, dashed]   (6.1, 0, 0) -- (6.1,-0.26, -0.966); % index 1
-        \draw[darkgreen, ->]     (6.1, 0, 0) -- (6.1, 0.644,-0.173) node [right] {$n_{p}'$}; % index 2
-        \draw[darkgreen, dashed] (6.1, 0, 0) -- (6.1,-0.644, 0.173); % index 2
-    \end{scope}
-
-    %Rays leaving thin section
-    \draw[wave=darkred,   variable=\x, samples at={6.2,6.45,...,12}] 
-        plot (\x, {0.26*0.26*sin(2*(\x-0.5) r)},  {0.966*0.26*sin(2*(\x-0.5) r)});  %n'g-oriented ray
-    \draw[wave=darkgreen, variable=\x, samples at={6.2,6.45,...,12}]
-        plot (\x, {0.966*0.966*sin(2*(\x-0.1) r)},{-0.26*0.966*sin(2*(\x-0.1) r)}); %n'p-oriented ray
-    \draw (10,1,1) node [text width=2.5cm, text centered] {Polarized and dephased light};
-
-    \foreach \x in{6.2,6.45,...,12} {
-        \draw[color=darkgreen, ->] (\x, 0, 0) --
-            (\x, {0.966*0.966*sin(2*(\x-0.1) r)}, {-0.26*0.966*sin(2*(\x-0.1) r)});
-        \draw[color=darkred,   ->] (\x, 0, 0) --
-            (\x, {0.26*0.26*sin(2*(\x-0.5) r)}, {0.966*0.26*sin(2*(\x-0.5) r)});
-    }
-
-    %Second polarization
-    \draw[polaroid]   (12, -2,  -1.5) -- (12, -2,   1.5)  %Polarizing filter
-        node [above, sloped,midway] {Polaroid} -- (12, 2, 1.5) -- (12, 2, -1.5) -- cycle;
-    \draw[thick, <->] (12, -1.5,-0.5) -- (12, -1.5, 0.5); %Polarization direction
-
-    %Light leaving the second polaroid
-    \draw[wave=lightgreen,variable=\x, samples at={12, 12.25,..., 14}]
-        plot (\x,{0}, {0.966*0.966*0.26*sin(2*(\x-0.5) r)}); %n'g polarized ray
-    \draw[wave=lightred,  variable=\x, samples at={12, 12.25,..., 14}]
-        plot (\x,{0}, {-0.26*0.966*sin(2*(\x-0.1) r)});      %n'p polarized ray
-
-    \node[align=justify, text width=14cm, anchor=north west, yshift=-2mm] at (current bounding box.south west)
-        {Light behavior in a petrographic microscope with light polarizing
-        device. Only one incident wavelength is shown (monochromatic light).
-        The magnetic field, perpendicular to the electric one, is not drawn.};
-\end{tikzpicture}
-\end{document}
-```
-****
-
-![](./out/iso-swan_wave_model-iso-off.png)
-
-  
-  * [iso-swan_wave_model-iso-off.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-swan_wave_model-iso-off.tex)
-
-```tex
-% layers off
-
-% https://texample.net/tikz/examples/swan-wave-model/
-% Author: Marco Miani
-% SWAN (developed by SWAN group, TU Delft, The Netherlands) is a wave spectral numerical model.
-%For Simlating WAves Nearshore, it is necessary to define spatial grids of
-%physical dominant factors (wind friction, dissipation) as well as define a COMPUTATIONAL
-%grid on which the model performs its (spectral) calculations: budgeting energy spectra over
-%each cell of the (computational) grid. Grids might have different spatial resolution and extension.
-
-\documentclass[12pt]{article}
-\usepackage{tikz}
-\usetikzlibrary{positioning}
-
-
-\begin{document}
-\pagestyle{empty}
-
-% Define the layers to draw the diagram
-\pgfdeclarelayer{background}
-\pgfdeclarelayer{foreground}
-\pgfsetlayers{background,main,foreground}
-
-
-\begin{tikzpicture}[scale=.9,every node/.style={minimum size=1cm},on grid]
-
-    \begin{pgfonlayer}{background}
-%       \draw [help lines, step=1,color=blue!15, very thin] (-6, 11) grid (10,-7);
-    \end{pgfonlayer}          
-        
-    \begin{pgfonlayer}{foreground}
-%        % help guide lines
-%        \draw [help lines,dashed] (0,-7) -- (0,11);    
-%        \draw [help lines,dashed] (-6,0) -- (10,0);            
-%        \node at (9,10) (zero) {(9,10)};        
-%        \node at (6,6) (zero) {(6,6)};        
-%        \node at (4,4) (zero) {(4,4)};        
-%        \node at (-5,4) (zero) {(-5,4)};        
-%        \node at (-5,1) (zero) {(-5,1)};        
-%        \node at (-5,-2) (zero) {(-5,-2)};        
-%        \node at (-5,-5) (zero) {(-5,-5)};             
-%        \node at (7,-5) (zero) {(7,-5)};                  
-%        \node at (8,-7) (zero) {(8,-7)};                       
-%        \node at (0,-7) (zero) {(0,-7)};                                       
-    \end{pgfonlayer}          
-
-    % Comp G
-    %slanting: production of a set of n 'laminae' to be piled up. N=number of grids.
-    \begin{scope}[
-        yshift=-83,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        % opacity to prevent graphical interference
-        \fill[white,fill opacity=0.9] (0,0) rectangle (5,5);
-        \draw[step=5mm, black] (0,0) grid (5,5);        % defining grids
-        \draw[step=1mm, red!50,thin] (3,1) grid (4,2);  % Nested Grid
-        \draw[black,very thick] (0,0) rectangle (5,5);  % marking borders
-        \fill[red] (0.05,0.05) rectangle (0.5,0.5);   % Idem as above, for the n-th grid:
-        % add some labels
-        \begin{scope}[color=blue,font=\footnotesize]
-            \node at (0,0) (a) {(0,0)};
-            \node at (5,5) (a) {(5,5)};
-            \node at (5,0) (a) {(5,0)};
-            \node at (0,5) (a) {(0,5)};   
-        \end{scope}     
-    \end{scope}
-    
-    % Bathymetry up
-    \begin{scope}[
-        yshift=0,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
-        \draw[black,very thick] (0,0) rectangle (5,5);
-        \draw[step=5mm, black] (0,0) grid (5,5);
-    \end{scope}  
-    
-    % Wind G
-    % grid with internal 3x3 of step=10mm
-    \begin{scope}[
-        yshift=90,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
-        \draw[step=10mm, black] (1,1) grid (4,4);
-        \draw[black,very thick] (1,1) rectangle (4,4);
-        \draw[black,dashed] (0,0) rectangle (5,5);
-        
-        \node at (1,1) (a) {(1,1)};
-    \end{scope}      
-
-    % Friction G
-    % grid with green subgrid of 2mm step
-    \begin{scope}[
-        yshift=170,every node/.append style={
-         yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-         ]
-        \fill[white,fill opacity=0.6] (0,0) rectangle (5,5);
-        \draw[step=10mm, black] (2,2) grid (5,5);
-        \draw[step=2mm, green] (2,2) grid (3,3);
-        \draw[black,very thick] (2,2) rectangle (5,5);
-        \draw[black,dashed] (0,0) rectangle (5,5);
-        
-        \node at (2,2) (a) {(2,2)};
-    \end{scope}    
-    
-    % bottom grid
-    \begin{scope}[
-        yshift=-170,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        %marking border
-        \draw[black,very thick] (0,0) rectangle (5,5);
-        
-        %drawing corners (P1,P2, P3): only 3 points needed to define a plane.
-        \draw [fill=lime](0,0) circle (.1) ;
-        \draw [fill=lime](0,5) circle (.1);
-        \draw [fill=lime](5,0) circle (.1);
-        \draw [fill=lime](5,5) circle (.1);
-        
-        %drawing bathymetric hypotetic countours on the bottom grid:    	
-        \draw [ultra thick](0,1)   parabola bend (2,2) (5,1)  ;
-        \draw [dashed]     (0,1.5) parabola bend (2.5,2.5) (5,1.5) ;
-        \draw [dashed]     (0,2)   parabola bend (2.7,2.7) (5,2)  ;
-        \draw [dashed]     (0,2.5) parabola bend (3.5,3.5) (5,2.5)  ;
-        \draw [dashed]     (0,3.5) parabola bend (2.75,4.5) (5,3.5);
-        \draw [dashed]     (0,4)   parabola bend (2.75,4.8) (5,4);
-        \draw [dashed]     (0,3)   parabola bend (2.75,3.8) (5,3);
-        \draw[-latex,thick](2.8,1) node[right]{$\mathsf{Shoreline}$}
-            to[out=180,in=270] (2,1.99);
-    \end{scope} %end of drawing grids   
-    
-    
-    % arrows
-    %putting arrows and labels:
-    \draw[-latex,thick] (6.2,2) node[right]{$\mathsf{Bathymetry (up)}$}
-        to[out=180,in=90] (4,2);
-    
-    \draw[-latex,thick](5.8,-.3)node[right]{$\mathsf{Comp.\ G.}$}
-        to[out=180,in=90] (3.9,-1);
-    
-    \draw[-latex,thick](5.9,5)node[right]{$\mathsf{Wind\ G.}$}
-        to[out=180,in=90] (3.6,5);
-    
-    \draw[-latex,thick](5.9,8.4)node[right]{$\mathsf{Friction\ G.}$}
-        to[out=180,in=90] (3.2,8);
-    
-    \draw[-latex,thick,red](5.3,-4.2)node[right]{$\mathsf{G. Cell}$}
-        to[out=180,in=90] (0,-2.5);
-    
-    \draw[-latex,thick,red](4.3,-1.9)node[right]{$\mathsf{Nested\ G.}$}
-        to[out=180,in=90] (2,-.5);
-    
-    \draw[-latex,thick](4,-6)node[right]{$\mathsf{Batymetry (dn)}$}
-        to[out=180,in=90] (2,-5);	    
-     
-
-\end{tikzpicture}
-
-\end{document}
-```
-****
-
-![](./out/iso-swan_wave_model-iso-on.png)
-
-  
-  * [iso-swan_wave_model-iso-on.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/iso-swan_wave_model-iso-on.tex)
-
-```tex
-% layers on
-
-% https://texample.net/tikz/examples/swan-wave-model/
-% Author: Marco Miani
-% SWAN (developed by SWAN group, TU Delft, The Netherlands) is a wave spectral numerical model.
-%For Simlating WAves Nearshore, it is necessary to define spatial grids of
-%physical dominant factors (wind friction, dissipation) as well as define a COMPUTATIONAL
-%grid on which the model performs its (spectral) calculations: budgeting energy spectra over
-%each cell of the (computational) grid. Grids might have different spatial resolution and extension.
-
-\documentclass[12pt]{article}
-\usepackage{tikz}
-\usetikzlibrary{positioning}
-
-
-\begin{document}
-\pagestyle{empty}
-
-% Define the layers to draw the diagram
-\pgfdeclarelayer{background}
-\pgfdeclarelayer{foreground}
-\pgfsetlayers{background,main,foreground}
-
-
-\begin{tikzpicture}[scale=.9,every node/.style={minimum size=1cm},on grid]
-
-    \begin{pgfonlayer}{background}
-       \draw [help lines, step=1,color=blue!15, very thin] (-6, 11) grid (10,-7);
-    \end{pgfonlayer}          
-        
-    \begin{pgfonlayer}{foreground}
-        % help guide lines
-        \draw [help lines,dashed] (0,-7) -- (0,11);    
-        \draw [help lines,dashed] (-6,0) -- (10,0);            
-        \node at (9,10) (zero) {(9,10)};        
-        \node at (6,6) (zero) {(6,6)};        
-        \node at (4,4) (zero) {(4,4)};        
-        \node at (-5,4) (zero) {(-5,4)};        
-        \node at (-5,1) (zero) {(-5,1)};        
-        \node at (-5,-2) (zero) {(-5,-2)};        
-        \node at (-5,-5) (zero) {(-5,-5)};             
-        \node at (7,-5) (zero) {(7,-5)};                  
-        \node at (8,-7) (zero) {(8,-7)};                       
-        \node at (0,-7) (zero) {(0,-7)};                                       
-    \end{pgfonlayer}          
-
-    % Comp G
-    %slanting: production of a set of n 'laminae' to be piled up. N=number of grids.
-    \begin{scope}[
-        yshift=-83,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        % opacity to prevent graphical interference
-        \fill[white,fill opacity=0.9] (0,0) rectangle (5,5);
-        \draw[step=5mm, black] (0,0) grid (5,5);        % defining grids
-        \draw[step=1mm, red!50,thin] (3,1) grid (4,2);  % Nested Grid
-        \draw[black,very thick] (0,0) rectangle (5,5);  % marking borders
-        \fill[red] (0.05,0.05) rectangle (0.5,0.5);   % Idem as above, for the n-th grid:
-        % add some labels
-        \begin{scope}[color=blue,font=\footnotesize]
-            \node at (0,0) (a) {(0,0)};
-            \node at (5,5) (a) {(5,5)};
-            \node at (5,0) (a) {(5,0)};
-            \node at (0,5) (a) {(0,5)};   
-        \end{scope}     
-    \end{scope}
-    
-    % Bathymetry up
-    \begin{scope}[
-        yshift=0,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
-        \draw[black,very thick] (0,0) rectangle (5,5);
-        \draw[step=5mm, black] (0,0) grid (5,5);
-    \end{scope}  
-    
-    % Wind G
-    % grid with internal 3x3 of step=10mm
-    \begin{scope}[
-        yshift=90,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
-        \draw[step=10mm, black] (1,1) grid (4,4);
-        \draw[black,very thick] (1,1) rectangle (4,4);
-        \draw[black,dashed] (0,0) rectangle (5,5);
-        
-        \node at (1,1) (a) {(1,1)};
-    \end{scope}      
-
-    % Friction G
-    % grid with green subgrid of 2mm step
-    \begin{scope}[
-        yshift=170,every node/.append style={
-         yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-         ]
-        \fill[white,fill opacity=0.6] (0,0) rectangle (5,5);
-        \draw[step=10mm, black] (2,2) grid (5,5);
-        \draw[step=2mm, green] (2,2) grid (3,3);
-        \draw[black,very thick] (2,2) rectangle (5,5);
-        \draw[black,dashed] (0,0) rectangle (5,5);
-        
-        \node at (2,2) (a) {(2,2)};
-    \end{scope}    
-    
-    % bottom grid
-    \begin{scope}[
-        yshift=-170,every node/.append style={
-            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
-        ]
-        %marking border
-        \draw[black,very thick] (0,0) rectangle (5,5);
-        
-        %drawing corners (P1,P2, P3): only 3 points needed to define a plane.
-        \draw [fill=lime](0,0) circle (.1) ;
-        \draw [fill=lime](0,5) circle (.1);
-        \draw [fill=lime](5,0) circle (.1);
-        \draw [fill=lime](5,5) circle (.1);
-        
-        %drawing bathymetric hypotetic countours on the bottom grid:    	
-        \draw [ultra thick](0,1)   parabola bend (2,2) (5,1)  ;
-        \draw [dashed]     (0,1.5) parabola bend (2.5,2.5) (5,1.5) ;
-        \draw [dashed]     (0,2)   parabola bend (2.7,2.7) (5,2)  ;
-        \draw [dashed]     (0,2.5) parabola bend (3.5,3.5) (5,2.5)  ;
-        \draw [dashed]     (0,3.5) parabola bend (2.75,4.5) (5,3.5);
-        \draw [dashed]     (0,4)   parabola bend (2.75,4.8) (5,4);
-        \draw [dashed]     (0,3)   parabola bend (2.75,3.8) (5,3);
-        \draw[-latex,thick](2.8,1) node[right]{$\mathsf{Shoreline}$}
-            to[out=180,in=270] (2,1.99);
-    \end{scope} %end of drawing grids   
-    
-    
-    % arrows
-    %putting arrows and labels:
-    \draw[-latex,thick] (6.2,2) node[right]{$\mathsf{Bathymetry (up)}$}
-        to[out=180,in=90] (4,2);
-    
-    \draw[-latex,thick](5.8,-.3)node[right]{$\mathsf{Comp.\ G.}$}
-        to[out=180,in=90] (3.9,-1);
-    
-    \draw[-latex,thick](5.9,5)node[right]{$\mathsf{Wind\ G.}$}
-        to[out=180,in=90] (3.6,5);
-    
-    \draw[-latex,thick](5.9,8.4)node[right]{$\mathsf{Friction\ G.}$}
-        to[out=180,in=90] (3.2,8);
-    
-    \draw[-latex,thick,red](5.3,-4.2)node[right]{$\mathsf{G. Cell}$}
-        to[out=180,in=90] (0,-2.5);
-    
-    \draw[-latex,thick,red](4.3,-1.9)node[right]{$\mathsf{Nested\ G.}$}
-        to[out=180,in=90] (2,-.5);
-    
-    \draw[-latex,thick](4,-6)node[right]{$\mathsf{Batymetry (dn)}$}
-        to[out=180,in=90] (2,-5);	    
-     
-
-\end{tikzpicture}
-
 \end{document}
 ```
 ****
@@ -9604,143 +8902,6 @@ level 2/.style={level distance=4cm,sibling angle=45}]
 \path [line] (off) -| node[below,pos=.25, align=center] {Survivor\\ selection}(pop);
 \path [line] (pop) |- node[above,pos=.75, align=center] {Parents\\ selection}(parents);
 \end{tikzpicture}
-\end{document}
-```
-****
-
-![](./out/ml-cnn.png)
-
-  
-  * [ml-cnn.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/ml-cnn.tex)
-
-```tex
-% https://davidstutz.de/illustrating-convolutional-neural-networks-in-latex-with-tikz/
-
-\documentclass[twoside,11pt,a4paper]{article}
- 
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath, amssymb, latexsym}
- 
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
-\usepackage{tikz}
-\usetikzlibrary{decorations.pathreplacing}
-\usetikzlibrary{fadings}
- 
-\begin{document}
- 
-\begin{figure}[t!]
-   	\centering
-   	\begin{tikzpicture}
-   		\node at (0.5,-1){\begin{tabular}{c}input image\\layer $l = 0$\end{tabular}};
-   		
-   		\draw (0,0) -- (1,0) -- (1,1) -- (0,1) -- (0,0);
-   		
-   		\node at (3,3.5){\begin{tabular}{c}convolutional layer\\with non-linearities\\layer $l = 1$\end{tabular}};
-   		
-   		\draw[fill=black,opacity=0.2,draw=black] (2.75,1.25) -- (3.75,1.25) -- (3.75,2.25) -- (2.75,2.25) -- (2.75,1.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (2.5,1) -- (3.5,1) -- (3.5,2) -- (2.5,2) -- (2.5,1);
-   		\draw[fill=black,opacity=0.2,draw=black] (2.25,0.75) -- (3.25,0.75) -- (3.25,1.75) -- (2.25,1.75) -- (2.25,0.75);
-   		\draw[fill=black,opacity=0.2,draw=black] (2,0.5) -- (3,0.5) -- (3,1.5) -- (2,1.5) -- (2,0.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (1.75,0.25) -- (2.75,0.25) -- (2.75,1.25) -- (1.75,1.25) -- (1.75,0.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (1.5,0) -- (2.5,0) -- (2.5,1) -- (1.5,1) -- (1.5,0);
-   		
-   		\node at (4.5,-1){\begin{tabular}{c}subsampling layer\\layer $l = 3$\end{tabular}};
-   		
-   		\draw[fill=black,opacity=0.2,draw=black] (5,1.25) -- (5.75,1.25) -- (5.75,2) -- (5,2) -- (5,1.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (4.75,1) -- (5.5,1) -- (5.5,1.75) -- (4.75,1.75) -- (4.75,1);
-   		\draw[fill=black,opacity=0.2,draw=black] (4.5,0.75) -- (5.25,0.75) -- (5.25,1.5) -- (4.5,1.5) -- (4.5,0.75);
-   		\draw[fill=black,opacity=0.2,draw=black] (4.25,0.5) -- (5,0.5) -- (5,1.25) -- (4.25,1.25) -- (4.25,0.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (4,0.25) -- (4.75,0.25) -- (4.75,1) -- (4,1) -- (4,0.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (3.75,0) -- (4.5,0) -- (4.5,0.75) -- (3.75,0.75) -- (3.75,0);
-   		
-   		\node at (7,3.5){\begin{tabular}{c}convolutional layer\\with non-linearities\\layer $l = 4$\end{tabular}};
-   		
-   		\draw[fill=black,opacity=0.2,draw=black] (7.5,1.75) -- (8.25,1.75) -- (8.25,2.5) -- (7.5,2.5) -- (7.5,1.75);
-   		\draw[fill=black,opacity=0.2,draw=black] (7.25,1.5) -- (8,1.5) -- (8,2.25) -- (7.25,2.25) -- (7.25,1.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (7,1.25) -- (7.75,1.25) -- (7.75,2) -- (7,2) -- (7,1.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (6.75,1) -- (7.5,1) -- (7.5,1.75) -- (6.75,1.75) -- (6.75,1);
-   		\draw[fill=black,opacity=0.2,draw=black] (6.5,0.75) -- (7.25,0.75) -- (7.25,1.5) -- (6.5,1.5) -- (6.5,0.75);
-   		\draw[fill=black,opacity=0.2,draw=black] (6.25,0.5) -- (7,0.5) -- (7,1.25) -- (6.25,1.25) -- (6.25,0.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (6,0.25) -- (6.75,0.25) -- (6.75,1) -- (6,1) -- (6,0.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (5.75,0) -- (6.5,0) -- (6.5,0.75) -- (5.75,0.75) -- (5.75,0);
-   		
-   		\node at (9.5,-1){\begin{tabular}{c}subsampling layer\\layer $l = 6$\end{tabular}};
-   		
-   		\draw[fill=black,opacity=0.2,draw=black] (10,1.75) -- (10.5,1.75) -- (10.5,2.25) -- (10,2.25) -- (10,1.75);
-   		\draw[fill=black,opacity=0.2,draw=black] (9.75,1.5) -- (10.25,1.5) -- (10.25,2) -- (9.75,2) -- (9.75,1.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (9.5,1.25) -- (10,1.25) -- (10,1.75) -- (9.5,1.75) -- (9.5,1.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (9.25,1) -- (9.75,1) -- (9.75,1.5) -- (9.25,1.5) -- (9.25,1);
-   		\draw[fill=black,opacity=0.2,draw=black] (9,0.75) -- (9.5,0.75) -- (9.5,1.25) -- (9,1.25) -- (9,0.75);
-   		\draw[fill=black,opacity=0.2,draw=black] (8.75,0.5) -- (9.25,0.5) -- (9.25,1) -- (8.75,1) -- (8.75,0.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (8.5,0.25) -- (9,0.25) -- (9,0.75) -- (8.5,0.75) -- (8.5,0.25);
-   		\draw[fill=black,opacity=0.2,draw=black] (8.25,0) -- (8.75,0) -- (8.75,0.5) -- (8.25,0.5) -- (8.25,0);
-   		
-   		\node at (12,3.5){\begin{tabular}{c}fully connected layer\\layer $l = 7$\end{tabular}};
-   		
-   		\draw[fill=black,draw=black,opacity=0.5] (10.5,0) -- (11,0) -- (12.5,1.75) -- (12,1.75) -- (10.5,0);
-   		
-   		\node at (13,-1){\begin{tabular}{c}fully connected layer\\output layer $l = 8$\end{tabular}};
-   		
-   		\draw[fill=black,draw=black,opacity=0.5] (12.5,0.5) -- (13,0.5) -- (13.65,1.25) -- (13.15,1.25) -- (12.5,0.5);
-   	\end{tikzpicture}
-   	\caption[Architecture of a traditional convolutional neural network.]{The architecture of the original convolutional neural network, as introduced by LeCun et al. (1989), alternates between convolutional layers including hyperbolic tangent non-linearities and subsampling layers. In this illustration, the convolutional layers already include non-linearities and, thus, a convolutional layer actually represents two layers. The feature maps of the final subsampling layer are then fed into the actual classifier consisting of an arbitrary number of fully connected layers. The output layer usually uses softmax activation functions.}
-   	\label{fig:traditional-convolutional-network}
-\end{figure}
- 
-\end{document}
-```
-****
-
-![](./out/ml-single_cnn.png)
-
-  
-  * [ml-single_cnn.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/ml-single_cnn.tex)
-
-```tex
-% https://davidstutz.de/illustrating-convolutional-neural-networks-in-latex-with-tikz/
-
-\documentclass[twoside,11pt,a4paper]{article}
- 
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath, amssymb, latexsym}
-\usepackage{sidecap}
- 
-\usepackage{tikz}
-\usetikzlibrary{decorations.pathreplacing}
- 
-\begin{document}
- 
-\begin{SCfigure}[2\sidecaptionrelwidth][t]
-   	\centering
-   	\begin{tikzpicture}
-   		\node at (1.5,4){\begin{tabular}{c}input image\\or input feature map\end{tabular}};
-   	
-   		\draw (0,0) -- (3,0) -- (3,3) -- (0,3) -- (0,0);
-   		
-   		\draw (2,2) -- (2.5,2) -- (2.5,2.5) -- (2,2.5) -- (2,2);
-   		\draw (2,0.5) -- (2.5,0.5) -- (2.5,1) -- (2,1) -- (2,0.5);
-   		\draw (1,1) -- (1.5,1) -- (1.5,1.5) -- (1,1.5) -- (1,1);
-   		
-   		\draw (2.5,2) -- (7,3.25);
-   		\draw (2.5,2.5) -- (7,3.25);
- 
-   		\draw (2.5,1) -- (5.75,0.25);
-   		\draw (2.5,0.5) -- (5.75,0.25);
-   		
-   		\draw (1.5,1.5) -- (5.5,1.25);
-   		\draw (1.5,1) -- (5.5,1.25);
-   		
-   		\node at (5.75,4){\begin{tabular}{c}output feature maps\end{tabular}};
-   		
-   		\draw[fill=black,opacity=0.2,draw=black] (5.5,1.5) -- (7.5,1.5) -- (7.5,3.5) -- (5.5,3.5) -- (5.5,1.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (5,1) -- (7,1) -- (7,3) -- (5,3) -- (5,1);
-   		\draw[fill=black,opacity=0.2,draw=black] (4.5,0.5) -- (6.5,0.5) -- (6.5,2.5) -- (4.5,2.5) -- (4.5,0.5);
-   		\draw[fill=black,opacity=0.2,draw=black] (4,0) -- (6,0) -- (6,2) -- (4,2) -- (4,0);
-   	\end{tikzpicture}
-   	\caption[Illustration of a convolutional layer.]{Illustration of a single convolutional layer. If layer $l$ is a convolutional layer, the input image (if $l = 1$) or a feature map of the previous layer is convolved by different filters to yield the output feature maps of layer $l$.}
-   	\label{fig:convolutional-layer}
-\end{SCfigure}
- 
 \end{document}
 ```
 ****
@@ -13870,6 +13031,213 @@ by Grant M. Erickson
 ```
 ****
 
+![](./out/planes-multidimensional-array-inclined.png)
+
+  
+  * [planes-multidimensional-array-inclined.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/planes-multidimensional-array-inclined.tex)
+
+```tex
+% https://tex.stackexchange.com/a/295021/173708
+\documentclass[tikz,border=5]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}[x=0.5cm,y=0.5cm]
+    \begin{scope}[rotate=130,]
+        \draw[gray] (-4  ,-1.5) -- (6  ,3.5);
+    \end{scope}
+    \foreach \shift in {-5,0,5}
+    {
+        \foreach \x in {1,...,4}
+        {
+            \foreach \y in {1,...,4}
+            {
+                \begin{scope}[rotate=130,shift={(\shift,0.5*\shift)},]
+                    \draw[fill=white] (\x,\y) rectangle (\x+1,\y+1);
+                    \node at (\x+0.5,\y+0.5) {\pgfmathrnd\pgfmathparse{round(\pgfmathresult)}
+                        \pgfmathprintnumber[precision=1]{\pgfmathresult}};
+                \end{scope}
+            }
+        }
+    }
+    \begin{scope}[rotate=130,]
+        \draw         (-4, 2.5) -- (6  ,7.5);
+        \draw[dashed] (0 , 2.5) -- (10,7.5);
+        \draw[dashed] (0 ,-1.5) -- (10,3.5) node[midway,anchor=south west] {Channel};
+    \end{scope}
+\end{tikzpicture}
+\end{document}
+```
+****
+
+![](./out/planes-multidimensional-array.png)
+
+  
+  * [planes-multidimensional-array.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/planes-multidimensional-array.tex)
+
+```tex
+% https://tex.stackexchange.com/a/295109/173708
+
+\documentclass[tikz,border=5]{standalone}
+\begin{document} 
+	
+\begin{tikzpicture}[x=(15:.5cm), y=(90:.5cm), z=(330:.5cm), >=stealth]
+	\draw (0, 0, 0) -- (0, 0, 10) (4, 0, 0) -- (4, 0, 10);
+	\foreach \z in {0, 5, 10} \foreach \x in {0,...,3}
+	  \foreach \y [evaluate={\b=random(0, 1);}] in {0,...,3}
+	    \filldraw [fill=white] (\x, \y, \z) -- (\x+1, \y, \z) -- (\x+1, \y+1, \z) --
+	      (\x, \y+1, \z) -- cycle (\x+.5, \y+.5, \z) node [yslant=tan(15)] {\b};
+	\draw [dashed] (0, 4, 0) -- (0, 4, 10) (4, 4, 0) -- (4, 4, 10);
+	\draw [->] (0, 4.5, 0)  -- (4, 4.5, 0)   node [near end, above left] {Column};
+	\draw [->] (-.5, 4, 0)  -- (-.5, 0, 0)   node [midway, left] {Row};
+	\draw [->] (4, 4.5, 10) -- (4, 4.5, 2.5) node [near end, above right] {Channel};
+\end{tikzpicture}%
+\end{document}
+```
+****
+
+![](./out/planes-polarization+3d+foreach.png)
+
+  
+  * [planes-polarization+3d+foreach.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/planes-polarization+3d+foreach.tex)
+
+```tex
+% Polarizing microscope
+% Author: Cyril Langlois
+% This TikZ code sketches the light behavior during its travel in a polarizing
+% petrographic microscope when a birefringent crystal thin section is inserted
+% between the polarizing devices.
+% 
+% The goal was to correctly show the vectorial relationships between light
+% electric fields during its travel through the first polaroid, the mineral
+% section and the second polaroid.
+\documentclass[11pt]{article}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+%%%<
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+%%%>
+
+\begin{comment}
+:Title: Polarizing microscope
+:Tags: 3D; Earth Sciences; Petrography; Physics
+:Author: Cyril Langlois
+
+This TikZ code sketches the light behavior during its travel in a polarizing
+petrographic microscope when a birefringent crystal thin section is inserted
+between the polarizing devices.
+
+The goal was to correctly show the vectorial relationships between light
+electric fields during its travel through the first polaroid, the mineral
+section and the second polaroid.
+\end{comment}
+
+\begin{document}
+\begin{tikzpicture}[x={(0.866cm,-0.5cm)}, y={(0.866cm,0.5cm)}, z={(0cm,1cm)}, scale=1.0,
+    %Option for nice arrows
+    >=stealth, %
+    inner sep=0pt, outer sep=2pt,%
+    axis/.style={thick,->},
+    wave/.style={thick,color=#1,smooth},
+    polaroid/.style={fill=black!60!white, opacity=0.3},
+]
+    % Colors
+    \colorlet{darkgreen}{green!50!black}
+    \colorlet{lightgreen}{green!80!black}
+    \colorlet{darkred}{red!50!black}
+    \colorlet{lightred}{red!80!black}
+
+    % Frame
+    \coordinate (O) at (0, 0, 0);
+    \draw[axis] (O) -- +(14, 0,   0) node [right] {x};
+    \draw[axis] (O) -- +(0,  2.5, 0) node [right] {y};
+    \draw[axis] (O) -- +(0,  0,   2) node [above] {z};
+
+    \draw[thick,dashed] (-2,0,0) -- (O);
+
+    % monochromatic incident light with electric field
+    \draw[wave=blue, opacity=0.7, variable=\x, samples at={-2,-1.75,...,0}]
+        plot (\x, { cos(1.0*\x r)*sin(2.0*\x r)}, { sin(1.0*\x r)*sin(2.0*\x r)})
+        plot (\x, {-cos(1.0*\x r)*sin(2.0*\x r)}, {-sin(1.0*\x r)*sin(2.0*\x r)});
+
+    \foreach \x in{-2,-1.75,...,0}{
+        \draw[color=blue, opacity=0.7,->]
+            (\x,0,0) -- (\x, { cos(1.0*\x r)*sin(2.0*\x r)}, { sin(1.0*\x r)*sin(2.0*\x r)})
+            (\x,0,0) -- (\x, {-cos(1.0*\x r)*sin(2.0*\x r)}, {-sin(1.0*\x r)*sin(2.0*\x r)});
+    }
+
+    \filldraw[polaroid] (0,-2,-1.5) -- (0,-2,1.5) -- (0,2,1.5) -- (0,2,-1.5) -- (0,-2,-1.5)
+        node[below, sloped, near end]{Polaroid};%
+
+    %Direction of polarization
+    \draw[thick,<->] (0,-1.75,-1) -- (0,-0.75,-1);
+
+    % Electric field vectors
+    \draw[wave=blue, variable=\x,samples at={0,0.25,...,6}]
+        plot (\x,{sin(2*\x r)},0)node[anchor=north]{$\vec{E}$};
+
+    %Polarized light between polaroid and thin section
+    \foreach \x in{0, 0.25,...,6}
+        \draw[color=blue,->] (\x,0,0) -- (\x,{sin(2*\x r)},0);
+
+    \draw (3,1,1) node [text width=2.5cm, text centered]{Polarized light};
+
+    %Crystal thin section
+    \begin{scope}[thick]
+        \draw (6,-2,-1.5) -- (6,-2,1.5) node [above, sloped, midway]{Crystal section}
+                -- (6, 2, 1.5) -- (6, 2, -1.5) -- cycle % First face
+            (6,  -2, -1.5) -- (6.2, -2,-1.5)
+            (6,   2, -1.5) -- (6.2,  2,-1.5)
+            (6,  -2,  1.5) -- (6.2, -2, 1.5)
+            (6,   2,  1.5) -- (6.2,  2, 1.5)
+            (6.2,-2, -1.5) -- (6.2, -2, 1.5) -- (6.2, 2, 1.5) 
+                -- (6.2, 2, -1.5) -- cycle; % Second face
+
+        %Optical indices
+        \draw[darkred, ->]       (6.1, 0, 0) -- (6.1, 0.26,  0.966) node [right] {$n_{g}'$}; % index 1
+        \draw[darkred, dashed]   (6.1, 0, 0) -- (6.1,-0.26, -0.966); % index 1
+        \draw[darkgreen, ->]     (6.1, 0, 0) -- (6.1, 0.644,-0.173) node [right] {$n_{p}'$}; % index 2
+        \draw[darkgreen, dashed] (6.1, 0, 0) -- (6.1,-0.644, 0.173); % index 2
+    \end{scope}
+
+    %Rays leaving thin section
+    \draw[wave=darkred,   variable=\x, samples at={6.2,6.45,...,12}] 
+        plot (\x, {0.26*0.26*sin(2*(\x-0.5) r)},  {0.966*0.26*sin(2*(\x-0.5) r)});  %n'g-oriented ray
+    \draw[wave=darkgreen, variable=\x, samples at={6.2,6.45,...,12}]
+        plot (\x, {0.966*0.966*sin(2*(\x-0.1) r)},{-0.26*0.966*sin(2*(\x-0.1) r)}); %n'p-oriented ray
+    \draw (10,1,1) node [text width=2.5cm, text centered] {Polarized and dephased light};
+
+    \foreach \x in{6.2,6.45,...,12} {
+        \draw[color=darkgreen, ->] (\x, 0, 0) --
+            (\x, {0.966*0.966*sin(2*(\x-0.1) r)}, {-0.26*0.966*sin(2*(\x-0.1) r)});
+        \draw[color=darkred,   ->] (\x, 0, 0) --
+            (\x, {0.26*0.26*sin(2*(\x-0.5) r)}, {0.966*0.26*sin(2*(\x-0.5) r)});
+    }
+
+    %Second polarization
+    \draw[polaroid]   (12, -2,  -1.5) -- (12, -2,   1.5)  %Polarizing filter
+        node [above, sloped,midway] {Polaroid} -- (12, 2, 1.5) -- (12, 2, -1.5) -- cycle;
+    \draw[thick, <->] (12, -1.5,-0.5) -- (12, -1.5, 0.5); %Polarization direction
+
+    %Light leaving the second polaroid
+    \draw[wave=lightgreen,variable=\x, samples at={12, 12.25,..., 14}]
+        plot (\x,{0}, {0.966*0.966*0.26*sin(2*(\x-0.5) r)}); %n'g polarized ray
+    \draw[wave=lightred,  variable=\x, samples at={12, 12.25,..., 14}]
+        plot (\x,{0}, {-0.26*0.966*sin(2*(\x-0.1) r)});      %n'p polarized ray
+
+    \node[align=justify, text width=14cm, anchor=north west, yshift=-2mm] at (current bounding box.south west)
+        {Light behavior in a petrographic microscope with light polarizing
+        device. Only one incident wavelength is shown (monochromatic light).
+        The magnetic field, perpendicular to the electric one, is not drawn.};
+\end{tikzpicture}
+\end{document}
+```
+****
+
 ![](./out/plot-curves-frequency_modulation+physics.png)
 
   
@@ -15896,69 +15264,6 @@ pinstyle/.style = {pin edge={to-,thin,black}
 %\caption{A PID Control System} \label{fig6_10}
 %\end{figure}
 
-\end{document}
-```
-****
-
-![](./out/table-color.png)
-
-  
-  * [table-color.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/table-color.tex)
-
-```tex
-\documentclass[tikz,table,border=2mm]{standalone}
-% \usepackage{PTSansNarrow}
-% \usepackage[T1]{fontenc}
-\usepackage{array,tabularx}
-\usepackage[most]{tcolorbox}
-
-\begin{document}
-
-\rowcolors{1}{blue!15}{white}
-\begin{tcolorbox}[enhanced, notitle, clip upper, fontupper=\sffamily,%
-    tabularx={>{\centering\arraybackslash}X%
-              >{\centering\arraybackslash}X%
-              >{\centering\arraybackslash}X}]
-  \cellcolor{orange!40} \color{black} \textbf{Traditional} &\cellcolor{orange!40}\color{black} \textbf{Chosen} &\cellcolor{orange!40}\color{black} \textbf{Other} \\
- cell1  & cell2  & cell3  \\ 
- cell4  & cell5  & cell6  \\ 
- cell7  & cell8  & cell9  \\ 
- cell10 & cell11 & cell12 \\ 
- cell13 & cell14 & cell15  \\ 
- cell16 & cell17 & cell18 \\ 
-\end{tcolorbox}
-\end{document}
-```
-****
-
-![](./out/table-strips.png)
-
-  
-  * [table-strips.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/table-strips.tex)
-
-```tex
-\documentclass{report}
-\usepackage[table]{xcolor}
-\definecolor{lightblue}{rgb}{0.93,0.95,1.0}
-
-\begin{document}
- \rowcolors{1}{lightgray}{white}   %% <--- here
- \noindent
- \begin{tabular}[!ht]{>{\bfseries}l <{\raggedright}p{10cm}}
-      \rowcolor{black!90}\textcolor{white}{Identifier/Name} & \textcolor{white}{\textbf{UC1 - Login}}  \\
-      Importance    & 5/5\\
-      Difficulty    & 1/5\\
-      Actor(s)      & Generalized User\\
-      Goal          & To allow the user to access the system.\\
-      Preconditions & The user is at the login page. \\
-      Summary       & Will validate the users name and password and subsequently give them access to the
-      system.\\
-      Steps         & 
-                      {\begin{tabular}{@{}p{4cm} | p{4cm}@{}}
-                          1. User provides username and password. & 2. System directs user to main system page. \\
-                      \end{tabular}} \\
-      Postcondition & \textbf{Success:} User is logged in. \newline \textbf{Failure:} The system reamins at the login state. \\
-  \end{tabular}
 \end{document}
 ```
 ****
@@ -18640,6 +17945,103 @@ Text from: A Brief History of LaTeX http://www.xent.com/FoRK-archive/feb98/0307.
 \end{tikzpicture}
 
 \end{document}
+```
+****
+
+![](./out/transparent_circles+multi+pgf+set.png)
+
+  
+  * [transparent_circles+multi+pgf+set.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/transparent_circles+multi+pgf+set.tex)
+
+```tex
+% https://tex.stackexchange.com/a/48596/173708
+\documentclass{scrartcl}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}  
+
+% split figures into pages
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{1pt}%
+
+\begin{document} 
+
+% If their areas of the circle nodes represent some numbers with proportionality 
+% then you need to know exactly the radius. The radius depends of minimum width 
+% and of \pgflinewidth.
+%
+% we have : radius = (minimum width + line width) / 2  if inner sep = 0pt
+%
+% In the next example, I choice first minimum width=2cm then minimum width=2cm,
+% line width=5mm and finally line width=5mm,minimum width=2cm-\pgflinewidth 
+% with in all cases inner sep= 0 pt.
+%
+
+	
+\begin{tikzpicture} 
+  \draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
+  \draw[help lines] (0,0) grid (8,1);     
+  \node[minimum width=2cm,circle,inner sep=0pt,fill=blue!20,fill opacity=.5]{};
+  \node[minimum width=2cm,circle,inner sep=0pt,fill=blue!20,fill opacity=.5,
+        line width=5mm,draw=gray,opacity=.5] at (3,0){}; 
+  \node[circle,inner sep=0pt,fill=blue!20,,fill opacity=.5,
+        line width=5mm,draw=gray,opacity=.5,minimum width=2cm-\pgflinewidth]  at (6,0) {}; 
+\end{tikzpicture}  
+
+% Now if I want to get three circles with areas equal to pi, 2pi and 3pi 
+% I created a macro `def\lw{2mm}` to change quickly the line width in all nodes
+
+\tikzset{myrad/.style 2 args={circle,inner sep=0pt,minimum width=(2*(sqrt(#1)*1 cm ) - \pgflinewidth,fill=#2,draw=#2,fill opacity=.5,opacity=.8}}    
+
+\begin{tikzpicture} 
+	\def\lw{2mm}
+	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
+	\draw[help lines] (0,0) grid (8,1);     
+	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
+	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
+	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
+\end{tikzpicture}  
+
+% Finally If you want nodes with areas equal to 1 cm^2, 2 cm^2 and 3 cm^2 : 
+% I change the line width for the second group of nodes
+
+\begin{tikzpicture} 
+	\def\lw{2mm}
+	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
+	\draw[help lines] (0,0) grid (8,1);     
+	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
+	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
+	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
+\end{tikzpicture}    
+
+\begin{tikzpicture} 
+	\def\lw{5mm}
+	\draw[help lines,step=0.1,,draw=orange] (0,0) grid (8,1); 
+	\draw[help lines] (0,0) grid (8,1);     
+	\node[line width=\lw,myrad={1}{blue!20}]  at (0,0) {1}; 
+	\node[line width=\lw,myrad={2}{red!20}]  at (3,0) {2};
+	\node[line width=\lw, myrad={3}{green!20}]  at (7,0) {3};   
+\end{tikzpicture}
+
+%To avoid this kind of problem, we can use circles instead of circle nodes. But we need to adjust the radius wit the pgflinewidth. In the next example,I want a radius = 2cm so I need to use : radius=2cm-0.5\pgflinewidth. Then I need to create a node with the same dimensions.
+%
+%Like the question about node and rectangle here, we can associate a node to the shape The main problem : we can't use scale but it's more easy to place a label.
+
+\tikzset{set node/.style={insert path={% 
+	\pgfextra{% 
+		\node[inner sep=0pt,outer sep = 0pt,draw=black, % draw= none only to show what I do
+		circle,
+		minimum width=2*\pgfkeysvalueof{/tikz/x radius}+0.5\pgflinewidth](#1) {};
+}}}}
+
+\begin{tikzpicture}
+	\draw[help lines] (-3,-3) grid (3,3);
+	\draw[blue,line width=5mm,opacity=.2] (0,0) circle [radius=2cm-0.5\pgflinewidth,set node=C1]  ; 
+	\draw[thick,->] (3,-3) -- (C1.east);
+\end{tikzpicture}
+
+\end{document} 
 ```
 ****
 
