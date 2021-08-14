@@ -1,0 +1,22 @@
+\documentclass[tikz,table,border=2mm]{standalone}
+% \usepackage{PTSansNarrow}
+% \usepackage[T1]{fontenc}
+\usepackage{array,tabularx}
+\usepackage[most]{tcolorbox}
+
+\begin{document}
+
+\rowcolors{1}{blue!15}{white}
+\begin{tcolorbox}[enhanced, notitle, clip upper, fontupper=\sffamily,%
+    tabularx={>{\centering\arraybackslash}X%
+              >{\centering\arraybackslash}X%
+              >{\centering\arraybackslash}X}]
+  \cellcolor{orange!40} \color{black} \textbf{Traditional} &\cellcolor{orange!40}\color{black} \textbf{Chosen} &\cellcolor{orange!40}\color{black} \textbf{Other} \\
+ cell1  & cell2  & cell3  \\ 
+ cell4  & cell5  & cell6  \\ 
+ cell7  & cell8  & cell9  \\ 
+ cell10 & cell11 & cell12 \\ 
+ cell13 & cell14 & cell15  \\ 
+ cell16 & cell17 & cell18 \\ 
+\end{tcolorbox}
+\end{document}

@@ -1,0 +1,160 @@
+% layers on
+
+% https://texample.net/tikz/examples/swan-wave-model/
+% Author: Marco Miani
+% SWAN (developed by SWAN group, TU Delft, The Netherlands) is a wave spectral numerical model.
+%For Simlating WAves Nearshore, it is necessary to define spatial grids of
+%physical dominant factors (wind friction, dissipation) as well as define a COMPUTATIONAL
+%grid on which the model performs its (spectral) calculations: budgeting energy spectra over
+%each cell of the (computational) grid. Grids might have different spatial resolution and extension.
+
+\documentclass[12pt]{article}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+
+\begin{document}
+\pagestyle{empty}
+
+% Define the layers to draw the diagram
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+
+\begin{tikzpicture}[scale=.9,every node/.style={minimum size=1cm},on grid]
+
+    \begin{pgfonlayer}{background}
+       \draw [help lines, step=1,color=blue!15, very thin] (-6, 11) grid (10,-7);
+    \end{pgfonlayer}          
+        
+    \begin{pgfonlayer}{foreground}
+        % help guide lines
+        \draw [help lines,dashed] (0,-7) -- (0,11);    
+        \draw [help lines,dashed] (-6,0) -- (10,0);            
+        \node at (9,10) (zero) {(9,10)};        
+        \node at (6,6) (zero) {(6,6)};        
+        \node at (4,4) (zero) {(4,4)};        
+        \node at (-5,4) (zero) {(-5,4)};        
+        \node at (-5,1) (zero) {(-5,1)};        
+        \node at (-5,-2) (zero) {(-5,-2)};        
+        \node at (-5,-5) (zero) {(-5,-5)};             
+        \node at (7,-5) (zero) {(7,-5)};                  
+        \node at (8,-7) (zero) {(8,-7)};                       
+        \node at (0,-7) (zero) {(0,-7)};                                       
+    \end{pgfonlayer}          
+
+    % Comp G
+    %slanting: production of a set of n 'laminae' to be piled up. N=number of grids.
+    \begin{scope}[
+        yshift=-83,every node/.append style={
+            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        % opacity to prevent graphical interference
+        \fill[white,fill opacity=0.9] (0,0) rectangle (5,5);
+        \draw[step=5mm, black] (0,0) grid (5,5);        % defining grids
+        \draw[step=1mm, red!50,thin] (3,1) grid (4,2);  % Nested Grid
+        \draw[black,very thick] (0,0) rectangle (5,5);  % marking borders
+        \fill[red] (0.05,0.05) rectangle (0.5,0.5);   % Idem as above, for the n-th grid:
+        % add some labels
+        \begin{scope}[color=blue,font=\footnotesize]
+            \node at (0,0) (a) {(0,0)};
+            \node at (5,5) (a) {(5,5)};
+            \node at (5,0) (a) {(5,0)};
+            \node at (0,5) (a) {(0,5)};   
+        \end{scope}     
+    \end{scope}
+    
+    % Bathymetry up
+    \begin{scope}[
+        yshift=0,every node/.append style={
+            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
+        \draw[black,very thick] (0,0) rectangle (5,5);
+        \draw[step=5mm, black] (0,0) grid (5,5);
+    \end{scope}  
+    
+    % Wind G
+    % grid with internal 3x3 of step=10mm
+    \begin{scope}[
+        yshift=90,every node/.append style={
+            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        \fill[white,fill opacity=.9] (0,0) rectangle (5,5);
+        \draw[step=10mm, black] (1,1) grid (4,4);
+        \draw[black,very thick] (1,1) rectangle (4,4);
+        \draw[black,dashed] (0,0) rectangle (5,5);
+        
+        \node at (1,1) (a) {(1,1)};
+    \end{scope}      
+
+    % Friction G
+    % grid with green subgrid of 2mm step
+    \begin{scope}[
+        yshift=170,every node/.append style={
+         yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+         ]
+        \fill[white,fill opacity=0.6] (0,0) rectangle (5,5);
+        \draw[step=10mm, black] (2,2) grid (5,5);
+        \draw[step=2mm, green] (2,2) grid (3,3);
+        \draw[black,very thick] (2,2) rectangle (5,5);
+        \draw[black,dashed] (0,0) rectangle (5,5);
+        
+        \node at (2,2) (a) {(2,2)};
+    \end{scope}    
+    
+    % bottom grid
+    \begin{scope}[
+        yshift=-170,every node/.append style={
+            yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        %marking border
+        \draw[black,very thick] (0,0) rectangle (5,5);
+        
+        %drawing corners (P1,P2, P3): only 3 points needed to define a plane.
+        \draw [fill=lime](0,0) circle (.1) ;
+        \draw [fill=lime](0,5) circle (.1);
+        \draw [fill=lime](5,0) circle (.1);
+        \draw [fill=lime](5,5) circle (.1);
+        
+        %drawing bathymetric hypotetic countours on the bottom grid:    	
+        \draw [ultra thick](0,1)   parabola bend (2,2) (5,1)  ;
+        \draw [dashed]     (0,1.5) parabola bend (2.5,2.5) (5,1.5) ;
+        \draw [dashed]     (0,2)   parabola bend (2.7,2.7) (5,2)  ;
+        \draw [dashed]     (0,2.5) parabola bend (3.5,3.5) (5,2.5)  ;
+        \draw [dashed]     (0,3.5) parabola bend (2.75,4.5) (5,3.5);
+        \draw [dashed]     (0,4)   parabola bend (2.75,4.8) (5,4);
+        \draw [dashed]     (0,3)   parabola bend (2.75,3.8) (5,3);
+        \draw[-latex,thick](2.8,1) node[right]{$\mathsf{Shoreline}$}
+            to[out=180,in=270] (2,1.99);
+    \end{scope} %end of drawing grids   
+    
+    
+    % arrows
+    %putting arrows and labels:
+    \draw[-latex,thick] (6.2,2) node[right]{$\mathsf{Bathymetry (up)}$}
+        to[out=180,in=90] (4,2);
+    
+    \draw[-latex,thick](5.8,-.3)node[right]{$\mathsf{Comp.\ G.}$}
+        to[out=180,in=90] (3.9,-1);
+    
+    \draw[-latex,thick](5.9,5)node[right]{$\mathsf{Wind\ G.}$}
+        to[out=180,in=90] (3.6,5);
+    
+    \draw[-latex,thick](5.9,8.4)node[right]{$\mathsf{Friction\ G.}$}
+        to[out=180,in=90] (3.2,8);
+    
+    \draw[-latex,thick,red](5.3,-4.2)node[right]{$\mathsf{G. Cell}$}
+        to[out=180,in=90] (0,-2.5);
+    
+    \draw[-latex,thick,red](4.3,-1.9)node[right]{$\mathsf{Nested\ G.}$}
+        to[out=180,in=90] (2,-.5);
+    
+    \draw[-latex,thick](4,-6)node[right]{$\mathsf{Batymetry (dn)}$}
+        to[out=180,in=90] (2,-5);	    
+     
+
+\end{tikzpicture}
+
+\end{document}

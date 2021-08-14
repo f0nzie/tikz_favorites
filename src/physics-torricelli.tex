@@ -1,0 +1,71 @@
+% https://tex.stackexchange.com/a/338201/173708
+
+\documentclass[landscape]{article}
+
+\usepackage{tikz}
+\usepackage[margin=1in]{geometry}
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{scopes}
+
+\newcommand{\fluidcontainer}{
+    \begin{scope}
+    \draw [rounded corners, line width=2pt] (0, 7) -- (0,0) -- (6,0) -- (6,2) -- (7,2);
+    \draw [rounded corners, line width=2pt] (7,3) -- (6,3) -- (6,7); 
+    
+    \draw[-{Stealth[length=0.25cm]},blue_annot] (3,8.5) -- (3,7.5) node[pos=0.5,left] {\large $p_{1}$} ;
+    \draw[-{Stealth[length=0.25cm]},blue_annot] (8.5,2.8) -- (7.5,2.8) node[pos=0.5,above] {\large $p_{2}$} ;
+    
+    \draw[red_annot] (1,8) node[above] {\large $R_{1}$} to [bend left=15] (1.5,6.6);
+    \draw[red_annot] (7.5,4) node[above] {\large $R_{2}$} to [bend right=20] (6.4,2.5);
+    \node[red_annot] at (3,3.5) {\Large $R_{3}$};
+    
+    \draw[{Stealth[length=0.3cm]}-{Stealth[length=0.3cm]}] (-1,6.8) -- (-1,2.5) node[pos=0.5,left] {$h$}; 
+    
+    \draw[-{Stealth[length=0.2cm]}] (7,7.5) -- (7,6.8);
+    \draw[-{Stealth[length=0.2cm]}] (7,5.7) -- (7,6.4);
+    \node at (7.5,6.6) {\large $\Delta s_{1}$};
+    
+    \draw[-{Stealth[length=0.2cm]}] (5.3,1) -- (6,1);
+    \draw[-{Stealth[length=0.2cm]}] (7.5,1) -- (6.8,1);
+    \node at (6.5,0.7) {\large $\Delta s_{2}$};
+    \end{scope}
+}
+
+
+\begin{document}
+
+\definecolor{fluid_color}{RGB}{255,247,153}
+\definecolor{blue_annot}{RGB}{0,0,255}
+\definecolor{red_annot}{RGB}{255,0,0}
+\definecolor{level_color}{RGB}{0,190,0}
+
+\begin{tikzpicture}[scale=1,level dashed/.style={level_color, line width=1pt, dash pattern=on 4pt off 2pt},level solid/.style={level_color, line width=2pt}]
+
+    \begin{scope}[shift={(0cm,0cm)}]
+    \path [fill=fluid_color] (0,0) -- (6,0) -- (6,6.8) -- (0,6.8) -- cycle;
+    \draw[level solid] (0,6.8) -- (6,6.8);
+    \draw[level dashed] (0,6.4) -- (6,6.4);
+    \draw[level solid] (6,1.5) -- (6,3.5);
+    \draw[level dashed] (6.8,2) -- (6.8,3);
+    \fluidcontainer;
+    \draw[-{Stealth[length=0.25cm]},blue_annot] (5,6.8) -- (5,5) node[pos=0.5,left] {\large $v_{1}$} ;
+    \draw[-{Stealth[length=0.25cm]},blue_annot] (6,2.4) -- (7.7,2.4) node[pos=0.75,below] {\large $v_{2}$} ;
+    \end{scope}
+    
+    \begin{scope}[shift={(11cm,0cm)}]
+    \path [fill=fluid_color] (0,0) -- (6,0) -- (6,2) -- (6.8,2) -- (6.8,3) -- (6,3) -- (6,6.4) -- (0,6.4) -- cycle;
+    \draw[level dashed] (0,6.8) -- (6,6.8);
+    \draw[level solid] (0,6.4) -- (6,6.4);
+    \draw[level dashed] (6,1.5) -- (6,3.5);
+    \draw[level solid] (6.8,2) -- (6.8,3);
+    \fluidcontainer;
+    \draw[-{Stealth[length=0.25cm]},blue_annot] (5,6.4) -- (5,4.6) node[pos=0.5,left] {\large $v_{1}$} ;
+    \draw[-{Stealth[length=0.25cm]},blue_annot] (6.8,2.4) -- (8.5,2.4) node[pos=0.7,below] {\large $v_{2}$} ;
+    \end{scope}
+    
+    \node at (8.5,-1.5) {\Large \textbf{Fig. 1} \hspace{0.2cm} Fluid before and after time $\Delta t$. };
+
+\end{tikzpicture}
+
+\end{document}

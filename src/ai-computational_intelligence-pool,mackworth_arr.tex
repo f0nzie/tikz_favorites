@@ -43,7 +43,7 @@
 % to avoid go over another box.
 % Var: 1:Start coordinate 2:End coordinate 3:angle to shift from acrtext box  
 \def\arcarrow(#1)(#2)[#3]{
-    \draw[thick,->,>=latex] 
+    \draw[very thick,->,>=latex,black!60] 
         let \p1 = (#1), \p2 = (#2), % To access cartesian coordinates x, and y.
             \n1 = {veclen(\x1,\y1)}, % Distance from the origin
             \n2 = {veclen(\x2,\y2)}, % Distance from the origin
@@ -58,8 +58,9 @@
 	    font=\sf    \scriptsize,
 	    % Styles
 	    myarrow/.style={
-	        thick,
+	        very thick,
 	        -latex,
+            black!60,
 	    },
 	    Center/.style ={
 	        circle,
@@ -136,16 +137,16 @@
     \arctext[MOTC][SkyArc][5pt](4.50)(140)(195){|\scriptsize\color{black}| Knowledge Based Systems};   
   
 
-    %ADITIONAL EXTERNAL ARC
-    \arctext[NEW][
-        color=white,
-        shade,      
-        upper left=gray,
-        upper right=black!50,
-        lower left=gray,
-        lower right=gray!50,
-        rounded corners = 8pt
-        ][8pt](5.2)(180)(0){|\footnotesize\bf\color{white}| "Computational Intelligence: A Logical Approach" by David Poole, Alan Mackworth and Randy Goebel};
+%    %ADITIONAL EXTERNAL ARC
+%    \arctext[NEW][
+%        color=white,
+%        shade,      
+%        upper left=gray,
+%        upper right=black!50,
+%        lower left=gray,
+%        lower right=gray!50,
+%        rounded corners = 8pt
+%        ][8pt](5.2)(180)(0){|\footnotesize\bf\color{white}| "Computational Intelligence: A Logical Approach" by David Poole, Alan Mackworth and Randy Goebel};
 
     % Drawing the Arrows from contributing branch to AI
     % Format: \arcarrow(above/below ID)(abobe/below ID)[shift]
@@ -162,14 +163,14 @@
     % \draw[myarrow] (left ML) -- (left SRel);
     % \draw[myarrow] (left SCap) -- (right ML);
 
-	% Legend
-    \draw[myarrow] (-5,-5) coordinate (legend) -- ++(.8,0) node[anchor=west] {(contribution)};
-    \draw[RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node[anchor=west] {disciplines};
-    \draw[SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {requirements};
-        
-		% \node[draw] at (0,0) {};
-		% \node[draw,align=left] at (3,0) {};
-		\node[text width=3cm] at (3,-6.25) {\begin{tiny}Copyright \textcopyright Alfonso R. Reyes, 2020\end{tiny}};
+	% Color Legend and labels
+    \draw [myarrow] (-5,-5) coordinate (legend) -- ++(.8,0) node[anchor=west] {(contribution)};
+    \draw [RedArc] (legend)++(0,-0.4) rectangle ++(.8,-.3)++(0,.2) node [anchor=west, text width=3em] {capabilities,\\disciplines};
+    \draw [SkyArc] (legend)++(0,-1) rectangle ++(.8,-.3)++(0,.2) node[anchor=west, color=black] {subfield};
+    % source, book and authors
+    \node [text width=6.45cm] at (1,-5.6) {Source: \textit {"Computational Intelligence: A Logical Approach"} \\by David Poole, Alan Mackworth and Randy Goebel};
+    % copyright
+	\node [text width=3cm] at (3.25,-6.25) {\begin{tiny}Copyright \textcopyright Alfonso R. Reyes, 2020\end{tiny}};
 
 \end{tikzpicture}  
 \end{document}
