@@ -63,6 +63,14 @@ description = "https://github.com/f0nzie/tikz_favorites"
 url = "https://github.com/f0nzie/tikz_favorites/blob/master/src/3d-physics-jet-cones+3d+physics.tex"
  
 [[items]]
+title = "3d-plane-sine_wave"
+image = "https://github.com/f0nzie/tikz_favorites/raw/master/out/3d-plane-sine_wave.png"
+thumb = "https://github.com/f0nzie/tikz_favorites/raw/master/out/3d-plane-sine_wave.png"
+alt = "3d-plane-sine_wave"
+description = "https://github.com/f0nzie/tikz_favorites"
+url = "https://github.com/f0nzie/tikz_favorites/blob/master/src/3d-plane-sine_wave.tex"
+ 
+[[items]]
 title = "3d-seismic_focal_mechanism+3d+set+foreach+eng"
 image = "https://github.com/f0nzie/tikz_favorites/raw/master/out/3d-seismic_focal_mechanism+3d+set+foreach+eng.png"
 thumb = "https://github.com/f0nzie/tikz_favorites/raw/master/out/3d-seismic_focal_mechanism+3d+set+foreach+eng.png"
