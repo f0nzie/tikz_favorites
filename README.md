@@ -96,9 +96,9 @@ Some useful tutorials:
 
 ## Useful statistics
 
-* There are 256 total Tikz figures saved as `.tex` files in this gallery. 
+* There are 257 total Tikz figures saved as `.tex` files in this gallery. 
 The figures are sorted by filename.
-* There are 256 files under `src/` to be compiled with `pdflatex`
+* There are 257 files under `src/` to be compiled with `pdflatex`
 * There are 1 files under `src/` to be compiled with `lualatex`
 * There are 19 data files under the folder `src/data` that are being used by the TikZ scripts
 * There are 2 Latex classes, styles and library files under the `src/texmf` folder
@@ -6131,6 +6131,82 @@ The infinite series 1/4 + 1/16 + 1/64 + 1/256 + ... is one of the first computed
     \draw[fill=blue]  (0,0,0) -- (0,1,0) -- (1,1,0) -- (1,0,0) -- cycle;
     \draw[fill=red ]  (1,1,0) -- (2,1,0) -- (2,2,0) -- (1,2,0) -- cycle;
 \end{tikzpicture}    
+\end{document}
+```
+****
+
+![](./out/impact-2048.png)
+
+  
+  * [impact-2048.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/impact-2048.tex)
+
+```tex
+% 
+\documentclass[tikz]{standalone}
+\renewcommand\familydefault{\sfdefault}
+\usepackage{tikz}
+\usetikzlibrary{fit,backgrounds}
+%
+\definecolor{grid color}{HTML}{BBADA0}
+\definecolor{pixel 0}{HTML}{CCC0B3}
+\definecolor{pixel 2}{HTML}{EEE4DA}
+\definecolor{pixel 4}{HTML}{EDE0C8}
+\definecolor{pixel 8}{HTML}{F2B179}
+\definecolor{pixel 16}{HTML}{F59563}
+\definecolor{pixel 32}{HTML}{F67C5F}
+\definecolor{pixel 64}{HTML}{F65E3B}
+\definecolor{pixel 128}{HTML}{EDCF72}
+\definecolor{pixel 256}{HTML}{EDCC61}
+\definecolor{pixel 512}{HTML}{EDC850}
+\definecolor{pixel 1024}{HTML}{EDC53F}
+\definecolor{pixel 2048}{HTML}{EDC22E}
+\definecolor{pixel 4096}{HTML}{3E3933}
+%
+\definecolor{small color}{HTML}{776E65}
+\definecolor{big color}{HTML}{F9F6F2}
+%
+\tikzset{
+  case 2048 base/.style={minimum size=9mm,rounded corners=.3mm,text=#1,inner sep=0},
+  %
+  case 2048 LARGE/.style={font=\LARGE\bfseries\sffamily,case 2048 base=#1},
+  case 2048 Large/.style={font=\Large\bfseries\sffamily,case 2048 base=#1},
+  case 2048 large/.style={font=\large\bfseries\sffamily,case 2048 base=#1},
+  case 2048 normal/.style={font=\normalsize\bfseries\sffamily,case 2048 base=#1},
+  %
+  case 2048 0/.style={case 2048 Large=black,fill=pixel 0,node contents={}},
+  case 2048 2/.style={case 2048 Large=small color,fill=pixel 2,node contents={2}},
+  case 2048 4/.style={case 2048 Large=small color,fill=pixel 4,node contents={4}},
+  case 2048 8/.style={case 2048 Large=big color,fill=pixel 8,node contents={8}},
+  case 2048 16/.style={case 2048 Large=big color,fill=pixel 16,node contents={16}},
+  case 2048 32/.style={case 2048 Large=big color,fill=pixel 32,node contents={32}},
+  case 2048 64/.style={case 2048 Large=big color,fill=pixel 64,node contents={64}},
+  case 2048 128/.style={case 2048 large=big color,fill=pixel 128,node contents={128}},
+  case 2048 256/.style={case 2048 large=big color,fill=pixel 256,node contents={256}},
+  case 2048 512/.style={case 2048 large=big color,fill=pixel 512,node contents={512}},
+  case 2048 1024/.style={case 2048 normal=big color,fill=pixel 1024,node contents={1024}},
+  case 2048 2048/.style={case 2048 normal=big color,fill=pixel 2048,node contents={2048}},
+  case 2048 4096/.style={case 2048 normal=big color,fill=pixel 4096,node contents={4096}},
+}
+\begin{document}
+\begin{tikzpicture}
+  \def\pixels{
+    {0,2,32,64},
+    {256,8,512,4},
+    {1024,2048,4,16},
+    {4096,16,128,2},
+  }
+
+  \foreach \line [count=\y] in \pixels {
+    \foreach \pix [count=\x] in \line {
+      \path (\x,-\y) node[name=c2048-\x-\y,case 2048 \pix];
+    }
+  }
+
+  \begin{scope}[on background layer]
+    \node[fill=grid color,fit=(c2048-1-1)(c2048-4-4),
+    inner sep=1mm,rounded corners=.3mm]{};
+  \end{scope}
+\end{tikzpicture}
 \end{document}
 ```
 ****
