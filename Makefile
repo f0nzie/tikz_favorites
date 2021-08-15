@@ -112,7 +112,7 @@ endif
 .PHONY: all quick
 all: clean $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) $(README) remote local
 
-quick: $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) $(README) remote
+quick:     $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) $(README) remote local
 
 # rules for .tex files to be compiled with pdflatex
 out/%.pdf:: src/%.tex msg_pdf_files
