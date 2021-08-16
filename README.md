@@ -96,15 +96,9 @@ Some useful tutorials:
 
 ## Useful statistics
 
-<<<<<<< HEAD
-* There are 254 total Tikz figures saved as `.tex` files in this gallery. 
+* There are 257 total Tikz figures saved as `.tex` files in this gallery. 
 The figures are sorted by filename.
-* There are 254 files under `src/` to be compiled with `pdflatex`
-=======
-* There are 239 total Tikz figures saved as `.tex` files in this gallery. 
-The figures are sorted by filename.
-* There are 239 files under `src/` to be compiled with `pdflatex`
->>>>>>> develop
+* There are 257 files under `src/` to be compiled with `pdflatex`
 * There are 1 files under `src/` to be compiled with `lualatex`
 * There are 19 data files under the folder `src/data` that are being used by the TikZ scripts
 * There are 2 Latex classes, styles and library files under the `src/texmf` folder
@@ -114,6 +108,109 @@ The figures are sorted by filename.
 ## TikZ graphics and code
 
 
+****
+
+![](./out/3d-3_cylinders_shaded.png)
+
+  
+  * [3d-3_cylinders_shaded.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/3d-3_cylinders_shaded.tex)
+
+```tex
+\documentclass[tikz,border=5]{standalone}
+
+\usetikzlibrary{fadings}
+\tikzfading[name=fade out,
+inner color=transparent!0, outer color=transparent!100]
+
+\def\factor{4}
+\def\xradius{2}
+\def\yradius{2/\factor}
+\def\height{1.05cm}
+\def\xandy{2 and 2/\factor}
+
+\tikzset{
+  pics/.cd, %
+  disc/.style ={
+    code = {
+      %% the foundation
+      \path [fill=black!15] (-\xradius,0) -- (-\xradius,-\height) arc
+      (180:360:\xandy) -- (\xradius,0) arc (0:180:\xandy);%
+      \path [top color=black!25, bottom color=white, opacity=0.2] (0,0) ellipse
+      [x radius=\xradius, y radius =\yradius];%
+      \path [left color=black!25, right color=black!15] (-\xradius,0) --
+      (-\xradius,-\height) arc (180:240:\xandy) -- +(0,\height) arc
+      (240:180:\xandy);%
+      \path [left color=black!15, right color=black!30] (\xradius,0) --
+      (\xradius,-\height) arc (360:320:\xandy) -- +(0,\height) arc
+      (320:360:\xandy);
+
+      %% rays in front
+      \foreach \col/\r/\shift/\stop/\opacity in {%
+        black/205/25/20/100, %
+        black/295/35/30/100, %
+        black/295/30/30/200, %
+        black/295/25/20/300, %
+        white/245/14/14/100, %
+        white/245/12/12/20, %
+        white/245/10/10/10} {%
+        \foreach \i [evaluate={\opposite=\r-180;}] in {0,1,...,\stop}{%
+          \fill [\col, fill opacity = 1/\opacity] (\opposite:0.1 and
+          0.1/\factor) -- (\r+\shift-\i:\xandy) -- ++(0,-\height) arc
+          (\r+\shift-\i:\r-\shift+\i:\xandy) -- +(0,\height) -- cycle; }}
+
+      %% rays in back
+      \foreach \r/\shift/\stop/\opacity in {%
+        25/25/20/100, %
+        115/35/3/150,%
+        115/30/23/100} {%
+        \foreach \i [evaluate={\opposite=\r-180;}] in {0,1,...,\stop}{%
+          \fill [black, fill opacity = 1/\opacity] (\opposite:0.1 and 0.1/\factor) --
+          (\r+\shift-\i:\xandy) arc (\r+\shift-\i:\r-\shift+\i:\xandy) --
+          cycle; }}
+
+      %% masking the four edges in the center
+      \foreach \i in {0.1, 0.2, ..., 0.4}%
+      \fill[black!15, opacity=0.7, path fading=fade out] 
+      (0,0) ellipse[x radius=\i, y radius =\i/\factor];
+
+      %% the light and the dark arcs
+      \foreach \i [evaluate={\start=185+10*\i; \finish=355-10*\i;}]%
+      in {0.1, 0.2, ..., 1.5}{%
+        \draw[white, opacity=0.04, line width=\i, yshift=0.02cm]
+        (\start:\xandy) arc (\start:\finish:\xandy);
+
+        \draw[black!80, opacity=0.05, line width=\i, yshift=-\height]
+        (\start:\xandy) arc (\start:\finish:\xandy); }
+    }
+  },% 
+  disc bottom/.style = {
+    code = {
+      \foreach \i/\opacity in {%
+        1/20,2/20,3/20,4/30,5/35,6/40,7/60,8/80,9/100,10/100,11/100,12/100}%
+        \fill [black, fill opacity = 1/\opacity, yshift=-0.03cm] (0,-\height)
+        ellipse [x radius = \xradius+\i/40, y radius = \yradius+\i/20/\factor]; 
+      \path pic {disc};
+    }
+  },%
+  disc top/.style = {
+    code = {
+      \foreach \i/\opacity in {%
+        2/60, 3/55, 4/50,5/40, 6/35, 7/30, 8/20, 9/20, 10/20, 11/20, 12/20,
+        13/20, 14/20, 15/20, 16/20, 17/20, 18/20, 19/20, 20/20, 21/20, 22/20,
+        23/20, 24/20, 25/20, 26/20}%
+        \fill [black, fill opacity = 1/\opacity, yshift=-0.35cm] (0,-\height)
+        ellipse [x radius = \xradius-\i/40, y radius = \yradius-\i/20/\factor];
+      \path pic {disc};
+    }
+  }
+}
+
+\begin{document}
+\begin{tikzpicture}
+  \path (0,0) pic {disc bottom} (0,1.4) pic {disc top} (0,2.8) pic {disc top};
+\end{tikzpicture}
+\end{document}
+```
 ****
 
 ![](./out/3d-cone_intersection+3d+pgf.lualatex.png)
@@ -6034,6 +6131,82 @@ The infinite series 1/4 + 1/16 + 1/64 + 1/256 + ... is one of the first computed
     \draw[fill=blue]  (0,0,0) -- (0,1,0) -- (1,1,0) -- (1,0,0) -- cycle;
     \draw[fill=red ]  (1,1,0) -- (2,1,0) -- (2,2,0) -- (1,2,0) -- cycle;
 \end{tikzpicture}    
+\end{document}
+```
+****
+
+![](./out/impact-2048.png)
+
+  
+  * [impact-2048.tex](https://github.com/f0nzie/tikz_favorites/blob/master/src/impact-2048.tex)
+
+```tex
+% 
+\documentclass[tikz]{standalone}
+\renewcommand\familydefault{\sfdefault}
+\usepackage{tikz}
+\usetikzlibrary{fit,backgrounds}
+%
+\definecolor{grid color}{HTML}{BBADA0}
+\definecolor{pixel 0}{HTML}{CCC0B3}
+\definecolor{pixel 2}{HTML}{EEE4DA}
+\definecolor{pixel 4}{HTML}{EDE0C8}
+\definecolor{pixel 8}{HTML}{F2B179}
+\definecolor{pixel 16}{HTML}{F59563}
+\definecolor{pixel 32}{HTML}{F67C5F}
+\definecolor{pixel 64}{HTML}{F65E3B}
+\definecolor{pixel 128}{HTML}{EDCF72}
+\definecolor{pixel 256}{HTML}{EDCC61}
+\definecolor{pixel 512}{HTML}{EDC850}
+\definecolor{pixel 1024}{HTML}{EDC53F}
+\definecolor{pixel 2048}{HTML}{EDC22E}
+\definecolor{pixel 4096}{HTML}{3E3933}
+%
+\definecolor{small color}{HTML}{776E65}
+\definecolor{big color}{HTML}{F9F6F2}
+%
+\tikzset{
+  case 2048 base/.style={minimum size=9mm,rounded corners=.3mm,text=#1,inner sep=0},
+  %
+  case 2048 LARGE/.style={font=\LARGE\bfseries\sffamily,case 2048 base=#1},
+  case 2048 Large/.style={font=\Large\bfseries\sffamily,case 2048 base=#1},
+  case 2048 large/.style={font=\large\bfseries\sffamily,case 2048 base=#1},
+  case 2048 normal/.style={font=\normalsize\bfseries\sffamily,case 2048 base=#1},
+  %
+  case 2048 0/.style={case 2048 Large=black,fill=pixel 0,node contents={}},
+  case 2048 2/.style={case 2048 Large=small color,fill=pixel 2,node contents={2}},
+  case 2048 4/.style={case 2048 Large=small color,fill=pixel 4,node contents={4}},
+  case 2048 8/.style={case 2048 Large=big color,fill=pixel 8,node contents={8}},
+  case 2048 16/.style={case 2048 Large=big color,fill=pixel 16,node contents={16}},
+  case 2048 32/.style={case 2048 Large=big color,fill=pixel 32,node contents={32}},
+  case 2048 64/.style={case 2048 Large=big color,fill=pixel 64,node contents={64}},
+  case 2048 128/.style={case 2048 large=big color,fill=pixel 128,node contents={128}},
+  case 2048 256/.style={case 2048 large=big color,fill=pixel 256,node contents={256}},
+  case 2048 512/.style={case 2048 large=big color,fill=pixel 512,node contents={512}},
+  case 2048 1024/.style={case 2048 normal=big color,fill=pixel 1024,node contents={1024}},
+  case 2048 2048/.style={case 2048 normal=big color,fill=pixel 2048,node contents={2048}},
+  case 2048 4096/.style={case 2048 normal=big color,fill=pixel 4096,node contents={4096}},
+}
+\begin{document}
+\begin{tikzpicture}
+  \def\pixels{
+    {0,2,32,64},
+    {256,8,512,4},
+    {1024,2048,4,16},
+    {4096,16,128,2},
+  }
+
+  \foreach \line [count=\y] in \pixels {
+    \foreach \pix [count=\x] in \line {
+      \path (\x,-\y) node[name=c2048-\x-\y,case 2048 \pix];
+    }
+  }
+
+  \begin{scope}[on background layer]
+    \node[fill=grid color,fit=(c2048-1-1)(c2048-4-4),
+    inner sep=1mm,rounded corners=.3mm]{};
+  \end{scope}
+\end{tikzpicture}
 \end{document}
 ```
 ****

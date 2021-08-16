@@ -84,6 +84,7 @@ PKGSRC  := $(shell basename `pwd`)
 SOURCE_DIR  = src
 OUTPUT_DIR = out
 PUBLISH_DIR := docs
+MAKE_DIRS= $(OUTPUT_DIR)
 README = README.md
 TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
 TIKZ_FILES_ALL_ = $(wildcard $(SOURCE_DIR)/*.tex)
@@ -107,12 +108,14 @@ else
 		OSFLAG = OSX
 	endif
 endif
+# create folders as needed
+$(shell mkdir -p $(MAKE_DIRS))
 
 
 .PHONY: all quick
-all: clean $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) $(README) remote local
+all:         clean $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) $(README) remote local
 
-quick: $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) $(README) remote
+quick: cleanreadme $(PDF_LUALATEX) $(PDF_LATEX) $(PNG_LUALATEX)  $(PNG_LATEX) $(README) remote local
 
 # rules for .tex files to be compiled with pdflatex
 out/%.pdf:: src/%.tex msg_pdf_files
@@ -215,8 +218,8 @@ clean: tidy cleanlualatex cleansource
 
 
 # remove byproducts	
-.PHONY: tidy
-tidy: chrono
+.PHONY: tidy cleanreadme
+tidy: chrono cleanreadme
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.log -delete
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.aux -delete
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.out -delete
@@ -226,9 +229,13 @@ tidy: chrono
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.nav -delete
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.fls -delete
 	find $(OUTPUT_DIR) -maxdepth 1 -name \*.fdb_latexmk -delete
+
+
+cleanreadme:
 	if [ -f "$(README)" ]; then \
         rm  $(README); \
     fi
+
 
 .PHONY: cleansource
 cleansource:
