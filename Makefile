@@ -84,6 +84,7 @@ PKGSRC  := $(shell basename `pwd`)
 SOURCE_DIR  = src
 OUTPUT_DIR = out
 PUBLISH_DIR := docs
+MAKE_DIRS= $(OUTPUT_DIR)
 README = README.md
 TIKZ_LIBS = $(wildcard $(SOURCE_DIR)/*.code.tex)
 TIKZ_FILES_ALL_ = $(wildcard $(SOURCE_DIR)/*.tex)
@@ -107,6 +108,8 @@ else
 		OSFLAG = OSX
 	endif
 endif
+# create folders as needed
+$(shell mkdir -p $(MAKE_DIRS))
 
 
 .PHONY: all quick
